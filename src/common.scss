@@ -1,0 +1,115 @@
+
+// Font family taken from Reboot.css (https://getbootstrap.com/docs/4.0/content/reboot/)
+$font-family-sans-serif:
+// Safari for OS X and iOS (San Francisco)
+-apple-system,
+// Chrome < 56 for OS X (San Francisco)
+BlinkMacSystemFont,
+// Windows
+"Segoe UI",
+// Android
+"Roboto",
+// Basic web fallback
+"Helvetica Neue", Arial, sans-serif,
+// Emoji fonts
+"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+$color-schemes:(
+    accent: (
+        bg-color: #333,
+        fg-color: #fff,
+        border: none
+    ),
+    card: (
+        bg-color: #fff,
+        fg-color: #111,
+        border: 1px solid #333
+    ),
+    purple: (
+        bg-color: purple,
+        fg-color: #fff,
+        border: none
+    ),
+    red:(
+        bg-color: red,
+        fg-color: #fff,
+        border: none
+    ),
+    blue:(
+        bg-color: blue,
+        fg-color: #fff,
+        border: none
+    ),
+    green:(
+        bg-color: green,
+        fg-color: #fff,
+        border: none
+    ),
+    yellow:(
+        bg-color: rgb(236, 201, 42),
+        fg-color: #fff,
+        border: none
+    )
+);
+
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+@each $key, $value in $color-schemes {
+    .#{$key}-color{
+        background-color: map-get($value, bg-color);
+        color: map-get($value, fg-color);
+        border: map-get($value, border);
+    }
+}
+
+$breakpoints: (
+    sm: 600px,
+    md: 900px,
+    lg: 1200px,
+    x-lg: 1800px
+);
+
+$ranges: (
+    phone: (
+        max: map-get($breakpoints, sm) - 1px
+    ),
+    tablet-portrait: (
+        min: map-get($breakpoints, sm),
+        max: map-get($breakpoints, md) - 1px
+    ),
+    tablet-landscape: (
+        min: map-get($breakpoints, md),
+        max: map-get($breakpoints, lg) - 1px
+    ),
+    desktop:(
+        min: map-get($breakpoints, lg),
+        max: map-get($breakpoints, x-lg)
+    ),
+    big-desktop:(
+        min: map-get($breakpoints, x-lg)
+    )
+);
+
+@mixin for-phone-only{
+    @media(max-width: map-get(map-get($ranges, phone), max)) { @content; }
+}
+
+@mixin for-tablet-portrait-up{
+    @media(min-width: map-get(map-get($ranges, tablet-portrait), min)) { @content; }
+}
+
+@mixin for-tablet-landscape-up{
+    @media(min-width: map-get(map-get($ranges, tablet-landscape), min)) { @content; }
+}
+
+@mixin for-desktop-up{
+    @media(min-width: map-get(map-get($ranges, desktop), min)) { @content; }
+}
+
+@mixin for-big-desktop-up{
+    @media(min-width: map-get(map-get($ranges, big-desktop), min)) { @content; }
+}
