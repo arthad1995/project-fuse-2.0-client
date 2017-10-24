@@ -14,10 +14,11 @@ export default class RouteHandling extends Component {
         return (
             <main>
                 <div className="pageBody">
-                    <div className="leftSidebar"><Sidebar /></div>
+                    <Sidebar pos="top" />
                     <div className="content">
                         <Route exact path="/" component={PageShell(Home)} />
                     </div>
+                    <Sidebar pos="bottom" />
                 </div>
             </main>
         )

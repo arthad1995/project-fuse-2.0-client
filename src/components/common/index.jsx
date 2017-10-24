@@ -14,7 +14,23 @@ export const PageShell = Elem => {
         <Elem {...props} />
     </ReactCSSTransitionGroup>
 }
-export const SidebarShell =  Elem => {
+export const SidebarShell =  (Elem, pos) => {
+    if(pos == 'none')
+        return props => <span></span>
+    let className = "leftSidebar"
+    if(Elem.goBottom || Elem.goTop)
+        className = "leftSidebar-show"
+    
+    let show = false;
+    if(pos === 'top' && !Elem.goBottom){
+        show = true;
+    }
+    else if(pos === 'bottom' && Elem.goBottom){
+        show = true;
+    }
+    if(!show)
+        return props => <span></span>
+
     return props => <ReactCSSTransitionGroup
     transitionAppear={true}
     transitionAppearTimeout={600}
@@ -22,6 +38,8 @@ export const SidebarShell =  Elem => {
     transitionLeaveTimeout={200}
     transitionName="SlideInRight"
   > 
+    <div className={className}>
         <Elem {...props} />
+    </div>
     </ReactCSSTransitionGroup>
 }

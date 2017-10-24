@@ -17,10 +17,11 @@ export default class Sidebar extends Component {
     constructor(props){ super(props)}
 
     render(){
+        const pos = this.props.pos || 'none'
         return (
-            <div>
-                <Route exact path="/" component={SidebarShell(HomeSidebar)} />
-            </div>
+            <span>
+                <Route exact path="/" component={SidebarShell(HomeSidebar, pos)} />
+            </span>
         )
     }
 }

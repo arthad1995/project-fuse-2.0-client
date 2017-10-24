@@ -8,7 +8,7 @@ const mapStateToProps = (state) =>{
 }
 
 @connect( mapStateToProps )
-export default class Sidebar extends Component {
+class Sidebar extends Component {
     constructor(props){ super(props)}
 
     render(){
@@ -34,3 +34,5 @@ export default class Sidebar extends Component {
         )
     }
 }
+
+export default Sidebar
