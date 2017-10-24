@@ -19,7 +19,7 @@ class Home extends Component {
             <div>
                 {feed.map((feedItem)=>{
                     if(feedItem)
-                        return <Card key={feedItem.get('id')} title={feedItem.get('title')} type={feedItem.get('type')} content={feedItem.get('content')} />
+                        return <Card key={feedItem.get('id')} time={feedItem.get('time')} title={feedItem.get('title')} type={feedItem.get('type')} content={feedItem.get('content')} />
                     return ''
                 })}
             </div>

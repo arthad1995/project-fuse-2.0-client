@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
+import Timestamp from 'react-timestamp'
 
 class Card extends Component {
     constructor(props){ super(props)}
@@ -8,6 +9,7 @@ class Card extends Component {
         const title = this.props.title || ''
         const content = this.props.content || ''
         const type = this.props.type || 'info'
+        const time = this.props.time || ((Date.now() / 1000) | 0);
         let icon = 'fa-info'
         let color = 'yellow'
 
@@ -38,6 +40,9 @@ class Card extends Component {
                 <div className={bubbleClassName}><i className={iconClassName}></i></div>
                 <div className='title'>{title}</div>
                 {contentTag}
+                <div className="time">
+                    <Timestamp time={time} />
+                </div>
             </div>
         )
     }

@@ -153,6 +153,12 @@ $header-height: 40px;
       line-height: 30px;
     }
   }
+  div.time{
+    float: right;
+    font-size: 75%;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+  }
   .content {
     width: calc(100% - 2rem);
     margin: 0rem 1rem;
