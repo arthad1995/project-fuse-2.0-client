@@ -1,10 +1,12 @@
 import React, {Component} from 'react'
 import { Route } from 'react-router'
-import Home from '../pages/home' 
 import Sidebar from './sidebar'
 import { withRouter } from 'react-router'
 import TransitionGroup from "react-transition-group/TransitionGroup";
 import {PageShell} from '../common'
+
+import Home from '../pages/home' 
+import MyProjects from '../pages/my-projects'
 
 @withRouter
 export default class RouteHandling extends Component {
@@ -15,8 +17,9 @@ export default class RouteHandling extends Component {
             <main>
                 <div className="pageBody">
                     <Sidebar pos="top" />
-                    <div className="content">
+                    <div>
                         <Route exact path="/" component={PageShell(Home)} />
+                        <Route exact path="/my-projects" component={PageShell(MyProjects)} />
                     </div>
                     <Sidebar pos="bottom" />
                 </div>

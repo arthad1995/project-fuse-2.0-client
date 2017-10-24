@@ -4,6 +4,9 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 require('./animations.scss')
 
 export const PageShell = Elem => {
+    let className = 'content'
+    if(Elem.noSidebar)
+        className = 'full-content'
     return props => <ReactCSSTransitionGroup
     transitionAppear={true}
     transitionAppearTimeout={600}
@@ -11,7 +14,9 @@ export const PageShell = Elem => {
     transitionLeaveTimeout={200}
     transitionName="SlideInLeft"
   > 
-        <Elem {...props} />
+        <div className={className}>
+            <Elem {...props} />
+        </div>
     </ReactCSSTransitionGroup>
 }
 export const SidebarShell =  (Elem, pos) => {

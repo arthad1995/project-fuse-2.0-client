@@ -64,4 +64,31 @@ export default function (store){
             }
         }
     })
+
+    id = 1;
+    store.dispatch({
+        type: 'LOAD_USER_PROJECTS_FULFILLED',
+        payload: {
+            data: {
+                my_projects: [
+                    {
+                        id: id++,
+                        name: "Jim's Juggling Robot",
+                        role: 'contributer'
+                    },
+                    {
+                        id: id++,
+                        name: "Project Fuse 2.0",
+                        role: 'admin'
+                    }
+                ],
+                applied_projects: [
+                    {
+                        id: id++,
+                        name: "Jim's Soccer Management App"
+                    }
+                ]
+            }
+        }
+    })
 }

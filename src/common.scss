@@ -117,3 +117,13 @@ $ranges: (
 @mixin for-big-desktop-up{
     @media(min-width: map-get(map-get($ranges, big-desktop), min)) { @content; }
 }
+
+.hideOnPhone{
+    @include for-phone-only {
+      display: none;
+    }
+}
+
+.pointer{
+    cursor: pointer;
+}

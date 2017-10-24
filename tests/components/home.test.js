@@ -3,6 +3,7 @@ import Home, {HomeSidebar} from './../../src/components/pages/home'
 import store from './../../src/store'
 import './test_helpers'
 import {shallow,mount} from 'enzyme'
+import {StaticRouter} from 'react-router'
 
 const userData = {
     id: 12,
@@ -34,8 +35,13 @@ store.dispatch({
     }
 })
 
+var context = {}
+
 it('home page feed renders correctly', () => {
-    const home_feed = mount(<Home store={store} />)
+    const home_feed = mount(
+    <StaticRouter location="/" context={context}>
+        <Home store={store} />
+    </StaticRouter>)
     const cards = home_feed.find("div.card")
 
     expect(cards).toHaveLength(feedData.length)
@@ -59,10 +65,13 @@ it('home page feed renders correctly', () => {
 })
 
 it('home page sidebar renders correctly', () => {
-    const sidebar = mount(<HomeSidebar store={store} />)
+    const sidebar = mount(
+    <StaticRouter location="/" context={context}>
+        <HomeSidebar store={store} />
+    </StaticRouter>)
 
     const sections = sidebar.find("div.section.centered")
-    expect(sections).toHaveLength(2)
+    expect(sections).toHaveLength(5)
 
     // Name segment
     const name_section = sections.at(0)
@@ -78,4 +87,5 @@ it('home page sidebar renders correctly', () => {
     expect(friend_segment.childAt(0).text()).toEqual(`${userData.friend_count}`)
     expect(friend_segment.childAt(1).text()).toEqual('Friends')
     expect(friend_segment.childAt(2).text()).toEqual('Find more Friends')
+
 })
