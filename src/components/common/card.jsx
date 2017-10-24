@@ -19,6 +19,10 @@ class Card extends Component {
             case 'reminder':
                 icon = 'fa-bell'
                 color='green'
+                break;
+            case 'message':
+                icon='fa-envelope'
+                color='blue'
             case 'info':
             default:
                 break
