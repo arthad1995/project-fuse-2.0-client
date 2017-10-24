@@ -23,7 +23,7 @@ export default function (store){
                         id: id++,
                         type: 'info',
                         title: "Tip of the day",
-                        content: "Keep your rèsumè up to date so that people know what you can do.",
+                        content: "Keep your résumé up to date so that people know what you can do.",
                         time: 1508868644,
                     },
                     {

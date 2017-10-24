@@ -7,6 +7,8 @@ import {PageShell} from '../common'
 
 import Home from '../pages/home' 
 import MyProjects from '../pages/my-projects'
+import MyTeams from '../pages/my-teams'
+import MyOrganizations from '../pages/my-organizations'
 
 @withRouter
 export default class RouteHandling extends Component {
@@ -20,6 +22,8 @@ export default class RouteHandling extends Component {
                     <div>
                         <Route exact path="/" component={PageShell(Home)} />
                         <Route exact path="/my-projects" component={PageShell(MyProjects)} />
+                        <Route exact path="/my-teams" component={PageShell(MyTeams)} />
+                        <Route exact path="/my-organizations" component={PageShell(MyOrganizations)} />
                     </div>
                     <Sidebar pos="bottom" />
                 </div>

@@ -6,14 +6,14 @@ import {listGenerator, Tabs} from '../../common/tabs'
 
 const mapStateToProps = (state) =>{
     return {
-        my_projects: state.user_projects.get('my_projects'),
-        applied_projects: state.user_projects.get('applied_projects'),
+        my_teams: state.user_teams.get('my_teams'),
+        applied_teams: state.user_teams.get('applied_teams'),
         selected_tab: state.ui.get('selected_tab')
     }
 }
 
 @connect( mapStateToProps )
-class MyProjects extends Component {
+class MyTeams extends Component {
     constructor(props){ super(props)}
 
     render(){
@@ -23,5 +23,5 @@ class MyProjects extends Component {
     }
 }
 
-export default MyProjects
-export const MyProjectsSidebar = Sidebar
+export default MyTeams
+export const MyTeamsSidebar = Sidebar
