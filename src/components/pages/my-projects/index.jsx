@@ -6,7 +6,8 @@ import ListItem from './listItem.jsx'
 const mapStateToProps = (state) =>{
     return {
         my_projects: state.user_projects.get('my_projects'),
-        applied_projects: state.user_projects.get('applied_projects')
+        applied_projects: state.user_projects.get('applied_projects'),
+        selected_tab: state.ui.get('selected_tab')
     }
 }
 
@@ -15,12 +16,13 @@ class MyProjects extends Component {
     constructor(props){ super(props)}
 
     render(){
+        let dispatch = this.props.dispatch
+        const base_class = 'tab-content '
+        const selected_tab = this.props.selected_tab || 'tab1'
         return (
             <div>
                 <div className='tabs'>
-                    <input id="tab1" type="radio" name="tabs" defaultChecked />
-                    <input id="tab2" type="radio" name="tabs" />
-                    <section id="tab1_content" className="tab-content">
+                    <section id="tab1_content" className={base_class + (('tab1' === selected_tab)? 'visible': 'hidden')}>
                         <h3>My Projects</h3>
                         <ul className='list'>
                             {this.props.my_projects.map((project) => {
@@ -31,7 +33,7 @@ class MyProjects extends Component {
                             })}
                         </ul>
                     </section>
-                    <section id="tab2_content" className="tab-content">
+                    <section id="tab2_content" className={base_class + (('tab2' === selected_tab)? 'visible': 'hidden')}>
                         <h3>Applied Projects</h3>
                         <ul className='list'>
                             {this.props.applied_projects.map((project) => {

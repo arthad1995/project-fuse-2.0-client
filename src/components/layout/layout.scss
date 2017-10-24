@@ -77,6 +77,10 @@ $header-height: 40px;
     color: #111;
     text-decoration: none;
   }
+  .selected{
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.065);
+  }
 }
 
 .leftSidebar-show{
@@ -132,39 +136,11 @@ $header-height: 40px;
 }
 
 .tabs{
-  input[type="radio"]{
-    display: none;
-  }
-  label{
-    display: block;
-    float: left;
-    width: 45%;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    padding: 12px;
-    ~ label{
-      border-left: 1px solid rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  #tab1:checked ~ #tab1_content,
-  #tab2:checked ~ #tab2_content,
-  #tab3:checked ~ #tab3_content,
-  #tab4:checked ~ #tab4_content,
-  #tab5:checked ~ #tab5_content {
-    display: block;
-  }
-
   .tab-content{
     width: 100%;
     clear: both;
     padding: 1rem 2rem;
   }
-}
-
-section.tab-content{
-  display: none;
 }
 
 @import "./../../common.scss";
