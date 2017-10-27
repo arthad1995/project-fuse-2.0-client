@@ -6,8 +6,8 @@ import {listGenerator, Tabs} from '../../common/tabs'
 
 const mapStateToProps = (state) =>{
     return {
-        my_organizations: state.user_teams.get('my_organizations'),
-        applied_organizations: state.user_teams.get('applied_organizations'),
+        my_organizations: state.user_organizations.get('my_organizations'),
+        applied_organizations: state.user_organizations.get('applied_organizations'),
         selected_tab: state.ui.get('selected_tab')
     }
 }
@@ -18,7 +18,7 @@ class MyOrganizations extends Component {
 
     render(){
         return (
-            <Tabs generator={listGenerator(this.props)} tabs={tabs} />
+            <Tabs generator={listGenerator('organizations')(this.props)} tabs={tabs} />
         )
     }
 }

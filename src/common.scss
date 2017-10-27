@@ -33,6 +33,7 @@ $color-schemes:(
     red:(
         bg-color: red,
         fg-color: #fff,
+        hover-bg: darken(red, 15%),
         border: none
     ),
     blue:(
@@ -40,8 +41,13 @@ $color-schemes:(
         fg-color: #fff,
         border: none
     ),
+    cyan:(
+        bg-color: cyan,
+        fg-color: #444,
+        border: none
+    ),
     green:(
-        bg-color: green,
+        bg-color: lighten(green, 8%),
         fg-color: #fff,
         border: none
     ),
@@ -63,6 +69,15 @@ $color-schemes:(
         background-color: map-get($value, bg-color);
         color: map-get($value, fg-color);
         border: map-get($value, border);
+    }
+
+    .btn.#{$key}-color:hover{
+        @if map-has-key($value, hover-bg){
+            background-color: map-get($value, hover-bg);
+        }
+        @else {
+            background-color: darken(map-get($value, bg-color), 8%);
+        }
     }
 }
 
@@ -124,6 +139,13 @@ $ranges: (
     }
 }
 
+.phoneOnly{
+    display: none;
+    @include for-phone-only {
+      display: block;
+    }
+}
+
 .pointer{
     cursor: pointer;
 }
@@ -138,4 +160,10 @@ a {
 
 .hidden{
     display:none;
+}
+
+input{
+    border: 1px solid rgba(0,0,0,0.4);
+    margin: 0.3rem 1rem;
+    max-width: calc(100% - 2rem);
 }

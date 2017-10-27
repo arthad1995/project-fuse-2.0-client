@@ -18,7 +18,7 @@ class MyProjects extends Component {
 
     render(){
         return (
-            <Tabs generator={listGenerator(this.props)} tabs={tabs} />
+            <Tabs generator={listGenerator('projects')(this.props)} tabs={tabs} />
         )
     }
 }

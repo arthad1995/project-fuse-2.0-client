@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Timestamp from 'react-timestamp'
+import {Link} from 'react-router-dom'
 
 class Card extends Component {
     constructor(props){ super(props)}
@@ -10,6 +11,7 @@ class Card extends Component {
         const content = this.props.content || ''
         const type = this.props.type || 'info'
         const time = this.props.time || ((Date.now() / 1000) | 0);
+        let footer = ''
         let icon = 'fa-info'
         let color = 'yellow'
 
@@ -25,6 +27,22 @@ class Card extends Component {
             case 'message':
                 icon='fa-envelope'
                 color='blue'
+                break;
+            case 'acceptance':
+                icon='fa-check'
+                color='green'
+                footer=(
+                    <div><Link to='/projects/1'>See Project Members</Link></div>
+                )
+                break;
+            case 'invite': 
+                icon='fa-plus'
+                color='purple'
+                footer=<div>
+                    <div className='btn green-color'>Accept</div>
+                    <div className='btn red-color'>Decline</div>
+                </div>
+                break
             case 'info':
             default:
                 break
@@ -40,8 +58,11 @@ class Card extends Component {
                 <div className={bubbleClassName}><i className={iconClassName}></i></div>
                 <div className='title'>{title}</div>
                 {contentTag}
+                <div className='cardFooter'>
+                    {footer}
+                </div>
                 <div className="time">
-                    <Timestamp time={time} />
+                    <Timestamp autoUpdate time={time} />
                 </div>
             </div>
         )

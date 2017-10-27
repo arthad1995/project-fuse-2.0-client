@@ -19,15 +19,17 @@ export const PageShell = Elem => {
         </div>
     </ReactCSSTransitionGroup>
 }
-export const SidebarShell =  (Elem, pos) => {
+export const SidebarShell =  (pos) => (Elem) => {
     if(pos == 'none')
         return props => <span></span>
     let className = "leftSidebar"
-    if(Elem.goBottom || Elem.goTop)
-        className = "leftSidebar-show"
+    if(Elem.goBottom && pos ==='bottom')
+        className = "leftSidebar-phone"
+    if(pos === 'top' && !Elem.goBottom)
+        className = 'leftSidebar-show';
     
     let show = false;
-    if(pos === 'top' && !Elem.goBottom){
+    if(pos === 'top'){
         show = true;
     }
     else if(pos === 'bottom' && Elem.goBottom){

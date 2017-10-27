@@ -53,12 +53,13 @@ export class TabSidebar extends Component {
                             {tab.name}
                         </div>
                 })}
+                {this.props.children}
             </div>
         )
     }
 }
 
-export const listGenerator = (props) => (tab) => {
+export const listGenerator = (baseUrl) => (props) => (tab) => {
     props = props || {}
     return <div>
         <h3>{tab.name}</h3>
@@ -66,7 +67,7 @@ export const listGenerator = (props) => (tab) => {
             {(props[tab.arr_key]) ? props[tab.arr_key].map((elem)=>{
                 const id = elem.get('id')
                 if(elem)
-                    return <ListItem key={id} id={id} name={elem.get('name')} />
+                    return <ListItem baseUrl={baseUrl} key={id} id={id} name={elem.get('name')} />
                 return ''
             }) : 'No results'}
         </ul>

@@ -1,4 +1,5 @@
 @import "./../../common.scss";
+
 body {
   font-family: $font-family-sans-serif;
 }
@@ -52,10 +53,10 @@ $header-height: 40px;
 .pageBody {
   @extend .clearfix;
   margin: 0rem 1rem;
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 110px);
 }
 
-.leftSidebar, .leftSidebar-show {
+.leftSidebar, .leftSidebar-show, .leftSidebar-phone {
   @extend .card-color;
   width: calc(30% - 3rem);
   float: left;
@@ -70,7 +71,7 @@ $header-height: 40px;
       @extend .pointer;
     }
   }
-  label~label .section {
+  label~label .section, a~a .section {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
   a{
@@ -87,6 +88,16 @@ $header-height: 40px;
   @include for-phone-only {
     width: calc(100% - 2rem);
     margin: 1rem;
+  }
+}
+
+.leftSidebar-phone{
+  @include for-phone-only {
+    width: calc(100% - 2rem);
+    margin: 1rem;
+  }
+  @include for-tablet-portrait-up{
+    display: none;
   }
 }
 
@@ -180,12 +191,19 @@ $header-height: 40px;
       line-height: 30px;
     }
   }
-  div.time{
-    float: right;
-    font-size: 75%;
-    padding-right: 1rem;
-    padding-bottom: 0.5rem;
-  }
+  .cardFooter{
+    @extend .clearfix;
+    div{
+      float: left;
+      margin-left: 1rem;
+    }
+}
+div.time{
+  float: right;
+  font-size: 75%;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+}
   .content {
     width: calc(100% - 2rem);
     margin: 0rem 1rem;
@@ -209,4 +227,116 @@ ul.list {
   a ~ a li{
     border-top: none;
   }
+}
+
+.description{
+  iframe{
+    margin: 1rem auto;
+    display: block;
+    max-width: 80%;
+  }
+}
+
+img.profileImage{
+  width: 80%;
+}
+
+.summary{
+  font-style: italic;
+}
+
+.wysiwygEditor{
+  min-height: 320px;
+}
+
+.wysiwygWrapper{
+  margin: 1.5rem auto;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  width: 90%;
+}
+
+.wysiwygToolbar{
+  background-color: #444;
+  margin: 0px;
+  padding-bottom: 0.5rem;
+}
+
+form div{
+  margin: 0.5rem 0rem;
+}
+
+.btn {
+  @extend .pointer;
+  margin: 1rem 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 15px;
+  font-size: 150%;
+  text-align: center;
+  @include for-tablet-landscape-up{
+    float: right;
+  }
+}
+
+.sm-btn{
+  @extend .pointer;
+  margin: 1rem;
+  padding: 0.50rem 0.75rem;
+  border-radius: 15px;
+  text-align: center;
+}
+
+li.listItem{
+  div.name{
+    @include for-tablet-landscape-up{
+      float: left;
+    }
+    line-height: 50px;
+  }
+  
+  .buttons{
+    @include for-tablet-landscape-up{
+      float: right;
+      .btn{
+        font-size: 100%;
+        margin: 0 0.5rem;
+      }
+    }
+  }
+}
+
+.popup{
+  @extend .clearfix;
+  @extend .card-color;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 25vw;
+  top: calc(50vh - 10rem);
+  left: 37.5vw;
+  z-index: 99999;
+  height: 20rem;
+  position: absolute;
+  .btn{
+    float: none;
+    margin: 2rem auto;
+    width: 10rem;
+    position: absolute;
+    bottom: 5rem;
+    left: calc(12.5vw - 5rem);
+  }
+}
+
+.popup-bg{
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: -0.8vw;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 99998;
+}
+
+.w80{
+  width: 80%;
+  border-left :1px solid rgba(0, 0, 0, 0.2);
+  border-right :1px solid rgba(0, 0, 0, 0.2);
 }
