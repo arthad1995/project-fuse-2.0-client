@@ -3,9 +3,12 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {listGenerator, Tabs} from '../elements/tabs'
 
+var cache = {}
+
 export const MyListOfPage= (url) => {
+    if(cache[url]) return cache[url];
+
     const tabInfo = TabbedSearchSidebar(url)
-    console.log(tabInfo)
 
     const mapStateToProps = (state) =>{
         let obj = {
@@ -26,5 +29,7 @@ export const MyListOfPage= (url) => {
             )
         }
     }
-    return {page: Page, sidebar: tabInfo.sidebar}
+    let ret = {page: Page, sidebar: tabInfo.sidebar}
+    cache[url] = ret
+    return ret
 }
