@@ -1,0 +1,30 @@
+import {TabbedSearchSidebar} from '../sidebars/search'
+import React, {Component} from 'react'
+import { connect } from 'react-redux'
+import {listGenerator, Tabs} from '../elements/tabs'
+
+export const MyListOfPage= (url) => {
+    const tabInfo = TabbedSearchSidebar(url)
+    console.log(tabInfo)
+
+    const mapStateToProps = (state) =>{
+        let obj = {
+            selected_tab: state.ui.get('selected_tab')
+        }
+        obj[`my_${url}`] =state[`user_${url}`].get(`my_${url}`)
+        obj[`applied_${url}`] =state[`user_${url}`].get(`applied_${url}`)
+        return obj
+    }
+
+    @connect( mapStateToProps )
+    class Page extends Component {
+        constructor(props){ super(props)}
+
+        render(){
+            return (
+                <Tabs selected_tab={this.props.selected_tab} generator={listGenerator(url)(this.props)} tabs={tabInfo.tabs} />
+            )
+        }
+    }
+    return {page: Page, sidebar: tabInfo.sidebar}
+}

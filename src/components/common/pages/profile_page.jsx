@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { mapSingleKey } from './mapping_helpers'
+import { mapSingleKey } from '../mapping_helpers'
 const ReactMarkdown = require('react-markdown');
 
 export const ProfilePage = (key, notFoundMsg = 'Not Found') => {

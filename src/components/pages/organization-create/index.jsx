@@ -1,5 +1,5 @@
 import Sidebar from './sidebar'
-import { CreatePage } from '../../common/create'
+import { CreatePage } from '../../common/pages/create'
 
 const OrganizationCreatePage = CreatePage('Organization')
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 const ReactMarkdown = require('react-markdown')
-import {Editor, EditorState} from '../../common/editor'
+import {Editor, EditorState} from '../../common/elements/editor'
 
 const mapStateToProps = (state) => {
     return {

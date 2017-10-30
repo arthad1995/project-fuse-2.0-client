@@ -1,28 +1,8 @@
-import {TabbedSearchSidebar} from '../../common/tabs'
-import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import {listGenerator, Tabs} from '../../common/tabs'
+import {MyListOfPage} from '../../common/pages/my_list_of_page'
 
-const tabInfo = TabbedSearchSidebar('organizations')
-
-const mapStateToProps = (state) =>{
-    return {
-        my_organizations: state.user_organizations.get('my_organizations'),
-        applied_organizations: state.user_organizations.get('applied_organizations'),
-        selected_tab: state.ui.get('selected_tab')
-    }
-}
-
-@connect( mapStateToProps )
-class MyOrganizations extends Component {
-    constructor(props){ super(props)}
-
-    render(){
-        return (
-            <Tabs generator={listGenerator('organizations')(this.props)} tabs={tabInfo[1]} />
-        )
-    }
-}
+const pageInfo = MyListOfPage('organizations')
+console.log(pageInfo)
+const MyOrganizations = pageInfo.page
 
 export default MyOrganizations
-export const MyOrganizationsSidebar = tabInfo[0]
+export const MyOrganizationsSidebar = pageInfo.sidebar

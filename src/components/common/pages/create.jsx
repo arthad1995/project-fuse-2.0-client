@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 const ReactMarkdown = require('react-markdown')
-import {Editor, EditorState} from './editor'
+import {Editor, EditorState} from '../elements/editor'
 
 export const CreatePage = (name) => {
     class Page extends Component {

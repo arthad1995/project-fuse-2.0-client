@@ -1,4 +1,4 @@
-import { ProfilePage } from '../../common/profile_page'
+import { ProfilePage } from '../../common/pages/profile_page'
 import Sidebar from './sidebar'
 
 const ProjectPage = ProfilePage('projects')

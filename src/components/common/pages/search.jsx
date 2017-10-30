@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ListItem from './listItem'
+import ListItem from '../elements/listItem'
 import { Link } from 'react-router-dom'
-import { mapSingleKey } from './mapping_helpers'
+import { mapSingleKey } from '../mapping_helpers'
 const ReactMarkdown = require('react-markdown');
 
 export const SearchPage = (key, notFoundMsg = 'No Results') => {
