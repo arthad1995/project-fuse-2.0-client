@@ -1,8 +1,9 @@
+import {TabbedSearchSidebar} from '../../common/tabs'
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import Sidebar from './sidebar'
-import tabs from './shared'
 import {listGenerator, Tabs} from '../../common/tabs'
+
+const tabInfo = TabbedSearchSidebar('organizations')
 
 const mapStateToProps = (state) =>{
     return {
@@ -18,10 +19,10 @@ class MyOrganizations extends Component {
 
     render(){
         return (
-            <Tabs generator={listGenerator('organizations')(this.props)} tabs={tabs} />
+            <Tabs generator={listGenerator('organizations')(this.props)} tabs={tabInfo[1]} />
         )
     }
 }
 
 export default MyOrganizations
-export const MyOrganizationsSidebar = Sidebar
+export const MyOrganizationsSidebar = tabInfo[0]
