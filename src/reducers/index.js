@@ -7,6 +7,7 @@ import {user_organizations} from './user_organizations'
 import {ui} from './ui'
 import {projects} from './projects'
 import {organizations} from './organizations'
+import {teams} from './teams'
 
 export default {
     user,
@@ -17,4 +18,5 @@ export default {
     ui, 
     projects,
     organizations,
+    teams,
 }

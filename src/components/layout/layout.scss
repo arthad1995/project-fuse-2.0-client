@@ -1,18 +1,16 @@
 @import "./../../common.scss";
-
 body {
   font-family: $font-family-sans-serif;
 }
 
 $header-height: 40px;
-
 .header {
   @extend .accent-color;
   @extend .clearfix;
   padding: 0.75rem 1rem;
   line-height: $header-height;
   font-size: 14pt;
-  :first-child{
+   :first-child {
     float: left;
   }
   a {
@@ -24,7 +22,7 @@ $header-height: 40px;
   a:hover {
     text-decoration: underline;
   }
-  .fa{
+  .fa {
     line-height: $header-height;
   }
   .icon {
@@ -53,15 +51,17 @@ $header-height: 40px;
 .pageBody {
   @extend .clearfix;
   margin: 0rem 0.5rem;
-  min-height: calc(100vh - 110px);
-  @include for-tablet-landscape-up{
+  min-height: calc(100vh - 114px);
+  @include for-tablet-landscape-up {
     margin: 0rem auto;
     width: calc(100% - 1rem);
     max-width: 1100px;
   }
 }
 
-.leftSidebar, .leftSidebar-show, .leftSidebar-phone {
+.leftSidebar,
+.leftSidebar-show,
+.leftSidebar-phone {
   @extend .card-color;
   width: calc(30% - 3rem);
   float: left;
@@ -69,44 +69,47 @@ $header-height: 40px;
   .section {
     width: 100%;
     padding: 1rem;
-    ~.section, ~a .section, ~label .section {
+    ~.section,
+    ~a .section,
+    ~label .section {
       border-top: 1px solid rgba(0, 0, 0, 0.2);
     }
-    label{
+    label {
       @extend .pointer;
     }
   }
-  label~label .section, a~a .section {
+  label~label .section,
+  a~a .section {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
-  a{
+  a {
     color: #111;
     text-decoration: none;
   }
-  .selected{
+  .selected {
     font-weight: bold;
     background-color: rgba(0, 0, 0, 0.065);
   }
 }
 
-.leftSidebar-show{
+.leftSidebar-show {
   @include for-phone-only {
     width: calc(100% - 2rem);
     margin: 1rem;
   }
 }
 
-.leftSidebar-phone{
+.leftSidebar-phone {
   @include for-phone-only {
     width: calc(100% - 2rem);
     margin: 1rem;
   }
-  @include for-tablet-portrait-up{
+  @include for-tablet-portrait-up {
     display: none;
   }
 }
 
-.leftSidebar{
+.leftSidebar {
   @extend .hideOnPhone;
 }
 
@@ -128,7 +131,7 @@ $header-height: 40px;
   }
 }
 
-.full-content{
+.full-content {
   @extend .card-color;
   padding: 1rem;
   margin: 1rem;
@@ -155,8 +158,8 @@ $header-height: 40px;
   }
 }
 
-.tabs{
-  .tab-content{
+.tabs {
+  .tab-content {
     width: 100%;
     clear: both;
     padding: 1rem 2rem;
@@ -184,7 +187,7 @@ $header-height: 40px;
     text-align: center;
     float: left;
     margin: 0.5rem 0.5rem 0rem 0.5rem;
-    @include for-tablet-portrait-below{
+    @include for-tablet-portrait-below {
       width: 30px;
       height: 30px;
       line-height: 30px;
@@ -195,31 +198,31 @@ $header-height: 40px;
     padding: 0 1rem;
     margin-top: 0.5rem;
     font-size: 2rem;
-    @include for-tablet-portrait-below{
+    @include for-tablet-portrait-below {
       font-size: 1.25rem;
       line-height: 30px;
     }
   }
-  .cardFooter{
+  .cardFooter {
     @extend .clearfix;
-    div{
+    div {
       float: left;
       margin-left: 1rem;
     }
-}
-div.time{
-  float: right;
-  font-size: 75%;
-  padding-right: 1rem;
-  padding-bottom: 0.5rem;
-}
+  }
+  div.time {
+    float: right;
+    font-size: 75%;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+  }
   .content {
     width: calc(100% - 2rem);
     margin: 0rem 1rem;
     padding: 1rem 0;
     background-color: rgba(0, 0, 0, 0);
   }
-  .minorPadding{
+  .minorPadding {
     height: 0.7rem;
   }
 }
@@ -227,50 +230,50 @@ div.time{
 ul.list {
   list-style: none;
   padding: 0;
-  li{
+  li {
     width: 100%;
     float: left;
     border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0.5rem 1rem;
   }
-  a ~ a li{
+  a~a li {
     border-top: none;
   }
 }
 
-.description{
-  iframe{
+.description {
+  iframe {
     margin: 1rem auto;
     display: block;
     max-width: 80%;
   }
 }
 
-img.profileImage{
+img.profileImage {
   width: 80%;
 }
 
-.summary{
+.summary {
   font-style: italic;
 }
 
-.wysiwygEditor{
+.wysiwygEditor {
   min-height: 320px;
 }
 
-.wysiwygWrapper{
+.wysiwygWrapper {
   margin: 1.5rem auto;
   border: 1px solid rgba(0, 0, 0, 0.2);
   width: 90%;
 }
 
-.wysiwygToolbar{
+.wysiwygToolbar {
   background-color: #444;
   margin: 0px;
   padding-bottom: 0.5rem;
 }
 
-form div{
+form div {
   margin: 0.5rem 0rem;
 }
 
@@ -281,12 +284,12 @@ form div{
   border-radius: 15px;
   font-size: 150%;
   text-align: center;
-  @include for-tablet-landscape-up{
+  @include for-tablet-landscape-up {
     float: right;
   }
 }
 
-.sm-btn{
+.sm-btn {
   @extend .pointer;
   margin: 1rem;
   padding: 0.50rem 0.75rem;
@@ -294,18 +297,17 @@ form div{
   text-align: center;
 }
 
-li.listItem{
-  div.name{
-    @include for-tablet-landscape-up{
+li.listItem {
+  div.name {
+    @include for-tablet-landscape-up {
       float: left;
     }
     line-height: 50px;
   }
-  
-  .buttons{
-    @include for-tablet-landscape-up{
+  .buttons {
+    @include for-tablet-landscape-up {
       float: right;
-      .btn{
+      .btn {
         font-size: 100%;
         margin: 0 0.5rem;
       }
@@ -313,7 +315,7 @@ li.listItem{
   }
 }
 
-.popup{
+.popup {
   @extend .clearfix;
   @extend .card-color;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -324,7 +326,7 @@ li.listItem{
   z-index: 99999;
   height: 20rem;
   position: absolute;
-  .btn{
+  .btn {
     float: none;
     margin: 2rem auto;
     width: 10rem;
@@ -334,18 +336,18 @@ li.listItem{
   }
 }
 
-.popup-bg{
+.popup-bg {
   width: 100vw;
   height: 100vh;
   position: absolute;
   top: 0;
   left: -0.8vw;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 99998;
 }
 
-.w80{
+.w80 {
   width: 80%;
-  border-left :1px solid rgba(0, 0, 0, 0.2);
-  border-right :1px solid rgba(0, 0, 0, 0.2);
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
 }

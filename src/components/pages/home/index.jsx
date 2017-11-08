@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Sidebar from './sidebar'
-import Card from '../../common/elements/card'
+import {Card} from '../../common'
 
 const mapStateToProps = (state) =>{
     return {

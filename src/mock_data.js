@@ -1,17 +1,19 @@
 
 export default function (store){
     // populate user
-    store.dispatch({
-        type:'LOAD_USER_FULFILLED',
-        payload: {
-            data: {
-                id: 12,
-                first_name: 'John',
-                last_name: 'Doe',
-                friend_count: 25
+    if(true) {
+        store.dispatch({
+            type:'LOAD_USER_FULFILLED',
+            payload: {
+                data: {
+                    id: 12,
+                    first_name: 'John',
+                    last_name: 'Doe',
+                    friend_count: 25
+                }
             }
-        }
-    })
+        })
+    }
 
     let id = 1;
     store.dispatch({

@@ -167,3 +167,11 @@ input{
     margin: 0.3rem 1rem;
     max-width: calc(100% - 2rem);
 }
+
+.no-border {
+    border: 0 none !important;
+  }
+  
+  .border {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }

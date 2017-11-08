@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import {change_tab} from '../../../actions/ui'
 import {Link} from 'react-router-dom'
 import {TabSidebar} from './tabs' 
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import ListItem from '../elements/listItem'
+import { mapSingleKey } from '../mapping_helpers'
 
 const mapStateToProps = (state) =>{
     return {
@@ -47,4 +49,20 @@ export const TabbedSearchSidebar = (url) => {
     }
     TabSidebarSearchPage.goTop = true;
     return {sidebar: TabSidebarSearchPage, tabs}
+}
+
+export const SearchPageSidebar = (key) => {
+    @connect(mapSingleKey(key))
+    class Sidebar extends Component {
+        constructor(props) { super(props) }
+
+        render() {
+            const data = this.props[key]
+            return <div className="section centered">
+                <input type='search' name='search' placeholder='Search' />
+                <input type='Submit' className='sm-btn blue-color' value='Search' />
+            </div>
+        }
+    }
+    return Sidebar
 }

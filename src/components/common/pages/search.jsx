@@ -37,19 +37,3 @@ export const SearchPage = (key, notFoundMsg = 'No Results') => {
     }
     return Page
 }
-
-export const SearchPageSidebar = (key) => {
-    @connect(mapSingleKey(key))
-    class Sidebar extends Component {
-        constructor(props) { super(props) }
-
-        render() {
-            const data = this.props[key]
-            return <div className="section centered">
-                <input type='search' name='search' placeholder='Search' />
-                <input type='Submit' className='sm-btn blue-color' value='Search' />
-            </div>
-        }
-    }
-    return Sidebar
-}

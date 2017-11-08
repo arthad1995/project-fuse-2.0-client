@@ -13,7 +13,7 @@ export default class RouteHandling extends Component {
             <main>
                 <div className="pageBody">
                     <SidebarRouter pos="top" />
-                    <PageRouter />
+                    <PageRouter {...this.props} />
                     <SidebarRouter pos="bottom" />
                 </div>
             </main>
