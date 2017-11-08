@@ -10,7 +10,7 @@ $header-height: 40px;
   padding: 0.75rem 1rem;
   line-height: $header-height;
   font-size: 14pt;
-   :first-child {
+  a:first-child {
     float: left;
   }
   a {
@@ -18,9 +18,6 @@ $header-height: 40px;
     float: right;
     text-decoration: none;
     margin-left: 1.25rem;
-  }
-  a:hover {
-    text-decoration: underline;
   }
   .fa {
     line-height: $header-height;
@@ -37,6 +34,45 @@ $header-height: 40px;
   img {
     width: $header-height;
     height: $header-height;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    margin: 0;
+    margin-top: 0.5rem;
+    li {
+      float: right;
+      position: relative;
+      background: none;
+      ul.dropdown{
+        display: none;
+        position: absolute;
+        top: 2rem;
+        right: -1rem;
+        padding-top: 1rem;
+        a{
+          @extend .accent-color;
+          text-align: center;
+          width: 100%;;
+          margin: 0;
+          :hover{
+            background-color: lighten(#333, 10%);
+          }
+        }
+        li{
+          padding: 0.25rem 0.5rem;
+          width: 150px;
+          text-align: center;
+        }
+      }
+      > a{
+        width: 100%;
+        height: 100%;
+      }
+      a:hover + ul.dropdown, ul.dropdown:hover{
+        display: block;
+      }
+    }
   }
 }
 

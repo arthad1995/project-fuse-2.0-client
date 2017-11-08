@@ -1,32 +1,48 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
     return {
         user: state.user
     }
 }
 
-@connect( mapStateToProps )
+@connect(mapStateToProps)
 export default class Menu extends Component {
-    constructor(props){ super(props)}
+    constructor(props) { super(props) }
 
-    render(){
+    render() {
         let user = this.props.user
         let shouldRenderUserItems = user.size > 2 && user.get('fetched')
 
         let restOfMenu = ''
 
-        if(shouldRenderUserItems){
+        if (shouldRenderUserItems) {
             restOfMenu = (
-                <span>
-                    <a />
-                    <Link to={`/profile/${user.get('id')}`}><i className="icon fa fa-user"></i></Link>
-                    <Link to="/"><i className="fa fa-bell"></i></Link>
-                    <Link to="/"><i className="fa fa-envelope"></i></Link>
-                    <Link to="/"><i className="fa fa-search"></i></Link>
-                </span>
+                <ul className="menu">
+                    <li>
+                        <Link to={`/profile/${user.get('id')}`}>
+                            <i className="icon fa fa-user"></i>
+                        </Link>
+                        <ul className="dropdown">
+                            <Link to="/logout">
+                                <li>
+                                    Logout
+                                </li>
+                            </Link>
+                        </ul>
+                    </li>
+                    <li>
+                        <Link to="/"><i className="fa fa-bell"></i></Link>
+                    </li>
+                    <li>
+                        <Link to="/"><i className="fa fa-envelope"></i></Link>
+                    </li>
+                    <li>
+                        <Link to="/"><i className="fa fa-search"></i></Link>
+                    </li>
+                </ul>
             )
         }
 
