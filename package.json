@@ -15,6 +15,7 @@
     "css-loader": "^0.28.7",
     "draft-js": "0.10.x",
     "immutable": "^3.8.2",
+    "js-cookie": "^2.2.0",
     "normalize.css": "^7.0.0",
     "react": "^16.0.0",
     "react-addons-css-transition-group": "^15.6.2",
