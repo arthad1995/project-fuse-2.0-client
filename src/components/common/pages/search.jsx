@@ -15,10 +15,10 @@ export const SearchPage = (paramObj, notFoundMsg = 'No Results') => {
         }
 
         componentDidMount() {
-            if(this.props.loadUsers)
-                this.props.loadUsers();
-            else if(paramObj.param.func)
-                paramObj.param.func();
+            if(this.props.load)
+                this.props.load();
+            else if(paramObj.param.load)
+                paramObj.param.load();
         }
 
         render() {

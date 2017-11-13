@@ -4,12 +4,14 @@ import {PageShell,SidebarShell, SearchPage, CreateSidebar, SearchPageSidebar, Pr
 import NoMatch from './404'
 import Home, {HomeSidebar} from '../pages/home' 
 import ProjectPage, {ProjectPageSidebar} from '../pages/project-page'
+import {UserPageSidebar} from '../pages/user-page'
 import OrganizationPage, {OrganizationPageSidebar} from '../pages/organization-page'
 import OrganizationCreatePage, {OrganizationCreateSidebar} from '../pages/organization-create'
 import {OrganizationStatsPage} from '../pages/organization-stats'
 import {LoginPage} from '../pages/login'
 import {logout} from '../../actions/auth'
 import {searchUsers} from '../../actions/search'
+import {loadUser} from '../../actions/profile_page'
 
 const createArray = (paths, params) =>{
     let res = []
@@ -21,9 +23,12 @@ const createArray = (paths, params) =>{
 
 const __pages = ['projects', 'teams', 'organizations', 'users']
 
+const no_buttons = (e) => <span></span>
+
 const pages = {
     my_: __pages,
-    search: createArray(__pages, [undefined, undefined, undefined, {func: searchUsers, buttons: (e)=><span></span>}]),
+    search: createArray(__pages, [undefined, undefined, undefined, {load: searchUsers, buttons: no_buttons}]),
+    profiles: createArray(__pages, [undefined, undefined, undefined, {load: loadUser}]),
     create_: createArray(__pages.slice(0, __pages.length-1), ['Organization', 'Project', 'Team'])
 }
 
@@ -81,7 +86,7 @@ export class PageRouter extends Component {
                 {authenticatedRoute('organizations/:id/stats', PageShell(OrganizationStatsPage))}
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
-                {pages.my_.map(profilePage)}
+                {pages.profiles.map(profilePage)}
                 <Route component={PageShell(NoMatch)} />
             </Switch>
         )
@@ -109,6 +114,7 @@ export class SidebarRouter extends Component {
                 <Route exact path="/organizations/new" component={sidebar_shell(OrganizationCreateSidebar, pos)} />
                 <Route path="/organizations/:id" component={sidebar_shell(OrganizationPageSidebar, pos)} />
                 <Route exact path="/projects/:id" component={sidebar_shell(ProjectPageSidebar, pos)} />
+                <Route exact path="/users/:id" component={sidebar_shell(UserPageSidebar, pos)} />
                 {pages.my_.map(mySidebar)}
                 {pages.my_.map(sidebarSearch)}
             </Switch>
