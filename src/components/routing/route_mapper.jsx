@@ -65,7 +65,7 @@ export class PageRouter extends Component {
             <Switch>
                 <Route exact path="/login" component={PageShell(LoginPage)} />
                 <Route exact path="/logout" render={() => {                    
-                    dispatch(logout())
+                    logout()
                     return <Redirect to="/login" />
                 }} />
                 {authenticatedRoute('', PageShell(Home))}
