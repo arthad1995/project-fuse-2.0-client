@@ -6,8 +6,8 @@ import { connect } from 'react-redux'
 import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
 
-export const CreateSidebar = (display) => {
-    console.log(display)
+export const CreateSidebar = (paramObj) => {
+    let display = paramObj.param || ''
     class Sidebar extends Component {
         constructor(props){ super(props)}
 

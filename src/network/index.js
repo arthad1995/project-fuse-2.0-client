@@ -13,6 +13,7 @@ export default class Network {
     }
 
     GET(url, host) {
+        host = host || this.host
         this.dispatch({
             type: this.type,
             payload: axios.get(host+ url, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
@@ -20,6 +21,7 @@ export default class Network {
     }
 
     PUT(url, data={}, host) {
+        host = host || this.host
         this.dispatch({
             type: this.type,
             payload: axios.put(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
@@ -28,10 +30,6 @@ export default class Network {
 
     POST(url, data={}, host) {
         host = host || this.host
-        console.log({
-            host,
-            final: host+ url
-        })
         this.dispatch({
             type: this.type,
             payload: axios.post(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
@@ -39,6 +37,7 @@ export default class Network {
     }
     
     DELETE(url, data={}, host) {
+        host = host || this.host
         this.dispatch({
             type: this.type,
             payload: axios.delete(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})

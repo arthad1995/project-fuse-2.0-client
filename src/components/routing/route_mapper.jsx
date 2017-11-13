@@ -9,12 +9,22 @@ import OrganizationCreatePage, {OrganizationCreateSidebar} from '../pages/organi
 import {OrganizationStatsPage} from '../pages/organization-stats'
 import {LoginPage} from '../pages/login'
 import {logout} from '../../actions/auth'
+import {searchUsers} from '../../actions/search'
+
+const createArray = (paths, params) =>{
+    let res = []
+    for(let i = 0; i < paths.length; ++i){
+        res.push({path: paths[i], param: params[i]})
+    }
+    return res
+}
+
+const __pages = ['projects', 'teams', 'organizations', 'users']
 
 const pages = {
-    my_: ['projects', 'teams', 'organizations'],
-    create_: [{path:'organizations', param:'Organization'}, 
-                      {path:'projects', param:'Project'}, 
-                      {path:'teams', param:'Team'}]
+    my_: __pages,
+    search: createArray(__pages, [undefined, undefined, undefined, {func: searchUsers, buttons: (e)=><span></span>}]),
+    create_: createArray(__pages.slice(0, __pages.length-1), ['Organization', 'Project', 'Team'])
 }
 
 const routeRenderFunc = Component => (props) => {
@@ -41,23 +51,21 @@ const makeRouteGenerator = authenticatedRoute => (prefix = '', suffix='') => She
     let param = elem
     if(typeof elem === 'object'){
         path = elem.path
-        param = elem.param || path
     }
-    return authenticatedRoute(prefix + path + suffix, Shell(param), index)
+    return authenticatedRoute(prefix + path + suffix, Shell(elem), index)
 }
 
 export class PageRouter extends Component {
     constructor(props){super(props)}
 
     render(){
-        
         let authenticatedRoute = authenticatedRouteGenerator(authUser(this.props.user))
         let makeRoute = makeRouteGenerator(authenticatedRoute)
 
         let myListOfPage = makeRoute('my-')(e => PageShell(MyListOfPage(e).page))
         let searchPage = makeRoute()(e => PageShell(SearchPage(e)))
         let profilePage = makeRoute('', '/:id')(e => PageShell(ProfilePage(e)))
-        let createPage = makeRoute('', '/new')(e => PageShell(CreatePage(e)))
+        let createPage = makeRoute('', '/new')(e =>PageShell(CreatePage(e)))
 
         let dispatch = this.props.dispatch
 
@@ -72,7 +80,7 @@ export class PageRouter extends Component {
                 {pages.create_.map(createPage)}
                 {authenticatedRoute('organizations/:id/stats', PageShell(OrganizationStatsPage))}
                 {pages.my_.map(myListOfPage)}
-                {pages.my_.map(searchPage)}
+                {pages.search.map(searchPage)}
                 {pages.my_.map(profilePage)}
                 <Route component={PageShell(NoMatch)} />
             </Switch>

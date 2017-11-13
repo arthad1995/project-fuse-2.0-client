@@ -15,6 +15,7 @@ export default class Menu extends Component {
     render() {
         let user = this.props.user
         let shouldRenderUserItems = user.size > 2 && user.get('fetched')
+        user = user.get('data')
 
         let restOfMenu = ''
 

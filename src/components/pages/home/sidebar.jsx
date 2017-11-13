@@ -28,7 +28,7 @@ class Sidebar extends Component {
                                 {num_friends}
                             </div>
                             <div>Friends</div>
-                            <div>Find more Friends</div>
+                            <div><Link to='/users'>Find more Friends</Link></div>
                         </div>
                     </div>
                     <Link to='/my-teams'>

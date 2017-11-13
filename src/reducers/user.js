@@ -9,13 +9,19 @@ export function user(state = not_loaded, action){
     switch(action.type){
         case 'LOGOUT_FULFILLED':
             state = not_loaded
+            Cookies.remove('SESSIONID')
+            Cookies.remove('ID')
+            Cookies.remove('NAME')
+            Cookies.remove('EMAIL')
             break;
         case 'LOAD_USER_FULFILLED':{
-            console.log(action.payload.data)
-            let response = action.payload.data.data
-            Cookies.set('SESSIONID', response.sessionId, {path: '/'})
-            Cookies.set('NAME', response.name, {path: '/'})
-            Cookies.set('EMAIL', response.email, {path: '/'})
+            if(action.payload.data.status === 'OK'){
+                let response = action.payload.data.data
+                Cookies.set('SESSIONID', response.sessionId, {path: '/'})
+                Cookies.set('ID', response.id, {path: '/'})
+                Cookies.set('NAME', response.name, {path: '/'})
+                Cookies.set('EMAIL', response.email, {path: '/'})
+            }
             break;
         }
     }

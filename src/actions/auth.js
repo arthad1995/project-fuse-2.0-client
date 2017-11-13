@@ -1,5 +1,4 @@
 import Network from '../network'
-import Cookies from 'js-cookie'
 
 export const logout = () =>{
     const network = new Network('LOGOUT')

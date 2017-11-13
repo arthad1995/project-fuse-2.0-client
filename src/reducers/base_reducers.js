@@ -19,11 +19,19 @@ export const async_base = (base_name) => {
                     .set('error', fromJS(response))
             }
             case `${base_name}_FULFILLED`:{
-                let response = action.payload.data;
-                if (response.status === 'OK')
-                    return state.set('fetching', false)
-                        .set('fetched', true)
-                        .merge(fromJS(response.data))
+                let response = action.payload.data
+                if (response.status === 'OK'){
+                    const _state = state.set('fetching', false)
+                                            .set('fetched', true)
+                    if(Array.isArray(response.data)){
+                        let data = {}
+                        response.data.forEach((elem)=>{
+                            data[elem.id] = elem
+                        })
+                        return _state.set('data', fromJS(data))
+                    }
+                    return _state.set('data', fromJS(response.data))
+                }
                 else
                     return state.set('fetching', false)
                         .set('fetched', false)
