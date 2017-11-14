@@ -5,13 +5,15 @@ import promise from 'redux-promise-middleware'
 import {createLogger} from 'redux-logger'
 import { routerReducer, routerMiddleware , syncHistoryWithStore} from 'react-router-redux'
 import { createHashHistory } from 'history'
+import { reducer as formReducer } from 'redux-form'
 
 export const history = createHashHistory()
 
 const store = createStore(
     combineReducers({
         ...reducers,
-        routing: routerReducer
+        routing: routerReducer,
+        form: formReducer
     }),
     applyMiddleware(
         createLogger(),

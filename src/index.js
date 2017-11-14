@@ -19,10 +19,12 @@ if(Cookies.get('SESSIONID') && Cookies.get('ID') && Cookies.get('EMAIL') && Cook
                     status: "OK",
                     errors: null,
                     data:{
-                        id: Cookies.get('ID'),
-                        name: Cookies.get('name'),
                         sessionId: Cookies.get('SESSIONID'),
-                        email: Cookies.get('EMAIL')
+                        user:{
+                            id: Cookies.get('ID'),
+                            name: Cookies.get('NAME'),
+                            email: Cookies.get('EMAIL')
+                        }
                     }
                 }
             }

@@ -43,4 +43,40 @@ export default class Network {
             payload: axios.delete(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
         })
     }
+
+    REGISTER(data, host){
+        host = host || this.host
+        const login = () =>{
+            const network = new Network('LOAD_USER')
+            network.POST('/user/login', {
+                email,
+                password
+            })
+            let promise = new Promise((resolve)=>resolve())
+        }
+        let promise = new Promise((resolve)=>resolve())
+        this.dispatch((dispatch)=>{
+            dispatch({type: 'REGISTER_PENDING', payload: data})
+            promise = axios.post(host + '/user/add', data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+                     .then((response)=> Promise.all([
+                         dispatch({
+                             type: 'REGISTER_FULFILLED',
+                             payload: response
+                         }),
+                         dispatch({
+                             type: 'LOAD_USER_PENDING'
+                         }),
+                         axios.post(host+ '/user/login', data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+                            .then((response)=>Promise.all([
+                                dispatch({
+                                    type: 'LOAD_USER_FULFILLED',
+                                    payload: response
+                                })
+                            ]))
+                            .catch((response) => dispatch({type: 'LOAD_USER_REJECTED', payload: response}))
+                     ]))
+                .catch((response) => dispatch({type: 'REGISTER_REJECTED', payload: response}))
+        })
+        return promise
+    }
 }

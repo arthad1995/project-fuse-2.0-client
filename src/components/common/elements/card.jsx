@@ -47,6 +47,7 @@ class Card extends Component {
             default:
                 break
         }
+        //color='accent-light'
 
         const iconClassName = `fa ${icon}`
         const bubbleClassName = `bubble ${color}-color`

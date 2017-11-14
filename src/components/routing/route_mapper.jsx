@@ -9,8 +9,9 @@ import OrganizationPage, {OrganizationPageSidebar} from '../pages/organization-p
 import OrganizationCreatePage, {OrganizationCreateSidebar} from '../pages/organization-create'
 import {OrganizationStatsPage} from '../pages/organization-stats'
 import {LoginPage} from '../pages/login'
+import {RegisterPage} from '../pages/register'
 import {logout} from '../../actions/auth'
-import {searchUsers} from '../../actions/search'
+import {searchUsers, searchProjects} from '../../actions/search'
 import {loadUser} from '../../actions/profile_page'
 
 const createArray = (paths, params) =>{
@@ -27,9 +28,9 @@ const no_buttons = (e) => <span></span>
 
 const pages = {
     my_: __pages,
-    search: createArray(__pages, [undefined, undefined, undefined, {load: searchUsers, buttons: no_buttons}]),
+    search: createArray(__pages, [{load: searchProjects},undefined,  undefined, {load: searchUsers, buttons: no_buttons}]),
     profiles: createArray(__pages, [undefined, undefined, undefined, {load: loadUser}]),
-    create_: createArray(__pages.slice(0, __pages.length-1), ['Organization', 'Project', 'Team'])
+    create_: createArray(__pages.slice(0, __pages.length-1), ['Project', 'Team', 'Organization'])
 }
 
 const routeRenderFunc = Component => (props) => {
@@ -77,6 +78,7 @@ export class PageRouter extends Component {
         return (
             <Switch>
                 <Route exact path="/login" component={PageShell(LoginPage)} />
+                <Route exact path="/register" component={PageShell(RegisterPage)} />
                 <Route exact path="/logout" render={() => {                    
                     logout()
                     return <Redirect to="/login" />

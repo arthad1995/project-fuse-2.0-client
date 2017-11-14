@@ -1,4 +1,22 @@
 
+/// Mixin printing a linear-gradient
+/// as well as a plain color fallback
+/// and the `-webkit-` prefixed declaration
+/// @access public
+/// @param {Keyword | Angle} $direction - Linear gradient direction
+/// @param {Arglist} $color-stops - List of color-stops composing the gradient
+@mixin linear-gradient($direction, $color-stops...) {
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+    background: linear-gradient($direction, $color-stops);
+  }
+
+  @mixin radial-gradient($direction, $color-stops...) {
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-radial-gradient(legacy-direction($direction), $color-stops);
+    background: radial-gradient($direction, $color-stops);
+  }
+
 // Font family taken from Reboot.css (https://getbootstrap.com/docs/4.0/content/reboot/)
 $font-family-sans-serif:
 // Safari for OS X and iOS (San Francisco)
@@ -14,46 +32,53 @@ BlinkMacSystemFont,
 // Emoji fonts
 "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
 
+$white: hsl(0,100%,100%);
+
 $color-schemes:(
     accent: (
-        bg-color: #333,
-        fg-color: #fff,
+        bg-color: hsl(0, 0%, 25%),
+        fg-color: $white,
         border: none
     ),
+    accent-light: (
+        bg-color: hsl(0, 0%, 10%),
+        fg-color: hsl(0, 0%, 88%),
+        border: 2px solid #333
+    ),
     card: (
-        bg-color: #fff,
-        fg-color: #111,
+        bg-color: $white,
+        fg-color: hsl(0, 0%, 20%),
         border: 1px solid #333
     ),
     purple: (
-        bg-color: purple,
-        fg-color: #fff,
+        bg-color: hsl(275, 50%, 40%),
+        fg-color: $white,
         border: none
     ),
     red:(
-        bg-color: red,
-        fg-color: #fff,
-        hover-bg: darken(red, 15%),
+        bg-color: hsl(0,100%,50%),
+        fg-color: $white,
+        hover-bg: darken(hsl(0,100%,50%), 15%),
         border: none
     ),
     blue:(
-        bg-color: blue,
-        fg-color: #fff,
+        bg-color: hsl(240,100%,50%),
+        fg-color: $white,
         border: none
     ),
     cyan:(
-        bg-color: cyan,
-        fg-color: #444,
+        bg-color: hsl(180,90%,45%),
+        fg-color: hsl(0,0%,35%),
         border: none
     ),
     green:(
-        bg-color: lighten(green, 8%),
-        fg-color: #fff,
+        bg-color: lighten(hsl(120,50%,30%), 8%),
+        fg-color: $white,
         border: none
     ),
     yellow:(
-        bg-color: rgb(236, 201, 42),
-        fg-color: #fff,
+        bg-color: hsl(60, 100%, 45%),
+        fg-color: $white,
         border: none
     )
 );
@@ -64,19 +89,56 @@ $color-schemes:(
     clear: both;
   }
 
+$glow-amt: 8%;
+
 @each $key, $value in $color-schemes {
     .#{$key}-color{
         background-color: map-get($value, bg-color);
         color: map-get($value, fg-color);
         border: map-get($value, border);
     }
+    
+    .btn.#{$key}-color, .sm-btn.#{$key}-color, .#{$key}-color-glow{
+        $lightbg: lighten(map-get($value, bg-color), $glow-amt);
+        $darkbg: darken(map-get($value, bg-color), $glow-amt);
+        background-color: map-get($value, bg-color);
+        background: linear-gradient($lightbg, $lightbg, $lightbg,$darkbg);
+        color: map-get($value, fg-color);
+        border: map-get($value, border);
+    }
 
-    .btn.#{$key}-color:hover{
+    .btn.#{$key}-color:hover, .sm-btn.#{$key}-color:hover{
         @if map-has-key($value, hover-bg){
-            background-color: map-get($value, hover-bg);
+            background-color: darken(map-get($value, hover-bg), $glow-amt);
+
+            $bg: map-get($value, hover-bg);
+            $lightbg: lighten($bg, $glow-amt * 0.75);
+            $darkbg: darken($bg, $glow-amt);
+            $midCol: lighten($bg, $glow-amt * 1.5);
+            background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
         }
         @else {
+            $bg: darken(map-get($value, bg-color), 15%);
+            $lightbg: lighten($bg, $glow-amt);
+            $darkbg: darken($bg, $glow-amt);
+            $midCol: lighten($bg, $glow-amt * 1.5);
+
             background-color: darken(map-get($value, bg-color), 8%);
+            background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
+        }
+    }
+
+    .btn.#{$key}-color:disabled{
+        $bg: map-get($value, bg-color);
+        $lightbg: lighten(desaturate(lighten($bg, 20%), 50%), $glow-amt * 0.75);
+        $darkbg: lighten(desaturate(lighten($bg, 20%), 50%), $glow-amt);
+        $midCol: lighten(desaturate(lighten($bg, 20%), 50%), $glow-amt * 1.2);
+        background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
+        box-shadow: 0px 0px 1px gray;
+        cursor: default;
+        :hover{
+            background: inherit;
+            box-shadow: inherit;
         }
     }
 }
@@ -152,6 +214,9 @@ $ranges: (
 
 a {
     color: rgba(3, 128, 245, 0.966);
+    :hover{
+        color: rgba(3, 128, 255, 0.866);
+    }
 }
 
 .visible{
@@ -175,3 +240,4 @@ input{
   .border {
     border: 1px solid rgba(0, 0, 0, 0.5);
   }
+  
