@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 const ReactMarkdown = require('react-markdown')
 import {Editor, EditorState} from '../elements/editor'
 
-export const CreatePage = (name) => {
+export const CreatePage = (paramObj) => {
+    let name = paramObj.param || ''
     class Page extends Component {
         constructor(props) {
             super(props)

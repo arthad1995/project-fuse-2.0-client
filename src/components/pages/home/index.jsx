@@ -5,7 +5,7 @@ import {Card} from '../../common'
 
 const mapStateToProps = (state) =>{
     return {
-        feed: state.feed.get('feed')
+        feed: state.feed.get('data').get('feed')
     }
 }
 

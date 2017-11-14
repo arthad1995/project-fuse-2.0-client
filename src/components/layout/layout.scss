@@ -1,6 +1,7 @@
 @import "./../../common.scss";
 body {
   font-family: $font-family-sans-serif;
+  line-height: 150%;
 }
 
 $header-height: 40px;
@@ -21,15 +22,37 @@ $header-height: 40px;
   }
   .fa {
     line-height: $header-height;
+    text-shadow: 0px 4px 8px #040405;
+  }
+  .fa:hover {
+    line-height: $header-height;
+    text-shadow: 0px 1px 8px #040405;
+    color: darken(white, 5%);
   }
   .icon {
+    text-shadow: 0px 2px 2px #040405;
+    box-shadow: 0px 4px 8px #040405;
     width: $header-height;
     height: $header-height;
-    background-color: #eee;
+    $bgcol: #ddd;
+    background-color: $bgcol;
+    $lbg: lighten($bgcol, 10%);
+    $dbg: darken($bgcol, 10%);
+    background: radial-gradient(circle at top,$lbg, $dbg);
     border-radius: $header-height/2 + 1px;
     color: #222;
     font-size: 18pt;
     text-align: center;
+  }
+  .fa.icon:hover{
+      $bgcol: #ccc;
+      color: darken(#222, 5%) !important;
+      text-shadow: 0px 1px 2px #040405;
+      box-shadow: 0px 2px 8px #040405;
+      background-color: $bgcol;
+      $lbg: lighten($bgcol, 2%);
+      $dbg: darken($bgcol, 2%);
+      background: radial-gradient(circle at top,$lbg, $dbg);
   }
   img {
     width: $header-height;
@@ -86,7 +109,7 @@ $header-height: 40px;
 .pageBody {
   @extend .clearfix;
   margin: 0rem 0.5rem;
-  min-height: calc(100vh - 114px);
+  min-height: calc(100vh - 127px);
   @include for-tablet-landscape-up {
     margin: 0rem auto;
     width: calc(100% - 1rem);
@@ -190,6 +213,9 @@ $header-height: 40px;
   }
    :last-child {
     font-weight: bold;
+    a:hover{
+      color: lighten(rgb(9, 94, 116), 10%);
+    }
   }
 }
 
@@ -214,14 +240,32 @@ $header-height: 40px;
     border: none
   }
   div.bubble {
-    font-size: 20px;
-    line-height: 40px;
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    text-align: center;
+    $bubbleSize: 30px;
+    position: relative;
+    z-index: 1;
+    //border: inherit;
+    display:inline-block;
     float: left;
+    font-size: $bubbleSize/2;
+    height: $bubbleSize;
+    width: $bubbleSize;
+    border-radius: $bubbleSize/2;
     margin: 0.5rem 0.5rem 0rem 0.5rem;
+    :before{
+      position: absolute;
+      line-height: $bubbleSize - 2px;
+      text-align: center;
+      vertical-align: bottom;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: $bubbleSize;
+      height: $bubbleSize;
+      border-radius: $bubbleSize/2;
+      background: radial-gradient(circle at top,rgba(255,255,255,0.2),rgba(0,0,0,0.2));
+    }
     @include for-tablet-portrait-below {
       width: 30px;
       height: 30px;
@@ -232,7 +276,8 @@ $header-height: 40px;
   div.title {
     padding: 0 1rem;
     margin-top: 0.5rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    color: hsl(0,0%,35%);
     @include for-tablet-portrait-below {
       font-size: 1.25rem;
       line-height: 30px;
@@ -324,6 +369,13 @@ form div {
   }
 }
 
+.btn, .sm-btn{
+  box-shadow: 0px 2px 2px grey;
+}
+.btn:hover,  .sm-btn:hover{
+  box-shadow: 0px 1px 2px grey;
+}
+
 .sm-btn {
   @extend .pointer;
   margin: 1rem;
@@ -386,3 +438,87 @@ li.listItem {
   border-left: 1px solid rgba(0, 0, 0, 0.2);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
+
+.login-box{
+  max-width: 350px;
+}
+
+.register-box{
+  max-width: 650px;
+}
+
+.login-box, .register-box {
+    height: calc(100vh - 240px);
+    margin: 0px auto;
+    display: table;
+    padding: 0;
+    .centered {
+        font-size: 125%;
+        display: table-cell;
+        vertical-align: middle;
+        > div {
+            @extend .border;
+            @extend .clearfix;
+            padding: 20px;
+            form div {
+                input:first-of-type {
+                    @extend .border;
+                    border-bottom: none;
+                    border-top-right-radius: 10px;
+                    border-top-left-radius: 10px;
+                }
+                input~input {
+                    @extend .border;
+                    border-bottom: none;
+                    border-radius: 0px;
+                }
+                input:last-of-type {
+                    @extend .border;
+                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                }
+            }
+            input {
+                height: 2.5em;
+                line-height: 2em;
+                padding: 0.75rem;
+                margin: 0;
+            }
+            input.btn {
+                margin: 1rem;
+                height: auto;
+                line-height: auto;
+                padding: 0.5rem 1rem;
+                float: none;
+                font-size: 120%;
+                font-weight: bold;
+            }
+        }
+    }
+    div.error{
+      ::before{
+        content:"Errors!";
+        line-height: 3rem;
+        color: rgba(87, 9, 9, 0.73);
+        font-weight: bold;
+      }
+      background: rgba(255, 128, 128, 0.5);
+      width: 80%;
+      padding: 0px 5px 10px;
+      border: 2px solid rgba(200,10,10,0.8);
+      margin: 1.5rem auto;
+      ul {
+        ::before{content: none;}
+        list-style: none;
+        padding: 0;
+        li{
+          text-transform: lowercase;
+          font-style: italic;
+          div::first-letter{
+            text-transform: uppercase !important;
+          }
+        }
+      }
+    }
+}
+

@@ -5,25 +5,32 @@ import { Link } from 'react-router-dom'
 import { mapSingleKey } from '../mapping_helpers'
 const ReactMarkdown = require('react-markdown');
 
-export const SearchPage = (key, notFoundMsg = 'No Results') => {
+export const SearchPage = (paramObj, notFoundMsg = 'No Results') => {
+    let key = paramObj.path
+    paramObj.param = paramObj.param || {}
     @connect(mapSingleKey(key))
     class Page extends Component {
-        constructor(props) { super(props) }
+        constructor(props) { 
+            super(props) 
+        }
+
+        componentDidMount() {
+            if(this.props.load)
+                this.props.load();
+            else if(paramObj.param.load)
+                paramObj.param.load();
+        }
 
         render() {
-            const data = this.props[key].toObject()
-            if (data && Object.keys(data).length > 2) {
+            const data = (this.props[key].get('data')) ? this.props[key].get('data').toObject() : null
+            if (data) {
                 return (
                     <div>
                         <ul className='list'>
                             {Object.keys(data).map((id) => {
-                                if (id === 'fetched' || id === 'fetching')
-                                    return null;
-                                const elem = data[id]
+                                let elem = data[id]
                                 return <ListItem key={id} baseUrl={key} id={id} name={elem.get('name')}>
-                                    <div className="btn green-color apply">
-                                        Apply
-                                </div>
+                                {(paramObj.param.buttons) ? (paramObj.param.buttons(elem)) : <div className="btn green-color apply">Apply</div>}
                                 </ListItem>
                             })}
                         </ul>

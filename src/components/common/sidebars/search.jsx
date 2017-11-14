@@ -51,7 +51,8 @@ export const TabbedSearchSidebar = (url) => {
     return {sidebar: TabSidebarSearchPage, tabs}
 }
 
-export const SearchPageSidebar = (key) => {
+export const SearchPageSidebar = (paramObj) => {
+    let key = paramObj.path
     @connect(mapSingleKey(key))
     class Sidebar extends Component {
         constructor(props) { super(props) }

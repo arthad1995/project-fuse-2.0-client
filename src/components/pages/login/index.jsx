@@ -4,8 +4,9 @@ const ReactMarkdown = require('react-markdown')
 import {Editor, EditorState} from '../../common'
 import {Redirect } from 'react-router'
 import {login} from '../../../actions/auth'
-
-require('./login.scss')
+import {fromJS} from 'immutable'
+import {LoginForm} from './form'
+import {Link} from 'react-router-dom'
 
 const mapStateToProps = (state) => {
     return {
@@ -13,11 +14,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-const sendLoginRequest = (event)=>{
-    event.preventDefault()
+const sendLoginRequest = (values)=>{
     login(
-        document.getElementById('email').value, 
-        document.getElementById('password').value
+        values.email, 
+        values.password
     )
 }
 
@@ -28,6 +28,21 @@ export  class LoginPage extends Component {
     }
 
     render() {
+        const errors = this.props.user.get('errors') || fromJS([])
+        let errDisp = '';
+
+        if(errors.size > 0){
+            errDisp = (
+                <div className='error'>
+                    <ul>
+                        {errors.map((err, index)=>{
+                            return <li key={index}><div>{err}</div></li>
+                        })}
+                    </ul>
+                </div>
+            )
+        }
+
         if(this.props.user.size > 2 && this.props.user.get("fetched"))
             return <Redirect to="/" />
         return (
@@ -35,13 +50,9 @@ export  class LoginPage extends Component {
                 <div className="centered">
                     <div>
                         <h2>Project Fuse</h2>
-                        <form onSubmit={sendLoginRequest}>
-                            <div>
-                                <input placeholder="Email" type="email" id="email" name="email" /><br />
-                                <input placeholder="Password" type="password" id="password" name="password" /><br />
-                            </div>
-                            <input className='btn blue-color' type="submit" id="submit" name="submit" value="Login" />
-                        </form>
+                        <LoginForm onSubmit={sendLoginRequest} />
+                        <Link to="/register">Create Account</Link>
+                       {errDisp}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import Network from '../network'
-import Cookies from 'js-cookie'
+import {store} from '../store'
 
 export const logout = () =>{
     const network = new Network('LOGOUT')
@@ -12,4 +12,14 @@ export const login = (email, password) =>{
         email,
         password
     })
+}
+
+export const register = (name, email, password) => {
+    let payload = {
+        name,
+        email,
+        password
+    }
+    const network = new Network('REGISTER')
+    return network.REGISTER(payload)
 }

@@ -8,6 +8,7 @@ import {ui} from './ui'
 import {projects} from './projects'
 import {organizations} from './organizations'
 import {teams} from './teams'
+import {users} from './users'
 
 export default {
     user,
@@ -19,4 +20,5 @@ export default {
     projects,
     organizations,
     teams,
+    users,
 }
