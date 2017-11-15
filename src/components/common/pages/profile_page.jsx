@@ -1,27 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapSingleKey } from '../mapping_helpers'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 const ReactMarkdown = require('react-markdown');
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
     let key = paramObj.path
 
     @connect(mapSingleKey(key))
     class Page extends Component {
-        constructor(props) { 
-            super(props) 
+        constructor(props) {
+            super(props)
         }
 
         componentDidMount() {
-            if(this.props.load)
+            if (this.props.load)
                 this.props.load(this.props.match.params.id);
-            else if(paramObj.param.load)
+            else if (paramObj.param.load)
                 paramObj.param.load(this.props.match.params.id);
         }
 
-        renderOwnerInfo(elem){
-            if(elem.get('owner')){
+        renderOwnerInfo(elem) {
+            if (elem.get('owner')) {
                 const owner = elem.get('owner')
                 return <div className='ownerInfo'>
                     Owned By: <Link to={`/users/${owner.get('id')}`}>
@@ -33,7 +34,7 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
         }
 
         render() {
-            if(this.props[key].get('fetching')){
+            if (this.props[key].get('fetching')) {
                 return <div className="loading"></div>
             }
             const params = this.props.match.params
@@ -41,16 +42,24 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
             const elem = (data) ? data.get(params.id) : null
             if (elem) {
                 return (
-                    <div>
-                        <h1 className='title'>{elem.get('name')}</h1>
-                        {this.renderOwnerInfo(elem)}
-                        <div className='summary'>
-                            {elem.get('summary') || ''}
+                    <ReactCSSTransitionGroup
+                        transitionAppear={true}
+                        transitionAppearTimeout={400}
+                        transitionEnterTimeout={400}
+                        transitionLeaveTimeout={200}
+                        transitionName="SlideInTop"
+                    >
+                        <div>
+                            <h1 className='title'>{elem.get('name')}</h1>
+                            {this.renderOwnerInfo(elem)}
+                            <div className='summary'>
+                                {elem.get('summary') || ''}
+                            </div>
+                            <div className='description'>
+                                <ReactMarkdown source={elem.get('content') || ''} />
+                            </div>
                         </div>
-                        <div className='description'>
-                            <ReactMarkdown source={elem.get('content') || ''} />
-                        </div>
-                    </div>
+                    </ReactCSSTransitionGroup>
                 )
             }
             else {

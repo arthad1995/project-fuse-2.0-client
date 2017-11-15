@@ -14,12 +14,11 @@ export default class Menu extends Component {
 
     render() {
         let user = this.props.user
-        let shouldRenderUserItems = user.size > 2 && user.get('fetched')
-        user = user.get('data')
-
+        let shouldRenderUserItems = user.size > 2 && user.get('fetched') && user.get('data')  && user.get('data').get('user')
         let restOfMenu = ''
-
         if (shouldRenderUserItems) {
+            user = user.get('data').get('user')
+
             restOfMenu = (
                 <ul className="menu">
                     <li>
