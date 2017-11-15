@@ -1,8 +1,13 @@
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
     context: __dirname,
-    entry: './src/index.js',
+    entry: [
+        'webpack-dev-server/client?http://0.0.0.0:8081',
+        'webpack/hot/only-dev-server',
+        './src/index.js',
+     ],
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -10,6 +15,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.json', '*']
     },
+    plugins:[new webpack.HotModuleReplacementPlugin()],
     module: {
         rules: [
             {
