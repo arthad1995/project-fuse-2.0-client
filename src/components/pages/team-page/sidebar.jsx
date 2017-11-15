@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 const mapStateToProps = (state) =>{
     return {
-        projects: state.projects
+        teams: state.teams
     }
 }
 
@@ -14,7 +14,7 @@ class Sidebar extends Component {
 
     render(){
         const id = this.props.match.params.id
-        let data = this.props.projects.get('data')
+        let data = this.props.teams.get('data')
         data = (data)? data.get(id) : null
         if(data){
             return <div>
@@ -22,18 +22,13 @@ class Sidebar extends Component {
                     <div className='section centered'>
                         <img src={data.get('image')} className='profileImage hideOnPhone' />
                         <div className='phoneOnly'>
-                            Project Page
+                            Team Page
                         </div>
                     </div>
                 </Link>
                 <Link to={`/projects/${id}/members`}>
                     <div className="section centered">
                         Members
-                    </div>
-                </Link>
-                <Link to={`/projects/${id}/teams`}>
-                    <div className="section centered">
-                        Teams
                     </div>
                 </Link>
                 <Link to={`/projects/${id}/links`}>

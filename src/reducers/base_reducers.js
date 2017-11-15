@@ -1,7 +1,7 @@
 import {
     fromJS
 } from 'immutable'
-
+import {not_loaded}  from './initial_states'
 
 export const async_base = (base_name) => {
     return (state = not_loaded, action) => {
@@ -77,4 +77,11 @@ export const async_base_id = (base_name) => {
         }
         return state;
     }
+}
+
+export const async_get_and_get_by_id = (base_name) => {
+    const load_handler_all = async_base(`LOAD_${base_name}_INFO`)
+    const load_handler_by_id = async_base_id(`LOAD_${base_name}_BY_ID`)
+
+    return (state = not_loaded, action) => state.merge(load_handler_by_id(load_handler_all(state, action), action))
 }
