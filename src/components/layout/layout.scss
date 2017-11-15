@@ -456,13 +456,23 @@ li.listItem {
   content: '';
 }
 
-.offline-indicator {
+.indicator{
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden; 
   background: hsl(240, 10%, 20%);
   padding: 10px;
   color: white;
 }
 
-.offline-indicator:before {
+.indicator.offline {
+  opacity: 1;
+  visibility: visible; 
+}
+.indicator.offline:before {
   content: "You are currently offline. While you are offline, you may use the app but some features may not work and information may be outdated.";
 }
 
