@@ -1,3 +1,7 @@
+// this is a service worker that caches needed resources
+
+const api_server = 'localhost:8080'
+
 function extractHostname(url) {
   var hostname;
   //find & remove protocol (http, ftp, etc.) and get hostname
@@ -13,10 +17,6 @@ function extractHostname(url) {
   return hostname;
 }
 
-const expectedCaches = [
-  'project_fuse-dev'
-]
-
 const staticCacheName = 'project_fuse-static'
 const dynamicCacheName = 'project_fuse-dynamic'
 
@@ -24,6 +24,7 @@ const dynamicCacheName = 'project_fuse-dynamic'
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function (cache) {
+      //cache needed offline-files
       return cache.addAll([
         '.',
         '/assets/styles/animate.min.css',
@@ -37,8 +38,10 @@ self.addEventListener('install', function (event) {
 });
 
 self.addEventListener('fetch', function (event) {
-  if (event.request.method != 'GET') return fetch(event.request)
-  if (extractHostname(event.request.url) === 'localhost:8080') {
+  if (event.request.method != 'GET') return;
+
+  // handle dynamic content (network with cache fallback)
+  if (extractHostname(event.request.url) === api_server) {
     // Get from network and then fallback to cache if needed
     event.respondWith(
       caches.open(dynamicCacheName).then(function (cache) {
@@ -50,7 +53,9 @@ self.addEventListener('fetch', function (event) {
         })
       })
     )
-  } else {
+  }
+  // handle static content (return from cache and update in the background) 
+  else {
     // return from cache but update for next time
     event.respondWith(
       caches.open(staticCacheName).then(function (cache) {
@@ -67,8 +72,8 @@ self.addEventListener('fetch', function (event) {
 });
 
 self.addEventListener('activate', function (event) {
+  // clear non-approved caches
   var cacheWhitelist = [staticCacheName, dynamicCacheName];
-
   event.waitUntil(
     caches.keys().then(function (cacheNames) {
       return Promise.all(
@@ -82,6 +87,13 @@ self.addEventListener('activate', function (event) {
   );
 });
 
+self.addEventListener('message', function(event) {
+  if (event.data === 'clear-cached-user-data') {
+    caches.delete(dynamicCacheName)
+  }
+});
+
+// foreign fetch events
 self.addEventListener('foreignfetch', event => {
   event.respondWith(fetch(event.request).then(response => {
     return {
