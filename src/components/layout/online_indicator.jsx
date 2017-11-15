@@ -5,7 +5,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 const mapStateToProps = (state) => {
     return {
-        online: state.ui.get('online')
+        online: state.ui.get('online'),
+        was_offline: state.ui.get('was_offline')
     }
 }
 
@@ -15,7 +16,7 @@ export default class OnlineIndicator extends Component {
 
     render() {
         let online = this.props.online
-        let className = (online) ? 'indicator online' : 'indicator offline'
+        let className = (online) ? (this.props.was_offline) ? 'indicator online was_offline' : 'indicator online' : 'indicator offline'
 
         return <ReactCSSTransitionGroup
             transitionAppear={true}

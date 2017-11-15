@@ -452,10 +452,6 @@ li.listItem {
   max-width: 650px;
 }
 
-.online-indicator {
-  content: '';
-}
-
 .indicator{
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -468,12 +464,21 @@ li.listItem {
   color: white;
 }
 
-.indicator.offline {
+.indicator.offline, .indicator.was_offline {
   opacity: 1;
   visibility: visible; 
 }
+
 .indicator.offline:before {
   content: "You are currently offline. While you are offline, you may use the app but some features may not work and information may be outdated.";
+}
+
+.indicator.was_offline{
+  background: hsl(120, 15%, 25%);
+}
+
+.indicator.was_offline:before{
+  content: "You were recently offline, refresh the page to get the most updated information.";
 }
 
 .login-box,
