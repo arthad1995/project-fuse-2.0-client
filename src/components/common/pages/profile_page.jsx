@@ -33,6 +33,9 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
         }
 
         render() {
+            if(this.props[key].get('fetching')){
+                return <div className="loading"></div>
+            }
             const params = this.props.match.params
             const data = this.props[key].get('data')
             const elem = (data) ? data.get(params.id) : null

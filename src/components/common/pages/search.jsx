@@ -22,6 +22,9 @@ export const SearchPage = (paramObj, notFoundMsg = 'No Results') => {
         }
 
         render() {
+            if(this.props[key].get('fetching')){
+                return <div className="loading"></div>
+            }
             const data = (this.props[key].get('data')) ? this.props[key].get('data').toObject() : null
             if (data) {
                 return (

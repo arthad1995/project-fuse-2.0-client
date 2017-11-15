@@ -38,21 +38,21 @@ $header-height: 40px;
     background-color: $bgcol;
     $lbg: lighten($bgcol, 10%);
     $dbg: darken($bgcol, 10%);
-    background: radial-gradient(circle at top,$lbg, $dbg);
+    background: radial-gradient(circle at top, $lbg, $dbg);
     border-radius: $header-height/2 + 1px;
     color: #222;
     font-size: 18pt;
     text-align: center;
   }
-  .fa.icon:hover{
-      $bgcol: #ccc;
-      color: darken(#222, 5%) !important;
-      text-shadow: 0px 1px 2px #040405;
-      box-shadow: 0px 2px 8px #040405;
-      background-color: $bgcol;
-      $lbg: lighten($bgcol, 2%);
-      $dbg: darken($bgcol, 2%);
-      background: radial-gradient(circle at top,$lbg, $dbg);
+  .fa.icon:hover {
+    $bgcol: #ccc;
+    color: darken(#222, 5%) !important;
+    text-shadow: 0px 1px 2px #040405;
+    box-shadow: 0px 2px 8px #040405;
+    background-color: $bgcol;
+    $lbg: lighten($bgcol, 2%);
+    $dbg: darken($bgcol, 2%);
+    background: radial-gradient(circle at top, $lbg, $dbg);
   }
   img {
     width: $header-height;
@@ -67,31 +67,34 @@ $header-height: 40px;
       float: right;
       position: relative;
       background: none;
-      ul.dropdown{
+      ul.dropdown {
         display: none;
         position: absolute;
         top: 2rem;
         right: -1rem;
         padding-top: 1rem;
-        a{
+        a {
           @extend .accent-color;
           text-align: center;
-          width: 100%;;
+          width: 100%;
+          ;
           margin: 0;
-          :hover{
+           :hover {
             background-color: lighten(#333, 10%);
           }
         }
-        li{
+        li {
           padding: 0.25rem 0.5rem;
           width: 150px;
           text-align: center;
         }
       }
-      > a{
-        height: 100%;;
+      >a {
+        height: 100%;
+        ;
       }
-      a:hover + ul.dropdown, ul.dropdown:hover{
+      a:hover+ul.dropdown,
+      ul.dropdown:hover {
         display: block;
       }
     }
@@ -213,7 +216,7 @@ $header-height: 40px;
   }
    :last-child {
     font-weight: bold;
-    a:hover{
+    a:hover {
       color: lighten(rgb(9, 94, 116), 10%);
     }
   }
@@ -242,16 +245,15 @@ $header-height: 40px;
   div.bubble {
     $bubbleSize: 30px;
     position: relative;
-    z-index: 1;
-    //border: inherit;
-    display:inline-block;
+    z-index: 1; //border: inherit;
+    display: inline-block;
     float: left;
     font-size: $bubbleSize/2;
     height: $bubbleSize;
     width: $bubbleSize;
     border-radius: $bubbleSize/2;
     margin: 0.5rem 0.5rem 0rem 0.5rem;
-    :before{
+     :before {
       position: absolute;
       line-height: $bubbleSize - 2px;
       text-align: center;
@@ -264,7 +266,7 @@ $header-height: 40px;
       width: $bubbleSize;
       height: $bubbleSize;
       border-radius: $bubbleSize/2;
-      background: radial-gradient(circle at top,rgba(255,255,255,0.2),rgba(0,0,0,0.2));
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
     }
     @include for-tablet-portrait-below {
       width: 30px;
@@ -277,7 +279,7 @@ $header-height: 40px;
     padding: 0 1rem;
     margin-top: 0.5rem;
     font-size: 1.5rem;
-    color: hsl(0,0%,35%);
+    color: hsl(0, 0%, 35%);
     @include for-tablet-portrait-below {
       font-size: 1.25rem;
       line-height: 30px;
@@ -369,10 +371,13 @@ form div {
   }
 }
 
-.btn, .sm-btn{
+.btn,
+.sm-btn {
   box-shadow: 0px 2px 2px grey;
 }
-.btn:hover,  .sm-btn:hover{
+
+.btn:hover,
+.sm-btn:hover {
   box-shadow: 0px 1px 2px grey;
 }
 
@@ -439,86 +444,160 @@ li.listItem {
   border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.login-box{
+.login-box {
   max-width: 350px;
 }
 
-.register-box{
+.register-box {
   max-width: 650px;
 }
 
-.login-box, .register-box {
-    height: calc(100vh - 240px);
-    margin: 0px auto;
-    display: table;
-    padding: 0;
-    .centered {
-        font-size: 125%;
-        display: table-cell;
-        vertical-align: middle;
-        > div {
-            @extend .border;
-            @extend .clearfix;
-            padding: 20px;
-            form div {
-                input:first-of-type {
-                    @extend .border;
-                    border-bottom: none;
-                    border-top-right-radius: 10px;
-                    border-top-left-radius: 10px;
-                }
-                input~input {
-                    @extend .border;
-                    border-bottom: none;
-                    border-radius: 0px;
-                }
-                input:last-of-type {
-                    @extend .border;
-                    border-bottom-right-radius: 10px;
-                    border-bottom-left-radius: 10px;
-                }
-            }
-            input {
-                height: 2.5em;
-                line-height: 2em;
-                padding: 0.75rem;
-                margin: 0;
-            }
-            input.btn {
-                margin: 1rem;
-                height: auto;
-                line-height: auto;
-                padding: 0.5rem 1rem;
-                float: none;
-                font-size: 120%;
-                font-weight: bold;
-            }
+.login-box,
+.register-box {
+  height: calc(100vh - 240px);
+  margin: 0px auto;
+  display: table;
+  padding: 0;
+  .centered {
+    font-size: 125%;
+    display: table-cell;
+    vertical-align: middle;
+    >div {
+      @extend .border;
+      @extend .clearfix;
+      padding: 20px;
+      form div {
+        input:first-of-type {
+          @extend .border;
+          border-bottom: none;
+          border-top-right-radius: 10px;
+          border-top-left-radius: 10px;
         }
-    }
-    div.error{
-      ::before{
-        content:"Errors!";
-        line-height: 3rem;
-        color: rgba(87, 9, 9, 0.73);
+        input~input {
+          @extend .border;
+          border-bottom: none;
+          border-radius: 0px;
+        }
+        input:last-of-type {
+          @extend .border;
+          border-bottom-right-radius: 10px;
+          border-bottom-left-radius: 10px;
+        }
+      }
+      input {
+        height: 2.5em;
+        line-height: 2em;
+        padding: 0.75rem;
+        margin: 0;
+      }
+      input.btn {
+        margin: 1rem;
+        height: auto;
+        line-height: auto;
+        padding: 0.5rem 1rem;
+        float: none;
+        font-size: 120%;
         font-weight: bold;
       }
-      background: rgba(255, 128, 128, 0.5);
-      width: 80%;
-      padding: 0px 5px 10px;
-      border: 2px solid rgba(200,10,10,0.8);
-      margin: 1.5rem auto;
-      ul {
-        ::before{content: none;}
-        list-style: none;
-        padding: 0;
-        li{
-          text-transform: lowercase;
-          font-style: italic;
-          div::first-letter{
-            text-transform: uppercase !important;
-          }
+    }
+  }
+  div.error {
+     ::before {
+      content: "Errors!";
+      line-height: 3rem;
+      color: rgba(87, 9, 9, 0.73);
+      font-weight: bold;
+    }
+    background: rgba(255, 128, 128, 0.5);
+    width: 80%;
+    padding: 0px 5px 10px;
+    border: 2px solid rgba(200, 10, 10, 0.8);
+    margin: 1.5rem auto;
+    ul {
+       ::before {
+        content: none;
+      }
+      list-style: none;
+      padding: 0;
+      li {
+        text-transform: lowercase;
+        font-style: italic;
+        div::first-letter {
+          text-transform: uppercase !important;
         }
       }
     }
+  }
 }
 
+$loading-size: 150px;
+@mixin loading-animation($duration){
+  -webkit-animation: spin $duration linear infinite;
+  animation: spin $duration linear infinite;
+}
+
+@mixin loading-border($color){
+  border: 3px solid transparent;
+  border-top-color: $color;
+  border-radius: 50%;
+  border-left: none;
+}
+
+@mixin loading-pos($offset){
+  top: $offset;
+  left: $offset;
+  right: $offset;
+  bottom: $offset;
+}
+
+.loading {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: $loading-size;
+  height: $loading-size;
+  //margin: -($loading-size/2) 0 0 -($loading-size/2);
+  margin-left: -$loading-size/2;
+  @include loading-border(hsla(120, 15%, 20%, 60%));
+  @include loading-animation(2s);
+}
+.loading:after {
+  content: "";
+  position: absolute;
+  @include loading-border(hsla(120, 15%, 50%, 10%));
+  @include loading-pos(15px);
+  @include loading-animation(4s);
+}
+.loading:before {
+  content: "";
+  position: absolute;
+  @include loading-pos(30px);
+  @include loading-border(hsla(120, 20%, 80%, 60%));
+  @include loading-animation(2s);
+}
+
+@-webkit-keyframes spin {
+  0%   {
+      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(0deg);  /* IE 9 */
+      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+  }
+  100% {
+      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(360deg);  /* IE 9 */
+      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+  }
+}
+@keyframes spin {
+  0%   {
+      -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(0deg);  /* IE 9 */
+      transform: rotate(0deg);  /* Firefox 16+, IE 10+, Opera */
+  }
+  100% {
+      -webkit-transform: rotate(360deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(360deg);  /* IE 9 */
+      transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
+  }
+}
