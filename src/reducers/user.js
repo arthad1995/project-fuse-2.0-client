@@ -11,11 +11,15 @@ export function user(state = not_loaded, action){
         case 'REGISTER_PENDING':
             return state.set('fetched', false).set('fetching', true).set('reg_user', fromJS(action.payload))
         case 'LOGOUT_FULFILLED':
+        case 'LOGOUT_REJECTED':
             state = not_loaded
             Cookies.remove('SESSIONID')
             Cookies.remove('ID')
             Cookies.remove('NAME')
             Cookies.remove('EMAIL')
+            if('serviceWorker' in navigator){
+                navigator.serviceWorker.controller.postMessage("clear-cached-user-data");
+            }
             break;
         case 'LOAD_USER_FULFILLED':{
             if(action.payload.data.status === 'OK'){
