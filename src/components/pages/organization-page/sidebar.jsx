@@ -14,7 +14,8 @@ class Sidebar extends Component {
 
     render(){
         const id = this.props.match.params.id
-        const data = this.props.organizations.get(id)
+        let data = this.props.organizations.get('data')
+        data = (data)? data.get(id) : null
         if(data){
             return <div>
                 <Link to={`/organizations/${id}`}>

@@ -3,16 +3,17 @@ import { Route, Switch, Redirect } from 'react-router'
 import {PageShell,SidebarShell, SearchPage, CreateSidebar, SearchPageSidebar, ProfilePage, MyListOfPage, CreatePage} from '../common'
 import NoMatch from './404'
 import Home, {HomeSidebar} from '../pages/home' 
-import ProjectPage, {ProjectPageSidebar} from '../pages/project-page'
+import {ProjectPageSidebar} from '../pages/project-page'
+import {TeamPageSidebar} from '../pages/team-page'
 import {UserPageSidebar} from '../pages/user-page'
-import OrganizationPage, {OrganizationPageSidebar} from '../pages/organization-page'
-import OrganizationCreatePage, {OrganizationCreateSidebar} from '../pages/organization-create'
+import {OrganizationPageSidebar} from '../pages/organization-page'
+import {OrganizationCreateSidebar} from '../pages/organization-create'
 import {OrganizationStatsPage} from '../pages/organization-stats'
 import {LoginPage} from '../pages/login'
 import {RegisterPage} from '../pages/register'
 import {logout} from '../../actions/auth'
-import {searchUsers, searchProjects} from '../../actions/search'
-import {loadUser} from '../../actions/profile_page'
+import {searchUsers, searchProjects, searchTeams, searchOrganizations} from '../../actions/search'
+import {loadUser, loadProject, loadTeam, loadOrganization} from '../../actions/profile_page'
 
 const createArray = (paths, params) =>{
     let res = []
@@ -28,8 +29,8 @@ const no_buttons = (e) => <span></span>
 
 const pages = {
     my_: __pages,
-    search: createArray(__pages, [{load: searchProjects},undefined,  undefined, {load: searchUsers, buttons: no_buttons}]),
-    profiles: createArray(__pages, [undefined, undefined, undefined, {load: loadUser}]),
+    search: createArray(__pages, [{load: searchProjects}, {load: searchTeams},  {load: searchOrganizations}, {load: searchUsers, buttons: no_buttons}]),
+    profiles: createArray(__pages, [{load: loadProject}, {load: loadTeam}, {load: loadOrganization}, {load: loadUser}]),
     create_: createArray(__pages.slice(0, __pages.length-1), ['Project', 'Team', 'Organization'])
 }
 
@@ -117,6 +118,7 @@ export class SidebarRouter extends Component {
                 <Route path="/organizations/:id" component={sidebar_shell(OrganizationPageSidebar, pos)} />
                 <Route exact path="/projects/:id" component={sidebar_shell(ProjectPageSidebar, pos)} />
                 <Route exact path="/users/:id" component={sidebar_shell(UserPageSidebar, pos)} />
+                <Route exact path="/teams/:id" component={sidebar_shell(TeamPageSidebar, pos)} />
                 {pages.my_.map(mySidebar)}
                 {pages.my_.map(sidebarSearch)}
             </Switch>

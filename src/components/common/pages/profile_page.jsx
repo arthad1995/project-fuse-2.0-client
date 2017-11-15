@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapSingleKey } from '../mapping_helpers'
+import {Link} from 'react-router-dom'
 const ReactMarkdown = require('react-markdown');
 
 export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
@@ -8,13 +9,27 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
 
     @connect(mapSingleKey(key))
     class Page extends Component {
-        constructor(props) { super(props) }
+        constructor(props) { 
+            super(props) 
+        }
 
         componentDidMount() {
             if(this.props.load)
                 this.props.load(this.props.match.params.id);
             else if(paramObj.param.load)
                 paramObj.param.load(this.props.match.params.id);
+        }
+
+        renderOwnerInfo(elem){
+            if(elem.get('owner')){
+                const owner = elem.get('owner')
+                return <div className='ownerInfo'>
+                    Owned By: <Link to={`/users/${owner.get('id')}`}>
+                        <span className='ownerName'>{owner.get('name')}</span>
+                    </Link>
+                </div>
+            }
+            return '';
         }
 
         render() {
@@ -25,6 +40,7 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
                 return (
                     <div>
                         <h1 className='title'>{elem.get('name')}</h1>
+                        {this.renderOwnerInfo(elem)}
                         <div className='summary'>
                             {elem.get('summary') || ''}
                         </div>
