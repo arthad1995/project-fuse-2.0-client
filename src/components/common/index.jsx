@@ -9,3 +9,4 @@ export {SearchPageSidebar} from './sidebars/search'
 
 export {default as Card} from './elements/card'
 export {Editor, EditorState} from './elements/editor'
+export {ErrorDisplay} from './elements/error_display'

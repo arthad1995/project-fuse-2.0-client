@@ -230,7 +230,6 @@ $header-height: 40px;
   }
 }
 
-@import "./../../common.scss";
 .card {
   @extend .clearfix;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -366,8 +365,10 @@ form div {
   border-radius: 15px;
   font-size: 150%;
   text-align: center;
+  width: 90%;
   @include for-tablet-landscape-up {
     float: right;
+    width: inherit;
   }
 }
 
@@ -530,33 +531,35 @@ li.listItem {
       }
     }
   }
-  div.error {
-     ::before {
-      content: "Errors!";
-      line-height: 3rem;
-      color: rgba(87, 9, 9, 0.73);
-      font-weight: bold;
-    }
-    background: rgba(255, 128, 128, 0.5);
-    width: 80%;
-    padding: 0px 5px 10px;
-    border: 2px solid rgba(200, 10, 10, 0.8);
-    margin: 1.5rem auto;
-    ul {
-       ::before {
-        content: none;
-      }
-      list-style: none;
-      padding: 0;
-      li {
-        text-transform: lowercase;
-        font-style: italic;
-        div::first-letter {
-          text-transform: uppercase !important;
-        }
-      }
-    }
-  }
+}
+
+div.error {
+  text-align: center;
+  ::before {
+   content: "Errors!";
+   line-height: 3rem;
+   color: rgba(87, 9, 9, 0.73);
+   font-weight: bold;
+ }
+ background: rgba(255, 128, 128, 0.5);
+ width: 80%;
+ padding: 0px 5px 10px;
+ border: 2px solid rgba(200, 10, 10, 0.8);
+ margin: 1.5rem auto;
+ ul {
+    ::before {
+     content: none;
+   }
+   list-style: none;
+   padding: 0;
+   li {
+     text-transform: lowercase;
+     font-style: italic;
+     div::first-letter {
+       text-transform: uppercase !important;
+     }
+   }
+ }
 }
 
 $loading-size: 100px;

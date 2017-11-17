@@ -51,7 +51,7 @@ export  class RegisterPage extends Component {
     }
 
     render() {
-        const errors = this.props.user.get('errors') || fromJS([])
+        let errors = this.props.user.get('errors') || []
         let errDisp = '';
 
         if(errors.size > 0){

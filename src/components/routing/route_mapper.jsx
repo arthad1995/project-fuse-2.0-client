@@ -14,6 +14,7 @@ import {RegisterPage} from '../pages/register'
 import {logout} from '../../actions/auth'
 import {searchUsers, searchProjects, searchTeams, searchOrganizations} from '../../actions/search'
 import {loadUser, loadProject, loadTeam, loadOrganization} from '../../actions/profile_page'
+import {createProject, createTeam, createOrganization} from '../../actions/create'
 
 const createArray = (paths, params) =>{
     let res = []
@@ -31,7 +32,11 @@ const pages = {
     my_: __pages,
     search: createArray(__pages, [{load: searchProjects}, {load: searchTeams},  {load: searchOrganizations}, {load: searchUsers, buttons: no_buttons}]),
     profiles: createArray(__pages, [{load: loadProject}, {load: loadTeam}, {load: loadOrganization}, {load: loadUser}]),
-    create_: createArray(__pages.slice(0, __pages.length-1), ['Project', 'Team', 'Organization'])
+    create_: createArray(__pages.slice(0, __pages.length-1), [
+        {name:'Project', save: createProject},
+        {name:'Team', save: createTeam}, 
+        {name:'Organization', save: createOrganization}
+    ])
 }
 
 const routeRenderFunc = Component => (props) => {

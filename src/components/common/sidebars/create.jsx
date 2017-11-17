@@ -7,7 +7,7 @@ import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
 
 export const CreateSidebar = (paramObj) => {
-    let display = paramObj.param || ''
+    let display = paramObj.param.name || ''
     class Sidebar extends Component {
         constructor(props){ super(props)}
 
