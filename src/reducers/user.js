@@ -10,6 +10,13 @@ export function user(state = not_loaded, action){
     switch(action.type){
         case 'REGISTER_PENDING':
             return state.set('fetched', false).set('fetching', true).set('reg_user', fromJS(action.payload))
+        case 'REGISTER_REJECTED':{
+            state = state.set('fetched', false).set('fetching', false).remove('reg_user')
+            let response = action.payload.response.data || action.payload
+            if (response.errors)
+                return state.set('errors', fromJS(response.errors))
+            return state.set('errors', fromJS(response))
+        }
         case 'LOGOUT_FULFILLED':
         case 'LOGOUT_REJECTED':
             state = not_loaded

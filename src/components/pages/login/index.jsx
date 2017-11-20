@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 const ReactMarkdown = require('react-markdown')
-import {Editor, EditorState} from '../../common'
+import {Editor, EditorState, ErrorDisplay} from '../../common'
 import {Redirect } from 'react-router'
 import {login} from '../../../actions/auth'
 import {fromJS} from 'immutable'
@@ -28,21 +28,6 @@ export  class LoginPage extends Component {
     }
 
     render() {
-        const errors = this.props.user.get('errors') || fromJS([])
-        let errDisp = '';
-
-        if(errors.size > 0){
-            errDisp = (
-                <div className='error'>
-                    <ul>
-                        {errors.map((err, index)=>{
-                            return <li key={index}><div>{err}</div></li>
-                        })}
-                    </ul>
-                </div>
-            )
-        }
-
         if(this.props.user.size > 2 && this.props.user.get("fetched"))
             return <Redirect to="/" />
         return (
@@ -50,9 +35,9 @@ export  class LoginPage extends Component {
                 <div className="centered">
                     <div>
                         <h2>Project Fuse</h2>
-                        <LoginForm onSubmit={sendLoginRequest} />
+                        <LoginForm disabled={this.props.user.get("fetching")} onSubmit={sendLoginRequest} />
                         <Link to="/register">Create Account</Link>
-                       {errDisp}
+                        <ErrorDisplay errors={this.props.user.get('errors')} />
                     </div>
                 </div>
             </div>

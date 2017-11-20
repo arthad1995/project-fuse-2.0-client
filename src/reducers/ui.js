@@ -3,7 +3,7 @@ import { fromJS } from 'immutable'
 export function ui(state = fromJS({online: true}), action){
     switch(action.type){
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
-            return state.set('selected_tab', 'tab1').set('was_offline', false)
+            return state.set('selected_tab', 'tab1').set('was_offline', false).set()
         case 'CHANGE_TAB':
             return state.set('selected_tab', action.payload)
         case 'ONLINE':

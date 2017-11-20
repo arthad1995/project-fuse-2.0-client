@@ -18,10 +18,11 @@ const store = createStore(
     applyMiddleware(
         createLogger(),
         promise(),
-        thunkMiddleware
+        thunkMiddleware,
+        routerMiddleware(history)
     )
 )
 
-export const syncedHistory = syncHistoryWithStore(history, store)
+export var syncedHistory = syncHistoryWithStore(history, store)
 
 export default store

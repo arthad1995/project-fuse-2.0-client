@@ -4,7 +4,7 @@ import ListItem from '../elements/listItem'
 import { Link } from 'react-router-dom'
 import { mapSingleKey } from '../mapping_helpers'
 const ReactMarkdown = require('react-markdown');
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group' 
 
 export const SearchPage = (paramObj, notFoundMsg = 'No Results') => {
     let key = paramObj.path

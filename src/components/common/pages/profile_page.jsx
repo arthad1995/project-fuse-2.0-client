@@ -50,7 +50,7 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
                         transitionName="SlideInTop"
                     >
                         <div>
-                            <h1 className='title'>{elem.get('name')}</h1>
+                            <h1 className='title'>{elem.get('name')} <div class='edit-btn'><Link to={`/projects/${params.id}/edit`}><i class='fa fa-pencil'></i></Link></div></h1>
                             {this.renderOwnerInfo(elem)}
                             <div className='summary'>
                                 {elem.get('summary') || ''}

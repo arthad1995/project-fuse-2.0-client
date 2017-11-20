@@ -120,6 +120,18 @@ $header-height: 40px;
   }
 }
 
+div.edit-btn {
+  float: right;
+  cursor: pointer;
+  margin-right: 2rem;
+  a {
+    color: hsl(240, 20%, 50%);
+     :hover {
+      color: hsl(240, 20%, 10%);
+    }
+  }
+}
+
 .leftSidebar,
 .leftSidebar-show,
 .leftSidebar-phone {
@@ -230,7 +242,6 @@ $header-height: 40px;
   }
 }
 
-@import "./../../common.scss";
 .card {
   @extend .clearfix;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -366,8 +377,10 @@ form div {
   border-radius: 15px;
   font-size: 150%;
   text-align: center;
+  width: 90%;
   @include for-tablet-landscape-up {
     float: right;
+    width: inherit;
   }
 }
 
@@ -452,32 +465,33 @@ li.listItem {
   max-width: 650px;
 }
 
-.indicator{
+.indicator {
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
   opacity: 0;
-  visibility: hidden; 
+  visibility: hidden;
   background: hsl(240, 10%, 20%);
   padding: 10px;
   color: white;
 }
 
-.indicator.offline, .indicator.was_offline {
+.indicator.offline,
+.indicator.was_offline {
   opacity: 1;
-  visibility: visible; 
+  visibility: visible;
 }
 
 .indicator.offline:before {
   content: "You are currently offline. While you are offline, you may use the app but some features may not work and information may be outdated.";
 }
 
-.indicator.was_offline{
+.indicator.was_offline {
   background: hsl(120, 15%, 25%);
 }
 
-.indicator.was_offline:before{
+.indicator.was_offline:before {
   content: "You were recently offline, refresh the page to get the most updated information.";
 }
 
@@ -530,30 +544,32 @@ li.listItem {
       }
     }
   }
-  div.error {
+}
+
+div.error {
+  text-align: center;
+   ::before {
+    content: "Errors!";
+    line-height: 3rem;
+    color: rgba(87, 9, 9, 0.73);
+    font-weight: bold;
+  }
+  background: rgba(255, 128, 128, 0.5);
+  width: 80%;
+  padding: 0px 5px 10px;
+  border: 2px solid rgba(200, 10, 10, 0.8);
+  margin: 1.5rem auto;
+  ul {
      ::before {
-      content: "Errors!";
-      line-height: 3rem;
-      color: rgba(87, 9, 9, 0.73);
-      font-weight: bold;
+      content: none;
     }
-    background: rgba(255, 128, 128, 0.5);
-    width: 80%;
-    padding: 0px 5px 10px;
-    border: 2px solid rgba(200, 10, 10, 0.8);
-    margin: 1.5rem auto;
-    ul {
-       ::before {
-        content: none;
-      }
-      list-style: none;
-      padding: 0;
-      li {
-        text-transform: lowercase;
-        font-style: italic;
-        div::first-letter {
-          text-transform: uppercase !important;
-        }
+    list-style: none;
+    padding: 0;
+    li {
+      text-transform: lowercase;
+      font-style: italic;
+      div::first-letter {
+        text-transform: uppercase !important;
       }
     }
   }

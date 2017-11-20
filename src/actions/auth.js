@@ -1,5 +1,4 @@
 import Network from '../network'
-import {store} from '../store'
 
 export const logout = () =>{
     const network = new Network('LOGOUT')
