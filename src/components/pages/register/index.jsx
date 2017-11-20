@@ -10,8 +10,11 @@ import { SubmissionError } from 'redux-form'
 import {Link} from 'react-router-dom'
 
 const mapStateToProps = (state) => {
+    let user = state.user ||fromJS({})
     return {
-        user: state.user
+        errors: user.get('errors'),
+        fetched: user.get('fetched'),
+        fetching: user.get('fetching')
     }
 }
 
@@ -51,8 +54,8 @@ export  class RegisterPage extends Component {
     }
 
     render() {
-        let errors = this.props.user.get('errors') || []
-        let errDisp = '';
+        let errors = this.props.errors || fromJS([])
+        let errDisp = ''
 
         if(errors.size > 0){
             errDisp = (
@@ -66,14 +69,14 @@ export  class RegisterPage extends Component {
             )
         }
 
-        if(this.props.user.size > 2 && this.props.user.get("fetched"))
+        if(this.props.fetched)
             return <Redirect to="/" />
         return (
             <div className="register-box"> 
                 <div className="centered">
                     <div>
                         <h2>Create a Project Fuse Account</h2>
-                        <RegisterForm disabled={this.props.user.get("fetching")} onSubmit={sendRegisterRequest(this.props.dispatch)} />
+                        <RegisterForm disabled={this.props.fetching} onSubmit={sendRegisterRequest(this.props.dispatch)} />
                         <Link to="/login">Login</Link>
                        {errDisp}
                     </div>

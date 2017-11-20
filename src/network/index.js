@@ -14,34 +14,42 @@ export default class Network {
 
     GET(url, host) {
         host = host || this.host
+        const request = axios.get(host+ url, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
         this.dispatch({
             type: this.type,
-            payload: axios.get(host+ url, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+            payload: request
         })
+        return request
     }
 
     PUT(url, data={}, host) {
         host = host || this.host
+        const request = axios.put(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
         this.dispatch({
             type: this.type,
-            payload: axios.put(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+            payload: request
         })
+        return request
     }
 
     POST(url, data={}, host) {
         host = host || this.host
+        const request = axios.post(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
         this.dispatch({
             type: this.type,
-            payload: axios.post(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+            payload: request
         })
+        return request
     }
     
     DELETE(url, data={}, host) {
         host = host || this.host
+        const request = axios.delete(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
         this.dispatch({
             type: this.type,
-            payload: axios.delete(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+            payload: request
         })
+        return request
     }
 
     REGISTER(data, host){

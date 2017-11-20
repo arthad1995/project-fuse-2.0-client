@@ -23,7 +23,7 @@ export const CreatePage = (paramObj) => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="name">Name</label>
-                    <Field component="input" required placeholder="Name" type="text" name="name" />
+                    <Field component="input" required initialValues={this.props.fieldValues.get('name') || ''} placeholder="Name" type="text" name="name" />
                 </div>
                 <div className="buttons">
                     <input className='btn green-color' type="submit" id="submit" name="submit" value="Save" />
@@ -57,6 +57,7 @@ export const CreatePage = (paramObj) => {
 
             const params = this.props.match.params
             let props = this.props[key]
+            
             const toolbar = {
                 options: ['inline', 'blockType', 'fontSize', 'list', 'link', 'embedded', 'emoji', 'image', 'history'],
                 embedded: {
@@ -75,7 +76,7 @@ export const CreatePage = (paramObj) => {
             }
             return <div>
                 <h2>Create a new {name}</h2>
-                <Form disabled={props.get("fetching")} onSubmit={save} cancelAction={this.props.history.goBack} />
+                <Form fieldValues={this.props.fieldValues || fromJS({})} disabled={props.get("fetching")} onSubmit={save} cancelAction={this.props.history.goBack} />
                 <ErrorDisplay errors={this.props[key].get('errors')} />
             </div>
         }
