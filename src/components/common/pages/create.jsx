@@ -10,10 +10,10 @@ import { fromJS } from 'immutable'
 
 export const CreatePage = (paramObj) => {
 
-    let params = paramObj.param || {}
-    let name = params.name || ''
-    let save = params.save || (() => { })
-    let key = paramObj.path
+    const params = paramObj.param || {}
+    const name = params.name || ''
+    const save = params.save || (() => { })
+    const key = paramObj.path
 
     class Form extends Component  {
 
@@ -99,13 +99,17 @@ export const CreatePage = (paramObj) => {
 
             const action = (this.state.edit) ? `Update ${name} ${this.props.initialValues.name}` : `Create a new ${name} `
 
+            const saveFunc = (this.state.edit)? save(this.props.history)(this.state.id) : save
+
             if(this.state.edit && this.props.initialValues.loading){
                 return <div className='loading'></div>
             }
 
+            console.log(this.props)
+
             return <div>
                 <h2>{action}</h2>
-                <Form initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={save} cancelAction={this.props.history.goBack} />
+                <Form initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={saveFunc} cancelAction={this.props.history.goBack} />
                 <ErrorDisplay errors={this.props[key].get('errors')} />
             </div>
         }
