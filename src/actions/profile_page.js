@@ -1,7 +1,7 @@
 import Network from '../network'
 
 export const loadUser = (id) =>{
-    const network = new Network('LOAD_USER_BY_ID')
+    const network = new Network('LOAD_USERS_BY_ID')
     return network.GET(`/user/${id}`)
 }
 

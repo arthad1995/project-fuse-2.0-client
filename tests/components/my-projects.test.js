@@ -30,7 +30,7 @@ const projectsData = {
 }
 
 store.dispatch({
-    type:'LOAD_USER_PROJECTS_FULFILLED',
+    type:'LOAD_USERS_PROJECTS_FULFILLED',
     payload: {
         data: projectsData
     }

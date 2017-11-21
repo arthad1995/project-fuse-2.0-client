@@ -28,15 +28,34 @@ export function user(state = not_loaded, action){
                 navigator.serviceWorker.controller.postMessage("clear-cached-user-data");
             }
             break;
-        case 'LOAD_USER_FULFILLED':{
-            if(action.payload.data.status === 'OK'){
-                let response = action.payload.data.data
-                Cookies.set('SESSIONID', response.sessionId, {path: '/'})
-                Cookies.set('ID', response.user.id, {path: '/'})
-                Cookies.set('NAME', response.user.name, {path: '/'})
-                Cookies.set('EMAIL', response.user.email, {path: '/'})
-            }
-            break;
+        case 'LOGIN_FULFILLED':{
+            const response = action.payload.data
+            if (response.status === 'OK') {
+                if(response.status === 'OK'){
+                    Cookies.set('SESSIONID', response.data.sessionId, {path: '/'})
+                    Cookies.set('ID', response.data.user.id, {path: '/'})
+                    Cookies.set('NAME', response.data.user.name, {path: '/'})
+                    Cookies.set('EMAIL', response.data.user.email, {path: '/'})
+                }
+
+                const _state = state.set('fetching', false)
+                    .set('fetched', true)
+                if (Array.isArray(response.data)) {
+                    let data = {}
+                    response.data.forEach((elem) => {
+                        data[elem.id] = elem
+                    })
+                    return _state.merge(fromJS({
+                        data
+                    }))
+                }
+                return _state.merge(fromJS({
+                    data: response.data
+                }))
+            } else
+                return state.set('fetching', false)
+                    .set('fetched', false)
+                    .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
         }
     }
     return state;

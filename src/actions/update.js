@@ -21,3 +21,10 @@ export const updateOrganization = history => id => values => {
         name: values.name
     }).then(()=>history.push(`/organizations/${id}`))
 }
+
+export const updateCurrentUser = history => id => values => {
+    const network = new Network('UPDATE_USER')
+    return network.PUT('/user/update_current', {
+        name: values.name
+    }).then(() => history.push(`/users/${id}`))
+}

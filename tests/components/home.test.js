@@ -22,7 +22,7 @@ const feedData = [
 ]
 
 store.dispatch({
-    type:'LOAD_USER_FULFILLED',
+    type:'LOGIN_FULFILLED',
     payload: {
         data: userData
     }
