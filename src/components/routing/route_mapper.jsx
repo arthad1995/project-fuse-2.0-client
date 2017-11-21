@@ -16,6 +16,7 @@ import { logout } from '../../actions/auth'
 import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '../../actions/search'
 import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
+import { updateProject, updateTeam, updateOrganization } from '../../actions/update'
 
 const createArray = (paths, params) => {
     let res = []
@@ -37,6 +38,11 @@ const pages = {
         { name: 'Project', save: createProject },
         { name: 'Team', save: createTeam },
         { name: 'Organization', save: createOrganization }
+    ]),
+    update_: createArray(__pages.slice(0, __pages.length - 1), [
+        { name: 'Project', save: updateProject, load: loadProject },
+        { name: 'Team', save: updateTeam, load: loadTeam },
+        { name: 'Organization', save: updateOrganization, load: loadOrganization }
     ])
 }
 
@@ -79,6 +85,7 @@ export class PageRouter extends Component {
         let searchPage = makeRoute()(e => PageShell(SearchPage(e)))
         let profilePage = makeRoute('', '/:id')(e => PageShell(ProfilePage(e)))
         let createPage = makeRoute('', '/new')(e => PageShell(CreatePage(e)))
+        let updatePage = makeRoute('', '/:id/edit')(e => PageShell(CreatePage(e)))
 
         let dispatch = this.props.dispatch
 
@@ -92,6 +99,7 @@ export class PageRouter extends Component {
                 }} />
                 {authenticatedRoute('', PageShell(Home))}
                 {pages.create_.map(createPage)}
+                {pages.update_.map(updatePage)}
                 {authenticatedRoute('organizations/:id/stats', PageShell(OrganizationStatsPage))}
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
@@ -115,6 +123,7 @@ export class SidebarRouter extends Component {
         let mySidebar = makeRoute('my-')(e => sidebar_shell(MyListOfPage(e).sidebar, pos))
         let sidebarSearch = makeRoute()(e => sidebar_shell(SearchPageSidebar(e), pos))
         let createSidebar = makeRoute('', '/new')(e => sidebar_shell(CreateSidebar(e), pos))
+        let updateSidebar = makeRoute('', '/:id/edit')(e => sidebar_shell(CreateSidebar(e), pos))
 
         return (
             <Switch>

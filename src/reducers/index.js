@@ -1,5 +1,6 @@
 import {fromJS} from 'immutable'
 import {user} from './user'
+import {edit_obj} from './edit_obj'
 import {feed} from './feed'
 import {user_projects} from './user_projects'
 import {user_teams} from './user_teams'
@@ -12,6 +13,7 @@ import {users} from './users'
 
 export default {
     user,
+    edit_obj,
     feed, 
     user_projects, 
     user_teams,
