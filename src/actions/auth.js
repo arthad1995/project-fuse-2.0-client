@@ -6,7 +6,7 @@ export const logout = () =>{
 }
 
 export const login = (email, password) =>{
-    const network = new Network('LOAD_USER')
+    const network = new Network('LOGIN')
     network.POST('/user/login', {
         email,
         password

@@ -35,7 +35,7 @@ const sendRegisterRequest = (dispatch) => (values)=>{
         return register(values.name, values.email, values.password)
     else{
         dispatch({
-        type: 'LOAD_USER_REJECTED',
+        type: 'REGISTER_REJECTED',
             payload:{
                 response:{
                     data:{

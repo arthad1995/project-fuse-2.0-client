@@ -7,6 +7,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
     let key = paramObj.path
+    const canEdit = paramObj.param.canEdit 
 
     @connect(mapSingleKey(key))
     class Page extends Component {
@@ -40,6 +41,8 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
             const params = this.props.match.params
             const data = this.props[key].get('data')
             const elem = (data) ? data.get(params.id) : null
+            const editBtn = (canEdit && canEdit(this.props) ? <div className='edit-btn'><Link to={`/${key}/${params.id}/edit`}><i className='fa fa-pencil'></i></Link></div> : '')
+
             if (elem) {
                 return (
                     <ReactCSSTransitionGroup
@@ -50,7 +53,7 @@ export const ProfilePage = (paramObj, notFoundMsg = 'Not Found') => {
                         transitionName="SlideInTop"
                     >
                         <div>
-                            <h1 className='title'>{elem.get('name')} <div class='edit-btn'><Link to={`/projects/${params.id}/edit`}><i class='fa fa-pencil'></i></Link></div></h1>
+                            <h1 className='title'>{elem.get('name')} {editBtn}</h1>
                             {this.renderOwnerInfo(elem)}
                             <div className='summary'>
                                 {elem.get('summary') || ''}

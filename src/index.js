@@ -25,7 +25,7 @@ updateOnlineStatus()
 if (Cookies.get('SESSIONID') && Cookies.get('ID') && Cookies.get('EMAIL') && Cookies.get('NAME')) {
     store.dispatch(
         {
-            type: 'LOAD_USER_FULFILLED',
+            type: 'LOGIN_FULFILLED',
             payload: {
                 data: {
                     status: "OK",

@@ -20,10 +20,7 @@ class Sidebar extends Component {
             return <div>
                 <Link to={`/projects/${id}`}>
                     <div className='section centered'>
-                        <img src={data.get('image')} className='profileImage hideOnPhone' />
-                        <div className='phoneOnly'>
-                            Team Page
-                        </div>
+                        Team Home
                     </div>
                 </Link>
                 <Link to={`/projects/${id}/members`}>

@@ -55,7 +55,7 @@ export default class Network {
     REGISTER(data, host){
         host = host || this.host
         const login = () =>{
-            const network = new Network('LOAD_USER')
+            const network = new Network('LOGIN')
             network.POST('/user/login', {
                 email,
                 password
@@ -65,23 +65,23 @@ export default class Network {
         let promise = new Promise((resolve)=>resolve())
         this.dispatch((dispatch)=>{
             dispatch({type: 'REGISTER_PENDING', payload: data})
-            promise = axios.post(host + '/user/add', data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+            promise = axios.post(host + '/user/create', data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
                      .then((response)=> Promise.all([
                          dispatch({
                              type: 'REGISTER_FULFILLED',
                              payload: response
                          }),
                          dispatch({
-                             type: 'LOAD_USER_PENDING'
+                             type: 'LOGIN_PENDING'
                          }),
                          axios.post(host+ '/user/login', data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
                             .then((response)=>Promise.all([
                                 dispatch({
-                                    type: 'LOAD_USER_FULFILLED',
+                                    type: 'LOGIN_FULFILLED',
                                     payload: response
                                 })
                             ]))
-                            .catch((response) => dispatch({type: 'LOAD_USER_REJECTED', payload: response}))
+                            .catch((response) => dispatch({type: 'LOGIN_REJECTED', payload: response}))
                      ]))
                 .catch((response) => dispatch({type: 'REGISTER_REJECTED', payload: response}))
         })

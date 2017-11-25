@@ -16,6 +16,7 @@ import { logout } from '../../actions/auth'
 import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '../../actions/search'
 import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
+import { updateProject, updateTeam, updateOrganization, updateCurrentUser } from '../../actions/update'
 
 const createArray = (paths, params) => {
     let res = []
@@ -31,12 +32,28 @@ const no_buttons = (e) => <span></span>
 
 const pages = {
     my_: __pages,
-    search: createArray(__pages, [{ load: searchProjects }, { load: searchTeams }, { load: searchOrganizations }, { load: searchUsers, buttons: no_buttons }]),
-    profiles: createArray(__pages, [{ load: loadProject }, { load: loadTeam }, { load: loadOrganization }, { load: loadUser }]),
+    search: createArray(__pages, [
+        { load: searchProjects }, 
+        { load: searchTeams }, 
+        { load: searchOrganizations }, 
+        { load: searchUsers, buttons: no_buttons }
+    ]),
+    profiles: createArray(__pages, [
+        { canEdit: () => true,  load: loadProject }, 
+        { canEdit: () => true,  load: loadTeam }, 
+        { canEdit: () => true,  load: loadOrganization }, 
+        { canEdit: () => true,  load: loadUser }
+    ]),
     create_: createArray(__pages.slice(0, __pages.length - 1), [
         { name: 'Project', save: createProject },
         { name: 'Team', save: createTeam },
         { name: 'Organization', save: createOrganization }
+    ]),
+    update_: createArray(__pages, [
+        { name: 'Project',              save: updateProject,             load: loadProject },
+        { name: 'Team',                  save: updateTeam,                load: loadTeam },
+        { name: 'Organization',   save: updateOrganization, load: loadOrganization },
+        { name: 'Profile',               save: updateCurrentUser,   load: loadUser },
     ])
 }
 
@@ -79,6 +96,7 @@ export class PageRouter extends Component {
         let searchPage = makeRoute()(e => PageShell(SearchPage(e)))
         let profilePage = makeRoute('', '/:id')(e => PageShell(ProfilePage(e)))
         let createPage = makeRoute('', '/new')(e => PageShell(CreatePage(e)))
+        let updatePage = makeRoute('', '/:id/edit')(e => PageShell(CreatePage(e)))
 
         let dispatch = this.props.dispatch
 
@@ -92,6 +110,7 @@ export class PageRouter extends Component {
                 }} />
                 {authenticatedRoute('', PageShell(Home))}
                 {pages.create_.map(createPage)}
+                {pages.update_.map(updatePage)}
                 {authenticatedRoute('organizations/:id/stats', PageShell(OrganizationStatsPage))}
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
@@ -115,6 +134,7 @@ export class SidebarRouter extends Component {
         let mySidebar = makeRoute('my-')(e => sidebar_shell(MyListOfPage(e).sidebar, pos))
         let sidebarSearch = makeRoute()(e => sidebar_shell(SearchPageSidebar(e), pos))
         let createSidebar = makeRoute('', '/new')(e => sidebar_shell(CreateSidebar(e), pos))
+        let updateSidebar = makeRoute('', '/:id/edit')(e => sidebar_shell(CreateSidebar(e), pos))
 
         return (
             <Switch>
@@ -122,9 +142,9 @@ export class SidebarRouter extends Component {
                 {pages.create_.map(createSidebar)}
                 <Route exact path="/organizations/new" component={sidebar_shell(OrganizationCreateSidebar, pos)} />
                 <Route path="/organizations/:id" component={sidebar_shell(OrganizationPageSidebar, pos)} />
-                <Route exact path="/projects/:id" component={sidebar_shell(ProjectPageSidebar, pos)} />
-                <Route exact path="/users/:id" component={sidebar_shell(UserPageSidebar, pos)} />
-                <Route exact path="/teams/:id" component={sidebar_shell(TeamPageSidebar, pos)} />
+                <Route path="/projects/:id" component={sidebar_shell(ProjectPageSidebar, pos)} />
+                <Route path="/users/:id" component={sidebar_shell(UserPageSidebar, pos)} />
+                <Route path="/teams/:id" component={sidebar_shell(TeamPageSidebar, pos)} />
                 {pages.my_.map(mySidebar)}
                 {pages.my_.map(sidebarSearch)}
             </Switch>
