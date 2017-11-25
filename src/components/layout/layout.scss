@@ -258,7 +258,6 @@ div.edit-btn {
     position: relative;
     z-index: 1; //border: inherit;
     display: inline-block;
-    float: left;
     font-size: $bubbleSize/2;
     height: $bubbleSize;
     width: $bubbleSize;
@@ -368,6 +367,13 @@ img.profileImage {
 
 form div {
   margin: 0.5rem 0rem;
+}
+
+form div.no-margin {
+  margin: 0rem;
+  div {
+    margin: 0rem;
+  }
 }
 
 .btn {
@@ -710,32 +716,32 @@ $loading-size: 100px;
 
 .modalDialog {
   display: none;
-	position: fixed;
-	font-family: Arial, Helvetica, sans-serif;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background: rgba(0,0,0,0.8);
-	z-index: 99999;
-	opacity:0;
-	-webkit-transition: opacity 400ms ease-in;
-	-moz-transition: opacity 400ms ease-in;
-	transition: opacity 400ms ease-in;
-	pointer-events: none;
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
 }
 
 .modalDialog.show {
   display: block;
-	opacity:1;
-	pointer-events: auto;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.modalDialog > div {
-	width: 400px;
-	position: absolute;
-	padding: 10px 20px 13px 20px;
-	border-radius: 10px;
+.modalDialog>div {
+  width: 400px;
+  position: absolute;
+  padding: 10px 20px 13px 20px;
+  border-radius: 10px;
   background: #fff;
   top: 50%;
   left: 50%;
@@ -743,23 +749,96 @@ $loading-size: 100px;
   margin: -150px 0 0 -200px;
 }
 
-.modal_close {
-	background: hsl(240, 20%, 30%);
-	color: white;
-	line-height: 25px;
-	position: absolute;
-	right: -12px;
-	text-align: center;
-	top: -10px;
-	width: 24px;
-	text-decoration: none;
-	font-weight: bold;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	border-radius: 12px;
-	-moz-box-shadow: 1px 1px 3px #000;
-	-webkit-box-shadow: 1px 1px 3px #000;
-	box-shadow: 1px 1px 3px #000;
+.modalDialog.timepicker>div {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  border-radius: 0px;
+  top: 50%;
+  left: 50%;
+  margin: -225px 0 0 -130px;
 }
 
-.modal_close:hover { background: hsl(240, 50%, 30%); cursor: pointer; }
+.modal_close::before {
+  content: 'X';
+}
+
+.modal_close {
+  background: hsl(240, 20%, 30%);
+  color: white;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 24px;
+  z-index: 99999;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -moz-box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
+}
+
+.modal_close:hover {
+  background: hsl(240, 50%, 30%);
+  cursor: pointer;
+}
+
+.no-bg {
+  background: none !important;
+}
+
+.react-tabs__tab-list {
+  @extend .clearfix;
+  list-style: none;
+  margin: 0 auto;
+  width: 80%;
+  padding: 0px;
+}
+
+$tab-color: hsl(240, 80%, 58%);
+.react-tabs__tab {
+  cursor: pointer;
+  float: left;
+  padding: 5px 10px;
+  background-color: $tab-color;
+  border: 3px solid $tab-color;
+  border-bottom: none;
+  color: white;
+  text-align: center;
+}
+
+.react-tabs__tab--selected {
+  cursor: default;
+  background-color: white;
+  color: inherit;
+}
+
+.react-tabs__tab-panel {
+  margin-top: 20px;
+}
+
+.done-date-btn, .DayPicker {
+  display: block;
+  color: rgb(104, 104, 104);
+  text-transform: uppercase;
+  border: 1px solid rgb(204, 204, 204);
+  text-align: center;
+  cursor: pointer;
+  padding: 16px 0px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  line-height: normal;
+  font-weight: 500;
+  text-align: center; 
+  background: rgb(244, 244, 244);
+}
+
+.DayPicker{
+  border-bottom: none;
+}
+

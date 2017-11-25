@@ -17,6 +17,7 @@ import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '.
 import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
 import { updateProject, updateTeam, updateOrganization, updateCurrentUser } from '../../actions/update'
+import {ProjectSettings, ProjectSettingsSidebar} from '../pages/project-settings'
 
 const createArray = (paths, params) => {
     let res = []
@@ -115,6 +116,7 @@ export class PageRouter extends Component {
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
                 {pages.profiles.map(profilePage)}
+                <Route exact path="/projects/:id/settings" component={PageShell(ProjectSettings)} />
                 <Route component={PageShell(NoMatch)} />
             </Switch>
         )
@@ -140,6 +142,7 @@ export class SidebarRouter extends Component {
             <Switch>
                 <Route exact path="/" component={sidebar_shell(HomeSidebar, pos)} />
                 {pages.create_.map(createSidebar)}
+                <Route path="/projects/:id/settings" component={sidebar_shell(ProjectSettingsSidebar, pos)} />
                 <Route exact path="/organizations/new" component={sidebar_shell(OrganizationCreateSidebar, pos)} />
                 <Route path="/organizations/:id" component={sidebar_shell(OrganizationPageSidebar, pos)} />
                 <Route path="/projects/:id" component={sidebar_shell(ProjectPageSidebar, pos)} />

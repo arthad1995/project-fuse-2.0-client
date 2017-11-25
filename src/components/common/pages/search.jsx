@@ -43,7 +43,7 @@ export const SearchPage = (paramObj, notFoundMsg = 'No Results') => {
                     >
                         <div id={`popup`} className="modalDialog" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}>
                             <div onClick={(e) => {stopEvent(e); return false;}}>
-                                <div className="modal_close" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}>X</div>
+                                <div className="modal_close" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}></div>
                                 <h2>Application submitted!</h2>
                                 <p>Your application was submitted succesfully!</p>
                             </div>
