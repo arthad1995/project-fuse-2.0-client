@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Redirect, Switch } from 'react-router'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import { PageShell, SidebarShell, SearchPage, CreateSidebar, SearchPageSidebar, ProfilePage, MyListOfPage, CreatePage } from '../common'
+import { PageShell, SidebarShell, SearchPage, CreateSidebar, SearchPageSidebar, ProfilePage, MyListOfPage, CreatePage, ApplyButton } from '../common'
 import NoMatch from './404'
 import Home, { HomeSidebar } from '../pages/home'
 import { ProjectPageSidebar } from '../pages/project-page'
@@ -33,10 +33,10 @@ const no_buttons = (e) => <span></span>
 const pages = {
     my_: __pages,
     search: createArray(__pages, [
-        { load: searchProjects }, 
-        { load: searchTeams }, 
-        { load: searchOrganizations }, 
-        { load: searchUsers, buttons: no_buttons }
+        { apply: ApplyButton('projects'),  load: searchProjects }, 
+        { apply: ApplyButton('teams'),  load: searchTeams }, 
+        { apply: ApplyButton('organizations'),  load: searchOrganizations }, 
+        { apply: ApplyButton('users'),  load: searchUsers, buttons: no_buttons }
     ]),
     profiles: createArray(__pages, [
         { canEdit: () => true,  load: loadProject }, 
