@@ -801,6 +801,18 @@ $loading-size: 100px;
 }
 
 $tab-color: hsl(240, 80%, 58%);
+
+.react-tabs__tab-list::before{
+  border: 2px solid $tab-color;
+  position: absolute;
+  left: 0px;
+  z-index: 1;
+  top: 51px;
+  width: 100%;
+  background: black;
+  content: '';
+}
+
 .react-tabs__tab {
   cursor: pointer;
   float: left;
@@ -816,6 +828,8 @@ $tab-color: hsl(240, 80%, 58%);
   cursor: default;
   background-color: white;
   color: inherit;
+  position: relative;
+  z-index: 100;
 }
 
 .react-tabs__tab-panel {
