@@ -21,7 +21,7 @@ export const CreatePage = (paramObj) => {
             const { handleSubmit, cancelAction, formErrors } = this.props
 
             return (
-                <form onSubmit={handleSubmit}>
+                <form className="withMargins" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="name">Name</label>
                         <Field component="input" required placeholder="Name" type="text" name="name" />

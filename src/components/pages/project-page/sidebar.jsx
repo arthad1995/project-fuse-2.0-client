@@ -38,6 +38,11 @@ class Sidebar extends Component {
                         Links
                     </div>
                 </Link>
+                <Link to={`/projects/${id}/settings`}>
+                    <div className="section centered">
+                       Settings
+                    </div>
+                </Link>
             </div>
         }else{
             return <div></div>

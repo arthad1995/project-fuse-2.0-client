@@ -48,6 +48,11 @@ class Sidebar extends Component {
                         Statistics
                     </div>
                 </Link>
+                <Link to={`/organizations/${id}/settings`}>
+                    <div className="section centered">
+                        Settings
+                    </div>
+                </Link>
             </div>
         }else{
             return <div></div>

@@ -18,19 +18,24 @@ class Sidebar extends Component {
         data = (data)? data.get(id) : null
         if(data){
             return <div>
-                <Link to={`/projects/${id}`}>
+                <Link to={`/teams/${id}`}>
                     <div className='section centered'>
                         Team Home
                     </div>
                 </Link>
-                <Link to={`/projects/${id}/members`}>
+                <Link to={`/teams/${id}/members`}>
                     <div className="section centered">
                         Members
                     </div>
                 </Link>
-                <Link to={`/projects/${id}/links`}>
+                <Link to={`/teams/${id}/links`}>
                     <div className="section centered">
                         Links
+                    </div>
+                </Link>
+                <Link to={`/teams/${id}/settings`}>
+                    <div className="section centered">
+                        Settings
                     </div>
                 </Link>
             </div>

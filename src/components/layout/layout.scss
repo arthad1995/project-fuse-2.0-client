@@ -365,15 +365,8 @@ img.profileImage {
   padding-bottom: 0.5rem;
 }
 
-form div {
+.withMargins > div {
   margin: 0.5rem 0rem;
-}
-
-form div.no-margin {
-  margin: 0rem;
-  div {
-    margin: 0rem;
-  }
 }
 
 .btn {
@@ -827,6 +820,7 @@ $tab-color: hsl(240, 80%, 58%);
 .react-tabs__tab--selected {
   cursor: default;
   background-color: white;
+  border-bottom-color: white;
   color: inherit;
   position: relative;
   z-index: 100;

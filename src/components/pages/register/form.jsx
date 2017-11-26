@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form'
 let Form = props => {
     const { handleSubmit, disabled } = props
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="withMargins" onSubmit={handleSubmit}>
             <div>   
                 <Field component="input" disabled={disabled} required placeholder="Name" type="text" name="name" /><br />
                 <Field component="input" disabled={disabled} required placeholder="Email" type="email" name="email" /><br />
