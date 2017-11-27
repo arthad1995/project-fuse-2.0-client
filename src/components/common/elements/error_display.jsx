@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fromJS} from 'immutable'
 
-export class ErrorDisplay extends Component {
+export default class ErrorDisplay extends Component {
     constructor(props){ super(props)}
 
     render(){

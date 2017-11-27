@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import {AnimationHandler} from '../common'
 
 const mapStateToProps = (state) => {
     return {
@@ -18,14 +18,8 @@ export default class OnlineIndicator extends Component {
         let online = this.props.online
         let className = (online) ? (this.props.was_offline) ? 'indicator online was_offline' : 'indicator online' : 'indicator offline'
 
-        return <ReactCSSTransitionGroup
-            transitionAppear={true}
-            transitionAppearTimeout={400}
-            transitionEnterTimeout={400}
-            transitionLeaveTimeout={400}
-            transitionName="SlideInTop"
-        >
+        return <AnimationHandler anim="SlideInTop" animKey="always">
             <div className={className}></div>
-        </ReactCSSTransitionGroup>
+        </AnimationHandler>
     }
 }

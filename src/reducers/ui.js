@@ -1,9 +1,12 @@
 import { fromJS } from 'immutable'
 
-export function ui(state = fromJS({online: true}), action){
+export function ui(state = fromJS({online: true, 'animation': {page: true, sidebar: true}}), action){
     switch(action.type){
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
-            return state.set('selected_tab', 'tab1').set('was_offline', false).set()
+            return state.set('selected_tab', 'tab1').set('was_offline', false).set('animation', fromJS({
+                page: true,
+                sidebar: true
+            }))
         case 'CHANGE_TAB':
             return state.set('selected_tab', action.payload)
         case 'ONLINE':

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-const ReactMarkdown = require('react-markdown')
 import {Editor, EditorState, ErrorDisplay} from '../../common'
 import {Redirect } from 'react-router'
 import {login} from '../../../actions/auth'

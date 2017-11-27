@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Redirect, Switch } from 'react-router'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { PageShell, SidebarShell, SearchPage, CreateSidebar, SearchPageSidebar, ProfilePage, MyListOfPage, CreatePage, ApplyButton } from '../common'
 import NoMatch from './404'
 import Home, { HomeSidebar } from '../pages/home'

@@ -9,13 +9,16 @@ module.exports = {
         './src/index.js',
      ],
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
+        chunkFilename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '*']
     },
-    plugins:[new webpack.HotModuleReplacementPlugin()],
+    plugins:[
+        new webpack.HotModuleReplacementPlugin()
+    ],
     module: {
         rules: [
             {

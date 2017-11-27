@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { mapSingleKey } from '../mapping_helpers'
-const ReactMarkdown = require('react-markdown');
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { stopEvent } from './stopEvent'
 import TimeKeeper from 'react-timekeeper'
 import DayPicker from 'react-day-picker'

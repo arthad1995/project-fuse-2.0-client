@@ -128,7 +128,6 @@ export const async_list_get_and_create = (base_name) => {
             case `CREATE_${base_name}_REJECTED`:
                 {
                     let response = action.payload.response.data || action.payload.response
-                    console.log(action)
                     if (response.errors)
                         return state.set('fetching', false)
                                                 .set('fetched', false)
