@@ -1,4 +1,3 @@
-import {fromJS} from 'immutable'
 import {user} from './user'
 import {edit_obj} from './edit_obj'
 import {feed} from './feed'

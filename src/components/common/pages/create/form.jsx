@@ -4,7 +4,6 @@ import { ErrorDisplay } from '../../elements/error_display'
 import { goBack } from 'react-router-redux'
 import { Field } from 'redux-form'
 import { Redirect } from 'react-router-dom'
-import { fromJS } from 'immutable'
 
 class Form extends Component {
 

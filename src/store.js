@@ -9,11 +9,6 @@ import {createStore} from 'redux-async-reducer'
 
 export const history = createHashHistory()
 
-console.log(combineReducers({
-    ...reducers,
-    routing: routerReducer
-}))
-
 const store = createStore(
     {
         ...reducers,

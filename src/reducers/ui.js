@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable'
+const {fromJS} = Immutable
 
 export function ui(state = fromJS({online: true, 'animation': {page: true, sidebar: true}}), action){
     switch(action.type){

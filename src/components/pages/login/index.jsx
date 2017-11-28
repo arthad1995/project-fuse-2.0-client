@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import {Editor, EditorState, ErrorDisplay} from '../../common'
 import {Redirect } from 'react-router'
 import {login} from '../../../actions/auth'
-import {fromJS} from 'immutable'
 import {Link} from 'react-router-dom'
 import {Async} from '../../common'
 

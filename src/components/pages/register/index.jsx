@@ -3,14 +3,13 @@ import { connect } from 'react-redux'
 import {Editor, EditorState} from '../../common'
 import {Redirect } from 'react-router'
 import {register} from '../../../actions/auth'
-import {fromJS} from 'immutable'
 import {Link} from 'react-router-dom'
 import {Async} from '../../common'
 
 const RegisterForm = (props) => <Async load={import('./form')} {...props} />
 
 const mapStateToProps = (state) => {
-    let user = state.user ||fromJS({})
+    let user = state.user || Immutable.fromJS({})
     return {
         errors: user.get('errors'),
         fetched: user.get('fetched'),

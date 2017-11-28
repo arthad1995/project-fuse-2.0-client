@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Map} from 'immutable'
 
 const mapStateToProps = (state) => {
     return {
-        animation: state.ui.get('animation') || Map()
+        animation: state.ui.get('animation') || Immutable.Map()
     }
 }
 require('./animations.scss')

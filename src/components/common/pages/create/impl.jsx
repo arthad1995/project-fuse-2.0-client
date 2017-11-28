@@ -5,7 +5,6 @@ import { ErrorDisplay } from '../../elements/error_display'
 import { goBack } from 'react-router-redux'
 import { reduxForm, initialize } from 'redux-form'
 import { Redirect } from 'react-router-dom'
-import { fromJS } from 'immutable'
 import Form from './form'
 import {EditorState} from 'draft-js'
 

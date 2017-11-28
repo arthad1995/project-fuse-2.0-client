@@ -1,4 +1,4 @@
-import {fromJS} from 'immutable'
+const {fromJS} = Immutable
 
 export const not_loaded = fromJS({
     fetched: false,
