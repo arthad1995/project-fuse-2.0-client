@@ -5,11 +5,12 @@ import {Redirect } from 'react-router'
 import {register} from '../../../actions/auth'
 import {Link} from 'react-router-dom'
 import {Async} from '../../common'
+import {fromJS} from 'immutable'
 
 const RegisterForm = (props) => <Async load={import('./form')} {...props} />
 
 const mapStateToProps = (state) => {
-    let user = state.user || Immutable.fromJS({})
+    let user = state.user || fromJS({})
     return {
         errors: user.get('errors'),
         fetched: user.get('fetched'),

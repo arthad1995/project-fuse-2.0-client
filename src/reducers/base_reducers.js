@@ -1,4 +1,5 @@
 import { not_loaded } from './initial_states'
+import {fromJS} from 'immutable'
 
 export const async_base = (base_name) => {
     return (state = not_loaded, action) => {
@@ -11,10 +12,10 @@ export const async_base = (base_name) => {
                     if (response.errors)
                         return state.set('fetching', false)
                             .set('fetched', false)
-                            .set('errors', Immutable.fromJS(response.errors))
+                            .set('errors', fromJS(response.errors))
                     return state.set('fetching', false)
                         .set('fetched', false)
-                        .set('errors', Immutable.fromJS(response))
+                        .set('errors', fromJS(response))
                 }
             case `${base_name}_FULFILLED`:
                 {
@@ -27,17 +28,17 @@ export const async_base = (base_name) => {
                             response.data.forEach((elem) => {
                                 data[elem.id] = elem
                             })
-                            return _state.merge(Immutable.fromJS({
+                            return _state.merge(fromJS({
                                 data
                             }))
                         }
-                        return _state.merge(Immutable.fromJS({
+                        return _state.merge(fromJS({
                             data: response.data
                         }))
                     } else
                         return state.set('fetching', false)
                             .set('fetched', false)
-                            .set('errors', Immutable.fromJS(response.errors || ["Unable to process your request at this time"]))
+                            .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                 }
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
@@ -58,10 +59,10 @@ export const async_base_id = (base_name) => {
                     if (response.errors)
                         return state.set('fetching', false)
                             .set('fetched', false)
-                            .set('errors', Immutable.fromJS(response.errors))
+                            .set('errors', fromJS(response.errors))
                     return state.set('fetching', false)
                         .set('fetched', false)
-                        .set('errors', Immutable.fromJS(response))
+                        .set('errors', fromJS(response))
                 }
             case `${base_name}_FULFILLED`:
                 {
@@ -71,13 +72,13 @@ export const async_base_id = (base_name) => {
                         resObj[response.data.id] = response.data
                         return state.set('fetching', false)
                             .set('fetched', true)
-                            .merge(Immutable.fromJS({
+                            .merge(fromJS({
                                 data: resObj
                             }))
                     } else
                         return state.set('fetching', false)
                             .set('fetched', false)
-                            .set('errors', Immutable.fromJS(response.errors || ["Unable to process your request at this time"]))
+                            .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                 }
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
@@ -118,7 +119,7 @@ export const async_list_get_and_create = (base_name) => {
                     } else
                         return state.set('fetching', false)
                             .set('fetched', false)
-                            .set('errors', Immutable.fromJS(response.errors || ["Unable to process your request at this time"]))
+                            .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                 }
             case `CREATE_${base_name}_REJECTED`:
                 {
@@ -126,10 +127,10 @@ export const async_list_get_and_create = (base_name) => {
                     if (response.errors)
                         return state.set('fetching', false)
                                                 .set('fetched', false)
-                                                .set('errors', Immutable.fromJS(response.errors))
+                                                .set('errors', fromJS(response.errors))
                     return state.set('fetching', false)
                                             .set('fetched', false)
-                                            .set('errors', Immutable.fromJS(response))
+                                            .set('errors', fromJS(response))
                 }
             case '@@router/LOCATION_CHANGE':
                 return state.remove('errors')

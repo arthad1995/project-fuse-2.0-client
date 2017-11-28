@@ -18,6 +18,7 @@
     "css-loader": "^0.28.7",
     "dateformat": "^3.0.2",
     "draft-js": "0.10.x",
+    "express-cluster-stability": "^1.4.2",
     "html-webpack-plugin": "^2.30.1",
     "immutable": "^3.8.2",
     "js-cookie": "^2.2.0",

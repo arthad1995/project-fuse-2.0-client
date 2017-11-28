@@ -1,6 +1,6 @@
 import { not_loaded } from './initial_states'
 import { async_base } from './base_reducers'
-const {fromJS} = Immutable
+import {fromJS} from 'immutable'
 import Cookies from 'js-cookie'
 
 const load_handler = async_base('LOAD_USER')

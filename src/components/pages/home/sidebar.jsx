@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
+import {fromJS} from 'immutable'
 
 const mapStateToProps = (state) =>{
     return {
@@ -13,8 +14,8 @@ class Sidebar extends Component {
     constructor(props){ super(props)}
 
     render(){
-        const data = this.props.user.get('data') || Immutable.fromJS({})
-        const user = data.get('user') || Immutable.fromJS({})
+        const data = this.props.user.get('data') || fromJS({})
+        const user = data.get('user') || fromJS({})
         const name = user.get('name') || ''
         const num_friends = user.get('friend_count') || 0
         return (

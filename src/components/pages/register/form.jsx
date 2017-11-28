@@ -22,4 +22,4 @@ Form = reduxForm({
     destroyOnUnmount: false
 })(Form)
 
-export const RegisterForm = Form
+export default Form

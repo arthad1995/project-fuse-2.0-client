@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Editor } from '../../elements/editor'
-import { ErrorDisplay } from '../../elements/error_display'
+import { ErrorDisplay } from '../../../common'
 import { goBack } from 'react-router-redux'
 import { reduxForm, initialize } from 'redux-form'
 import { Redirect } from 'react-router-dom'
@@ -72,7 +72,7 @@ class Page extends Component {
 
         const saveFunc = (this.state.edit) ? this.props.save(this.props.history)(this.state.id) : this.props.save
 
-        if (this.state.edit && this.props.initialValues.loading) {
+        if (this.state.edit && this.props.initialValues.loading || !this.Form) {
             return <div className='loading'></div>
         }
 

@@ -8,9 +8,6 @@ module.exports = {
     entry: {
         vendor: ["react", "redux", "react-redux", "react-dom", "react-router", "js-cookie","redux-promise-middleware", "redux-thunk", "history"],
     },
-    externals: [
-        "immutable",
-    ],
     output: {
         filename: '[name].bundle.js',
         chunkFilename: '[chunkhash].bundle.js',

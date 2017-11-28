@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => {
     return {
-        animation: state.ui.get('animation') || Immutable.Map()
+        animation: state.ui.get('animation') || Map()
     }
 }
 require('./animations.scss')

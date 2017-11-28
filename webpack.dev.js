@@ -14,9 +14,6 @@ module.exports = merge(common, {
             './src/index.js',
         ],
     },
-    externals: [
-        "immutable",
-    ],
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
         new BundleAnalyzerPlugin(),

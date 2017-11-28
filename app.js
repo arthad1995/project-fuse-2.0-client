@@ -1,8 +1,11 @@
 const express = require('express')
 const app = express()
-var compression = require('compression')
+const compression = require('compression')
+const clusterStability = require('express-cluster-stability')
 
-app.use(compression())
-app.use(express.static('dist'))
-
-app.listen(8081, () => console.log('Example app listening on port 8081!'))
+clusterStability(({log}) => {
+    app.use(compression())
+    app.use(express.static('dist'))
+    
+    app.listen(8081, () => log('Example app listening on port 8081!'))    
+})
