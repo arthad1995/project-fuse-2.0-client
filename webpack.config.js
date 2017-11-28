@@ -22,7 +22,15 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.json', '*']
     },
-    plugins:[
+    plugins: [
+        new webpack.DefinePlugin({ // <-- key to reducing React's size
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.DedupePlugin(), //dedupe similar code 
+        //new webpack.optimize.UglifyJsPlugin(), //minify everything
+        new webpack.optimize.AggressiveMergingPlugin(), //Merge chunks 
         new webpack.HotModuleReplacementPlugin(),
         new BundleAnalyzerPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
@@ -33,23 +41,15 @@ module.exports = {
             name: "app",
             chunks: ["app"],
             filename: 'app.bundle.js',
-          }),
-          new webpack.optimize.CommonsChunkPlugin({
-              name: "vendor",
-              chunks: ["vendor"],
-              filename: 'vendor.bundle.js',
-            }),
-        //new UglifyJSPlugin(),
-        // new webpack.optimize.AggressiveSplittingPlugin({
-        //     minSize: 30000, //Byte, split point. Default: 30720
-        //     maxSize: 50000, //Byte, maxsize of per file. Default: 51200
-        //     chunkOverhead: 0, //Default: 0
-        //     entryChunkMultiplicator: 1, //Default: 1
-        // })
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            chunks: ["vendor"],
+            filename: 'vendor.bundle.js',
+        }),
     ],
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.jsx?$/,
                 exclude: /(node_modules)/,
                 loader: 'babel-loader',
@@ -75,4 +75,4 @@ module.exports = {
             }
         ]
     }
-  };
+};
