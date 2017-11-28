@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {render} from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router'
 import store, { history } from './store'
@@ -44,7 +44,7 @@ if (Cookies.get('SESSIONID') && Cookies.get('ID') && Cookies.get('EMAIL') && Coo
     )
 }
 
-ReactDOM.render(
+render(
     <Provider store={store}>
         <Router history={history}>
             <Layout />

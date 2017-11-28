@@ -20,4 +20,4 @@ Form = reduxForm({
     destroyOnUnmount: false
 })(Form)
 
-export const LoginForm = Form
+export default Form

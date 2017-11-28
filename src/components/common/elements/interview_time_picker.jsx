@@ -148,7 +148,9 @@ let _InterviewTimePicker = props => {
     )
 }
 
-export const InterviewTimePicker = reduxForm({ 
+const InterviewTimePicker = reduxForm({ 
     form: formName, 
     destroyOnUnmount: false 
 })(_InterviewTimePicker)
+
+export default InterviewTimePicker

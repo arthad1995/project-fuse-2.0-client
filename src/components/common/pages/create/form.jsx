@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ErrorDisplay } from '../../elements/error_display'
 import { goBack } from 'react-router-redux'
-import { Field, reduxForm, initialize } from 'redux-form'
+import { Field } from 'redux-form'
 import { Redirect } from 'react-router-dom'
 import { fromJS } from 'immutable'
 
@@ -21,7 +21,7 @@ class Form extends Component {
                     <input className='btn green-color' type="submit" id="submit" name="submit" value="Save" />
                     <div onClick={cancelAction} className="centered btn red-color">
                         Cancel
-                                </div>
+                    </div>
                 </div>
             </form>
         )

@@ -4,8 +4,10 @@ import {Editor, EditorState, ErrorDisplay} from '../../common'
 import {Redirect } from 'react-router'
 import {login} from '../../../actions/auth'
 import {fromJS} from 'immutable'
-import {LoginForm} from './form'
 import {Link} from 'react-router-dom'
+import {Async} from '../../common'
+
+const LoginForm = (props) => <Async load={import('./form')} {...props} />
 
 const mapStateToProps = (state) => {
     return {

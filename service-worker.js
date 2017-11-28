@@ -24,15 +24,19 @@ const dynamicCacheName = 'project_fuse-dynamic'
 self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(staticCacheName).then(function (cache) {
+      let bundle_files = []
+      
       //cache needed offline-files
       return cache.addAll([
         '.',
         '/assets/styles/animate.min.css',
         '/assets/styles/normalize.css',
-        '/bundle.js',
+        '/common.bundle.js',
+        '/app.bundle.js',
+        '/vendor.bundle.js',
         '/assets/images/project_fuse.svg',
         '/index.html'
-      ]);
+      ].concat(bundle_files));
     })
   );
 });

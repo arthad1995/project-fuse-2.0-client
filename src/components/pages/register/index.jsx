@@ -4,9 +4,10 @@ import {Editor, EditorState} from '../../common'
 import {Redirect } from 'react-router'
 import {register} from '../../../actions/auth'
 import {fromJS} from 'immutable'
-import {RegisterForm} from './form'
-import { SubmissionError } from 'redux-form'
 import {Link} from 'react-router-dom'
+import {Async} from '../../common'
+
+const RegisterForm = (props) => <Async load={import('./form')} {...props} />
 
 const mapStateToProps = (state) => {
     let user = state.user ||fromJS({})
