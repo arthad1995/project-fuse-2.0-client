@@ -26,7 +26,9 @@ export function user(state = not_loaded, action){
             Cookies.remove('NAME')
             Cookies.remove('EMAIL')
             if('serviceWorker' in navigator){
-                navigator.serviceWorker.controller.postMessage("clear-cached-user-data");
+                try{
+                    navigator.serviceWorker.controller.postMessage("clear-cached-user-data");
+                } catch (e) {}
             }
             break;
         case 'LOGIN_FULFILLED':{

@@ -2,8 +2,7 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 const webpack = require('webpack')
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = merge(common, {
     context: __dirname,
@@ -20,5 +19,6 @@ module.exports = merge(common, {
     ],
     plugins:[
         new webpack.HotModuleReplacementPlugin(),
+        new BundleAnalyzerPlugin(),
     ]
 });

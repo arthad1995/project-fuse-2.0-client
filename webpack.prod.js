@@ -3,7 +3,8 @@ const common = require('./webpack.common.js');
 
 const webpack = require('webpack')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, {
     devtool: 'cheap-module-source-map',
@@ -16,7 +17,7 @@ module.exports = merge(common, {
         "immutable",
     ],
     plugins: [
-        new webpack.DefinePlugin({ // <-- key to reducing React's size
+        new webpack.DefinePlugin({ 
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
@@ -31,8 +32,13 @@ module.exports = merge(common, {
             chunks: ["vendor"],
             filename: 'vendor.bundle.js',
         }),
-        new webpack.optimize.AggressiveMergingPlugin(), //Merge chunks 
-        new BundleAnalyzerPlugin(),
-        new UglifyJSPlugin(), //minify everything
+        new webpack.optimize.AggressiveMergingPlugin(), 
+        //new BundleAnalyzerPlugin(),
+        new UglifyJSPlugin(), 
+        new CopyWebpackPlugin([
+            { from: 'index.html' },
+            { from: 'service-worker.js' },
+            { from: 'assets', to: 'assets' }
+        ])
     ],
 })
