@@ -31,7 +31,6 @@ self.addEventListener('install', function (event) {
         '.',
         '/assets/styles/animate.min.css',
         '/assets/styles/normalize.css',
-        '/common.bundle.js',
         '/app.bundle.js',
         '/vendor.bundle.js',
         '/assets/images/project_fuse.svg',
