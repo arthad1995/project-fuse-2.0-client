@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { mapSingleKey } from '../mapping_helpers'
-import { stopEvent } from './stopEvent'
+import { mapSingleKey } from '../../mapping_helpers'
+import { stopEvent } from '../stopEvent'
 import TimeKeeper from 'react-timekeeper'
 import DayPicker from 'react-day-picker'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import { Tab, Tabs, TabList, TabPanel } from '../../../common'
 import { Field, reduxForm } from 'redux-form'
 const v = require('voca')
 const dateFormat = require('dateformat')
 import 'react-day-picker/lib/style.css';
 
 const formName = 'interview-time'
+require('./interview_time_picker.scss')
 
 class DateTimePicker extends Component {
     constructor(props) {
@@ -104,16 +105,18 @@ class DateTimePicker extends Component {
                                 </TabList>
 
                                 <TabPanel>
-                                    <DayPicker
-                                        selectedDays={this.state.selectedDay}
-                                        onDayClick={this.handleDayClick}
-                                        disabledDays={[
-                                            {
-                                                before: tomorrow,
-                                            },
-                                        ]}
-                                    />
-                                    <div onClick={doneClick} className='done-date-btn'>Done</div>
+                                    <div className="box-shadow">
+                                        <DayPicker
+                                            selectedDays={this.state.selectedDay}
+                                            onDayClick={this.handleDayClick}
+                                            disabledDays={[
+                                                {
+                                                    before: tomorrow,
+                                                },
+                                            ]}
+                                        />
+                                        <div onClick={doneClick} className='done-date-btn'>Done</div>
+                                    </div>
                                 </TabPanel>
                                 <TabPanel>
                                     <div className='no-margin'>
@@ -138,13 +141,18 @@ class DateTimePicker extends Component {
 }
 
 let _InterviewTimePicker = props => {
-    const {handleSubmit, dispatch} = props
+    const {handleSubmit, dispatch, cancel} = props
     return (
-        <form onSubmit={handleSubmit}>
-            <DateTimePicker dispatch={dispatch} name="interview start" onChange={(val) => this.setState()} />
-            <DateTimePicker dispatch={dispatch} name="interview end" />
-            <input type="submit" value="Save" />
-        </form>
+        <div className='clearfix timepicker'>
+            <form onSubmit={handleSubmit}>
+                <div className='inline'>
+                    <DateTimePicker dispatch={dispatch} name="interview start" onChange={(val) => this.setState()} />
+                    <DateTimePicker dispatch={dispatch} name="interview end" />
+                </div>
+                <button className="btn blue-color" type="submit"><i className="fa fa-plus" /> Add</button>
+                <a className="btn red-color" onClick={cancel}><i className="fa fa-ban" /> Cancel</a>
+            </form>
+        </div>
     )
 }
 

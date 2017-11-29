@@ -12,8 +12,8 @@ require('./animations.scss')
 export default class AnimationHandler extends Component {
     componentWillMount() {
         this.cancelUpdate = false
-        import('react-addons-css-transition-group').then((c) => {
-            this.Anim =   c
+        import('react-transition-group/CSSTransitionGroup').then((c) => {
+            this.Anim = c
             if (!this.cancelUpdate) {
                 this.forceUpdate()
             }
@@ -25,23 +25,33 @@ export default class AnimationHandler extends Component {
     }
 
     render() {
-        let animProp = this.props.animKey || false
+        let animProp = this.props.animKey || "always"
         let shouldRunAnim = (animProp && this.props.animation.get(animProp)) ? this.props.animation.get(animProp) : animProp === 'always'
 
-        let res =  <div className={this.props.renderClassName}>
+        let res = <div className={this.props.renderClassName}>
             {this.props.children}
         </div>
-        
-        if(shouldRunAnim && this.Anim)
-            return <this.Anim
-                transitionAppear={true}
-                transitionAppearTimeout={600}
-                transitionEnterTimeout={600}
-                transitionLeaveTimeout={200}
-                transitionName={this.props.anim || "SlideInLeft"}
-            >
-                {res}
-            </this.Anim>
+
+        if (shouldRunAnim && this.Anim) {
+            if (!this.props.hide_appear)
+                return <this.Anim
+                    transitionAppear={true}
+                    transitionAppearTimeout={600}
+                    transitionEnterTimeout={600}
+                    transitionLeaveTimeout={200}
+                    transitionName={this.props.anim || "SlideInLeft"}
+                >
+                    {res}
+                </this.Anim>
+            else
+                return <this.Anim
+                    transitionEnterTimeout={600}
+                    transitionLeaveTimeout={200}
+                    transitionName={this.props.anim || "SlideInLeft"}
+                >
+                    {res}
+                </this.Anim>
+        }
         return res
     }
 }

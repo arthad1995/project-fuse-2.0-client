@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {AnimationHandler} from '../common'
+import {AnimationHandler} from '../../common'
+
+require('./style.scss')
 
 const mapStateToProps = (state) => {
     return {

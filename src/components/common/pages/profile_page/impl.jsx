@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 const ReactMarkdown = require('react-markdown');
 import { AnimationHandler } from '../../../common'
 
+require('./style.scss')
+
 class Page extends Component {
     constructor(props) {
         super(props)

@@ -11,3 +11,15 @@ export const change_tab = target_tab => {
         payload: target_tab
     }
 }
+
+export const show_time_picker = () => {
+    return {
+        type: 'SHOW_TIME_PICKER'
+    }
+}
+
+export const hide_time_picker = () => {
+    return {
+        type: 'HIDE_TIME_PICKER'
+    }
+}

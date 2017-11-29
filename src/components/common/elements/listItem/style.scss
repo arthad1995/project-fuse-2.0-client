@@ -1,0 +1,19 @@
+@import "../../../../common.scss";
+
+li.listItem {
+    div.name {
+        @include for-tablet-landscape-up {
+            float: left;
+        }
+        line-height: 50px;
+    }
+    .buttons {
+        @include for-tablet-landscape-up {
+            float: right;
+            .btn {
+                font-size: 100%;
+                margin: 0 0.5rem;
+            }
+        }
+    }
+} 

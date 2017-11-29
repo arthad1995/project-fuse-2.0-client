@@ -1,3 +1,21 @@
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
 .SlideInLeft-appear {
   transform: translateX(30px);
   opacity: 0.3;
@@ -89,7 +107,7 @@
 
 .SlideInTop-enter.SlideInTop-enter-active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
   transition: all 0.2s linear 0.4s;
 }
 
@@ -107,3 +125,42 @@
   transform: translateY(-30px);
   transition: all 0.2s linear;
 }
+
+.SlideInBottom-appear {
+  transform: translateY(30px);
+  opacity: 0.3;
+}
+
+.SlideInBottom-appear.SlideInBottom-appear-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.5s linear;
+}
+
+.SlideInBottom-enter {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.SlideInBottom-enter.SlideInBottom-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.2s linear 0.4s;
+}
+
+.SlideInBottom-leave,
+.SlideOutTop-leave {
+  opacity: 1.0;
+  transform: translateX(0);
+}
+
+.SlideInBottom-leave.SlideInBottom-leave-active,
+.SlideOutTop-leave.SlideOutTop-leave-active {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  transform: translateY(30px);
+  transition: all 0.2s linear;
+}
+
+

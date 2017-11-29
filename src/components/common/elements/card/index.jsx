@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import Timestamp from 'react-timestamp'
 import {Link} from 'react-router-dom'
 
+require('./style.scss')
+
 class Card extends Component {
     constructor(props){ super(props)}
 

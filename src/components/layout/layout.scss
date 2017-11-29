@@ -101,14 +101,6 @@ $header-height: 40px;
   }
 }
 
-.footer {
-  @extend .accent-color;
-  height: 50px;
-  text-align: center;
-  width: 100%;
-  padding: 0.75rem 1rem;
-}
-
 .pageBody {
   @extend .clearfix;
   margin: 0rem 0.5rem;
@@ -132,191 +124,10 @@ div.edit-btn {
   }
 }
 
-.leftSidebar,
-.leftSidebar-show,
-.leftSidebar-phone {
-  @extend .card-color;
-  width: calc(30% - 3rem);
-  float: left;
-  margin: 1rem 1rem 1rem;
-  .section {
-    width: 100%;
-    padding: 1rem;
-    ~.section,
-    ~a .section,
-    ~label .section {
-      border-top: 1px solid rgba(0, 0, 0, 0.2);
-    }
-    label {
-      @extend .pointer;
-    }
-  }
-  label~label .section,
-  a~a .section {
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-  }
-  a {
-    color: #111;
-    text-decoration: none;
-  }
-  .selected {
-    font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.065);
-  }
-}
-
-.leftSidebar-show {
-  @include for-phone-only {
-    width: calc(100% - 2rem);
-    margin: 1rem;
-  }
-}
-
-.leftSidebar-phone {
-  @include for-phone-only {
-    width: calc(100% - 2rem);
-    margin: 1rem;
-  }
-  @include for-tablet-portrait-up {
-    display: none;
-  }
-}
-
-.leftSidebar {
-  @extend .hideOnPhone;
-}
-
-.content {
-  @extend .card-color;
-  float: left;
-  padding: 1rem;
-  @include for-phone-only {
-    width: calc(100% - 2rem);
-    margin: 1rem;
-  }
-  @include for-tablet-portrait-up {
-    width: calc(70% - 2rem);
-    margin: 1rem 2rem 1rem 0rem;
-  }
-  @include for-tablet-landscape-up {
-    width: calc(70% - 3rem);
-    margin: 1rem 2rem 1rem;
-  }
-}
-
-.full-content {
-  @extend .card-color;
-  padding: 1rem;
-  margin: 1rem;
-  width: calc(100% - 2rem);
-}
-
 .centered {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-}
-
-.num_friends {
-  div {
-    margin-top: 0.5rem;
-  }
-   :first-child {
-    color: rgb(9, 94, 116);
-    font-weight: bold;
-    font-size: 125%;
-  }
-   :last-child {
-    font-weight: bold;
-    a:hover {
-      color: lighten(rgb(9, 94, 116), 10%);
-    }
-  }
-}
-
-.tabs {
-  .tab-content {
-    width: 100%;
-    clear: both;
-    padding: 1rem 2rem;
-  }
-}
-
-.card {
-  @extend .clearfix;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: rgba(0, 0, 0, 0.065);
-  border-radius: 15px;
-  ~.card {
-    margin-top: 1rem;
-  }
-  div {
-    border: none
-  }
-  div.bubble {
-    $bubbleSize: 30px;
-    position: relative;
-    z-index: 1; //border: inherit;
-    display: inline-block;
-    font-size: $bubbleSize/2;
-    height: $bubbleSize;
-    width: $bubbleSize;
-    border-radius: $bubbleSize/2;
-    margin: 0.5rem 0.5rem 0rem 0.5rem;
-     :before {
-      position: absolute;
-      line-height: $bubbleSize - 2px;
-      text-align: center;
-      vertical-align: bottom;
-      z-index: 5;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: $bubbleSize;
-      height: $bubbleSize;
-      border-radius: $bubbleSize/2;
-      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
-    }
-    @include for-tablet-portrait-below {
-      width: 30px;
-      height: 30px;
-      line-height: 30px;
-      font-size: 15px;
-    }
-  }
-  div.title {
-    padding: 0 1rem;
-    margin-top: 0.5rem;
-    font-size: 1.5rem;
-    color: hsl(0, 0%, 35%);
-    @include for-tablet-portrait-below {
-      font-size: 1.25rem;
-      line-height: 30px;
-    }
-  }
-  .cardFooter {
-    @extend .clearfix;
-    div {
-      float: left;
-      margin-left: 1rem;
-    }
-  }
-  div.time {
-    float: right;
-    font-size: 75%;
-    padding-right: 1rem;
-    padding-bottom: 0.5rem;
-  }
-  .content {
-    width: calc(100% - 2rem);
-    margin: 0rem 1rem;
-    padding: 1rem 0;
-    background-color: rgba(0, 0, 0, 0);
-  }
-  .minorPadding {
-    height: 0.7rem;
-  }
 }
 
 ul.list {
@@ -333,36 +144,8 @@ ul.list {
   }
 }
 
-.description {
-  iframe {
-    margin: 1rem auto;
-    display: block;
-    max-width: 80%;
-  }
-}
-
 img.profileImage {
   width: 80%;
-}
-
-.summary {
-  font-style: italic;
-}
-
-.wysiwygEditor {
-  min-height: 320px;
-}
-
-.wysiwygWrapper {
-  margin: 1.5rem auto;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  width: 90%;
-}
-
-.wysiwygToolbar {
-  background-color: #444;
-  margin: 0px;
-  padding-bottom: 0.5rem;
 }
 
 .withMargins > div {
@@ -372,9 +155,9 @@ img.profileImage {
 .btn {
   @extend .pointer;
   margin: 1rem 0.5rem;
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
   border-radius: 15px;
-  font-size: 150%;
+  font-size: 125%;
   text-align: center;
   width: 90%;
   @include for-tablet-landscape-up {
@@ -401,97 +184,12 @@ img.profileImage {
   text-align: center;
 }
 
-li.listItem {
-  div.name {
-    @include for-tablet-landscape-up {
-      float: left;
-    }
-    line-height: 50px;
-  }
-  .buttons {
-    @include for-tablet-landscape-up {
-      float: right;
-      .btn {
-        font-size: 100%;
-        margin: 0 0.5rem;
-      }
-    }
-  }
-}
-
-.popup {
-  @extend .clearfix;
-  @extend .card-color;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  text-align: center;
-  width: 25vw;
-  top: calc(50vh - 10rem);
-  left: 37.5vw;
-  z-index: 99999;
-  height: 20rem;
-  position: absolute;
-  .btn {
-    float: none;
-    margin: 2rem auto;
-    width: 10rem;
-    position: absolute;
-    bottom: 5rem;
-    left: calc(12.5vw - 5rem);
-  }
-}
-
-.popup-bg {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: -0.8vw;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 99998;
-}
-
-.w80 {
-  width: 80%;
-  border-left: 1px solid rgba(0, 0, 0, 0.2);
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
-}
-
 .login-box {
   max-width: 350px;
 }
 
 .register-box {
   max-width: 650px;
-}
-
-.indicator {
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-  opacity: 0;
-  visibility: hidden;
-  background: hsl(240, 10%, 20%);
-  padding: 10px;
-  color: white;
-}
-
-.indicator.offline,
-.indicator.was_offline {
-  opacity: 1;
-  visibility: visible;
-}
-
-.indicator.offline:before {
-  content: "You are currently offline. While you are offline, you may use the app but some features may not work and information may be outdated.";
-}
-
-.indicator.was_offline {
-  background: hsl(120, 15%, 25%);
-}
-
-.indicator.was_offline:before {
-  content: "You were recently offline, refresh the page to get the most updated information.";
 }
 
 .login-box,
@@ -785,68 +483,14 @@ $loading-size: 100px;
   background: none !important;
 }
 
-.react-tabs__tab-list {
-  @extend .clearfix;
-  list-style: none;
-  margin: 0 auto;
-  width: 80%;
-  padding: 0px;
+.box-shadow {
+  box-shadow: rgba(0, 0, 0, 0.13) 0px 3px 6px, rgba(0, 0, 0, 0.19) 0px 3px 6px;
 }
 
-$tab-color: hsl(240, 80%, 58%);
-
-.react-tabs__tab-list::before{
-  border: 2px solid $tab-color;
-  position: absolute;
-  left: 0px;
-  z-index: 1;
-  top: 51px;
-  width: 100%;
-  background: black;
-  content: '';
+.inline{
+  display: inline-block;
 }
 
-.react-tabs__tab {
-  cursor: pointer;
-  float: left;
-  padding: 5px 10px;
-  background-color: $tab-color;
-  border: 3px solid $tab-color;
-  border-bottom: none;
-  color: white;
-  text-align: center;
+.hidden{
+  display: none;
 }
-
-.react-tabs__tab--selected {
-  cursor: default;
-  background-color: white;
-  border-bottom-color: white;
-  color: inherit;
-  position: relative;
-  z-index: 100;
-}
-
-.react-tabs__tab-panel {
-  margin-top: 20px;
-}
-
-.done-date-btn, .DayPicker {
-  display: block;
-  color: rgb(104, 104, 104);
-  text-transform: uppercase;
-  border: 1px solid rgb(204, 204, 204);
-  text-align: center;
-  cursor: pointer;
-  padding: 16px 0px;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-  line-height: normal;
-  font-weight: 500;
-  text-align: center; 
-  background: rgb(244, 244, 244);
-}
-
-.DayPicker{
-  border-bottom: none;
-}
-
