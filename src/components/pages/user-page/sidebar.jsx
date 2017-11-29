@@ -1,26 +1,51 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
     return {
         users: state.users
     }
 }
 
-@connect( mapStateToProps )
+@connect(mapStateToProps)
 class Sidebar extends Component {
-    constructor(props){ super(props)}
+    constructor(props) { super(props) }
 
-    render(){
+    render() {
         const params = this.props.match.params
         const data = this.props.users.get('data')
-        const elem = (data) ? data.get(params.id) : null
-        if(elem){
+        const id = params.id
+        const elem = (data) ? data.get(id) : null
+        if (elem) {
             return <div>
-                Hi there
+                {/* <Link to={`/users/${id}/friends`}>*/}
+                    <div className='section centered'>
+                        Friends
+                 </div>
+                {/* </Link>*/}
+                {/*<Link to={`/users/${id}/teams`}>*/}
+                    <div className='section centered'>
+                        Teams
+                    </div>
+                {/* </Link>*/}
+                {/* <Link to={`/teams/${id}/projects`}>*/}
+                    <div className="section centered">
+                        Projects
+                    </div>
+                {/* </Link>*/}
+                {/* <Link to={`/teams/${id}/organizations`}>*/}
+                    <div className="section centered">
+                        Organizations
+                    </div>
+                {/* </Link>*/}
+                {/* <Link to={`/teams/${id}/links`}>*/}
+                    <div className="section centered">
+                        Links
+                    </div>
+                {/* </Link>*/}
             </div>
-        }else{
+        } else {
             return <div></div>
         }
     }

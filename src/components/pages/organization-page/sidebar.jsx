@@ -23,31 +23,32 @@ class Sidebar extends Component {
                         Organization Home
                     </div>
                 </Link>
-                <Link to={`/organizations/${id}/projects`}>
+                <div className="hidden section centered"></div>
+                {/*<Link to={`/organizations/${id}/projects`}>*/}
                     <div className="section centered">
                         Projects
                     </div>
-                </Link>
-                <Link to={`/organizations/${id}/teams`}>
+                {/*</Link>*/}
+                {/*<Link to={`/organizations/${id}/teams`}>*/}
                     <div className="section centered">
                         Teams
                     </div>
-                </Link>
-                <Link to={`/organizations/${id}/members`}>
+                {/*</Link>*/}
+                {/*<Link to={`/organizations/${id}/members`}>*/}
                     <div className="section centered">
                         Members
                     </div>
-                </Link>
-                <Link to={`/organizations/${id}/links`}>
+                {/*</Link>*/}
+                {/*<Link to={`/organizations/${id}/links`}>*/}
                     <div className="section centered">
                         Links
                     </div>
-                </Link>
-                <Link to={`/organizations/${id}/stats`}>
+                {/*</Link>*/}
+                {/*<Link to={`/organizations/${id}/stats`}>*/}
                     <div className="section centered">
                         Statistics
                     </div>
-                </Link>
+                {/*</Link>*/}
                 <Link to={`/organizations/${id}/settings`}>
                     <div className="section centered">
                         Settings

@@ -30,15 +30,13 @@ const createArray = (paths, params) => {
 
 const __pages = ['projects', 'teams', 'organizations', 'users']
 
-const no_buttons = (e) => <span></span>
-
 const pages = {
     my_: __pages,
     search: createArray(__pages, [
         { apply: ApplyButton('projects'),  load: searchProjects }, 
         { apply: ApplyButton('teams'),  load: searchTeams }, 
         { apply: ApplyButton('organizations'),  load: searchOrganizations }, 
-        { apply: ApplyButton('users'),  load: searchUsers, buttons: no_buttons }
+        { apply: ApplyButton('users', 'Add Friend'),  load: searchUsers, applicationHeadline:"Friend invite sent!", applicationSummary: "Your friend invite was sent succesfully!" }
     ]),
     profiles: createArray(__pages, [
         { canEdit: () => true,  load: loadProject }, 

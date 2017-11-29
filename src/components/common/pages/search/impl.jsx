@@ -24,14 +24,18 @@ class Page extends Component {
         }
 
         const data = (this.props[this.props.index].get('data')) ? this.props[this.props.index].get('data').toObject() : null
+
+        const applicationHeadline = this.props.applicationHeadline || "Application Submitted!"
+        const applicationSummary = this.props.applicationSummary || "Your application was submitted succesfully!"
+
         if (data) {
             return (
                 <AnimationHandler anim="SlideInTop" animKey='always'>
                     <div id={`popup`} className="modalDialog" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}>
                         <div onClick={(e) => {stopEvent(e); return false;}}>
                             <div className="modal_close" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}></div>
-                            <h2>Application submitted!</h2>
-                            <p>Your application was submitted succesfully!</p>
+                            <h2>{applicationHeadline}</h2>
+                            <p>{applicationSummary}</p>
                         </div>
                     </div>
                     <div>

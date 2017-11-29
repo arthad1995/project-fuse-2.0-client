@@ -22,7 +22,7 @@ export default class Menu extends Component {
             restOfMenu = (
                 <ul className="menu">
                     <li>
-                        <Link to={`/profile/${user.get('id')}`}>
+                        <Link to={`/users/${user.get('id')}`}>
                             <i className="icon fa fa-user"></i>
                         </Link>
                         <ul className="dropdown">

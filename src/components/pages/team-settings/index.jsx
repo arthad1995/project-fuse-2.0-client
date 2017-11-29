@@ -1,39 +1,5 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import Sidebar from './sidebar'
-import { InterviewTimePicker } from '../../common'
+import React from 'react'
+import {Async} from '../../common'
 
-const mapStateToProps = (state) => {
-    return {
-    }
-}
-
-const page_generator = (paramObj) => {
-
-    @connect(mapStateToProps)
-    class Page extends Component {
-        constructor(props) { super(props) }
-
-        componentDidMount() {
-            if (this.props.load)
-                this.props.load(this.props.match.params.id)
-            else if (paramObj.param && paramObj.param.load)
-                paramObj.param.load(this.props.match.params.id)
-            else if(paramObj.load)
-            paramObj.load(this.props.match.params.id)
-        }
-
-        render() {
-            return (
-                <div>
-                    <h2>Interview Settings</h2>
-                    <InterviewTimePicker onSubmit={state => (vals) => console.log(vals)} />
-                </div>
-            )
-        }
-    }
-    return Page
-}
-
-export const TeamSettings = page_generator
-export const TeamSettingsSidebar = Sidebar
+export const TeamSettings = (params) => (props) => <Async load={import('./impl')}  {...props} params={params}/>
+export const TeamSettingsSidebar = (props) => <Async load={import('./sidebar')}  {...props}/>
