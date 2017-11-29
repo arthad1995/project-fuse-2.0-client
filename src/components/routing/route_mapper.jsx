@@ -12,6 +12,7 @@ import { OrganizationStatsPage } from '../pages/organization-stats'
 import { LoginPage } from '../pages/login'
 import { RegisterPage } from '../pages/register'
 import { logout } from '../../actions/auth'
+import {addFriend, applyToOrganization, applyToTeam, applyToProject} from '../../actions/apply'
 import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '../../actions/search'
 import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
@@ -19,6 +20,7 @@ import { updateProject, updateTeam, updateOrganization, updateCurrentUser } from
 import {ProjectSettings, ProjectSettingsSidebar} from '../pages/project-settings'
 import {TeamSettings, TeamSettingsSidebar} from '../pages/team-settings'
 import {OrganizationSettings, OrganizationSettingsSidebar} from '../pages/organization-settings'
+import {userTest, orgTest, teamTest, projTest} from './search_apply_testing'
 
 const createArray = (paths, params) => {
     let res = []
@@ -28,15 +30,16 @@ const createArray = (paths, params) => {
     return res
 }
 
+
 const __pages = ['projects', 'teams', 'organizations', 'users']
 
 const pages = {
     my_: __pages,
     search: createArray(__pages, [
-        { apply: ApplyButton('projects'),  load: searchProjects }, 
-        { apply: ApplyButton('teams'),  load: searchTeams }, 
-        { apply: ApplyButton('organizations'),  load: searchOrganizations }, 
-        { apply: ApplyButton('users', 'Add Friend'),  load: searchUsers, applicationHeadline:"Friend invite sent!", applicationSummary: "Your friend invite was sent succesfully!" }
+        { apply: ApplyButton(['user','user_projects'], projTest, applyToProject),  load: searchProjects }, 
+        { apply: ApplyButton(['user','user_teams'], teamTest, applyToTeam),  load: searchTeams }, 
+        { apply: ApplyButton(['user','user_organizations'], orgTest, applyToOrganization),  load: searchOrganizations }, 
+        { apply: ApplyButton(['user', 'friends'], userTest, addFriend, 'Add Friend'),  load: searchUsers, applicationHeadline:"Friend invite sent!", applicationSummary: "Your friend invite was sent succesfully!" }
     ]),
     profiles: createArray(__pages, [
         { canEdit: () => true,  load: loadProject }, 

@@ -1,5 +1,6 @@
 import { not_loaded } from './initial_states'
 import {fromJS} from 'immutable'
+import { basename } from 'path';
 
 export const async_base = (base_name) => {
     return (state = not_loaded, action) => {
@@ -138,4 +139,14 @@ export const async_list_get_and_create = (base_name) => {
         }
         return state
     }
+}
+
+export const append_wrapper = (type) => (to_wrap)  => (state, action) => {
+    state = to_wrap(state, action)
+    const list = state.get('data') || fromJS({})
+    switch (action.type) {
+        case type:
+            return state.set('data', list.set(action.payload.id,fromJS(action.payload)))
+    }
+    return state;
 }

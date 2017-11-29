@@ -9,11 +9,13 @@ import {projects} from './projects'
 import {organizations} from './organizations'
 import {teams} from './teams'
 import {users} from './users'
+import {friends} from './friends'
 
 export default {
     user,
     edit_obj,
     feed, 
+    friends,
     user_projects, 
     user_teams,
     user_organizations, 
