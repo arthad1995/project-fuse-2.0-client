@@ -7,7 +7,7 @@ import Layout from './components/layout'
 import Cookies from 'js-cookie'
 import mockData from './mock_data'
 
-mockData(store)
+mockData(store.dispatch)
 
 function updateOnlineStatus(event) {
     if (navigator.onLine) {

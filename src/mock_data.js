@@ -1,6 +1,6 @@
-export default function (store) {
+export default function (dispatch) {
     let id = 1;
-    store.dispatch({
+    dispatch({
         type: 'LOAD_FEED_FULFILLED',
         payload: {
             data: {
@@ -53,5 +53,4 @@ export default function (store) {
             }
         }
     })
-
 }
