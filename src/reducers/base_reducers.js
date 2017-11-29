@@ -44,6 +44,10 @@ export const async_base = (base_name) => {
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
                     return state.remove('errors')
+                break;
+            case 'LOGOUT_FULFILLED':
+            case 'LOGOUT_REJECTED':
+                return not_loaded
         }
         return state;
     }
@@ -84,14 +88,12 @@ export const async_base_id = (base_name) => {
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
                     return state.remove('errors')
+                break;
+            case 'LOGOUT_FULFILLED':
+            case 'LOGOUT_REJECTED':
+                return not_loaded
         }
         return state;
-    }
-}
-
-export const async_base_redirect = (base_name) => {
-    return (state = not_loaded, action) => {
-
     }
 }
 
@@ -99,7 +101,7 @@ export const async_get_and_get_by_id = (base_name) => {
     const load_handler_all = async_base(`LOAD_${base_name}_INFO`)
     const load_handler_by_id = async_base_id(`LOAD_${base_name}_BY_ID`)
 
-    return (state = not_loaded, action) => state.merge(load_handler_by_id(load_handler_all(state, action), action))
+    return (state = not_loaded, action) => load_handler_by_id(load_handler_all(state, action), action)
 }
 
 export const async_list_get_and_create = (base_name) => {
