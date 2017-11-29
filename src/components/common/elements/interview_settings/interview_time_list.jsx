@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { InterviewTimePicker } from '../../../common'
 import dfns from 'date-fns'
 import Clock from '../clock'
 

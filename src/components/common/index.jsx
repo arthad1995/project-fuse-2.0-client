@@ -16,8 +16,7 @@ export {Editor} from './elements/editor'
 export {ApplyButton} from './elements/application'
 export const Card = (props) => <Async load={import('./elements/card')} {...props} />
 export const ErrorDisplay = (props) => <Async load={import('./elements/error_display')} {...props} ><div></div></Async>
-export const InterviewTimePicker = (props) => <Async load={import('./elements/interview_settings/interview_time_picker')} {...props} />
-export const InterviewTimeList = (props) => <Async load={import('./elements/interview_settings/interview_time_list')} {...props} />
+export const InterviewSettings = (props) => <Async load={import('./elements/interview_settings')} {...props} />
 
 export {default as Async} from './async'
 
