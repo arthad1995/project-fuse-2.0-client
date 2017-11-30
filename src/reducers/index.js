@@ -4,6 +4,9 @@ import {feed} from './feed'
 import {user_projects} from './user_projects'
 import {user_teams} from './user_teams'
 import {user_organizations} from './user_organizations'
+import {applied_projects} from './applied_projects'
+import {applied_teams} from './applied_teams'
+import {applied_organizations} from './applied_organizations'
 import {ui} from './ui'
 import {projects} from './projects'
 import {organizations} from './organizations'
@@ -19,6 +22,9 @@ export default {
     user_projects, 
     user_teams,
     user_organizations, 
+    applied_projects, 
+    applied_teams,
+    applied_organizations, 
     ui, 
     projects,
     organizations,

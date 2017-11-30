@@ -34,7 +34,7 @@ export default class AnimationHandler extends Component {
 
         if (shouldRunAnim && this.Anim) {
             if (!this.props.hide_appear)
-                return <this.Anim
+                return<div className='zindex-fix'><this.Anim
                     transitionAppear={true}
                     transitionAppearTimeout={600}
                     transitionEnterTimeout={600}
@@ -42,7 +42,7 @@ export default class AnimationHandler extends Component {
                     transitionName={this.props.anim || "SlideInLeft"}
                 >
                     {res}
-                </this.Anim>
+                </this.Anim></div>
             else
                 return <this.Anim
                     transitionEnterTimeout={600}

@@ -36,9 +36,9 @@ const __pages = ['projects', 'teams', 'organizations', 'users']
 const pages = {
     my_: __pages,
     search: createArray(__pages, [
-        { apply: ApplyButton(['user','user_projects'], projTest, applyToProject),  load: searchProjects }, 
-        { apply: ApplyButton(['user','user_teams'], teamTest, applyToTeam),  load: searchTeams }, 
-        { apply: ApplyButton(['user','user_organizations'], orgTest, applyToOrganization),  load: searchOrganizations }, 
+        { apply: ApplyButton(['user','applied_projects','user_projects'], projTest, applyToProject),  load: searchProjects }, 
+        { apply: ApplyButton(['user','applied_teams','user_teams'], teamTest, applyToTeam),  load: searchTeams }, 
+        { apply: ApplyButton(['user','applied_organizations','user_organizations'], orgTest, applyToOrganization),  load: searchOrganizations }, 
         { apply: ApplyButton(['user', 'friends'], userTest, addFriend, 'Add Friend'),  load: searchUsers, applicationHeadline:"Friend invite sent!", applicationSummary: "Your friend invite was sent succesfully!" }
     ]),
     profiles: createArray(__pages, [

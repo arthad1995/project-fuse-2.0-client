@@ -7,7 +7,8 @@ require('./sidebar.scss')
 
 const mapStateToProps = (state) =>{
     return {
-        user: state.user
+        user: state.user,
+        friends: state.friends
     }
 }
 

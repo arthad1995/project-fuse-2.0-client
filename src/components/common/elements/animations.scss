@@ -1,10 +1,14 @@
+.zindex-fix{
+  z-index:-1;
+}
+
 .fade-enter {
   opacity: 0.01;
 }
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: z-index 0.6s, opacity 500ms ease-in;
 }
 
 .fade-leave {
@@ -13,10 +17,10 @@
 
 .fade-leave.fade-leave-active {
   opacity: 0.01;
-  transition: opacity 300ms ease-in;
+  transition: z-index 0.6s, opacity 300ms ease-in;
 }
 
-.SlideInLeft-appear {
+.SlideInLeft-appear { z-index: 1;
   transform: translateX(30px);
   opacity: 0.3;
 }
@@ -25,7 +29,7 @@
   opacity: 1;
   transform: translateX(0);
   ;
-  transition: all 0.5s linear;
+  transition: z-index 0.6s, all 0.5s linear;
 }
 
 .SlideInLeft-enter {
@@ -36,7 +40,7 @@
 .SlideInLeft-enter.SlideInLeft-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 0.2s linear 0.4s;
+  transition: z-index 0.6s, all 0.2s linear 0.4s;
 }
 
 .SlideInLeft-leave {
@@ -49,10 +53,10 @@
   position: absolute;
   width: 100%;
   transform: translateX(-30px);
-  transition: all 0.2s linear;
+  transition: z-index 0.6s, all 0.2s linear;
 }
 
-.SlideInRight-appear {
+.SlideInRight-appear { z-index: 1;
   transform: translateX(-30px);
   opacity: 0.3;
 }
@@ -61,7 +65,7 @@
   opacity: 1;
   transform: translateX(0);
   ;
-  transition: all 0.5s linear;
+  transition: z-index 0.6s, all 0.5s linear;
 }
 
 .SlideInRight-enter {
@@ -72,7 +76,7 @@
 .SlideInRight-enter.SlideInRight-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 0.2s linear 0.4s;
+  transition: z-index 0.6s, all 0.2s linear 0.4s;
 }
 
 .SlideInRight-leave {
@@ -85,10 +89,10 @@
   position: absolute;
   width: 100%;
   transform: translateX(30px);
-  transition: all 0.2s linear;
+  transition: z-index 0.6s, all 0.2s linear;
 }
 
-.SlideInTop-appear {
+.SlideInTop-appear { z-index: 1;
   transform: translatey(-30px);
   opacity: 0.3;
 }
@@ -97,7 +101,7 @@
   opacity: 1;
   transform: translateX(0);
   ;
-  transition: all 0.5s linear;
+  transition: z-index 0.6s, all 0.5s linear;
 }
 
 .SlideInTop-enter {
@@ -108,7 +112,7 @@
 .SlideInTop-enter.SlideInTop-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: all 0.2s linear 0.4s;
+  transition: z-index 0.6s, all 0.2s linear 0.4s;
 }
 
 .SlideInTop-leave,
@@ -123,10 +127,10 @@
   position: absolute;
   width: 100%;
   transform: translateY(-30px);
-  transition: all 0.2s linear;
+  transition: z-index 0.6s, all 0.2s linear;
 }
 
-.SlideInBottom-appear {
+.SlideInBottom-appear { z-index: 1;
   transform: translateY(30px);
   opacity: 0.3;
 }
@@ -134,7 +138,7 @@
 .SlideInBottom-appear.SlideInBottom-appear-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 0.5s linear;
+  transition: z-index 0.6s, all 0.5s linear;
 }
 
 .SlideInBottom-enter {
@@ -145,7 +149,7 @@
 .SlideInBottom-enter.SlideInBottom-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: all 0.2s linear 0.4s;
+  transition: z-index 0.6s, all 0.2s linear 0.4s;
 }
 
 .SlideInBottom-leave,
@@ -160,7 +164,7 @@
   position: absolute;
   width: 100%;
   transform: translateY(30px);
-  transition: all 0.2s linear;
+  transition: z-index 0.6s, all 0.2s linear;
 }
 
 
