@@ -13,6 +13,10 @@ class Card extends Component {
         const content = this.props.content || ''
         const type = this.props.type || 'info'
         const time = this.props.time || ((Date.now() / 1000) | 0);
+
+        const accept = this.props.accept || (()=>{})
+        const decline = this.props.decline || (()=>{})
+
         let footer = ''
         let icon = 'fa-info'
         let color = 'tone1-3' // 1-1
@@ -34,15 +38,19 @@ class Card extends Component {
                 icon='fa-plus'
                 color='tone1-2' //1-5
                 footer=<div>
-                    <div className='btn tone1-1-color'>Accept</div>
-                    <div className='btn tone1-2-color'>Decline</div>
+                    <div className='btn tone1-1-color' onClick={accept}>Accept</div>
+                    <div className='btn tone1-2-color' onClick={decline}>Decline</div>
                 </div>
+                break
+            case 'declined': 
+                icon='fa-ban'
+                color='tone1-6' //1-5
                 break
             case 'acceptance':
                     icon='fa-check'
                     color='tone1-4' //1-6
                     footer=(
-                        <div><Link to='/projects/1'>See Project Members</Link></div>
+                        <div><Link to='/projects/1'>See Project</Link></div>
                     )
                     break;
             case 'info':

@@ -494,3 +494,16 @@ $loading-size: 100px;
 .hidden{
   display: none;
 }
+
+input[type=text], textarea{
+  width: 100%;
+  margin: 0.5rem 0rem 1.25rem;
+  padding: 0.5rem;
+}
+
+textarea{
+  height: 7rem;
+  min-height: 5rem;
+  max-width: 100%;
+  min-width: 100%;
+}

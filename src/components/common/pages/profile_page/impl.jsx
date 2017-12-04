@@ -4,6 +4,7 @@ import { mapSingleKey } from '../../mapping_helpers'
 import { Link } from 'react-router-dom'
 const ReactMarkdown = require('react-markdown');
 import { AnimationHandler } from '../../../common'
+import {Map} from 'immutable'
 
 require('./style.scss')
 
@@ -37,18 +38,28 @@ class Page extends Component {
         const data = this.props[this.props.index].get('data')
         const elem = (data) ? data.get(params.id) : null
         const editBtn = (this.props.canEdit && this.props.canEdit(this.props) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fa fa-pencil'></i></Link></div> : '')
+        const customElems = this.props.customElems || (e =>null)
 
         if (elem) {
+            const profile = elem.get('profile') || elem.get('userProfile') || Map()
             return (
                 <AnimationHandler anim="SlideInTop" animKey='always'>
-                    <div>
-                        <h1 className='title'>{elem.get('name')} {editBtn}</h1>
-                        {this.renderOwnerInfo(elem)}
-                        <div className='summary'>
-                            {elem.get('summary') || ''}
-                        </div>
-                        <div className='description'>
-                            <ReactMarkdown source={elem.get('content') || ''} />
+                    <div className="profile">
+                        <div className="profile_header"></div>
+                        <div className="profile_title">
+                            <div className="profile_picture"><div><i className="fa fa-user" /></div></div>
+                            <h1 className='title'>{elem.get('name')}{editBtn}</h1>
+                            {this.renderOwnerInfo(elem)}
+                            <div className='headline'>
+                                {profile.get('headline') || ''}
+                            </div>
+                            <div className='summary'>
+                                {profile.get('summary') || ''}
+                            </div>
+                            {customElems(elem)}
+                            <div className='description'>
+                                <ReactMarkdown source={elem.get('content') || ''} />
+                            </div>
                         </div>
                     </div>
                 </AnimationHandler>

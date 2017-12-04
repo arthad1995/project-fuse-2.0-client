@@ -5,7 +5,7 @@ import NoMatch from './404'
 import Home, { HomeSidebar } from '../pages/home'
 import { ProjectPageSidebar } from '../pages/project-page'
 import { TeamPageSidebar } from '../pages/team-page'
-import { UserPageSidebar } from '../pages/user-page'
+import { UserCustomElems, UserCustomElemsEdit, UserPageSidebar } from '../pages/user-page'
 import { OrganizationPageSidebar } from '../pages/organization-page'
 import { OrganizationCreateSidebar } from '../pages/organization-create'
 import { OrganizationStatsPage } from '../pages/organization-stats'
@@ -52,7 +52,7 @@ const pages = {
         { canEdit: () => true,  load: loadProject }, 
         { canEdit: () => true,  load: loadTeam }, 
         { canEdit: () => true,  load: loadOrganization }, 
-        { canEdit: () => true,  load: loadUser }
+        { canEdit: () => true,  load: loadUser, customElems: UserCustomElems }
     ]),
     create_: createArray(__pages.slice(0, __pages.length - 1), [
         { name: 'Project', save: createProject },
@@ -63,7 +63,7 @@ const pages = {
         { name: 'Project',              save: updateProject,             load: loadProject },
         { name: 'Team',                  save: updateTeam,                load: loadTeam },
         { name: 'Organization',   save: updateOrganization, load: loadOrganization },
-        { name: 'Profile',               save: updateCurrentUser,   load: loadUser },
+        { name: 'Profile',               save: updateCurrentUser,   load: loadUser, customElems: UserCustomElemsEdit },
     ])
 }
 
