@@ -1,24 +1,23 @@
 const path = require('path')
 const webpack = require('webpack')
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     context: __dirname,
-    entry: [
-        'webpack-dev-server/client?http://0.0.0.0:8081',
-        'webpack/hot/only-dev-server',
-        './src/index.js',
-     ],
+    entry: {
+        vendor: ["react", "redux", "react-redux", "react-dom", "react-router", "js-cookie","redux-promise-middleware", "redux-thunk", "history"],
+    },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
+        chunkFilename: '[chunkhash].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json', '*']
     },
-    plugins:[new webpack.HotModuleReplacementPlugin()],
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.jsx?$/,
                 exclude: /(node_modules)/,
                 loader: 'babel-loader',
@@ -44,4 +43,4 @@ module.exports = {
             }
         ]
     }
-  };
+};

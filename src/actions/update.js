@@ -1,7 +1,6 @@
 import Network from '../network'
 
 export const updateProject = history => id =>(values) =>{ 
-    console.log("Updating")
     const network = new Network('UPDATE_PROJECT')
     return network.PUT(`/project/${id}/update`,{
         name: values.name

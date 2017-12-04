@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import Timestamp from 'react-timestamp'
 import {Link} from 'react-router-dom'
 
+require('./style.scss')
+
 class Card extends Component {
     constructor(props){ super(props)}
 
@@ -13,37 +15,39 @@ class Card extends Component {
         const time = this.props.time || ((Date.now() / 1000) | 0);
         let footer = ''
         let icon = 'fa-info'
-        let color = 'yellow'
+        let color = 'tone1-3' // 1-1
 
         switch(type){
             case 'announcment':
                 icon = 'fa-bullhorn'
-                color = 'red'
+                color = 'tone1-5' //1-2
                 break
             case 'reminder':
                 icon = 'fa-bell'
-                color='green'
+                color='tone1-1' //1-3
                 break;
             case 'message':
                 icon='fa-envelope'
-                color='blue'
-                break;
-            case 'acceptance':
-                icon='fa-check'
-                color='green'
-                footer=(
-                    <div><Link to='/projects/1'>See Project Members</Link></div>
-                )
+                color='tone1-2' //1-4
                 break;
             case 'invite': 
                 icon='fa-plus'
-                color='purple'
+                color='tone1-2' //1-5
                 footer=<div>
-                    <div className='btn green-color'>Accept</div>
-                    <div className='btn red-color'>Decline</div>
+                    <div className='btn tone1-1-color'>Accept</div>
+                    <div className='btn tone1-2-color'>Decline</div>
                 </div>
                 break
+            case 'acceptance':
+                    icon='fa-check'
+                    color='tone1-4' //1-6
+                    footer=(
+                        <div><Link to='/projects/1'>See Project Members</Link></div>
+                    )
+                    break;
             case 'info':
+                    color='tone1-3'
+                    icon='fa-info'
             default:
                 break
         }

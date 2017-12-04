@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Redirect, Switch } from 'react-router'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import { PageShell, SidebarShell, SearchPage, CreateSidebar, SearchPageSidebar, ProfilePage, MyListOfPage, CreatePage, ApplyButton } from '../common'
 import NoMatch from './404'
 import Home, { HomeSidebar } from '../pages/home'
@@ -13,10 +12,16 @@ import { OrganizationStatsPage } from '../pages/organization-stats'
 import { LoginPage } from '../pages/login'
 import { RegisterPage } from '../pages/register'
 import { logout } from '../../actions/auth'
+import {addFriend, applyToOrganization, applyToTeam, applyToProject} from '../../actions/apply'
 import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '../../actions/search'
 import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
 import { updateProject, updateTeam, updateOrganization, updateCurrentUser } from '../../actions/update'
+import {ProjectSettings, ProjectSettingsSidebar} from '../pages/project-settings'
+import {TeamSettings, TeamSettingsSidebar} from '../pages/team-settings'
+import {OrganizationSettings, OrganizationSettingsSidebar} from '../pages/organization-settings'
+import {userTest, orgTest, teamTest, projTest} from './search_apply_testing'
+import {myProjects, myTeams, myOrganizations, myFriends} from '../../actions/my_'
 
 const createArray = (paths, params) => {
     let res = []
@@ -26,17 +31,22 @@ const createArray = (paths, params) => {
     return res
 }
 
+
 const __pages = ['projects', 'teams', 'organizations', 'users']
 
-const no_buttons = (e) => <span></span>
-
 const pages = {
-    my_: __pages,
+    my_: createArray(__pages,[
+        { load: myProjects }, 
+        { load: myTeams }, 
+        { load: myOrganizations }, 
+        { load: myFriends }
+    ]
+    ),
     search: createArray(__pages, [
-        { apply: ApplyButton('projects'),  load: searchProjects }, 
-        { apply: ApplyButton('teams'),  load: searchTeams }, 
-        { apply: ApplyButton('organizations'),  load: searchOrganizations }, 
-        { apply: ApplyButton('users'),  load: searchUsers, buttons: no_buttons }
+        { apply: ApplyButton(['user','applied_projects','user_projects'], projTest, applyToProject),  load: searchProjects }, 
+        { apply: ApplyButton(['user','applied_teams','user_teams'], teamTest, applyToTeam),  load: searchTeams }, 
+        { apply: ApplyButton(['user','applied_organizations','user_organizations'], orgTest, applyToOrganization),  load: searchOrganizations }, 
+        { apply: ApplyButton(['user', 'friends'], userTest, addFriend, 'Add Friend'),  load: searchUsers, applicationHeadline:"Friend invite sent!", applicationSummary: "Your friend invite was sent succesfully!" }
     ]),
     profiles: createArray(__pages, [
         { canEdit: () => true,  load: loadProject }, 
@@ -115,6 +125,9 @@ export class PageRouter extends Component {
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
                 {pages.profiles.map(profilePage)}
+                {authenticatedRoute('projects/:id/settings', PageShell(ProjectSettings({ load: loadProject })))}
+                {authenticatedRoute('teams/:id/settings', PageShell(TeamSettings({ load: loadTeam })))}
+                {authenticatedRoute('organizations/:id/settings', PageShell(OrganizationSettings({ load: loadOrganization })))}
                 <Route component={PageShell(NoMatch)} />
             </Switch>
         )
@@ -140,7 +153,10 @@ export class SidebarRouter extends Component {
             <Switch>
                 <Route exact path="/" component={sidebar_shell(HomeSidebar, pos)} />
                 {pages.create_.map(createSidebar)}
-                <Route exact path="/organizations/new" component={sidebar_shell(OrganizationCreateSidebar, pos)} />
+                <Route exact path="/projects/:id/settings" component={sidebar_shell(ProjectPageSidebar, pos)} />
+                <Route exact path="/organizations/:id/settings" component={sidebar_shell(OrganizationPageSidebar, pos)} />
+                <Route exact path="/teams/:id/settings" component={sidebar_shell(TeamPageSidebar, pos)} />
+                
                 <Route path="/organizations/:id" component={sidebar_shell(OrganizationPageSidebar, pos)} />
                 <Route path="/projects/:id" component={sidebar_shell(ProjectPageSidebar, pos)} />
                 <Route path="/users/:id" component={sidebar_shell(UserPageSidebar, pos)} />

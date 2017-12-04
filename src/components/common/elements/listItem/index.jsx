@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 
+require('./style.scss')
+
 class ListItem extends Component {
     constructor(props){ super(props)}
 
@@ -14,7 +16,7 @@ class ListItem extends Component {
                     {this.props.name}
                 </div>
                 <div className="buttons">
-                    <div className="btn blue-color">
+                    <div className="btn tone1-4-color">
                         View
                     </div>
                     {this.props.children}

@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fromJS} from 'immutable'
 
+require('./sidebar.scss')
+
 const mapStateToProps = (state) =>{
     return {
-        user: state.user
+        user: state.user,
+        friends: state.friends
     }
 }
 

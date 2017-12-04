@@ -1,9 +1,6 @@
-import {
-    fromJS
-} from 'immutable'
-import {
-    not_loaded
-} from './initial_states'
+import { not_loaded } from './initial_states'
+import {fromJS} from 'immutable'
+import { basename } from 'path';
 
 export const async_base = (base_name) => {
     return (state = not_loaded, action) => {
@@ -47,6 +44,10 @@ export const async_base = (base_name) => {
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
                     return state.remove('errors')
+                break;
+            case 'LOGOUT_FULFILLED':
+            case 'LOGOUT_REJECTED':
+                return not_loaded
         }
         return state;
     }
@@ -87,14 +88,12 @@ export const async_base_id = (base_name) => {
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
                     return state.remove('errors')
+                break;
+            case 'LOGOUT_FULFILLED':
+            case 'LOGOUT_REJECTED':
+                return not_loaded
         }
         return state;
-    }
-}
-
-export const async_base_redirect = (base_name) => {
-    return (state = not_loaded, action) => {
-
     }
 }
 
@@ -102,7 +101,7 @@ export const async_get_and_get_by_id = (base_name) => {
     const load_handler_all = async_base(`LOAD_${base_name}_INFO`)
     const load_handler_by_id = async_base_id(`LOAD_${base_name}_BY_ID`)
 
-    return (state = not_loaded, action) => state.merge(load_handler_by_id(load_handler_all(state, action), action))
+    return (state = not_loaded, action) => load_handler_by_id(load_handler_all(state, action), action)
 }
 
 export const async_list_get_and_create = (base_name) => {
@@ -128,7 +127,6 @@ export const async_list_get_and_create = (base_name) => {
             case `CREATE_${base_name}_REJECTED`:
                 {
                     let response = action.payload.response.data || action.payload.response
-                    console.log(action)
                     if (response.errors)
                         return state.set('fetching', false)
                                                 .set('fetched', false)
@@ -143,4 +141,14 @@ export const async_list_get_and_create = (base_name) => {
         }
         return state
     }
+}
+
+export const append_wrapper = (type) => (to_wrap)  => (state, action) => {
+    state = to_wrap(state, action)
+    const list = state.get('data') || fromJS({})
+    switch (action.type) {
+        case type:
+            return state.set('data', list.set(action.payload.id,fromJS(action.payload)))
+    }
+    return state;
 }

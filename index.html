@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="assets/styles/normalize.css" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-		<script type="text/javascript">
-			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('/service-worker.js')
-				.then(function(registration) {
-				  console.log('Registration successful, scope is:', registration.scope);
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/styles/normalize.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<script type="text/javascript">
+		if ('serviceWorker' in navigator && false) {
+			navigator.serviceWorker.register('/service-worker.js')
+				.then(function (registration) {
+					console.log('Registration successful, scope is:', registration.scope);
 				})
-				.catch(function(error) {
-				  console.log('Service worker registration failed, error:', error);
+				.catch(function (error) {
+					console.log('Service worker registration failed, error:', error);
 				});
-			  }
-		</script>
-	</head>
-	<body>
-		<div id="app" class="app"></div>
-		<script src="bundle.js" type="text/javascript" charset="utf-8"></script>
-	</body>
+		}
+	</script>
+</head>
+
+<body>
+	<div id="app" class="app"></div>
+	<script src="vendor.bundle.js" type="text/javascript" charset="utf-8"></script>
+	<script src="app.bundle.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
 </html>

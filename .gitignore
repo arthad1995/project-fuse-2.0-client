@@ -62,4 +62,5 @@ typings/
 .env
 
 .package.json.swp
+dist/*
 

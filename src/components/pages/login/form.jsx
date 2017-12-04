@@ -4,12 +4,12 @@ import { Field, reduxForm } from 'redux-form'
 let Form = props => {
     const { handleSubmit } = props
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="withMargins" onSubmit={handleSubmit}>
             <div>   
                 <Field component="input" required placeholder="Email" type="email" name="email" /><br />
                 <Field component="input" required placeholder="Password" type="password" name="password" /><br />
             </div>
-            <input className='btn blue-color' type="submit" id="submit" name="submit" value="Login" />
+            <input className='btn tone1-4-color' type="submit" id="submit" name="submit" value="Login" />
         </form>
     )
 }
@@ -20,4 +20,4 @@ Form = reduxForm({
     destroyOnUnmount: false
 })(Form)
 
-export const LoginForm = Form
+export default Form

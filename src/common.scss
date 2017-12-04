@@ -8,7 +8,7 @@
 @mixin linear-gradient($direction, $color-stops...) {
     background: nth(nth($color-stops, 1), 1);
     background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
-    background: linear-gradient($direction, $color-stops);
+    //background: linear-gradient($direction, $color-stops);
   }
 
   @mixin radial-gradient($direction, $color-stops...) {
@@ -34,6 +34,9 @@ BlinkMacSystemFont,
 
 $white: hsl(0,100%,100%);
 
+$hue1: 220;
+$hue2: 0;
+
 $color-schemes:(
     accent: (
         bg-color: hsl(0, 0%, 25%),
@@ -48,39 +51,70 @@ $color-schemes:(
     card: (
         bg-color: $white,
         fg-color: hsl(0, 0%, 20%),
-        border: 1px solid #333
+        border: 1px solid rgba(0, 0, 0, 0.2)
     ),
-    purple: (
-        bg-color: hsl(275, 50%, 40%),
+
+    tone1-1:(
+        bg-color: hsl($hue1,100%, 50%),
         fg-color: $white,
         border: none
     ),
-    red:(
-        bg-color: hsl(0,100%,50%),
-        fg-color: $white,
-        hover-bg: darken(hsl(0,100%,50%), 15%),
-        border: none
-    ),
-    blue:(
-        bg-color: hsl(240,100%,50%),
+    tone1-2:(
+        bg-color: hsl($hue1, 60%, 40%),
         fg-color: $white,
         border: none
     ),
-    cyan:(
-        bg-color: hsl(180,90%,45%),
-        fg-color: hsl(0,0%,35%),
-        border: none
-    ),
-    green:(
-        bg-color: lighten(hsl(120,50%,30%), 8%),
+    tone1-3: (
+        bg-color: hsl($hue1, 100%, 70%),
         fg-color: $white,
         border: none
     ),
-    yellow:(
-        bg-color: hsl(60, 100%, 45%),
+    tone1-4:(
+        bg-color: hsl($hue1, 100%, 30%),
         fg-color: $white,
         border: none
-    )
+    ),
+    tone1-5:(
+        bg-color: hsl($hue1, 70%, 50%),
+        fg-color: $white,
+        border: none
+    ),
+    tone1-6:(
+        bg-color: hsl($hue1, 60%, 25%),
+        fg-color: $white,
+        border: none
+    ),
+
+    tone2-1:(
+        bg-color: hsl($hue2,100%, 50%),
+        fg-color: $white,
+        border: none
+    ),
+    tone2-2:(
+        bg-color: hsl($hue2, 60%, 40%),
+        fg-color: $white,
+        border: none
+    ),
+    tone2-3: (
+        bg-color: hsl($hue2, 100%, 70%),
+        fg-color: $white,
+        border: none
+    ),
+    tone2-4:(
+        bg-color: hsl($hue2, 100%, 30%),
+        fg-color: $white,
+        border: none
+    ),
+    tone2-5:(
+        bg-color: hsl($hue2, 70%, 50%),
+        fg-color: $white,
+        border: none
+    ),
+    tone2-6:(
+        bg-color: hsl($hue2, 60%, 25%),
+        fg-color: $white,
+        border: none
+    ),
 );
 
 .clearfix:after {
@@ -102,7 +136,7 @@ $glow-amt: 8%;
         $lightbg: lighten(map-get($value, bg-color), $glow-amt);
         $darkbg: darken(map-get($value, bg-color), $glow-amt);
         background-color: map-get($value, bg-color);
-        background: linear-gradient($lightbg, $lightbg, $lightbg,$darkbg);
+        //background: linear-gradient($lightbg, $lightbg, $lightbg,$darkbg);
         color: map-get($value, fg-color);
         border: map-get($value, border);
     }
@@ -115,7 +149,7 @@ $glow-amt: 8%;
             $lightbg: lighten($bg, $glow-amt * 0.75);
             $darkbg: darken($bg, $glow-amt);
             $midCol: lighten($bg, $glow-amt * 1.5);
-            background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
+            //background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
         }
         @else {
             $bg: darken(map-get($value, bg-color), 15%);
@@ -124,7 +158,7 @@ $glow-amt: 8%;
             $midCol: lighten($bg, $glow-amt * 1.5);
 
             background-color: darken(map-get($value, bg-color), 8%);
-            background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
+            //background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
         }
     }
 
@@ -133,7 +167,7 @@ $glow-amt: 8%;
         $lightbg: lighten(desaturate(lighten($bg, 20%), 50%), $glow-amt * 0.75);
         $darkbg: lighten(desaturate(lighten($bg, 20%), 50%), $glow-amt);
         $midCol: lighten(desaturate(lighten($bg, 20%), 50%), $glow-amt * 1.2);
-        background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
+        //background: linear-gradient($lightbg, $midCol, $lightbg, $darkbg);
         box-shadow: 0px 0px 1px gray;
         cursor: default;
         :hover{

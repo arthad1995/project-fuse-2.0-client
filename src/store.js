@@ -1,20 +1,19 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { applyMiddleware, combineReducers } from 'redux'
 import reducers from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import promise from 'redux-promise-middleware'
 import {createLogger} from 'redux-logger'
 import { routerReducer, routerMiddleware , syncHistoryWithStore} from 'react-router-redux'
 import { createHashHistory } from 'history'
-import { reducer as formReducer } from 'redux-form'
+import {createStore} from 'redux-async-reducer'
 
 export const history = createHashHistory()
 
 const store = createStore(
-    combineReducers({
+    {
         ...reducers,
-        routing: routerReducer,
-        form: formReducer
-    }),
+        routing: routerReducer
+    },
     applyMiddleware(
         createLogger(),
         promise(),
@@ -22,6 +21,10 @@ const store = createStore(
         routerMiddleware(history)
     )
 )
+
+import('redux-form').then((redux_form)=>{
+    store.addReducer('form', redux_form.reducer)
+})
 
 export var syncedHistory = syncHistoryWithStore(history, store)
 

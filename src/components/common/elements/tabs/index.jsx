@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import ListItem from './listItem'
+import ListItem from '../listItem'
+import {Map} from 'immutable'
+
+require('./style.scss')
 
 export class Tabs extends Component {
     constructor(props){ super(props)}
@@ -26,14 +29,15 @@ export class Tabs extends Component {
 
 export const listGenerator = (baseUrl) => (props) => (tab) => {
     props = props || {}
+    const data = (props[tab.arr_key] && props[tab.arr_key].get('data')) ? props[tab.arr_key].get('data') : null
+    console.log(data)
     return <div>
         <h3>{tab.name}</h3>
         <ul className='list'>
-            {(props[tab.arr_key]) ? props[tab.arr_key].map((elem)=>{
+            {(data && data.size > 0) ? data.mapEntries((elem, key)=>{
+                elem = elem[1]
                 const id = elem.get('id')
-                if(elem)
-                    return <ListItem baseUrl={baseUrl} key={id} id={id} name={elem.get('name')} />
-                return ''
+                return [<ListItem baseUrl={baseUrl} key={id} id={id} name={elem.get('name')} />]
             }) : 'No results'}
         </ul>
     </div>

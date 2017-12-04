@@ -1,6 +1,6 @@
 import { not_loaded } from './initial_states'
 import { async_base } from './base_reducers'
-import { fromJS } from 'immutable'
+import {fromJS} from 'immutable'
 import Cookies from 'js-cookie'
 
 const load_handler = async_base('LOAD_USER')
@@ -10,6 +10,7 @@ export function user(state = not_loaded, action){
     switch(action.type){
         case 'REGISTER_PENDING':
             return state.set('fetched', false).set('fetching', true).set('reg_user', fromJS(action.payload))
+        case 'LOGIN_REJECTED':
         case 'REGISTER_REJECTED':{
             state = state.set('fetched', false).set('fetching', false).remove('reg_user')
             let response = action.payload.response.data || action.payload
@@ -25,7 +26,9 @@ export function user(state = not_loaded, action){
             Cookies.remove('NAME')
             Cookies.remove('EMAIL')
             if('serviceWorker' in navigator){
-                navigator.serviceWorker.controller.postMessage("clear-cached-user-data");
+                try{
+                    navigator.serviceWorker.controller.postMessage("clear-cached-user-data");
+                } catch (e) {}
             }
             break;
         case 'LOGIN_FULFILLED':{

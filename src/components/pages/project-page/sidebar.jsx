@@ -23,19 +23,25 @@ class Sidebar extends Component {
                             Project Home
                     </div>
                 </Link>
-                <Link to={`/projects/${id}/members`}>
+                <div className="hidden section centered"></div>
+                {/*<Link to={`/projects/${id}/members`}>*/}
                     <div className="section centered">
                         Members
                     </div>
-                </Link>
-                <Link to={`/projects/${id}/teams`}>
+                {/*</Link>*/}
+                {/*<Link to={`/projects/${id}/teams`}>*/}
                     <div className="section centered">
                         Teams
                     </div>
-                </Link>
-                <Link to={`/projects/${id}/links`}>
+                {/*</Link>*/}
+                {/*<Link to={`/projects/${id}/links`}>*/}
                     <div className="section centered">
                         Links
+                    </div>
+                {/*</Link>*/}
+                <Link to={`/projects/${id}/settings`}>
+                    <div className="section centered">
+                       Settings
                     </div>
                 </Link>
             </div>

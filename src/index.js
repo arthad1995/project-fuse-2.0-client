@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {render} from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route } from 'react-router'
 import store, { history } from './store'
@@ -7,7 +7,7 @@ import Layout from './components/layout'
 import Cookies from 'js-cookie'
 import mockData from './mock_data'
 
-mockData(store)
+mockData(store.dispatch)
 
 function updateOnlineStatus(event) {
     if (navigator.onLine) {
@@ -44,7 +44,7 @@ if (Cookies.get('SESSIONID') && Cookies.get('ID') && Cookies.get('EMAIL') && Coo
     )
 }
 
-ReactDOM.render(
+render(
     <Provider store={store}>
         <Router history={history}>
             <Layout />
