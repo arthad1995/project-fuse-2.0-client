@@ -61,7 +61,7 @@ export const SearchPageSidebar = (paramObj) => {
             const data = this.props[key]
             return <div className="section centered">
                 <input type='search' name='search' placeholder='Search' />
-                <input type='Submit' className='sm-btn blue-color' value='Search' />
+                <input type='Submit' className='sm-btn tone1-4-color' value='Search' />
             </div>
         }
     }

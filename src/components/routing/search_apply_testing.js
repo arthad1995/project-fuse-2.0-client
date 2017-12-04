@@ -1,4 +1,5 @@
 import {Map} from 'immutable'
+import Cookies from 'js-cookie'
 
 const test = (groupList, elem) =>{
     const list = groupList.get('data')
@@ -6,10 +7,11 @@ const test = (groupList, elem) =>{
 }
 
 const group_test = (groupLists, elem) => {
+    console.log(elem)
     return [true].concat(groupLists).reduce((accumulator, list) => {
         console.log(groupLists)
         return accumulator && (!list || test(list, elem))
-    }) && elem.get('owner').get('id') != elem.get('id')
+    }) && elem.get('owner').get('id') != Cookies.get('ID')
 }
 
 export const userTest = ({user, friends}, curUser) =>{

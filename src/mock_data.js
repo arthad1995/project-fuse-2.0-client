@@ -36,16 +36,16 @@ export default function (dispatch) {
                         },
                         {
                             id: id++,
-                            type: 'announcment',
-                            title: "Announcment from Project Fuse",
-                            content: "On November 12 the system will be undergoing maintenance from 01:00 UTC to 03:30 UTC. Expect latenct when using the site during that time.",
+                            type: 'invite',
+                            title: "Invitation to Join Project Fuse",
+                            content: "You were invited to join project fuse!",
                             time: 1508339443
                         },
                         {
                             id: id++,
-                            type: 'message',
-                            title: "Message from Alice",
-                            content: "We got the robot arm moving! Great job everyone! This is so exciting!!!!",
+                            type: 'acceptance',
+                            title: "Joined Team Fusion",
+                            content: "You just joined Team Fusion!",
                             time: 1507993843,
                         }
                     ]

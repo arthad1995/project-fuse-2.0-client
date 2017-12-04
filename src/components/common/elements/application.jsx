@@ -15,7 +15,7 @@ export const ApplyButton = (keys, testFunc, callback = ()=>{}, text="Apply") => 
             if(!testFunc(this.props, elem))
                 return null
             return (
-                <div onClick={(e) => { stopEvent(e); callback(elem, dispatch); document.getElementById(`popup`).classList.add('show'); return false; }} className="btn green-color apply">{text}</div>
+                <div onClick={(e) => { stopEvent(e); callback(elem, dispatch); document.getElementById(`popup`).classList.add('show'); return false; }} className="btn tone1-1-color apply">{text}</div>
             )
         }
     }

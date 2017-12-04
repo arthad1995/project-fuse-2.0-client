@@ -17,8 +17,8 @@ class Form extends Component {
                     <Field component="input" required placeholder="Name" type="text" name="name" />
                 </div>
                 <div className="buttons">
-                    <input className='btn green-color' type="submit" id="submit" name="submit" value="Save" />
-                    <div onClick={cancelAction} className="centered btn red-color">
+                    <input className='btn tone1-1-color' type="submit" id="submit" name="submit" value="Save" />
+                    <div onClick={cancelAction} className="centered btn tone1-2-color">
                         Cancel
                     </div>
                 </div>

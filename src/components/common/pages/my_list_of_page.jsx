@@ -5,7 +5,9 @@ import {listGenerator, Tabs} from '../elements/tabs'
 
 var cache = {}
 
-export const MyListOfPage= (url) => {
+export const MyListOfPage= (paramObj) => {
+    const url = paramObj.path
+    const params = paramObj.param || {}
     if(cache[url]) return cache[url];
 
     const tabInfo = TabbedSearchSidebar(url)
@@ -22,6 +24,13 @@ export const MyListOfPage= (url) => {
     @connect( mapStateToProps )
     class Page extends Component {
         constructor(props){ super(props)}
+
+        componentDidMount(){
+            if(this.props.load)
+                this.props.load()
+            else if(params.load)
+                params.load()
+        }
 
         render(){
             return (

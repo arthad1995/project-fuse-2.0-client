@@ -156,7 +156,7 @@ img.profileImage {
   @extend .pointer;
   margin: 1rem 0.5rem;
   padding: 0.5rem 0.75rem;
-  border-radius: 15px;
+  //border-radius: 15px;
   font-size: 125%;
   text-align: center;
   width: 90%;
@@ -168,12 +168,12 @@ img.profileImage {
 
 .btn,
 .sm-btn {
-  box-shadow: 0px 2px 2px grey;
+  box-shadow: 2px 2px 3px grey;
 }
 
 .btn:hover,
 .sm-btn:hover {
-  box-shadow: 0px 1px 2px grey;
+  box-shadow: 1px 1px 2px grey;
 }
 
 .sm-btn {

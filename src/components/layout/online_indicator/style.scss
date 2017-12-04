@@ -1,30 +1,30 @@
-
+@import '../../../common.scss';
 .indicator {
-    -webkit-transition: 0.5s;
-    -moz-transition: 0.5s;
-    -o-transition: 0.5s;
-    transition: 0.5s;
-    opacity: 0;
-    visibility: hidden;
-    background: hsl(240, 10%, 20%);
-    padding: 10px;
-    color: white;
-  }
-  
-  .indicator.offline,
-  .indicator.was_offline {
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  padding: 10px;
+
+  &.offline,
+  &.was_offline {
     opacity: 1;
     visibility: visible;
   }
-  
-  .indicator.offline:before {
-    content: "You are currently offline. While you are offline, you may use the app but some features may not work and information may be outdated.";
+
+  &.offline {
+    @extend .tone1-6-color;
+    &::before {
+      content: "You are currently offline. While you are offline, you may use the app but some features may not work and information may be outdated.";
+    }
   }
-  
-  .indicator.was_offline {
-    background: hsl(120, 15%, 25%);
+
+  &.was_offline {
+    @extend .tone1-2-color;
+    &::before{
+      content: "You were recently offline, refresh the page to get the most updated information.";
+    }
   }
-  
-  .indicator.was_offline:before {
-    content: "You were recently offline, refresh the page to get the most updated information.";
-  }
+}

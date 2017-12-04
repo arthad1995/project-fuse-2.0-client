@@ -30,10 +30,11 @@ export class Tabs extends Component {
 export const listGenerator = (baseUrl) => (props) => (tab) => {
     props = props || {}
     const data = (props[tab.arr_key] && props[tab.arr_key].get('data')) ? props[tab.arr_key].get('data') : null
+    console.log(data)
     return <div>
         <h3>{tab.name}</h3>
         <ul className='list'>
-            {data ? data.mapEntries((elem, key)=>{
+            {(data && data.size > 0) ? data.mapEntries((elem, key)=>{
                 elem = elem[1]
                 const id = elem.get('id')
                 return [<ListItem baseUrl={baseUrl} key={id} id={id} name={elem.get('name')} />]

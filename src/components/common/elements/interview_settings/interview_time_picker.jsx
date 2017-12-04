@@ -149,8 +149,8 @@ let _InterviewTimePicker = props => {
                     <DateTimePicker dispatch={dispatch} name="interview start" onChange={(val) => this.setState()} />
                     <DateTimePicker dispatch={dispatch} name="interview end" />
                 </div>
-                <button className="btn blue-color" type="submit"><i className="fa fa-plus" /> Add</button>
-                <a className="btn red-color" onClick={cancel}><i className="fa fa-ban" /> Cancel</a>
+                <button className="btn tone1-4-color" type="submit"><i className="fa fa-plus" /> Add</button>
+                <a className="btn tone1-2-color" onClick={cancel}><i className="fa fa-ban" /> Cancel</a>
             </form>
         </div>
     )

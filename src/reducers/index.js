@@ -13,6 +13,7 @@ import {organizations} from './organizations'
 import {teams} from './teams'
 import {users} from './users'
 import {friends} from './friends'
+import {scheduled_interviews} from './scheduled_interviews'
 
 export default {
     user,
@@ -30,4 +31,5 @@ export default {
     organizations,
     teams,
     users,
+    scheduled_interviews,
 }

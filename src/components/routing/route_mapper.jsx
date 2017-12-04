@@ -21,6 +21,7 @@ import {ProjectSettings, ProjectSettingsSidebar} from '../pages/project-settings
 import {TeamSettings, TeamSettingsSidebar} from '../pages/team-settings'
 import {OrganizationSettings, OrganizationSettingsSidebar} from '../pages/organization-settings'
 import {userTest, orgTest, teamTest, projTest} from './search_apply_testing'
+import {myProjects, myTeams, myOrganizations, myFriends} from '../../actions/my_'
 
 const createArray = (paths, params) => {
     let res = []
@@ -34,7 +35,13 @@ const createArray = (paths, params) => {
 const __pages = ['projects', 'teams', 'organizations', 'users']
 
 const pages = {
-    my_: __pages,
+    my_: createArray(__pages,[
+        { load: myProjects }, 
+        { load: myTeams }, 
+        { load: myOrganizations }, 
+        { load: myFriends }
+    ]
+    ),
     search: createArray(__pages, [
         { apply: ApplyButton(['user','applied_projects','user_projects'], projTest, applyToProject),  load: searchProjects }, 
         { apply: ApplyButton(['user','applied_teams','user_teams'], teamTest, applyToTeam),  load: searchTeams }, 
