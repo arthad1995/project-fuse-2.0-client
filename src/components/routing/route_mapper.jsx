@@ -5,7 +5,7 @@ import NoMatch from './404'
 import Home, { HomeSidebar } from '../pages/home'
 import { ProjectPageSidebar } from '../pages/project-page'
 import { TeamPageSidebar } from '../pages/team-page'
-import { UserPageSidebar } from '../pages/user-page'
+import { UserCustomElems, UserCustomElemsEdit, UserPageSidebar } from '../pages/user-page'
 import { OrganizationPageSidebar } from '../pages/organization-page'
 import { OrganizationCreateSidebar } from '../pages/organization-create'
 import { OrganizationStatsPage } from '../pages/organization-stats'
@@ -14,7 +14,7 @@ import { RegisterPage } from '../pages/register'
 import { logout } from '../../actions/auth'
 import {addFriend, applyToOrganization, applyToTeam, applyToProject} from '../../actions/apply'
 import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '../../actions/search'
-import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
+import { loadUser, loadProject, loadTeam, loadOrganization, loadProjectSettings, loadTeamSettings, loadOrganizationSettings } from '../../actions/profile_page'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
 import { updateProject, updateTeam, updateOrganization, updateCurrentUser } from '../../actions/update'
 import {ProjectSettings, ProjectSettingsSidebar} from '../pages/project-settings'
@@ -22,6 +22,7 @@ import {TeamSettings, TeamSettingsSidebar} from '../pages/team-settings'
 import {OrganizationSettings, OrganizationSettingsSidebar} from '../pages/organization-settings'
 import {userTest, orgTest, teamTest, projTest} from './search_apply_testing'
 import {myProjects, myTeams, myOrganizations, myFriends} from '../../actions/my_'
+import Cookies from 'js-cookie'
 
 const createArray = (paths, params) => {
     let res = []
@@ -49,10 +50,10 @@ const pages = {
         { apply: ApplyButton(['user', 'friends'], userTest, addFriend, 'Add Friend'),  load: searchUsers, applicationHeadline:"Friend invite sent!", applicationSummary: "Your friend invite was sent succesfully!" }
     ]),
     profiles: createArray(__pages, [
-        { canEdit: () => true,  load: loadProject }, 
-        { canEdit: () => true,  load: loadTeam }, 
-        { canEdit: () => true,  load: loadOrganization }, 
-        { canEdit: () => true,  load: loadUser }
+        { canEdit: (_, elem) => elem && elem.get('canEdit'),  load: loadProject }, 
+        { canEdit: (_, elem) => elem && elem.get('canEdit'),  load: loadTeam }, 
+        { canEdit: (_, elem) => elem && elem.get('canEdit'),  load: loadOrganization }, 
+        { canEdit: (_, elem) => elem && elem.get('id') == Cookies.get('ID'),  load: loadUser, customElems: UserCustomElems }
     ]),
     create_: createArray(__pages.slice(0, __pages.length - 1), [
         { name: 'Project', save: createProject },
@@ -63,7 +64,7 @@ const pages = {
         { name: 'Project',              save: updateProject,             load: loadProject },
         { name: 'Team',                  save: updateTeam,                load: loadTeam },
         { name: 'Organization',   save: updateOrganization, load: loadOrganization },
-        { name: 'Profile',               save: updateCurrentUser,   load: loadUser },
+        { name: 'Profile',               save: updateCurrentUser,   load: loadUser, customElems: UserCustomElemsEdit },
     ])
 }
 
@@ -125,9 +126,9 @@ export class PageRouter extends Component {
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
                 {pages.profiles.map(profilePage)}
-                {authenticatedRoute('projects/:id/settings', PageShell(ProjectSettings({ load: loadProject })))}
-                {authenticatedRoute('teams/:id/settings', PageShell(TeamSettings({ load: loadTeam })))}
-                {authenticatedRoute('organizations/:id/settings', PageShell(OrganizationSettings({ load: loadOrganization })))}
+                {authenticatedRoute('projects/:id/settings', PageShell(ProjectSettings({ load: loadProjectSettings })))}
+                {authenticatedRoute('teams/:id/settings', PageShell(TeamSettings({ load: loadTeamSettings })))}
+                {authenticatedRoute('organizations/:id/settings', PageShell(OrganizationSettings({ load: loadOrganizationSettings  })))}
                 <Route component={PageShell(NoMatch)} />
             </Switch>
         )

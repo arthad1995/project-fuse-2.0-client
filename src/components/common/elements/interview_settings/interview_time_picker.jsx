@@ -6,6 +6,7 @@ import TimeKeeper from 'react-timekeeper'
 import DayPicker from 'react-day-picker'
 import { Tab, Tabs, TabList, TabPanel } from '../../../common'
 import { Field, reduxForm } from 'redux-form'
+import {ErrorDisplay} from '../../../common'
 const v = require('voca')
 const dateFormat = require('dateformat')
 import 'react-day-picker/lib/style.css';
@@ -22,7 +23,7 @@ class DateTimePicker extends Component {
         tomorrow.setDate(today.getDate() + 1);
 
         let initialDate = tomorrow
-        let initialTime = '12:00pm'
+        let initialTime = '12:00 pm'
 
         if (this.props.initial_value) {
             const split = this.props.initial_value.split(/\s+/)
@@ -58,6 +59,8 @@ class DateTimePicker extends Component {
                 payload: dateFormat(this.state.selectedDay, "mm/dd/yyyy") + " " + this.state.time,
                 type: "@@redux-form/CHANGE"
             })
+            if(this.props.onChange)
+                this.props.onChange({day: this.state.selectedDay, time: this.state.time})
         }
 
         this.state.doneClick = doneClick
@@ -111,7 +114,7 @@ class DateTimePicker extends Component {
                                             onDayClick={this.handleDayClick}
                                             disabledDays={[
                                                 {
-                                                    before: tomorrow,
+                                                    before: this.props.before || tomorrow,
                                                 },
                                             ]}
                                         />
@@ -141,16 +144,17 @@ class DateTimePicker extends Component {
 }
 
 let _InterviewTimePicker = props => {
-    const {handleSubmit, dispatch, cancel} = props
+    const {handleSubmit, dispatch, cancel, errors} = props
     return (
         <div className='clearfix timepicker'>
             <form onSubmit={handleSubmit}>
                 <div className='inline'>
-                    <DateTimePicker dispatch={dispatch} name="interview start" onChange={(val) => this.setState()} />
+                    <DateTimePicker dispatch={dispatch} name="interview start" />
                     <DateTimePicker dispatch={dispatch} name="interview end" />
                 </div>
                 <button className="btn tone1-4-color" type="submit"><i className="fa fa-plus" /> Add</button>
                 <a className="btn tone1-2-color" onClick={cancel}><i className="fa fa-ban" /> Cancel</a>
+                <ErrorDisplay errors={errors} />
             </form>
         </div>
     )

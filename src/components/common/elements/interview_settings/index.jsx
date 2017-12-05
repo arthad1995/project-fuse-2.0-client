@@ -11,7 +11,8 @@ const InterviewTimePicker = (props) => <Async load={import('./interview_time_pic
 
 const mapStateToProps = (state) => {
     return {
-        showTimePicker: state.ui.get("show_time_picker")
+        showTimePicker: state.ui.get("show_time_picker"),
+        data: state.edit_obj
     }
 }
 
@@ -37,14 +38,11 @@ export default class InterviewSettings extends Component {
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}>
                 {this.props.showTimePicker
-                    ? <div key={1}><InterviewTimePicker onSubmit={(e) => console.log(e)} dispatch={this.props.dispatch} cancel={() => this.props.dispatch(hide_time_picker())} /></div>
+                    ? <div key={1}><InterviewTimePicker onSubmit={this.props.onSubmit || (e=>null)} dispatch={this.props.dispatch} cancel={() => this.props.dispatch(hide_time_picker())} /></div>
                     : <div key={2} className='hidden'><InterviewTimePicker onSubmit={() => { }} dispatch={() => { }} cancel={() => { }} /></div>
                 }
             </CSSTransitionGroup>
-            <InterviewTimeList slots={fromJS([
-                { start: '2008-09-15T15:53:00+05:00', end: '2008-09-15T16:53:00+05:00' },
-                { start: '2008-09-15T15:53:00-05:00', end: '2008-09-15T16:53:00-05:00' }
-            ])} onSubmit={state => (vals) => console.log(vals)} />
+            <InterviewTimeList errors={this.props.data.errors} slots={this.props.data || {}} onSubmit={state => (vals) => console.log(vals)} />
         </div>
     }
 }

@@ -2,12 +2,12 @@ import Network from '../network'
 
 export const logout = () =>{
     const network = new Network('LOGOUT')
-    network.POST('/user/logout')
+    network.POST('/users/logout')
 }
 
 export const login = (email, password) =>{
     const network = new Network('LOGIN')
-    network.POST('/user/login', {
+    network.POST('/users/login', {
         email,
         password
     })

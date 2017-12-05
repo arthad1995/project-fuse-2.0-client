@@ -12,7 +12,10 @@ export function edit_obj(state = fromJS({}), action){
     }
 
     if(action.type.match(isFulfilled)){
-        return Object.assign({}, action.payload.data.data)
+        let data = action.payload.data.data
+        if(data.profile)
+            data = Object.assign({}, data, data.profile)
+        return Object.assign({}, data)
     }
 
     if(action.type.match(isLoading)){

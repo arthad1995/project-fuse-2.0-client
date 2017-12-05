@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {InterviewSettings} from '../../common'
+import {addSlotOrganization} from '../../../actions/interview_settings'
 
 class Page extends Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class Page extends Component {
     }
 
     render() {
-        return <InterviewSettings />
+        return <InterviewSettings onSubmit={addSlotOrganization(this.props.match.params.id)} />
     }
 }
 

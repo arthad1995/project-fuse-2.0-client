@@ -27,32 +27,25 @@ $header-height: 40px;
   .fa:hover {
     line-height: $header-height;
     text-shadow: 0px 1px 8px #040405;
-    color: darken(white, 5%);
+    color: darken(white, 15%);
   }
   .icon {
-    text-shadow: 0px 2px 2px #040405;
-    box-shadow: 0px 4px 8px #040405;
+    box-shadow: 0px 3px 6px #040405;
     width: $header-height;
     height: $header-height;
     $bgcol: #ddd;
     background-color: $bgcol;
-    $lbg: lighten($bgcol, 10%);
-    $dbg: darken($bgcol, 10%);
-    background: radial-gradient(circle at top, $lbg, $dbg);
     border-radius: $header-height/2 + 1px;
     color: #222;
     font-size: 18pt;
     text-align: center;
+    text-shadow: none !important;
   }
   .fa.icon:hover {
-    $bgcol: #ccc;
-    color: darken(#222, 5%) !important;
-    text-shadow: 0px 1px 2px #040405;
+    $bgcol: darken(#ccc, 5%);
+    color: darken(#222, 10%) !important;
     box-shadow: 0px 2px 8px #040405;
     background-color: $bgcol;
-    $lbg: lighten($bgcol, 2%);
-    $dbg: darken($bgcol, 2%);
-    background: radial-gradient(circle at top, $lbg, $dbg);
   }
   img {
     width: $header-height;
@@ -73,6 +66,7 @@ $header-height: 40px;
         top: 2rem;
         right: -1rem;
         padding-top: 1rem;
+        z-index: 99999;
         a {
           @extend .accent-color;
           text-align: center;
@@ -493,4 +487,30 @@ $loading-size: 100px;
 
 .hidden{
   display: none;
+}
+
+input[type=text], textarea{
+  margin: 0.5rem 0rem 1.25rem;
+  padding: 0.5rem;
+}
+
+.fullWidth{
+  width: 100%;
+}
+
+textarea{
+  height: 7rem;
+  min-height: 5rem;
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.shadow {
+  /* Use -webkit- only if supporting: Chrome < 54, iOS < 9.3, Android < 4.4.4 */
+  -webkit-filter: drop-shadow( 0px 2px 4px #111 ); 
+          filter: drop-shadow( 0px 2px 4px #111 );
+  &:hover{
+    -webkit-filter: drop-shadow( 0px 1px 2px #111 ); 
+    filter: drop-shadow( 0px 1px 2px #111 );
+  }
 }

@@ -50,6 +50,7 @@ class Page extends Component {
 
         const params = this.props.match.params
         let props = this.props[this.props.index]
+        const showName = !this.state.id
 
         const toolbar = {
             options: ['inline', 'blockType', 'fontSize', 'list', 'link', 'embedded', 'emoji', 'image', 'history'],
@@ -68,7 +69,7 @@ class Page extends Component {
             return <Redirect to={`/${this.props.index}/${this.props[this.props.index].get('REDIRECT_ID')}`} />
         }
 
-        const action = (this.state.edit) ? `Update ${this.props.name} ${this.props.initialValues.name}` : `Create a new ${this.props.name} `
+        const action = (this.state.edit) ? `Update ${this.props.name}` : `Create a new ${this.props.name} `
 
         const saveFunc = (this.state.edit) ? this.props.save(this.props.history)(this.state.id) : this.props.save
 
@@ -78,7 +79,8 @@ class Page extends Component {
 
         return <div>
             <h2>{action}</h2>
-            <this.Form initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={saveFunc} cancelAction={this.props.history.goBack} />
+            {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
+            <this.Form customElems={this.props.customElems} showName={showName} initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={saveFunc} cancelAction={this.props.history.goBack} />
             <ErrorDisplay errors={this.props[this.props.index].get('errors')} />
         </div>
     }
