@@ -1,0 +1,9 @@
+.stats {
+    .inline.margin {
+        margin-left: 10px
+    }
+    .inline{
+        width: calc(50% - 10px);
+    }
+    text-align: center;
+}

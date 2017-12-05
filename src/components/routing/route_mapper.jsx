@@ -23,6 +23,7 @@ import {OrganizationSettings, OrganizationSettingsSidebar} from '../pages/organi
 import {userTest, orgTest, teamTest, projTest} from './search_apply_testing'
 import {myProjects, myTeams, myOrganizations, myFriends} from '../../actions/my_'
 import Cookies from 'js-cookie'
+import {Stats} from '../pages/stats-page-demo'
 
 const createArray = (paths, params) => {
     let res = []
@@ -65,6 +66,11 @@ const pages = {
         { name: 'Team',                  save: updateTeam,                load: loadTeam },
         { name: 'Organization',   save: updateOrganization, load: loadOrganization },
         { name: 'Profile',               save: updateCurrentUser,   load: loadUser, customElems: UserCustomElemsEdit },
+    ]),
+    stats: createArray(__pages.slice(0, __pages.length-1), [
+        {name: 'Projet'},
+        {name: 'Team'},
+        {name: 'Organization'}
     ])
 }
 
@@ -108,6 +114,7 @@ export class PageRouter extends Component {
         let profilePage = makeRoute('', '/:id')(e => PageShell(ProfilePage(e)))
         let createPage = makeRoute('', '/new')(e => PageShell(CreatePage(e)))
         let updatePage = makeRoute('', '/:id/edit')(e => PageShell(CreatePage(e)))
+        let statsPage = makeRoute('', '/:id/stats')(e => PageShell(Stats(e)))
 
         let dispatch = this.props.dispatch
 
@@ -122,10 +129,10 @@ export class PageRouter extends Component {
                 {authenticatedRoute('', PageShell(Home))}
                 {pages.create_.map(createPage)}
                 {pages.update_.map(updatePage)}
-                {authenticatedRoute('organizations/:id/stats', PageShell(OrganizationStatsPage))}
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
                 {pages.profiles.map(profilePage)}
+                {__pages.map(statsPage)}
                 {authenticatedRoute('projects/:id/settings', PageShell(ProjectSettings({ load: loadProjectSettings })))}
                 {authenticatedRoute('teams/:id/settings', PageShell(TeamSettings({ load: loadTeamSettings })))}
                 {authenticatedRoute('organizations/:id/settings', PageShell(OrganizationSettings({ load: loadOrganizationSettings  })))}
@@ -157,7 +164,7 @@ export class SidebarRouter extends Component {
                 <Route exact path="/projects/:id/settings" component={sidebar_shell(ProjectPageSidebar, pos)} />
                 <Route exact path="/organizations/:id/settings" component={sidebar_shell(OrganizationPageSidebar, pos)} />
                 <Route exact path="/teams/:id/settings" component={sidebar_shell(TeamPageSidebar, pos)} />
-                
+
                 <Route path="/organizations/:id" component={sidebar_shell(OrganizationPageSidebar, pos)} />
                 <Route path="/projects/:id" component={sidebar_shell(ProjectPageSidebar, pos)} />
                 <Route path="/users/:id" component={sidebar_shell(UserPageSidebar, pos)} />
