@@ -20,6 +20,8 @@ export function ui(state = fromJS({online: true, show_time_picker: false, 'anima
             return state.set('show_time_picker', false)
         case 'SET_MOCK_DATA_DISPLAY':
             return state.set('mock_data', action.payload)
+        case 'SET_MOCK_DATA_TIME':
+            return state.set('mock_data_time', action.payload)
         case 'LOGOUT_FULFILLED':
         case 'LOGOUT_REJECTED':
             return state.set('mock_data', 0)

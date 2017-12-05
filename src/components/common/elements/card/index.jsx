@@ -49,9 +49,10 @@ class Card extends Component {
             case 'acceptance':
                     icon='fa-check'
                     color='tone1-4' //1-6
-                    footer=(
-                        <div><Link to='/projects/1'>See Project</Link></div>
-                    )
+                    footer=[
+                        <div className="nofloat" key="time">Your interview is scheduled for: {this.props.schedule}</div>,
+                        <div className="nofloat" key="link"><Link to='/projects/1'>See Project</Link></div>
+                    ]
                     break;
             case 'info':
                     color='tone1-3'

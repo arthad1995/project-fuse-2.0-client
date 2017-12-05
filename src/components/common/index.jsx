@@ -18,6 +18,8 @@ export const Card = (props) => <Async load={import('./elements/card')} {...props
 export const ErrorDisplay = (props) => <Async load={import('./elements/error_display')} {...props} ><div></div></Async>
 export const InterviewSettings = (props) => <Async load={import('./elements/interview_settings')} {...props} />
 
+export {stopEvent} from './elements/stopEvent'
+
 export {default as Async} from './async'
 
 export {Tab, Tabs, TabList, TabPanel} from './elements/react-tabs'

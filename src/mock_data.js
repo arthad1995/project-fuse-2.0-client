@@ -1,21 +1,21 @@
-const get_feed_data = (id)=>{
+const get_feed_data = (id, time)=>{
     switch (id){
         case 1:
-            return accepted_feed_data()
+            return accepted_feed_data(time)
         case 2:
-            return declined_feed_data()
+            return declined_feed_data(time)
         case 0:
         default:
-            return default_feed_data()
+            return default_feed_data(time)
     }
 }
 
-export default function (dispatch, feed_data_id=0) {
+export default function (dispatch, feed_data_id=0, time = '') {
     let id = 1
     dispatch({
         type: 'LOAD_FEED_FULFILLED',
         payload: {
-            data: get_feed_data(feed_data_id)
+            data: get_feed_data(feed_data_id, time)
         }
     })
 }
@@ -32,34 +32,34 @@ const declined_feed_data = () => {
                     type: 'declined',
                     title: "Interview Declined",
                     content: "You declined your interview with Project Fuse.",
-                    time: 1507993843,
+                    time:  new Date(),
+                },
+                {
+                    id: id++,
+                    type: 'reminder',
+                    title: "Meeting at 11:00 AM with Jim on Dec 11",
+                    time: '2017-12-08T8:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'info',
                     title: "Tip of the day",
                     content: "Keep your résumé up to date so that people know what you can do.",
-                    time: 1509133200,
+                    time: '2017-12-08T06:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'announcment',
                     title: "Announcment for Jim's class",
                     content: "Jim is offering free courses for juggling. Please contact Jim if you are interested.",
-                    time: 1509133200,
-                },
-                {
-                    id: id++,
-                    type: 'reminder',
-                    title: "Meeting at 11:00 AM on Oct 31",
-                    time: 1508854243,
+                    time: '2017-12-07T14:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'message',
                     title: "Message from Bob",
                     content: "I haven't seen you in a while, are you still able to do the database for the robot control website? If not, let me know so we can get someone else to do it.",
-                    time: 1508659843
+                    time: '2017-12-07T10:00:00+00:00'
                 }
             ]
         }
@@ -67,7 +67,7 @@ const declined_feed_data = () => {
 }
 
 
-const accepted_feed_data = () => {
+const accepted_feed_data = (time) => {
     let id = 1
     return {
         status: "OK",
@@ -78,35 +78,36 @@ const accepted_feed_data = () => {
                     id: id++,
                     type: 'acceptance',
                     title: "Interview Scheduled",
-                    content: "You're interview has been scheduled with Project Fuse",
-                    time: 1507993843,
+                    content: `You're interview has been scheduled with Project Fuse!`,
+                    schedule: time,
+                    time: new Date(),
+                },
+                {
+                    id: id++,
+                    type: 'reminder',
+                    title: "Meeting at 11:00 AM with Jim on Dec 11",
+                    time: '2017-12-08T8:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'info',
                     title: "Tip of the day",
                     content: "Keep your résumé up to date so that people know what you can do.",
-                    time: 1509133200,
+                    time: '2017-12-08T06:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'announcment',
                     title: "Announcment for Jim's class",
                     content: "Jim is offering free courses for juggling. Please contact Jim if you are interested.",
-                    time: 1509133200,
-                },
-                {
-                    id: id++,
-                    type: 'reminder',
-                    title: "Meeting at 11:00 AM on Oct 31",
-                    time: 1508854243,
+                    time: '2017-12-07T14:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'message',
                     title: "Message from Bob",
                     content: "I haven't seen you in a while, are you still able to do the database for the robot control website? If not, let me know so we can get someone else to do it.",
-                    time: 1508659843
+                    time: '2017-12-07T10:00:00+00:00'
                 }
             ]
         }
@@ -125,34 +126,34 @@ const default_feed_data = () => {
                     type: 'invite',
                     title: "Invitation to Interview With Project Fuse",
                     content: "You are invited to interview for joining Project Fuse!",
-                    time: 1508339443
+                    time: '2017-12-08T10:00:00+00:00'
+                },
+                {
+                    id: id++,
+                    type: 'reminder',
+                    title: "Meeting at 11:00 AM with Jim on Dec 11",
+                    time: '2017-12-08T8:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'info',
                     title: "Tip of the day",
                     content: "Keep your résumé up to date so that people know what you can do.",
-                    time: 1509133200,
+                    time: '2017-12-08T06:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'announcment',
                     title: "Announcment for Jim's class",
                     content: "Jim is offering free courses for juggling. Please contact Jim if you are interested.",
-                    time: 1509133200,
-                },
-                {
-                    id: id++,
-                    type: 'reminder',
-                    title: "Meeting at 11:00 AM on Oct 31",
-                    time: 1508854243,
+                    time: '2017-12-07T14:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'message',
                     title: "Message from Bob",
                     content: "I haven't seen you in a while, are you still able to do the database for the robot control website? If not, let me know so we can get someone else to do it.",
-                    time: 1508659843
+                    time: '2017-12-07T10:00:00+00:00'
                 }
             ]
         }

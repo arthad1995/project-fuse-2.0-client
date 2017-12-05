@@ -56,6 +56,13 @@
     div {
       float: left;
       margin-left: 1rem;
+      &.nofloat{
+        @extend .clearfix;
+        float: none;
+        ~ div{
+          margin-top: 16px;
+        }
+      }
     }
   }
   div.time {
