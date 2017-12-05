@@ -1,4 +1,5 @@
 import {fromJS} from 'immutable'
+import { show_time_picker } from '../actions/ui';
 
 export function ui(state = fromJS({online: true, show_time_picker: false, 'animation': {page: true, sidebar: true}, mock_data: 0}), action){
     switch(action.type){
@@ -22,6 +23,9 @@ export function ui(state = fromJS({online: true, show_time_picker: false, 'anima
         case 'LOGOUT_FULFILLED':
         case 'LOGOUT_REJECTED':
             return state.set('mock_data', 0)
+    }
+    if(action.type.match(/ADD_INTERVIEW_SLOT_.+_FULFILLED/)){
+        state = state.set('show_time_picker', false)
     }
     return state;
 }
