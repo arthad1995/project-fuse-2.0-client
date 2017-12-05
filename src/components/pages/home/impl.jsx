@@ -30,7 +30,7 @@ class Home extends Component {
             <div key={mock_data}>
                 <div id="popup" className="modalDialog" onClick={(e) => { document.getElementById('popup').classList.remove('show'); return false }}>
                     <div onClick={(e) => { stopEvent(e); return false; }}>
-                        <div className="modal_close"></div>
+                        <div className="modal_close" onClick={(e) => { document.getElementById('popup').classList.remove('show'); return false }}></div>
                         <h2>Select an Interview Time Slot</h2>
                         <div>
                             <div className="btn tone1-4-color" onClick={time_selected('Dec 11, 8:00 am - Dec 11, 8:50 am')}>
