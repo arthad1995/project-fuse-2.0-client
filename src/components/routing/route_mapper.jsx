@@ -22,6 +22,7 @@ import {TeamSettings, TeamSettingsSidebar} from '../pages/team-settings'
 import {OrganizationSettings, OrganizationSettingsSidebar} from '../pages/organization-settings'
 import {userTest, orgTest, teamTest, projTest} from './search_apply_testing'
 import {myProjects, myTeams, myOrganizations, myFriends} from '../../actions/my_'
+import Cookies from 'js-cookie'
 
 const createArray = (paths, params) => {
     let res = []
@@ -49,10 +50,10 @@ const pages = {
         { apply: ApplyButton(['user', 'friends'], userTest, addFriend, 'Add Friend'),  load: searchUsers, applicationHeadline:"Friend invite sent!", applicationSummary: "Your friend invite was sent succesfully!" }
     ]),
     profiles: createArray(__pages, [
-        { canEdit: () => true,  load: loadProject }, 
-        { canEdit: () => true,  load: loadTeam }, 
-        { canEdit: () => true,  load: loadOrganization }, 
-        { canEdit: () => true,  load: loadUser, customElems: UserCustomElems }
+        { canEdit: (_, elem) => elem && elem.get('canEdit'),  load: loadProject }, 
+        { canEdit: (_, elem) => elem && elem.get('canEdit'),  load: loadTeam }, 
+        { canEdit: (_, elem) => elem && elem.get('canEdit'),  load: loadOrganization }, 
+        { canEdit: (_, elem) => elem && elem.get('id') == Cookies.get('ID'),  load: loadUser, customElems: UserCustomElems }
     ]),
     create_: createArray(__pages.slice(0, __pages.length - 1), [
         { name: 'Project', save: createProject },

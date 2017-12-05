@@ -490,9 +490,12 @@ $loading-size: 100px;
 }
 
 input[type=text], textarea{
-  width: 100%;
   margin: 0.5rem 0rem 1.25rem;
   padding: 0.5rem;
+}
+
+.fullWidth{
+  width: 100%;
 }
 
 textarea{

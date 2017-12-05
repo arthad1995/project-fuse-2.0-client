@@ -65,7 +65,7 @@ export default class Network {
         let promise = new Promise((resolve)=>resolve())
         this.dispatch((dispatch)=>{
             dispatch({type: 'REGISTER_PENDING', payload: data})
-            promise = axios.post(host + '/users/create', data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
+            promise = axios.post(host + '/users', data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
                      .then((response)=> Promise.all([
                          dispatch({
                              type: 'REGISTER_FULFILLED',

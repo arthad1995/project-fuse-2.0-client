@@ -39,11 +39,6 @@ class Sidebar extends Component {
                         Organizations
                     </div>
                 {/* </Link>*/}
-                {/* <Link to={`/teams/${id}/links`}>*/}
-                    <div className="section centered">
-                        Links
-                    </div>
-                {/* </Link>*/}
             </div>
         } else {
             return <div></div>

@@ -19,7 +19,7 @@ class Form extends Component {
         if (showName)
             nameField = [
                 <label htmlFor="name">Name</label>,
-                <Field component="input" required placeholder="Name" type="text" name="name" />,
+                <Field component="input" className="fullWidth" required placeholder="Name" type="text" name="name" />,
                 <br />
             ]
 
@@ -28,9 +28,9 @@ class Form extends Component {
                 <div>
                     {nameField}
                     <label htmlFor="headline">Headline</label>
-                    <Field component="input" required placeholder="A short phrase or sentance to describe who you are" type="text" name="headline" /><br />
+                    <Field component="input" className="fullWidth" placeholder="A short phrase or sentance to describe who you are" type="text" name="headline" /><br />
                     <label htmlFor="summary">Summary</label><br />
-                    <Field component="textarea" required placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
+                    <Field component="textarea" className="fullWidth" placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
                     {customElems ? customElems() : null}
                 </div>
                 <div className="buttons">

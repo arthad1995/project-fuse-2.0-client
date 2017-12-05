@@ -29,16 +29,18 @@ class Sidebar extends Component {
                         Members
                     </div>
                {/* </Link>*/}
-                {/*<Link to={`/teams/${id}/links`}>*/}
+                {data.get('canEdit') ?
+                <Link to={`/teams/${id}/stats`}>
                     <div className="section centered">
-                        Links
+                        Statistics
                     </div>
-                {/*</Link>*/}
+                </Link> : null}
+                {data.get('canEdit') ?
                 <Link to={`/teams/${id}/settings`}>
                     <div className="section centered">
                         Settings
                     </div>
-                </Link>
+                </Link> : null }
             </div>
         }else{
             return <div></div>

@@ -37,7 +37,7 @@ class Page extends Component {
         const params = this.props.match.params
         const data = this.props[this.props.index].get('data')
         const elem = (data) ? data.get(params.id) : null
-        const editBtn = (this.props.canEdit && this.props.canEdit(this.props) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fa fa-pencil'></i></Link></div> : '')
+        const editBtn = (this.props.canEdit && this.props.canEdit(this.props, elem) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fa fa-pencil'></i></Link></div> : '')
         const customElems = this.props.customElems || (e =>null)
 
         if (elem) {
