@@ -41,7 +41,7 @@ class Page extends Component {
         const customElems = this.props.customElems || (e =>null)
 
         if (elem) {
-            const profile = elem.get('profile') || elem.get('userProfile') || Map()
+            const profile = elem.get('profile') || Map()
             return (
                 <AnimationHandler anim="SlideInTop" animKey='always'>
                     <div className="profile">

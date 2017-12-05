@@ -2,7 +2,7 @@ import Network from '../network'
 
 export const updateProject = history => id =>(values) =>{ 
     const network = new Network('UPDATE_PROJECT')
-    return network.PUT(`/project/${id}/update`,{
+    return network.PUT(`/projects/${id}`,{
         profile:{
             headline: values.headline,
             summary: values.summary
@@ -12,7 +12,7 @@ export const updateProject = history => id =>(values) =>{
 
 export const updateTeam = history => id => values => {
     const network = new Network('UPDATE_TEAM')
-    return network.PUT(`/team/${id}/update`,{
+    return network.PUT(`/teams/${id}`,{
         profile:{
             headline: values.headline,
             summary: values.summary
@@ -22,7 +22,7 @@ export const updateTeam = history => id => values => {
 
 export const updateOrganization = history => id => values => {
     const network = new Network('UPDATE_ORGANIZATION')
-    return network.PUT(`/organization/${id}/update`,{
+    return network.PUT(`/organizations/${id}`,{
         profile:{
             headline: values.headline,
             summary: values.summary
@@ -32,8 +32,8 @@ export const updateOrganization = history => id => values => {
 
 export const updateCurrentUser = history => id => values => {
     const network = new Network('UPDATE_USER')
-    return network.PUT('/user/update_current', {
-        userProfile:{
+    return network.PUT(`/users/${id}`, {
+        profile:{
             headline: values.headline,
             summary: values.summary,
             skills: values.skills

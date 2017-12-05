@@ -53,7 +53,7 @@ export default class Menu extends Component {
 
         return (
             <div className="header">
-                <Link to="/"><img src="/assets/images/project_fuse.svg" /></Link>
+                <Link to="/"><img className="shadow" src="/assets/images/project_fuse.svg" /></Link>
                 {restOfMenu}
             </div>
         )

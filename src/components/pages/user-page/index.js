@@ -12,7 +12,7 @@ const format = (skill) =>{
 
 export const UserPageSidebar = Sidebar 
 export const UserCustomElems = (user) => {
-    const profile = user.get('userProfile') || Map()
+    const profile = user.get('profile') || Map()
     const skills = (profile.get('skills')) ? profile.get('skills').split(',') : []
     return <div className="skills">
         <h3>Skills</h3>

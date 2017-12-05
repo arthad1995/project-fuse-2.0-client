@@ -6,6 +6,7 @@ import TimeKeeper from 'react-timekeeper'
 import DayPicker from 'react-day-picker'
 import { Tab, Tabs, TabList, TabPanel } from '../../../common'
 import { Field, reduxForm } from 'redux-form'
+import {ErrorDisplay} from '../../../common'
 const v = require('voca')
 const dateFormat = require('dateformat')
 import 'react-day-picker/lib/style.css';
@@ -141,7 +142,7 @@ class DateTimePicker extends Component {
 }
 
 let _InterviewTimePicker = props => {
-    const {handleSubmit, dispatch, cancel} = props
+    const {handleSubmit, dispatch, cancel, errors} = props
     return (
         <div className='clearfix timepicker'>
             <form onSubmit={handleSubmit}>
@@ -151,6 +152,7 @@ let _InterviewTimePicker = props => {
                 </div>
                 <button className="btn tone1-4-color" type="submit"><i className="fa fa-plus" /> Add</button>
                 <a className="btn tone1-2-color" onClick={cancel}><i className="fa fa-ban" /> Cancel</a>
+                <ErrorDisplay errors={errors} />
             </form>
         </div>
     )

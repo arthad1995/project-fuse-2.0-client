@@ -14,7 +14,7 @@ import { RegisterPage } from '../pages/register'
 import { logout } from '../../actions/auth'
 import {addFriend, applyToOrganization, applyToTeam, applyToProject} from '../../actions/apply'
 import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '../../actions/search'
-import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
+import { loadUser, loadProject, loadTeam, loadOrganization, loadProjectSettings, loadTeamSettings, loadOrganizationSettings } from '../../actions/profile_page'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
 import { updateProject, updateTeam, updateOrganization, updateCurrentUser } from '../../actions/update'
 import {ProjectSettings, ProjectSettingsSidebar} from '../pages/project-settings'
@@ -125,9 +125,9 @@ export class PageRouter extends Component {
                 {pages.my_.map(myListOfPage)}
                 {pages.search.map(searchPage)}
                 {pages.profiles.map(profilePage)}
-                {authenticatedRoute('projects/:id/settings', PageShell(ProjectSettings({ load: loadProject })))}
-                {authenticatedRoute('teams/:id/settings', PageShell(TeamSettings({ load: loadTeam })))}
-                {authenticatedRoute('organizations/:id/settings', PageShell(OrganizationSettings({ load: loadOrganization })))}
+                {authenticatedRoute('projects/:id/settings', PageShell(ProjectSettings({ load: loadProjectSettings })))}
+                {authenticatedRoute('teams/:id/settings', PageShell(TeamSettings({ load: loadTeamSettings })))}
+                {authenticatedRoute('organizations/:id/settings', PageShell(OrganizationSettings({ load: loadOrganizationSettings  })))}
                 <Route component={PageShell(NoMatch)} />
             </Switch>
         )

@@ -15,8 +15,6 @@ export function edit_obj(state = fromJS({}), action){
         let data = action.payload.data.data
         if(data.profile)
             data = Object.assign({}, data, data.profile)
-        else if(data.userProfile)
-            data = Object.assign({}, data, data.userProfile)
         return Object.assign({}, data)
     }
 

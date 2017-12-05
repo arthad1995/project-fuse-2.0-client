@@ -85,6 +85,10 @@ export const async_base_id = (base_name) => {
                             .set('fetched', false)
                             .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                 }
+            case `${base_name}_SETTINGS_FULFILLED`:
+                    {
+                        let response = action.payload.data
+                    }
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
                     return state.remove('errors')
