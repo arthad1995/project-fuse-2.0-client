@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-const ReactMarkdown = require('react-markdown')
-import {Editor, EditorState} from '../../common'
+import {Editor, EditorState, ErrorDisplay} from '../../common'
 import {Redirect } from 'react-router'
 import {login} from '../../../actions/auth'
+import {Link} from 'react-router-dom'
+import {Async} from '../../common'
 
-require('./login.scss')
+const LoginForm = (props) => <Async load={import('./form')} {...props} />
 
 const mapStateToProps = (state) => {
     return {
@@ -13,11 +14,10 @@ const mapStateToProps = (state) => {
     }
 }
 
-const sendLoginRequest = (event)=>{
-    event.preventDefault()
+const sendLoginRequest = (values)=>{
     login(
-        document.getElementById('email').value, 
-        document.getElementById('password').value
+        values.email, 
+        values.password
     )
 }
 
@@ -35,13 +35,9 @@ export  class LoginPage extends Component {
                 <div className="centered">
                     <div>
                         <h2>Project Fuse</h2>
-                        <form onSubmit={sendLoginRequest}>
-                            <div>
-                                <input placeholder="Email" type="email" id="email" name="email" /><br />
-                                <input placeholder="Password" type="password" id="password" name="password" /><br />
-                            </div>
-                            <input className='btn blue-color' type="submit" id="submit" name="submit" value="Login" />
-                        </form>
+                        <LoginForm disabled={this.props.user.get("fetching")} onSubmit={sendLoginRequest} />
+                        <Link to="/register">Create Account</Link>
+                        <ErrorDisplay errors={this.props.user.get('errors')} />
                     </div>
                 </div>
             </div>

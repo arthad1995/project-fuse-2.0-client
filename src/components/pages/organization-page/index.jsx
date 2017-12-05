@@ -1,6 +1,4 @@
-import { ProfilePage } from '../../common'
-import Sidebar from './sidebar'
+import React from 'react'
+import {Async} from '../../common'
 
-const OrganizationPage = ProfilePage('organizations')
-export default OrganizationPage
-export const OrganizationPageSidebar = Sidebar 
+export const OrganizationPageSidebar = (props) => <Async load={import('./sidebar')} {...props}/>

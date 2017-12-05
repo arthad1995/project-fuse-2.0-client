@@ -1,9 +1,3 @@
-import Sidebar from './sidebar'
-import { CreatePage } from '../../common'
+import {Async} from '../../common'
 
-const OrganizationCreatePage = CreatePage('Organization')
-
-//OrganizationCreatePage.noSidebar = true
-
-export default OrganizationCreatePage
-export const OrganizationCreateSidebar = Sidebar
+export const OrganizationCreateSidebar = (props) => <Async load={import('./sidebar')}  {...props}/>

@@ -14,32 +14,38 @@ class Sidebar extends Component {
 
     render(){
         const id = this.props.match.params.id
-        const data = this.props.projects.get(id)
+        let data = this.props.projects.get('data')
+        data = (data)? data.get(id) : null
         if(data){
             return <div>
                 <Link to={`/projects/${id}`}>
                     <div className='section centered'>
-                        <img src={data.get('image')} className='profileImage hideOnPhone' />
-                        <div className='phoneOnly'>
-                            Project Page
-                        </div>
+                            Project Home
                     </div>
                 </Link>
-                <Link to={`/projects/${id}/members`}>
+                <div className="hidden section centered"></div>
+                {/*<Link to={`/projects/${id}/members`}>*/}
                     <div className="section centered">
                         Members
                     </div>
-                </Link>
-                <Link to={`/projects/${id}/teams`}>
+                {/*</Link>*/}
+                {/*<Link to={`/projects/${id}/teams`}>*/}
                     <div className="section centered">
                         Teams
                     </div>
-                </Link>
-                <Link to={`/projects/${id}/links`}>
+                {/*</Link>*/}
+                {data.get('canEdit') ?
+                <Link to={`/projects/${id}/stats`}>
                     <div className="section centered">
-                        Links
+                        Statistics
                     </div>
-                </Link>
+                </Link> : null}
+                {data.get('canEdit') ?
+                <Link to={`/projects/${id}/settings`}>
+                    <div className="section centered">
+                       Settings
+                    </div>
+                </Link> : null}
             </div>
         }else{
             return <div></div>

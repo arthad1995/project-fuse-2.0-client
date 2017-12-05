@@ -1,54 +1,38 @@
-import React from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import React, { Component } from 'react'
+import AnimationHandler from './elements/animation'
 
-require('./animations.scss')
+require('./shells.scss')
 
 export const PageShell = Elem => {
     let className = 'content'
-    if(Elem.noSidebar)
+    if (Elem.noSidebar)
         className = 'full-content'
-    if(Elem.noBorder)
+    if (Elem.noBorder)
         className += ' no-border'
-    return props => <ReactCSSTransitionGroup
-    transitionAppear={true}
-    transitionAppearTimeout={600}
-    transitionEnterTimeout={600}
-    transitionLeaveTimeout={200}
-    transitionName="SlideInLeft"
-  > 
-        <div className={className}>
-            <Elem {...props} />
-        </div>
-    </ReactCSSTransitionGroup>
+    return props => <AnimationHandler anim="SlideInLeft" animKey="page" renderClassName={className}>
+        <Elem {...props} />
+    </AnimationHandler>
 }
-export const SidebarShell =  (pos) => (Elem) => {
-    if(pos == 'none')
+export const SidebarShell = (pos) => (Elem) => {
+    if (pos == 'none')
         return props => <span></span>
     let className = "leftSidebar"
-    if(Elem.goBottom && pos ==='bottom')
+    if (Elem.goBottom && pos === 'bottom')
         className = "leftSidebar-phone"
-    if(pos === 'top' && !Elem.goBottom)
+    if (pos === 'top' && !Elem.goBottom)
         className = 'leftSidebar-show';
-    
+
     let show = false;
-    if(pos === 'top'){
+    if (pos === 'top') {
         show = true;
     }
-    else if(pos === 'bottom' && Elem.goBottom){
+    else if (pos === 'bottom' && Elem.goBottom) {
         show = true;
     }
-    if(!show)
+    if (!show)
         return props => <span></span>
 
-    return props => <ReactCSSTransitionGroup
-    transitionAppear={true}
-    transitionAppearTimeout={600}
-    transitionEnterTimeout={600}
-    transitionLeaveTimeout={200}
-    transitionName="SlideInRight"
-  > 
-    <div className={className}>
-        <Elem {...props} />
-    </div>
-    </ReactCSSTransitionGroup>
+    return props => <AnimationHandler animKey="sidebar" anim="SlideInRight" renderClassName={className}>
+    <Elem {...props} />
+</AnimationHandler>
 }

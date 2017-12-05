@@ -1,0 +1,16 @@
+@import '../../../common.scss';
+
+.profile{
+    .skills{
+        ul{
+            list-style: none;
+            li{
+                @extend .tone1-5-color;
+                padding: 0.25rem 0.75rem;
+                border-radius: 0.5rem;
+                display: inline;
+                margin: 0.15rem;
+            }
+        }
+    }
+}

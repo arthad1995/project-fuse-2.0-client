@@ -1,20 +1,15 @@
 import React, {Component} from 'react'
 import Menu from './menu'
-import RouteHandling from '../routing/route_handling'
 import { withRouter } from 'react-router'
-import Footer from './footer'
-import {connect} from 'react-redux'
+import {Async} from '../common'
+
+const OnlineIndicator = () => <Async load={import('./online_indicator')} ><span /></Async>
+const RouteHandling = (props) => <Async load={import('../routing/route_handling')} {...props}/>
+const Footer = () => <Async load={import('./footer')}><span /></Async>
 
 require('./layout.scss')
 
-const mapStateToProps = (state) => {
-    return {
-        user: state.user
-    }
-}
-
 @withRouter
-@connect(mapStateToProps)
 export default class Layout extends Component {
     constructor(props){ super(props)}
 
@@ -22,7 +17,8 @@ export default class Layout extends Component {
         return (
             <div>
                 <Menu />
-                <RouteHandling dispatch={this.props.dispatch} user={this.props.user} />
+                <OnlineIndicator />
+                <RouteHandling dispatch={this.props.dispatch} />
                 <Footer />
             </div>
         )

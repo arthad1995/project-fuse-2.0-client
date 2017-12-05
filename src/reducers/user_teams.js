@@ -1,9 +1,4 @@
 import { not_loaded } from './initial_states'
-import { async_base } from './base_reducers'
+import { async_base, append_wrapper } from './base_reducers'
 
-const load_handler = async_base('LOAD_USER_TEAMS')
-
-export function user_teams(state = not_loaded, action){
-    state = load_handler(state, action)
-    return state;
-}
+export const user_teams = async_base('LOAD_MY_TEAMS')

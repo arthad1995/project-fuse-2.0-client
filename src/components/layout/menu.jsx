@@ -14,18 +14,23 @@ export default class Menu extends Component {
 
     render() {
         let user = this.props.user
-        let shouldRenderUserItems = user.size > 2 && user.get('fetched')
-
+        let shouldRenderUserItems = user.size > 2 && user.get('fetched') && user.get('data')  && user.get('data').get('user')
         let restOfMenu = ''
-
         if (shouldRenderUserItems) {
+            user = user.get('data').get('user')
+
             restOfMenu = (
                 <ul className="menu">
                     <li>
-                        <Link to={`/profile/${user.get('id')}`}>
+                        <Link to={`/users/${user.get('id')}`}>
                             <i className="icon fa fa-user"></i>
                         </Link>
                         <ul className="dropdown">
+                            <Link to={`/users/${user.get('id')}`}>
+                                <li>
+                                    Profile
+                                </li>
+                            </Link>
                             <Link to="/logout">
                                 <li>
                                     Logout
@@ -48,7 +53,7 @@ export default class Menu extends Component {
 
         return (
             <div className="header">
-                <Link to="/"><img src="/assets/images/project_fuse.svg" /></Link>
+                <Link to="/"><img className="shadow" src="/assets/images/project_fuse.svg" /></Link>
                 {restOfMenu}
             </div>
         )

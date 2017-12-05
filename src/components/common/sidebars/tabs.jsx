@@ -15,7 +15,7 @@ export class TabSidebar extends Component {
             <div>
                 {tabs.map((tab)=>{
                     let id = tab.id
-                    return <div key={id} className={'section centered pointer' + ((selected_tab === `tab${id}`)?' selected':'')}
+                    return <div key={id} className={'section centered pointer clickable' + ((selected_tab === `tab${id}`)?' selected':'')}
                             onClick={click_callback(`tab${id}`)}>
                             {tab.name}
                         </div>
