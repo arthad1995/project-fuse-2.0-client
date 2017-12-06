@@ -80,7 +80,7 @@ class Page extends Component {
         return <div>
             <h2>{action}</h2>
             {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
-            <this.Form customElems={this.props.customElems} showName={showName} initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={saveFunc} cancelAction={this.props.history.goBack} />
+            <this.Form formName={`create=${this.props.name}`} customElems={this.props.customElems} showName={showName} initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={saveFunc} cancelAction={this.props.history.goBack} />
             <ErrorDisplay errors={this.props[this.props.index].get('errors')} />
         </div>
     }

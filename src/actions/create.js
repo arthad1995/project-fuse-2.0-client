@@ -2,7 +2,7 @@ import Network from '../network'
 
 export const createProject = (values) =>{ 
     const network = new Network('CREATE_PROJECT')
-    network.POST('/projects',{
+    return network.POST('/projects',{
         name: values.name,
         profile:{
             headline: values.headline,
@@ -13,7 +13,7 @@ export const createProject = (values) =>{
 
 export const createTeam = values => {
     const network = new Network('CREATE_TEAM')
-    network.POST('/teams',{
+    return network.POST('/teams',{
         name: values.name,
         profile:{
             headline: values.headline,
@@ -24,7 +24,7 @@ export const createTeam = values => {
 
 export const createOrganization = values => {
     const network = new Network('CREATE_ORGANIZATION')
-    network.POST('/organizations',{
+    return network.POST('/organizations',{
         name: values.name,
         profile:{
             headline: values.headline,

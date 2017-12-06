@@ -15,7 +15,7 @@ export const addSlotProject = id => values =>{
 
 export const addSlotTeam = id => values => {
     const network = new Network('ADD_INTERVIEW_SLOT_TEAM')
-    network.POST(`/teams/${id}/interview_slots/add`,{
+    return network.POST(`/teams/${id}/interview_slots/add`,{
         name: values.name,
         profile:{
             headline: values.headline,
@@ -26,7 +26,7 @@ export const addSlotTeam = id => values => {
 
 export const addSlotOrganization = id => values => {
     const network = new Network('ADD_INTERVIEW_SLOT_ORGANIZATION')
-    network.POST(`/organizations/${id}/interview_slots/add`,{
+    return network.POST(`/organizations/${id}/interview_slots/add`,{
         name: values.name,
         profile:{
             headline: values.headline,

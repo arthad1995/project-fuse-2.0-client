@@ -16,11 +16,13 @@ export const UserCustomElems = (user) => {
     const skills = (profile.get('skills')) ? profile.get('skills').split(',') : []
     return <div className="skills">
         <h3>Skills</h3>
+        <div className='fullWidth'>
         <ul>
             {skills.map((skill)=>{
                 return <li>{format(skill)}</li>
             })}
         </ul>
+        </div>
     </div>
 }
 
