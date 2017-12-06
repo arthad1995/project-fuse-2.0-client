@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ErrorDisplay } from '../../elements/error_display'
 import { goBack } from 'react-router-redux'
-import { Field } from 'redux-form'
+import { Field, reset } from 'redux-form'
 import { Redirect } from 'react-router-dom'
 
 class Form extends Component {
@@ -24,7 +24,9 @@ class Form extends Component {
             ]
 
         return (
-            <form className="withMargins" onSubmit={handleSubmit}>
+            <form className="withMargins" onSubmit={(vals) => {
+                handleSubmit(vals).then(()=>{this.props.dispatch(reset(this.props.formName))})
+            }}>
                 <div>
                     {nameField}
                     <label htmlFor="headline">Headline</label>

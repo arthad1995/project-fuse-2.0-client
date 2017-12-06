@@ -1,10 +1,12 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, reset } from 'redux-form'
 
 let Form = props => {
     const { handleSubmit } = props
     return (
-        <form className="withMargins" onSubmit={handleSubmit}>
+        <form className="withMargins" onSubmit={(vals) => {
+            handleSubmit(vals).then(()=>{this.props.dispatch(reset('login'))})
+        }}>
             <div>   
                 <Field component="input" required placeholder="Email" type="email" name="email" /><br />
                 <Field component="input" required placeholder="Password" type="password" name="password" /><br />

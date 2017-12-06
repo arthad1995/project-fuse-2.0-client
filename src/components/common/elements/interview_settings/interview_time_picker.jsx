@@ -5,7 +5,7 @@ import { stopEvent } from '../stopEvent'
 import TimeKeeper from 'react-timekeeper'
 import DayPicker from 'react-day-picker'
 import { Tab, Tabs, TabList, TabPanel } from '../../../common'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reset, reduxForm } from 'redux-form'
 import {ErrorDisplay} from '../../../common'
 const v = require('voca')
 const dateFormat = require('dateformat')
@@ -147,7 +147,9 @@ let _InterviewTimePicker = props => {
     const {handleSubmit, dispatch, cancel, errors} = props
     return (
         <div className='clearfix timepicker'>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(vals) => {
+                handleSubmit(vals).then(()=>{this.props.dispatch(reset(formName))})
+            }}>
                 <div className='inline'>
                     <DateTimePicker dispatch={dispatch} name="interview start" />
                     <DateTimePicker dispatch={dispatch} name="interview end" />
