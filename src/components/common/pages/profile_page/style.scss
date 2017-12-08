@@ -34,28 +34,34 @@
 
   .profile{
     text-align: center;
-    h1{
-      position: relative;
-      .edit-btn{
-        right: 1rem;
-        top: 0rem;
+    h1.title{
+      margin-top: 0;
+    }
+    .edit-btn{
+      .fa-pencil-alt{
+        right: 0rem;
+        top: -3.5rem;
+        $size: 2.5rem;
+        height: $size;
+        width: $size;
         position: absolute;
       }
-    }
+      position: relative;
+    } 
     .headline {
       font-style: italic;
       margin: 1rem;
     }
     .profile_picture{
-      $size: 6rem;
-      $padding: 0.75rem;
+      $size: 6.2rem;
+      $padding: 1rem;
       $total-size: $size + $padding;
       height: $total-size/2 + 1.25rem;
       position: relative;
       div{
         top: -($total-size/2);
         left: 50%;
-        margin-left: -($total-size/2);
+        transform: translateX(-50%);
         position: absolute;
         background: hsl(240, 20%, 90%);
         border-radius: 50%;
@@ -63,11 +69,9 @@
         border: 0.2rem solid hsl(240, 5%, 100%);
         box-shadow: 0px 1px 8px 1px gray;
         z-index: 500;
-        i{
-          height: $size;
-          width: $size;
-          font-size: $size;
-          line-height: $size;
+        .fa-user{
+          height: $size / 2;
+          width: $size / 2;
           text-align: center;
         }
       }

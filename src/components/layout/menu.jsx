@@ -39,13 +39,13 @@ export default class Menu extends Component {
                         </ul>
                     </li>
                     <li>
-                        <Link to="/"><i className="fa fa-bell"></i></Link>
+                        <Link to="/"><i className="fa shadow fa-bell"></i></Link>
                     </li>
                     <li>
-                        <Link to="/"><i className="fa fa-envelope"></i></Link>
+                        <Link to="/"><i className="fa shadow fa-envelope"></i></Link>
                     </li>
                     <li>
-                        <Link to="/"><i className="fa fa-search"></i></Link>
+                        <Link to="/"><i className="fa shadow fa-search"></i></Link>
                     </li>
                 </ul>
             )

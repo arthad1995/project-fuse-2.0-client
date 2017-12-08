@@ -29,6 +29,14 @@ ul.interview_slots {
                 margin-left: 25px;
             }
         }
+        $arrow-col: hsl(240, 50%, 50%);
+        .fa-arrow-right{
+            color: $arrow-col;
+            margin: 0rem 0.5rem;
+            height: 40px;
+            width: 50px;
+            margin-bottom: 5px;
+        }
         &.arrow{
             $arrow-col: hsl(240, 50%, 50%);
             width: 80px;
@@ -53,7 +61,7 @@ ul.interview_slots {
                 height: 0; 
                 border: 5px solid $arrow-col;
                 left: calc(50% - 15px);
-                top: calc(50% - 2px);
+                top: calc(50% - 1px);
             }
         }
     }

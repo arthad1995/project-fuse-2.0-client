@@ -29,7 +29,7 @@ export default class InterviewTimeList extends Component {
                                     <div className="inline">
                                         <Clock min={startDate.minutes()} hr={startDate.hours()} />
                                     </div>
-                                    <div className='arrow' />
+                                    <i class="fas fa-arrow-right"></i>
                                     <div className='end'>
                                         <div className='date'> 
                                             {date_format(endDate, 'MMM Do')}
