@@ -437,9 +437,9 @@ $loading-size: 100px;
   padding: 10px 20px 13px 20px;
   border-radius: 10px;
   background: #fff;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -70%);
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
   min-height: 125px;
 }
 
@@ -448,8 +448,9 @@ $loading-size: 100px;
   height: inherit;
   position: absolute;
   border-radius: 0px;
-  top: 50%;
-  left: 50%;
+  top: 50vh !important;
+  left: 50vw !important;
+  transform: translate(0%, -20%) !important;
   margin: -225px 0 0 -130px;
 }
 
