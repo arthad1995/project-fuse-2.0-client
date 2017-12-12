@@ -8,9 +8,10 @@ var cache = {}
 export const MyListOfPage= (paramObj) => {
     const url = paramObj.path
     const params = paramObj.param || {}
+    const show_new = params.show_new
     if(cache[url]) return cache[url];
 
-    const tabInfo = TabbedSearchSidebar(url)
+    const tabInfo = TabbedSearchSidebar(url, show_new)
 
     console.log(tabInfo)
 

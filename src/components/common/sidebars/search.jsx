@@ -15,13 +15,16 @@ const mapStateToProps = (state) =>{
 
 export const TabbedSearchSidebar = (url, show_new = true) => {
     const display_name = url[0].toUpperCase() + url.slice(1)
-    console.log(show_new)
-    const tabs = [
+    let tabs = [
         {id: 1, name: `My ${display_name}`, arr_key: `my_${url}`},
         {id: 2, name: `Applied ${display_name}`, arr_key: `applied_${url}`},
         {id: 3, name: `Find ${display_name}`, arr_key: `search_${url}`, type: 'search'},
         {id: 4, name: `New ${display_name.slice(0, -1)}`, arr_key: `new_${url}`, type: 'new'},
     ]
+    if(!show_new){
+        tabs = tabs.slice(0,-1)
+        tabs[1].name = `${display_name} Requests`
+    }
 
     @connect( mapStateToProps )
     class TabSidebarSearchPage extends Component {
@@ -43,8 +46,6 @@ export const TabbedSearchSidebar = (url, show_new = true) => {
         }
     }
     TabSidebarSearchPage.goTop = true;
-    if(!show_new)
-        return {sidebar: TabbedSearchSidebar, tabs: tabs.slice(0, -1)}
     return {sidebar: TabSidebarSearchPage, tabs}
 }
 

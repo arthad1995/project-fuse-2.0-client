@@ -5,6 +5,17 @@ import { Link } from 'react-router-dom'
 import {stopEvent} from '../../elements/stopEvent'
 import {AnimationHandler} from '../../../common'
 
+const SearchHeader = (props) => {
+    return [
+        <b>Find</b>,
+        <div className="inline">
+            <input type='search' name='search' placeholder='Search' />
+            <input type='Submit' className='sm-btn tone1-4-color' value='Search' />
+        </div>,
+        <hr />,
+    ]
+}
+
 class Page extends Component {
     constructor(props) {
         super(props)
@@ -31,6 +42,7 @@ class Page extends Component {
         if (data) {
             return (
                 <AnimationHandler anim="SlideInTop" animKey='always'>
+                    <SearchHeader />
                     <div id={`popup`} className="modalDialog" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}>
                         <div onClick={(e) => {stopEvent(e); return false;}}>
                             <div className="modal_close" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}></div>
@@ -54,7 +66,11 @@ class Page extends Component {
             )
         }
         else {
-            return (<div><h1>{this.props.notFoundMsg}</h1></div>)
+            return (
+                <div><SearchHeader />
+                    {this.props.notFoundMsg}
+                </div>
+            )
         }
     }
 }
