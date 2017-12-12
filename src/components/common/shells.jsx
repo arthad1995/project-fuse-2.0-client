@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import AnimationHandler from './elements/animation'
 
-require('./shells.scss')
+
 
 export const PageShell = Elem => {
     let className = 'content'

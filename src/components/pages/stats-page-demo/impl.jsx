@@ -12,7 +12,7 @@ const users = [
     "John", "Jim", "Peter", "Rachel", "George", "Bob"
 ]
 
-require('./styles.scss')
+
 
 class StatsPage extends Component {
     render() {

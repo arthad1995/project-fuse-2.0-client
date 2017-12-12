@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ListItem from '../listItem'
 import {Map} from 'immutable'
 
-require('./style.scss')
+
 
 export class Tabs extends Component {
     constructor(props){ super(props)}

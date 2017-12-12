@@ -6,7 +6,7 @@ const ReactMarkdown = require('react-markdown');
 import { AnimationHandler } from '../../../common'
 import {Map} from 'immutable'
 
-require('./style.scss')
+
 
 class Page extends Component {
     constructor(props) {

@@ -4,7 +4,7 @@ import React from 'react'
 import { Field } from 'redux-form'
 const v = require('voca')
 
-require('./style.scss')
+
 
 const format = (skill) =>{
     return skill

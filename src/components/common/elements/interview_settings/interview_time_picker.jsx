@@ -12,7 +12,7 @@ const dateFormat = require('dateformat')
 import 'react-day-picker/lib/style.css';
 
 const formName = 'interview-time'
-require('./interview_time_picker.scss')
+
 
 class DateTimePicker extends Component {
     constructor(props) {

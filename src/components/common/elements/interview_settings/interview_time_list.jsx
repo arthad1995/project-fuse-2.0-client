@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import {parse_date, date_format} from '../../../../utils/date_utils'
 import Clock from '../clock'
 
-require('./interview_time_list.scss')
-
 export default class InterviewTimeList extends Component {
     render() {
         const slots = this.props.slots || {}
@@ -27,9 +25,9 @@ export default class InterviewTimeList extends Component {
                                         </div>
                                     </div>
                                     <div className="inline">
-                                        <Clock min={startDate.minutes()} hr={startDate.hours()} />
+                                        <Clock min={startDate.minute()} hr={startDate.hour() % 12} />
                                     </div>
-                                    <i class="fas fa-arrow-right"></i>
+                                    <i className="fas fa-arrow-right"></i>
                                     <div className='end'>
                                         <div className='date'> 
                                             {date_format(endDate, 'MMM Do')}
@@ -39,7 +37,7 @@ export default class InterviewTimeList extends Component {
                                         </div>
                                     </div>
                                     <div className="inline">
-                                        <Clock min={endDate.minutes()} hr={endDate.hours()} />
+                                        <Clock min={endDate.minute()} hr={endDate.hour() % 12} />
                                     </div>
                                     <div className='tools'>
                                         {/*<i className='fa fa-pencil' />
