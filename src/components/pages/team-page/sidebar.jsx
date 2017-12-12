@@ -41,6 +41,7 @@ class Sidebar extends Component {
                         Settings
                     </div>
                 </Link> : null }
+                <div onClick={this.props.history.goBack} class="section centered pointer clickable">Back</div>
             </div>
         }else{
             return <div></div>

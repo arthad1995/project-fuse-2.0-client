@@ -5,6 +5,7 @@ import {TabSidebar} from './tabs'
 import { connect } from 'react-redux'
 import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
+import { goBack } from 'react-router-redux'
 
 const mapStateToProps = (state) =>{
     return {
@@ -35,6 +36,7 @@ export const TabbedSearchSidebar = (url, show_new = true) => {
 
             return (
                 <TabSidebar selected_tab={selected_tab} onTabChange={click_callback} tabs={tabs}>
+                    <div onClick={this.props.history.goBack} class="section centered pointer clickable">Back</div>
                     {this.props.children}
                 </TabSidebar>
             )
