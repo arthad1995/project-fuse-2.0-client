@@ -12,6 +12,8 @@ export const MyListOfPage= (paramObj) => {
 
     const tabInfo = TabbedSearchSidebar(url)
 
+    console.log(tabInfo)
+
     const mapStateToProps = (state) =>{
         let obj = {
             selected_tab: state.ui.get('selected_tab')
@@ -34,7 +36,7 @@ export const MyListOfPage= (paramObj) => {
 
         render(){
             return (
-                <Tabs selected_tab={this.props.selected_tab} generator={listGenerator(url)(this.props)} tabs={tabInfo.tabs} />
+                <Tabs selected_tab={this.props.selected_tab} generator={listGenerator(url)(Object.assign({}, this.props, params))} tabs={tabInfo.tabs} />
             )
         }
     }

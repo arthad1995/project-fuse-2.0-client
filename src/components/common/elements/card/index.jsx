@@ -21,7 +21,7 @@ class Card extends Component {
         let color = 'tone1-3' // 1-1
 
         switch(type){
-            case 'announcment':
+            case 'announcement':
                 icon = 'fa-bullhorn'
                 color = 'tone1-5' //1-2
                 break

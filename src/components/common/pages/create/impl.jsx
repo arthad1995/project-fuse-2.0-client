@@ -7,6 +7,7 @@ import { reduxForm, initialize } from 'redux-form'
 import { Redirect } from 'react-router-dom'
 import Form from './form'
 import {EditorState} from 'draft-js'
+import {fromJS} from 'immutable'
 
 const mapObject = key => state => {
     let map = {
@@ -31,7 +32,6 @@ class Page extends Component {
         this.Form = reduxForm({
             // a unique name for the form
             form: `create=${this.props.name}`,
-            destroyOnUnmount: false
         })(Form)
     }
 
@@ -47,9 +47,11 @@ class Page extends Component {
     }
 
     render() {
-
+        console.log(this.props)
+        
+        if(!this.props.index) return <div className="loading"></div>
         const params = this.props.match.params
-        let props = this.props[this.props.index]
+        const props = this.props[this.props.index] || fromJS({})
         const showName = !this.state.id
 
         const toolbar = {
@@ -65,8 +67,8 @@ class Page extends Component {
             },
         }
 
-        if (this.props[this.props.index].get('REDIRECT_ID')) {
-            return <Redirect to={`/${this.props.index}/${this.props[this.props.index].get('REDIRECT_ID')}`} />
+        if (props.get('REDIRECT_ID')) {
+            return <Redirect to={`/${this.props.index}/${props.get('REDIRECT_ID')}`} />
         }
 
         const action = (this.state.edit) ? `Update ${this.props.name}` : `Create a new ${this.props.name} `
@@ -81,7 +83,7 @@ class Page extends Component {
             <h2>{action}</h2>
             {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
             <this.Form formName={`create=${this.props.name}`} customElems={this.props.customElems} showName={showName} initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={saveFunc} cancelAction={this.props.history.goBack} />
-            <ErrorDisplay errors={this.props[this.props.index].get('errors')} />
+            <ErrorDisplay errors={props.get('errors')} />
         </div>
     }
 }

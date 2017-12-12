@@ -10,6 +10,8 @@ export default class InterviewTimeList extends Component {
                 {Object.entries(slots).map(elem => {
                     const index = elem[0]
                     elem = elem[1]
+                    if(typeof elem !== 'object') return null
+                    if(!elem.start || !elem.end) return null
                     const startDate = parse_date(elem.start)
                     const endDate = parse_date(elem.end)
                     return (

@@ -37,11 +37,20 @@ const createArray = (paths, params) => {
 const __pages = ['projects', 'teams', 'organizations', 'users']
 
 const pages = {
-    my_: createArray(__pages,[
-        { load: myProjects }, 
+    my_: createArray(__pages.slice(0, -1),[
+        { 
+            load: myProjects,
+            search_tab: (tab) => SearchPage({
+                    path: 'projects',
+                    param: { apply: ApplyButton(['user','applied_projects','user_projects'], projTest, applyToProject),  load: searchProjects }
+                }),
+            new_tab: (tab) => CreatePage({
+                path: 'projects',
+                param: { name: 'Project', save: createProject },
+            })
+        }, 
         { load: myTeams }, 
-        { load: myOrganizations }, 
-        { load: myFriends }
+        { load: myOrganizations }
     ]
     ),
     search: createArray(__pages, [

@@ -42,7 +42,7 @@ export default class InterviewSettings extends Component {
                     : <div key={2} className='hidden'><InterviewTimePicker onSubmit={() => { }} dispatch={() => { }} cancel={() => { }} /></div>
                 }
             </CSSTransitionGroup>
-            <InterviewTimeList errors={this.props.data.errors} slots={this.props.data || {}} onSubmit={state => (vals) => console.log(vals)} />
+            <InterviewTimeList errors={this.props.data.errors} slots={this.props.data || {}} onSubmit={state => (vals) => null} />
         </div>
     }
 }
