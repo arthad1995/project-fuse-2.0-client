@@ -67,7 +67,7 @@ class Page extends Component {
         else {
             return (
                 <div><SearchHeader />
-                    {this.props.notFoundMsg}
+                    {this.props.notFoundMsg || "No Results"}
                 </div>
             )
         }
