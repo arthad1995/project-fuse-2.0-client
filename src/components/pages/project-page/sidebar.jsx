@@ -13,8 +13,8 @@ class Sidebar extends Component {
     constructor(props){ super(props)}
     
     componentWillMount(){
-        if(this.props.load)
-            this.props.load(this.props.match.params.id)
+        if(this.props.loadFunc)
+            this.props.loadFunc(this.props.match.params.id)
     }
 
     render(){
@@ -29,11 +29,11 @@ class Sidebar extends Component {
                     </div>
                 </Link>
                 <div className="hidden section centered"></div>
-                {/*<Link to={`/projects/${id}/members`}>*/}
+                <Link to={`/projects/${id}/members`}>
                     <div className="section centered">
                         Members
                     </div>
-                {/*</Link>*/}
+                </Link>
                 {/*<Link to={`/projects/${id}/teams`}>*/}
                     <div className="section centered">
                         Teams
