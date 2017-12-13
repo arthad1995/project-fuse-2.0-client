@@ -13,7 +13,7 @@ export const PageShell = Elem => {
         <Elem {...props} />
     </AnimationHandler>
 }
-export const SidebarShell = (pos) => (Elem) => {
+export const SidebarShell = (pos) => (Elem, load) => {
     if (pos == 'none')
         return props => <span></span>
     let className = "leftSidebar"
@@ -33,6 +33,6 @@ export const SidebarShell = (pos) => (Elem) => {
         return props => <span></span>
 
     return props => <AnimationHandler animKey="sidebar" anim="SlideInRight" renderClassName={className}>
-    <Elem {...props} />
+    <Elem {...props} load={load} />
 </AnimationHandler>
 }

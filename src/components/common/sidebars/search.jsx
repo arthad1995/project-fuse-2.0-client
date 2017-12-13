@@ -39,7 +39,7 @@ export const TabbedSearchSidebar = (url, show_new = true) => {
 
             return (
                 <TabSidebar selected_tab={selected_tab} onTabChange={click_callback} tabs={tabs}>
-                    <div onClick={this.props.history.goBack} class="section centered pointer clickable">Back</div>
+                    <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
                     {this.props.children}
                 </TabSidebar>
             )

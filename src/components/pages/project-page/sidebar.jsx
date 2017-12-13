@@ -11,6 +11,11 @@ const mapStateToProps = (state) =>{
 @connect( mapStateToProps )
 class Sidebar extends Component {
     constructor(props){ super(props)}
+    
+    componentWillMount(){
+        if(this.props.load)
+            this.props.load(this.props.match.params.id)
+    }
 
     render(){
         const id = this.props.match.params.id
@@ -46,7 +51,7 @@ class Sidebar extends Component {
                        Settings
                     </div>
                 </Link> : null}
-                <div onClick={this.props.history.goBack} class="section centered pointer clickable">Back</div>
+                <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
             </div>
         }else{
             return <div></div>

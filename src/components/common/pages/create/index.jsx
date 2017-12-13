@@ -7,7 +7,6 @@ export const CreatePage = (paramObj) => {
     const name = params.name || ''
     const save = params.save || (() => { })
     const key = paramObj.path
-    console.log(`Key: ${key}`)
 
     const mapObject = key => state => {
         let map ={
@@ -33,8 +32,6 @@ export const CreatePage = (paramObj) => {
         }
     
         render() {
-            console.log(key)
-            console.log(paramObj.param)
             return this.Component ? <this.Component index={key} {...this.props} {...paramObj.param} /> : this.props.children || <div className='loading'></div>
         }
     }

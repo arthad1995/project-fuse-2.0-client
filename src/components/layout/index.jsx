@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import {Async} from '../common'
 
 const OnlineIndicator = () => <Async load={import('./online_indicator')} ><span /></Async>
-const RouteHandling = (props) => <Async load={import('../routing/route_handling')} {...props}/>
+const RouteHandling = (props) => <Async load={import('../routing')} {...props}/>
 const Footer = () => <Async load={import('./footer')}><span /></Async>
 
 require('./layout.scss')

@@ -6,14 +6,14 @@ import {stopEvent} from '../../elements/stopEvent'
 import {AnimationHandler} from '../../../common'
 
 const SearchHeader = (props) => {
-    return [
-        <b>Find</b>,
+    return <div>
+        <b>Find</b>
         <div className="inline">
             <input type='search' name='search' placeholder='Search' />
             <input type='Submit' className='sm-btn tone1-4-color' value='Search' />
-        </div>,
-        <hr />,
-    ]
+        </div>
+        <hr />
+    </div>
 }
 
 class Page extends Component {

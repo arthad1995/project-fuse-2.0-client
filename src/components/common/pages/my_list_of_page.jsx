@@ -13,8 +13,6 @@ export const MyListOfPage= (paramObj) => {
 
     const tabInfo = TabbedSearchSidebar(url, show_new)
 
-    console.log(tabInfo)
-
     const mapStateToProps = (state) =>{
         let obj = {
             selected_tab: state.ui.get('selected_tab')

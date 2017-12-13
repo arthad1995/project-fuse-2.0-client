@@ -29,7 +29,6 @@ export class Tabs extends Component {
 
 export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
     props = props || {}
-    console.log(props)
     const search_tab = props.search_tab || (() => null)
     const new_tab = props.new_tab || (() => null)
 

@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import { withRouter } from 'react-router'
 import TransitionGroup from "react-transition-group/TransitionGroup"
 import {connect} from 'react-redux' 
-import {PageRouter, SidebarRouter} from './route_mapper'
+import {PageRouter} from './page_router'
+import {SidebarRouter} from './sidebar_router'
 
 const mapStateToProps = (state) => {
     return {
@@ -12,16 +13,15 @@ const mapStateToProps = (state) => {
 
 @withRouter
 @connect(mapStateToProps)
-export default class RouteHandling extends Component {
+export default class RouteHandling extends Component { 
     constructor(props){ super(props)}
 
     render(){
         return (
             <main>
                 <div className="pageBody">
-                    <SidebarRouter pos="top" />
+                    { <SidebarRouter pos="top" /> }
                     <PageRouter {...this.props} />
-                    <SidebarRouter pos="bottom" />
                 </div>
             </main>
         )
