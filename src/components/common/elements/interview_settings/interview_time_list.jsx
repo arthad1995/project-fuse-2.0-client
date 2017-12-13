@@ -5,9 +5,15 @@ import Clock from '../clock'
 export default class InterviewTimeList extends Component {
     render() {
         const slots = this.props.slots || {}
+        const entries = Object.entries(slots)
+
+        if(entries.length == 0){
+            return <h3>No timeslots found</h3>
+        }
+
         return (
             <ul className="interview_slots">
-                {Object.entries(slots).map(elem => {
+                {entries.map(elem => {
                     const index = elem[0]
                     elem = elem[1]
                     if(typeof elem !== 'object') return null

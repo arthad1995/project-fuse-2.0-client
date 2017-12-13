@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import ListItem from '../../elements/listItem'
 import { Link } from 'react-router-dom'
 import {stopEvent} from '../../elements/stopEvent'
-import {AnimationHandler} from '../../../common'
 
 const SearchHeader = (props) => {
     return <div>
@@ -41,7 +40,7 @@ class Page extends Component {
 
         if (data) {
             return (
-                <AnimationHandler anim="SlideInTop" animKey='always'>
+                <div>
                     <SearchHeader />
                     <div id={`popup`} className="modalDialog" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}>
                         <div onClick={(e) => {stopEvent(e); return false;}}>
@@ -62,7 +61,7 @@ class Page extends Component {
                             })}
                         </ul>
                     </div>
-                </AnimationHandler>
+                </div>
             )
         }
         else {

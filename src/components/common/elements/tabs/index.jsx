@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import ListItem from '../listItem'
 import {Map} from 'immutable'
-
-
+import {AnimationHandler} from '../../../common'
 
 export class Tabs extends Component {
     constructor(props){ super(props)}
@@ -18,7 +17,7 @@ export class Tabs extends Component {
             <div className='tabs'>
                 {tabs.map((tab)=>{
                     return <section key={tab.id} id={`tab${tab.id}_content`} className={base_class + ((`tab${tab.id}` === selected_tab)? 'visible': 'hidden')}>
-                    {generator(tab)}
+                        {(`tab${tab.id}` === selected_tab)?  <AnimationHandler anim="SlideInTop" animKey='always'>{generator(tab)}</AnimationHandler> : null}
                 </section>
                 })}
             </div>
@@ -50,15 +49,15 @@ export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
         default: {
             const data = (props[tab.arr_key] && props[tab.arr_key].get('data')) ? props[tab.arr_key].get('data') : null
             return <div className="generated_list">
-                <h3>{tab.name}</h3>
-                <ul className='list'>
-                    {(data && data.size > 0) ? data.valueSeq().toArray().map((elem)=>{
-                        if(!elem) return null
-                        const id = elem.get('id')
-                        return <ListItem baseUrl={baseUrl} key={id} id={id} name={elem.get('name')} />
-                    }) : 'No results'}
-                </ul>
-            </div>
+                    <h3>{tab.name}</h3>
+                    <ul className='list'>
+                        {(data && data.size > 0) ? data.valueSeq().toArray().map((elem)=>{
+                            if(!elem) return null
+                            const id = elem.get('id')
+                            return <ListItem baseUrl={baseUrl} key={id} id={id} name={elem.get('name')} />
+                        }) : 'No results'}
+                    </ul>
+                </div>
         }
     }
 }
