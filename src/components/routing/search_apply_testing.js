@@ -7,9 +7,10 @@ const test = (groupList, elem) =>{
 }
 
 const group_test = (groupLists, elem) => {
+    const ownerId = elem.get('owner_id') || elem.get('owner').get('id')
     return [true].concat(groupLists).reduce((accumulator, list) => {
         return accumulator && (!list || test(list, elem))
-    }) && elem.get('owner').get('id') != Cookies.get('ID')
+    }) && ownerId != Cookies.get('ID')
 }
 
 export const userTest = ({user, friends}, curUser) =>{

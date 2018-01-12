@@ -720,6 +720,22 @@ li.listItem {
           }
       }
   }
+  div.skills {
+    clear: both;
+    float: none;
+    color: rgba(25,25,25,0.7);
+    li {
+      width: inherit;
+    }
+    ul {
+      display: inline-block;
+      margin-bottom: -10px;
+    }
+    div {
+      display: inline-block;
+      font-weight: bold;
+    }
+  }
 } 
 
 

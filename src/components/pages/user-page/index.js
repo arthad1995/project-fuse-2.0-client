@@ -4,8 +4,6 @@ import React from 'react'
 import { Field } from 'redux-form'
 const v = require('voca')
 
-
-
 const format = (skill) =>{
     return skill
 }

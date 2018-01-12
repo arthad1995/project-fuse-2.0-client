@@ -2,7 +2,7 @@ import Network from '../network'
 
 export const myFriends = () =>{
     const network = new Network('LOAD_FRIEND_INFO')
-    return network.GET('/users/friends')
+    //return network.GET('/users/friends')
 }
 
 export const myProjects = () =>{

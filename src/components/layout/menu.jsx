@@ -36,8 +36,9 @@ export default class Menu extends Component {
         })
         if (this.props.history.location.pathname !== '/search') {
             this.props.history.push('/search')
+        } else {
+            globalSearch({query: text})
         }
-        globalSearch({query: text})
     }
 
     render() {
