@@ -17,11 +17,11 @@ export const UserCustomElems = (user) => {
     return <div className="skills">
         <h3>Skills</h3>
         <div className='fullWidth'>
-        <ul>
-            {skills.map((skill)=>{
-                return <li>{format(skill)}</li>
-            })}
-        </ul>
+            <ul>
+                {skills.map((skill, index)=>{
+                    return <li key={index}>{format(skill)}</li>
+                })}
+            </ul>
         </div>
     </div>
 }

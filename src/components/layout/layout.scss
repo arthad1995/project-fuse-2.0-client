@@ -136,6 +136,28 @@ body {
   }
 }
 
+.searchResult {
+  > div {
+    display: inline-block;
+    width: 50%;
+  }
+  .label {
+    width: 90px;
+    font-weight: bold;
+    & + div {
+      width: calc(100% - 90px) !important;
+    }
+  }
+  .skills {
+    width: 100%;
+  }
+}
+
+.smallText {
+  font-size: 12pt;
+  color: rgba(25,25,25,0.7);
+}
+
 .pageBody {
   @extend .clearfix;
   margin: 0rem 0.5rem;
@@ -777,6 +799,9 @@ $bubbleSize: 30px;
 @extend .clearfix;
 border: 1px solid rgba(0, 0, 0, 0.2);
 background-color: rgba(0, 0, 0, 0.065); //border-radius: 15px;
+&.light {
+  background-color: rgba(0, 0, 0, 0.035);
+}
 ~.card {
   margin-top: 1rem;
 }
@@ -839,6 +864,7 @@ div {
   div {
     float: left;
     margin-left: 1rem;
+    margin-bottom: 0.5rem;
     &.nofloat {
       @extend .clearfix;
       float: none;
@@ -1356,18 +1382,16 @@ a~a .section {
 /// User Page
 ///////////////////////////////////////
 
-.profile{
-    .skills{
-        ul{
-            list-style: none;
-            text-align: center;
-            li{
-                @extend .tone1-5-color;
-                padding: 0.25rem 0.75rem;
-                border-radius: 0.5rem;
-                display: inline-block;
-                margin: 0.15rem;
-            }
+.skills{
+    ul{
+        list-style: none;
+        text-align: center;
+        li{
+            @extend .tone1-5-color;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+            margin: 0.15rem;
         }
     }
 }
