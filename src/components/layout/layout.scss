@@ -1,16 +1,54 @@
 @import "./../../common.scss";
+
+$header-height: 40px;
+$header-padding: 0.75rem 1rem;
+
 body {
   font-family: $font-family-sans-serif;
   line-height: 150%;
 }
 
-$header-height: 40px;
+.search-input {
+  margin: 0.2rem;
+  line-height: $header-height;
+  width: 100%;
+  input {
+    width: 100%;
+    height: $header-height;
+    font-size: 14pt;
+    padding: $header-padding;
+  }
+}
+
 .header {
   @extend .accent-color;
   @extend .clearfix;
-  padding: 0.75rem 1rem;
+  padding: $header-padding;
   line-height: $header-height;
   font-size: 14pt;
+  .search-bar-menu {
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: $header-height * 2;
+    line-height: $header-height;
+    z-index: 100;
+    width: 100%;
+    padding: $header-padding;
+    .btn {
+      display:inline-block;
+      max-width: 50px;
+      margin: 0;
+      box-shadow: 2px 2px 3px rgba(0,0,0,0.15);
+    }
+    &.hide {
+      top: -80px;
+    }
+    .search-input {
+      display: inline-block;
+      width: calc(100% - 80px);
+    }
+  }
   a:first-child {
     float: left;
   }
@@ -1346,4 +1384,69 @@ a~a .section {
       width: calc(50% - 10px);
   }
   text-align: center;
+}
+
+
+ .SlideInTopAbs-appear,.SlideInTopAbs-enter {
+  opacity: 0.5;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transform: translateY(-80px);
+}
+
+.SlideInTopAbs-appear-active,.SlideInTopAbs-enter {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: z-index 0.6s, all 0.4s linear;
+}
+
+.SlideInTopAbs-leave {
+  opacity: 1.0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(0px);
+}
+
+.SlideInTopAbs-leave-active {
+  opacity: 0;
+  transform: translateY(0px);
+  transition: z-index 0.6s, all 0.4s linear;
+}
+
+
+
+
+
+
+
+.SlideOutTopAbs-appear,.SlideOutTopAbs-enter {
+  opacity: 1.0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transform: translateY(80px);
+}
+
+.SlideOutTopAbs-appear-active,.SlideOutTopAbs-enter {
+  opacity: 0.5;
+  transform: translateY(0px);
+  transition: z-index 0.6s, all 0.4s linear;
+}
+
+.SlideOutTopAbs-leave {
+  opacity: 1.0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(0px);
+}
+
+.SlideOutTopAbs-leave-active {
+  opacity: 0;
+  transform: translateY(0px);
+  transition: z-index 0.6s, all 0.4s linear;
 }

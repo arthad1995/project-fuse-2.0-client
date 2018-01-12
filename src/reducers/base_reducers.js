@@ -36,10 +36,11 @@ export const async_base = (base_name) => {
                         return _state.merge(fromJS({
                             data: response.data
                         }))
-                    } else
+                    } else {
                         return state.set('fetching', false)
                             .set('fetched', false)
                             .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
+                    }
                 }
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))

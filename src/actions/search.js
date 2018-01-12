@@ -14,7 +14,13 @@ export const searchTeams = (searchParams = {}) =>{
     const network = new Network('LOAD_TEAM_INFO')
     return network.GET('/teams')
 }
+
 export const searchOrganizations = (searchParams = {}) =>{
     const network = new Network('LOAD_ORGANIZATION_INFO')
     return network.GET('/organizations')
+}
+
+export const globalSearch = ({query = ''}) => {
+    const network = new Network('GLOBAL_SEARCH_INFO')
+    return network.POST('/search', {query})
 }

@@ -16,7 +16,7 @@ export default class Layout extends Component {
     render(){
         return (
             <div>
-                <Menu />
+                <Menu history={this.props.history} />
                 <OnlineIndicator />
                 <RouteHandling dispatch={this.props.dispatch} />
                 <Footer />

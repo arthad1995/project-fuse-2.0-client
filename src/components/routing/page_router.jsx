@@ -13,6 +13,7 @@ import profilePageParams from './profile_page_params'
 import pageComponents from './page_components'
 import authUser from './auth_user'
 import routeBuilder from './route_builder'
+import Search from '../pages/search'
 
 export class PageRouter extends Component {
     constructor(props) { super(props) }
@@ -40,6 +41,7 @@ export class PageRouter extends Component {
                 <Route exact path="/register" component={PageShell(RegisterPage)} />
                 <Route exact path="/logout" render={() => {logout(); return <Redirect to="/login" />}} />
                 {final_routes}
+                <Route exact path="/search" render={authUser(this.props.user)(PageShell(Search))} />
                 <Route exact path="/" render={authUser(this.props.user)(PageShell(Home))} />
             </div>
         )

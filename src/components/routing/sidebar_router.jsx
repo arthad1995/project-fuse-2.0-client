@@ -41,6 +41,7 @@ export class SidebarRouter extends Component {
         return (
             <div>
                 {final_routes}
+                <Route exact path="/search" component={sidebar_shell(HomeSidebar, pos)} />
                 <Route exact path="/" component={sidebar_shell(HomeSidebar, pos)} />
             </div>
         )
