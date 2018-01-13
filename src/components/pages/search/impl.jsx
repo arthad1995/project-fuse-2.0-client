@@ -8,6 +8,7 @@ import SearchInput from 'react-search-input'
 import { globalSearch } from '../../../actions/search'
 import { fromJS } from 'immutable'
 import { CardImg } from '../../common'
+import InfiniteScroll from 'react-infinite-scroller'
 
 const mapStateToProps = (state) => {
     return {
@@ -41,30 +42,30 @@ class Search extends Component {
         const showUser = (user, index) => {
             const navTo = () => {
                 if (history) {
-                    history.push(`/users/${user.get('id')}`)
+                    history.push(`/users/${user.id}`)
                 }
             }
-            const skills = (user.get('skills')) ? user.get('skills') : []
+            const skills = (user.skills) ? user.skills : []
             return (
                 <CardImg
                     key={index}
-                    title={`${user.get('name')}`}
+                    title={`${user.name}`}
                     footer={<div className="smallText">(Person)</div>}
                     className="light pointer"
                     onClick={navTo}
                 >
                     <div className="searchResult">
                         <div className="label">Headline:</div>
-                        <div>{user.get('headline')}</div>
-                        {(skills.size) ? 
-                        <div className="skills">
-                            <ul>
-                                {skills.map((skill, i) => {
-                                    return <li key={`${index}_${i}`}>{skill}</li>
-                                })}
-                            </ul>
-                        </div>
-                        : <div className="skills"><i>No Skills Listed</i></div>}
+                        <div>{user.headline || "(None)"}</div>
+                        {(skills.length) ?
+                            <div className="skills">
+                                <ul>
+                                    {skills.map((skill, i) => {
+                                        return <li key={`${index}_${i}`}>{skill}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Skills Listed</i></div>}
                     </div>
                 </CardImg>
             )
@@ -72,20 +73,20 @@ class Search extends Component {
         const showOrg = (org, index) => {
             const navTo = () => {
                 if (history) {
-                    history.push(`/organizations/${org.get('id')}`)
+                    history.push(`/organizations/${org.id}`)
                 }
             }
             return (
                 <CardImg
                     key={index}
-                    title={`${org.get('name')}`}
+                    title={`${org.name}`}
                     footer={<div className="smallText">(Organization)</div>}
                     className="light pointer"
                     onClick={navTo}
                 >
                     <div className="searchResult">
                         <div className="label">Headline:</div>
-                        <div>{org.get('headline')}</div>
+                        <div>{org.headline || "(None)"}</div>
                     </div>
                 </CardImg>
             )
@@ -93,47 +94,55 @@ class Search extends Component {
         const showProj = (proj, index) => {
             const navTo = () => {
                 if (history) {
-                    history.push(`/projects/${proj.get('id')}`)
+                    history.push(`/projects/${proj.id}`)
                 }
             }
             return (
                 <CardImg
                     key={index}
-                    title={`${proj.get('name')}`}
+                    title={`${proj.name}`}
                     footer={<div className="smallText">(Project)</div>}
                     className="light pointer"
                     onClick={navTo}
                 >
                     <div className="searchResult">
                         <div className="label">Headline:</div>
-                        <div>{proj.get('headline')}</div>
+                        <div>{proj.headline || "(None)"}</div>
                     </div>
                 </CardImg>
             )
         }
-        const data = (this.props.results.get('data') || fromJS({})).get('data') || fromJS([]).filter(
+        const data = ((this.props.results.get('data') || fromJS({})).get('data') || fromJS([])).filter(
             d => d.get('index') !== 'team'
-        )
+        ).toJS()
+
         return (
             <div>
-                {!this.props.global_search.get('show') ? 
+                {!this.props.global_search.get('show') ?
                     <div className="minorPadding">
                         <SearchInput className="search-input" value={this.props.global_search.get('search')} onChange={this.handleSearchChange} />
                         <hr />
                     </div>
-                    : '' }
-                {data.map((result, index) => {
-                    switch (result.get('index')) {
-                        case 'users':
-                            return showUser(result, index)
-                        case 'organizations':
-                            return showOrg(result, index)
-                        case 'projects':
-                            return showProj(result, index)
-                        default: ''
-                    }
-                })}
-                {data.size == 0 ? <div>No Results</div> : ''}
+                    : ''}
+                <InfiniteScroll
+                    pageStart={0}
+                    loadMore={() => { }}
+                    hasMore={false}
+                    loader={<div className="loading"></div>}
+                >
+                    {data.map((result, index) => {
+                        switch (result.index) {
+                            case 'users':
+                                return showUser(result, index)
+                            case 'organizations':
+                                return showOrg(result, index)
+                            case 'projects':
+                                return showProj(result, index)
+                            default: ''
+                        }
+                    })}
+                </InfiniteScroll>
+                {data.length == 0 ? <div>No Results</div> : ''}
             </div>
         )
     }
