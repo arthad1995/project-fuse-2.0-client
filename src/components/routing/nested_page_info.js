@@ -11,18 +11,15 @@ import {OrganizationSettings} from '../pages/organization-settings'
 export default {
     edit: createArray(__pages, [
         { name: 'Project', save: updateProject, load: loadProject },
-        { name: 'Team', save: updateTeam, load: loadTeam },
         { name: 'Organization', save: updateOrganization, load: loadOrganization },
         { name: 'Profile', save: updateCurrentUser, load: loadUser, customElems: UserCustomElemsEdit },
     ]),
     members: createArray(__pages.slice(0, -1), [
         { load: loadProjectMembers },
-        { load: loadTeamMembers },
         { load: loadOrganizationMembers }
     ]),
     settings: createArray(__pages.slice(0, -1), [
         { load: loadProjectSettings, component: ProjectSettings },
-        { load: loadTeamSettings, component: TeamSettings },
         { load: loadOrganizationSettings, component: OrganizationSettings }
     ])
 }

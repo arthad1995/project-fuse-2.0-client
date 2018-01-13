@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router'
 import { SidebarShell, CreateSidebar, SearchPageSidebar, MyListOfPage } from '../common'
 import { HomeSidebar } from '../pages/home'
 import { ProjectPageSidebar } from '../pages/project-page'
-import { TeamPageSidebar } from '../pages/team-page'
 import { UserPageSidebar } from '../pages/user-page'
 import { OrganizationPageSidebar } from '../pages/organization-page'
 import findPagesParams from './find_pages_params'
@@ -22,7 +21,6 @@ export class SidebarRouter extends Component {
         const profilePageSidebars = [
             {path: 'projects', sidebar: ProjectPageSidebar, load: loadProject},
             {path: 'organizations', sidebar: OrganizationPageSidebar, load: loadOrganization},
-            {path: 'teams', sidebar: TeamPageSidebar, load: loadTeam},
             {path: 'users', sidebar: UserPageSidebar, load: loadUser}
         ]
 

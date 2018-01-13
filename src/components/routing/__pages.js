@@ -1,2 +1,2 @@
 
-export default ['projects', 'teams', 'organizations', 'users']
+export default ['projects', 'organizations', 'users']

@@ -148,7 +148,7 @@ let _InterviewTimePicker = props => {
     return (
         <div className='clearfix timepicker'>
             <form onSubmit={(vals) => {
-                handleSubmit(vals).then(()=>{this.props.dispatch(reset(formName))})
+                handleSubmit(vals).then(()=>{props.dispatch(reset(formName))})
             }}>
                 <div className='inline'>
                     <DateTimePicker dispatch={dispatch} name="interview start" />

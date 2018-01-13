@@ -5,7 +5,7 @@ let Form = props => {
     const { handleSubmit } = props
     return (
         <form className="withMargins" onSubmit={(vals) => {
-            handleSubmit(vals).then(()=>{this.props.dispatch(reset('login'))})
+            handleSubmit(vals).then(()=>{props.dispatch(reset('login'))})
         }}>
             <div>   
                 <Field component="input" required placeholder="Email" type="email" name="email" /><br />

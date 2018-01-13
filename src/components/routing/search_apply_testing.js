@@ -23,9 +23,6 @@ export const projTest = ({user_projects, applied_projects}, cur) =>{
     return group_test([user_projects, applied_projects], cur)
 }
 
-export const teamTest = ({user_teams, applied_teams}, cur) =>{
-    return group_test([user_teams, applied_teams], cur)
-}
 
 export const orgTest = ({user_organizations, applied_organizations}, cur) =>{
     return group_test([user_organizations, applied_organizations], cur)

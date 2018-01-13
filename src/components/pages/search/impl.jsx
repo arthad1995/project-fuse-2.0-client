@@ -54,6 +54,8 @@ class Search extends Component {
                     onClick={navTo}
                 >
                     <div className="searchResult">
+                        <div className="label">Headline:</div>
+                        <div>{user.get('headline')}</div>
                         {(skills.size) ? 
                         <div className="skills">
                             <ul>
@@ -109,7 +111,9 @@ class Search extends Component {
                 </CardImg>
             )
         }
-        const data = (this.props.results.get('data') || fromJS({})).get('data') || fromJS([])
+        const data = (this.props.results.get('data') || fromJS({})).get('data') || fromJS([]).filter(
+            d => d.get('index') !== 'team'
+        )
         return (
             <div>
                 {!this.props.global_search.get('show') ? 
@@ -129,6 +133,7 @@ class Search extends Component {
                         default: ''
                     }
                 })}
+                {data.size == 0 ? <div>No Results</div> : ''}
             </div>
         )
     }
