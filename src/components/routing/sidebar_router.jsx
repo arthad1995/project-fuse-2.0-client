@@ -35,6 +35,7 @@ export class SidebarRouter extends Component {
         })
 
         const final_routes = search_routes.map(route => route.build()).concat(routes.map(r => r.build()))
+        console.log('sidebar router')
 
         return (
             <div>

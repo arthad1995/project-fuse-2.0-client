@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { loadUser } from '../../../actions/profile_page'
 
 const mapStateToProps = (state) => {
     return {
@@ -12,6 +13,10 @@ const mapStateToProps = (state) => {
 class Sidebar extends Component {
     constructor(props) { super(props) }
 
+    componentWillMount() {
+        loadUser(this.props.match.params.id)
+    }
+
     render() {
         const params = this.props.match.params
         const data = this.props.users.get('data')
@@ -19,27 +24,29 @@ class Sidebar extends Component {
         const elem = (data) ? data.get(id) : null
         if (elem) {
             return <div>
-                {/* <Link to={`/users/${id}/friends`}>*/}
+                <Link to={`/users/${id}`}>
+                    <div className='section centered'>
+                        {elem.get('name')}
+                    </div>
+                </Link>
+                <Link to={`/users/${id}/friends`}>
                     <div className='section centered'>
                         Friends
-                 </div>
-                {/* </Link>*/}
-                {/*<Link to={`/users/${id}/teams`}>*/}
-                    <div className='section centered'>
-                        Teams
                     </div>
-                {/* </Link>*/}
-                {/* <Link to={`/teams/${id}/projects`}>*/}
+                </Link>
+                <Link to={`/users/${id}/projects`}>
                     <div className="section centered">
                         Projects
                     </div>
-                {/* </Link>*/}
-                {/* <Link to={`/teams/${id}/organizations`}>*/}
+                </Link>
+                <Link to={`/users/${id}/organizations`}>
                     <div className="section centered">
                         Organizations
                     </div>
-                {/* </Link>*/}
-                <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
+                </Link>
+                <a>
+                    <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
+                </a>
             </div>
         } else {
             return <div></div>

@@ -48,7 +48,6 @@ class Page extends Component {
         const applicationHeadline = this.props.applicationHeadline || "Application Submitted!"
         const applicationSummary = this.props.applicationSummary || "Your application was submitted succesfully!"
 
-        const c = (data) ? console.log(Object.keys(data)) : ''
         let content = <div className="loading"></div>
         if (!this.props.search.get('fetching') || this.props.search.get('fetched')) {
             if (data && Object.keys(data).length) {

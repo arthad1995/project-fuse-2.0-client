@@ -1,4 +1,6 @@
 import Sidebar from './sidebar'
+import Projects from './projects_page'
+import Organizations from './organizations_page'
 import {Map} from 'immutable'
 import React from 'react'
 import { Field } from 'redux-form'
@@ -30,3 +32,6 @@ export const UserCustomElemsEdit = () => {
         <Field component="input" className="fullWidth" required placeholder="A comma-separated list of your skills. e.g. UI, C++,C#,Java,HTML,SQL" type="text" name="skills" /><br />
     </div>
 }
+
+export const UserProjects = Projects
+export const UserOrganizations = Organizations

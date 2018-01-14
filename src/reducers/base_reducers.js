@@ -165,6 +165,14 @@ export const combine_wrapper = (what_to_combine) => (state, action) => {
     return state
 }
 
+export const combine_wrapper_nested = (what_to_combine) => (state = fromJS({}), action) => {
+    for(let i = 0; i < what_to_combine.length; ++i){
+        const combo = what_to_combine[i]
+        state = state.set(combo.key, combo.func(state.get(combo.key), action))
+    }
+    return state
+}
+
 export const reset_on_page_reloc = (to_wrap) => (state, action) => {
     state = to_wrap(state, action)
     if(action.type === '@@router/LOCATION_CHANGE')

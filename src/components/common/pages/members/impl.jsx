@@ -17,7 +17,6 @@ class Page extends Component {
     }
 
     renderUser(user){
-        console.log(user)
         return (
             <li key={user.get('id')}>
                 <div className='user-info'>

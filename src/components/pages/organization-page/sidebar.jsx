@@ -29,16 +29,11 @@ class Sidebar extends Component {
                     </div>
                 </Link>
                 <div className="hidden section centered"></div>
-                {/*<Link to={`/organizations/${id}/projects`}>*/}
+                <Link to={`/organizations/${id}/projects`}>
                     <div className="section centered">
                         Projects
                     </div>
-                {/*</Link>*/}
-                {/*<Link to={`/organizations/${id}/teams`}>*/}
-                    <div className="section centered">
-                        Teams
-                    </div>
-                {/*</Link>*/}
+                </Link>
                 <Link to={`/organizations/${id}/members`}>
                     <div className="section centered">
                         Members
