@@ -34,7 +34,7 @@ export default class Menu extends Component {
             type: 'CHANGE_GLOBAL_SEARCH_TEXT',
             search_text: text
         })
-        if (this.props.history.location.pathname !== '/search') {
+        if (this.props.history.location.pathname !== '/search' && text) {
             this.props.history.push('/search')
         } else {
             globalSearch({query: text})
@@ -70,9 +70,6 @@ export default class Menu extends Component {
                         </li>
                         <li>
                             <Link to="/"><i className="fa shadow fa-bell"></i></Link>
-                        </li>
-                        <li>
-                            <Link to="/"><i className="fa shadow fa-envelope"></i></Link>
                         </li>
                         <li>
                             <a className="pointer" onClick={this.toggleSearchbar}><i className="fa shadow fa-search"></i></a>
