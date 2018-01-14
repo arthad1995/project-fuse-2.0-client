@@ -1370,6 +1370,15 @@ a~a .section {
     text-align: center;
     width: 100%;
     padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    a {
+      color: white;
+    }
+    div {
+      padding: 0 2rem;
+    }
   }
 
 ///////////////////////////////////////
