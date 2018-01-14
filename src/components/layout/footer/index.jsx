@@ -11,8 +11,10 @@ export default class Footer extends Component {
                 <div className='copyright'>
                     &copy; Team Fusion 2018
                 </div>
-                <div className='links'>
-                    <a href="https://www.surveymonkey.com/r/RKVRXMK">Feedback</a>
+                <div className="flex">
+                    <div className='links'>
+                        <a href="https://www.surveymonkey.com/r/RKVRXMK">Feedback</a>
+                    </div>
                 </div>
             </div>
         )

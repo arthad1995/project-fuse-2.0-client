@@ -8,6 +8,15 @@ body {
   line-height: 150%;
 }
 
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  div {
+    padding: 1rem;
+  }
+}
+
 .search-input {
   margin: 0.2rem;
   line-height: $header-height;
@@ -1363,21 +1372,15 @@ a~a .section {
 ///////////////////////////////////////
 /// Footer
 ///////////////////////////////////////
-  
+
 .footer {
     @extend .accent-color;
-    height: 50px;
+    height: 100px;
     text-align: center;
     width: 100%;
     padding: 0.75rem 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
     a {
       color: white;
-    }
-    div {
-      padding: 0 2rem;
     }
   }
 
