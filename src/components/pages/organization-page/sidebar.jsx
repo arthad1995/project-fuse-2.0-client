@@ -40,6 +40,12 @@ class Sidebar extends Component {
                     </div>
                 </Link>
                 {data.get('canEdit') ?
+                <Link to={`/organizations/${id}/applicants`}>
+                    <div className="section centered">
+                        Applicants
+                    </div>
+                </Link> : null}
+                {data.get('canEdit') ?
                 <Link to={`/organizations/${id}/stats`}>
                     <div className="section centered">
                         Statistics

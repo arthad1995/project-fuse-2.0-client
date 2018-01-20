@@ -17,14 +17,15 @@ export function ui(state = fromJS({
         search: ''
     },
     local_search: '',
-    mock_data: 0
+    mock_data: 0,
+    applicant_tab: 'pending'
 }), action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
             state = state.set('selected_tab', 'tab1').set('was_offline', false).set('animation', fromJS({
                 page: true,
                 sidebar: true,
-            })).set('show_time_picker', false).set('local_search', '')
+            })).set('show_time_picker', false).set('local_search', '').set('applicant_tab', 'pending')
             if (action.payload.pathname !== '/search') {
                 state = state.set('global_search', fromJS({
                     show: false,
@@ -59,6 +60,8 @@ export function ui(state = fromJS({
             return state.set('global_search',
                 state.get('global_search').set('search', action.search_text)
         )
+        case 'CHANGE_APPLICANT_TAB':
+            return state.set('applicant_tab', action.value)
     }
     if (action.type.match(/ADD_INTERVIEW_SLOT_.+_FULFILLED/)) {
         state = state.set('show_time_picker', false)

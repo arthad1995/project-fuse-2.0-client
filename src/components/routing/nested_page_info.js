@@ -2,7 +2,8 @@ import createArray from './create_array'
 import __pages from './__pages'
 import { updateProject, updateTeam, updateOrganization, updateCurrentUser } from '../../actions/update'
 import { loadUser, loadProject, loadTeam, loadOrganization, loadProjectSettings, loadTeamSettings, loadOrganizationSettings } from '../../actions/profile_page'
-import { loadProjectMembers, loadTeamMembers, loadOrganizationMembers } from '../../actions/members'
+import { loadProjectMembers, loadOrganizationMembers } from '../../actions/members'
+import { loadProjectApplicants, loadOrganizationApplicants } from '../../actions/applicants'
 import { UserCustomElemsEdit } from '../pages/user-page'
 import {ProjectSettings } from '../pages/project-settings'
 import {TeamSettings} from '../pages/team-settings'
@@ -21,5 +22,9 @@ export default {
     settings: createArray(__pages.slice(0, -1), [
         { load: loadProjectSettings, component: ProjectSettings },
         { load: loadOrganizationSettings, component: OrganizationSettings }
+    ]),
+    applicants: createArray(__pages.slice(0,-1), [
+        { load: loadProjectApplicants },
+        { load: loadOrganizationApplicants }
     ])
 }

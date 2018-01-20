@@ -4,6 +4,7 @@ import ListItem from '../../elements/listItem'
 import { Link } from 'react-router-dom'
 import { stopEvent } from '../../elements/stopEvent'
 import SearchInput from 'react-search-input'
+import { fromJS } from 'immutable'
 
 const SearchHeader = (props) => {
     return <div>
@@ -57,8 +58,13 @@ class Page extends Component {
                             <ul className='list'>
                                 {Object.keys(data).map((id) => {
                                     let elem = data[id]
+                                    console.log(elem.get('owner'))
+                                    const owner = fromJS({
+                                        name: elem.get('owner'),
+                                        id: elem.get('owner_id')
+                                    })
                                     const Btn = (this.props.apply) ? this.props.apply(elem, this.props.dispatch) : null
-                                    return <ListItem key={id} baseUrl={this.props.index} id={id} elem={elem}>
+                                    return <ListItem key={id} baseUrl={this.props.index} id={id} elem={elem} owner={owner}>
                                         {(this.props.buttons) ? (this.props.buttons(elem)) : ''}
                                         {(Btn) ? <Btn /> : ''}
                                     </ListItem>

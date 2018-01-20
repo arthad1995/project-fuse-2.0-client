@@ -7,6 +7,7 @@ export {ProfilePage} from './pages/profile_page'
 export {SearchPage} from './pages/search'
 export {CreatePage} from './pages/create'
 export {MembersPage} from './pages/members'
+export {ApplicantsPage} from './pages/applicants'
 export {MyListOfPage} from './pages/my_list_of_page'
 
 export {CreateSidebar} from './sidebars/create'
