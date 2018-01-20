@@ -31,7 +31,6 @@ const test_group = (groupList, elem) => {
 
 const group_test = (groupLists, elem) => {
     const ownerId = elem.get('owner_id') || elem.get('owner').get('id')
-    console.log(v.lowerCase(elem.get('join_restriction')) === 'invite' )
     return {
         show: [true].concat(groupLists).reduce((accumulator, list) => {
                         return accumulator && (!list || test_group(list, elem))

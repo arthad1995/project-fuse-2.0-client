@@ -1,5 +1,5 @@
 import Network from '../network'
-import { myProjects } from './my_';
+import { myProjects, myOrganizations } from './my_';
 
 export const addFriend = (user, dispatch) => {
     dispatch({
@@ -12,13 +12,8 @@ export const addFriend = (user, dispatch) => {
 }
 
 export const applyToOrganization = (organization, dispatch) => {
-    dispatch({
-        type: "APPLY_TO_ORGANIZATION",
-        payload: {
-            id: organization.get('id'),
-            name: organization.get('name')
-        }
-    })
+    const network = new Network('JOIN_ORGANIZATION')
+    return network.POST(`/organizations/${organization.get('id')}/join`).then(() => myOrganizations())
 }
 
 export const applyToTeam = (team, dispatch) => {

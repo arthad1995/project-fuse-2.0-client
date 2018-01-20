@@ -15,9 +15,9 @@ export const searchTeams = (searchParams = {}) =>{
     return network.POST('/search/teams')
 }
 
-export const searchOrganizations = (searchParams = {}) =>{
+export const searchOrganizations = ({query = ''}) =>{
     const network = new Network('SEARCH_ORGANIZATION_INFO')
-    return network.POST('/search/organizations')
+    return network.POST('/search/organizations', {query})
 }
 
 export const globalSearch = ({query = ''}) => {

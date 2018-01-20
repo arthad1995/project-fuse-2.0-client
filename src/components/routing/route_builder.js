@@ -13,7 +13,6 @@ export default ({rootPath, rootComponent, preFunc}) => {
             _exact = true
         },
         build: () => {
-            console.log(`${rootPath}, exact: ${_exact}`)
             return (
                 <Switch key={rootPath}>
                     {routes.map(({ path, component }, index) => {

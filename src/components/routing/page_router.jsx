@@ -36,7 +36,6 @@ export class PageRouter extends Component {
         const final_routes = routes.map((route) => route.build()).concat(search_routes.map(route => route.build()))
 
         let dispatch = this.props.dispatch
-        console.log('page router')
 
         return (
             <div>

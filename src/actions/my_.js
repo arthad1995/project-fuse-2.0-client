@@ -19,7 +19,12 @@ export const myTeams = () =>{
     const network = new Network('LOAD_MY_TEAMS')
     return network.GET(`/users/${Cookies.get('ID')}/joined/teams`)
 }
+
 export const myOrganizations = () =>{
     const network = new Network('LOAD_MY_ORGANIZATIONS')
-    return network.GET(`/users/${Cookies.get('ID')}/joined/organizations`)
+    const network2 = new Network('LOAD_APPLIED_ORGANIZATIONS')
+    return Promise.all([
+        network.GET(`/users/${Cookies.get('ID')}/joined/organizations`),
+        network2.GET(`/users/${Cookies.get('ID')}/organizations/applications?not_status=accepted`)
+    ])
 }

@@ -28,8 +28,6 @@ export class Tabs extends Component {
 
 
 export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
-    console.log(props)
-    console.log(tab.type)
     props = props || {}
     const search_tab = props.search_tab || (() => null)
     const new_tab = props.new_tab || (() => null)
@@ -57,8 +55,9 @@ export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
                     <ul className='list'>
                         {(data && data.size > 0) ? data.valueSeq().toArray().map((elem) => {
                             if (!elem) return null
+                            const group = elem.get('project') || elem.get('organization') || fromJS({})
                             const id = elem.get('id')
-                            return <ListItem baseUrl={baseUrl} key={id} id={elem.get('project').get('id')} name={elem.get('project').get('name')}>
+                            return <ListItem baseUrl={baseUrl} key={id} id={group.get('id')} name={group.get('name')}>
                                 <AppliedStatus status={elem.get('status')} />
                             </ListItem>
                             return null
