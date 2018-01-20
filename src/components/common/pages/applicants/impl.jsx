@@ -16,8 +16,8 @@ class Page extends Component {
         this.state = {
             tabs: [
                 "pending",
-                "interviewed",
                 "interview_scheduled",
+                "interviewed",
                 "declined"
             ]
         }
@@ -39,19 +39,154 @@ class Page extends Component {
     }
 
     showPending(data) {
-        return JSON.stringify(data)
+        return data ? <ul>{data.valueSeq().toArray().map((elem) => {
+            console.log(elem)
+            const sender = elem.get('sender') || fromJS({})
+            const profile = sender.get('profile')
+            return (
+                <Link to={`/users/${sender.get('id')}`}>
+                    <li className="sender">
+                        <div className="name">{sender.get('name')}</div>
+                        <div className="email">{sender.get('email')}</div>
+                        {profile?
+                            <div className="applicant_profile">
+                                <div className="headline">
+                                    {profile.get('headline')}
+                                </div>
+                                <div className="summary">
+                                    {profile.get('summary')}
+                                </div>
+                            {(profile.get('skills').length) ?
+                            <div className="skills">
+                                <ul>
+                                    {profile.get('skills').split(',').map((skill, i) => {
+                                        return <li key={`${i}`}>{skill}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Skills Listed</i></div>}
+                            <div className='btn tone1-1-color'>Interview</div>
+                            <div className='btn tone1-1-color'>Invite</div>
+                            <div className='btn tone1-2-color'>View</div>
+                            <div className='btn tone2-3-color'>Decline</div>
+                            </div>
+                            : ''}
+                    </li>
+                </Link>
+            )
+        })}</ul> : <h2>No pending applications</h2>
     }
 
     showInterviewed(data) {
-        return JSON.stringify(data)
+        return data ? <ul>{data.valueSeq().toArray().map((elem) => {
+            console.log(elem)
+            const sender = elem.get('sender') || fromJS({})
+            const profile = sender.get('profile')
+            return (
+                <Link to={`/users/${sender.get('id')}`}>
+                    <li className="sender">
+                        <div className="name">{sender.get('name')}</div>
+                        <div className="email">{sender.get('email')}</div>
+                        {profile?
+                            <div className="applicant_profile">
+                                <div className="headline">
+                                    {profile.get('headline')}
+                                </div>
+                                <div className="summary">
+                                    {profile.get('summary')}
+                                </div>
+                            {(profile.get('skills').length) ?
+                            <div className="skills">
+                                <ul>
+                                    {profile.get('skills').split(',').map((skill, i) => {
+                                        return <li key={`${i}`}>{skill}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Skills Listed</i></div>}
+                            <div className='btn tone1-1-color'>Invite</div>
+                            <div className='btn tone1-2-color'>View</div>
+                            <div className='btn tone1-1-color'>Reinterview</div>
+                            <div className='btn tone2-3-color'>Decline</div>
+                            </div>
+                            : ''}
+                    </li>
+                </Link>
+            )
+        })}</ul> : <h2>No interviewed applicants</h2>
     }
 
     showInterviewScheduled(data) {
-        return JSON.stringify(data)
+        return data ? <ul>{data.valueSeq().toArray().map((elem) => {
+            console.log(elem)
+            const sender = elem.get('sender') || fromJS({})
+            const profile = sender.get('profile')
+            return (
+                <Link to={`/users/${sender.get('id')}`}>
+                    <li className="sender">
+                        <div className="name">{sender.get('name')}</div>
+                        <div className="email">{sender.get('email')}</div>
+                        {profile?
+                            <div className="applicant_profile">
+                                <div className="headline">
+                                    {profile.get('headline')}
+                                </div>
+                                <div className="summary">
+                                    {profile.get('summary')}
+                                </div>
+                            {(profile.get('skills').length) ?
+                            <div className="skills">
+                                <ul>
+                                    {profile.get('skills').split(',').map((skill, i) => {
+                                        return <li key={`${i}`}>{skill}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Skills Listed</i></div>}
+                            <div className='btn tone1-2-color'>View</div>
+                            <div className='btn tone2-3-color'>Cancel Interview</div>
+                            </div>
+                            : ''}
+                    </li>
+                </Link>
+            )
+        })}</ul> : <h2>No pending applications</h2>
     }
 
     showDeclined(data) {
-        return JSON.stringify(data)
+        return data ? <ul>{data.valueSeq().toArray().map((elem) => {
+            console.log(elem)
+            const sender = elem.get('sender') || fromJS({})
+            const profile = sender.get('profile')
+            return (
+                <Link to={`/users/${sender.get('id')}`}>
+                    <li className="sender">
+                        <div className="name">{sender.get('name')}</div>
+                        <div className="email">{sender.get('email')}</div>
+                        {profile?
+                            <div className="applicant_profile">
+                                <div className="headline">
+                                    {profile.get('headline')}
+                                </div>
+                                <div className="summary">
+                                    {profile.get('summary')}
+                                </div>
+                            {(profile.get('skills').length) ?
+                            <div className="skills">
+                                <ul>
+                                    {profile.get('skills').split(',').map((skill, i) => {
+                                        return <li key={`${i}`}>{skill}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Skills Listed</i></div>}
+                            <div className='btn tone1-2-color'>View</div>
+                            </div>
+                            : ''}
+                    </li>
+                </Link>
+            )
+        })}</ul> : <h2>No pending applications</h2>
     }
 
     render() {
@@ -66,8 +201,8 @@ class Page extends Component {
                     <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.ui.get('applicant_tab'))}>
                         <TabList>
                             <Tab>Pending</Tab>
-                            <Tab>Interviewed</Tab>
                             <Tab>Interview Scheduled</Tab>
+                            <Tab>Interviewed</Tab>
                             <Tab>Declined</Tab>
                         </TabList>
 
@@ -75,10 +210,10 @@ class Page extends Component {
                             {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showPending(data)}
                         </TabPanel>
                         <TabPanel>
-                            {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showInterviewed(data)}
+                            {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showInterviewScheduled(data)}
                         </TabPanel>
                         <TabPanel>
-                            {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showInterviewScheduled(data)}
+                            {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showInterviewed(data)}
                         </TabPanel>
                         <TabPanel>
                             {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showDeclined(data)}
