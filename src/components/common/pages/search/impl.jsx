@@ -53,13 +53,6 @@ class Page extends Component {
             if (data && Object.keys(data).length) {
                 content = (
                     <div>
-                        <div id={`popup`} className="modalDialog" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}>
-                            <div onClick={(e) => { stopEvent(e); return false; }}>
-                                <div className="modal_close" onClick={(e) => { document.getElementById(`popup`).classList.remove('show'); return false; }}></div>
-                                <h2>{applicationHeadline}</h2>
-                                <p>{applicationSummary}</p>
-                            </div>
-                        </div>
                         <div>
                             <ul className='list'>
                                 {Object.keys(data).map((id) => {

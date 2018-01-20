@@ -1438,6 +1438,9 @@ a~a .section {
   text-align: center;
 }
 
+///////////////////////////////////////
+/// Search Bar Transitions
+///////////////////////////////////////
 
  .SlideInTopAbs-appear,.SlideInTopAbs-enter {
   opacity: 0.5;
@@ -1468,12 +1471,6 @@ a~a .section {
   transition: z-index 0.6s, all 0.4s linear;
 }
 
-
-
-
-
-
-
 .SlideOutTopAbs-appear,.SlideOutTopAbs-enter {
   opacity: 1.0;
   position: absolute;
@@ -1501,4 +1498,46 @@ a~a .section {
   opacity: 0;
   transform: translateY(0px);
   transition: z-index 0.6s, all 0.4s linear;
+}
+
+///////////////////////////////////////
+/// Applied Page status
+///////////////////////////////////////
+
+.applied_status{
+  display: inline-block;
+  margin: 1.5rem;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 25px;
+  &.accepted{
+    &:before{
+      content: "Accepted";
+    }
+    background-color: hsla(108, 86%, 29%, 1);
+  }
+  &.pending{
+    @extend .tone1-5-color;
+    &:before{
+      content: "Pending";
+    }
+  }
+  &.interviewed{
+    @extend .tone1-2-color;
+    &:before{
+      content: "Finished Interview";
+    }
+  }
+  &.interview_scheduled{
+    background-color: hsla(280, 86%, 40%, 1);
+    &:before{
+      content: "Interview Scheduled";
+    }
+  }
+  &.declined{
+    @extend .tone2-2-color;
+    &:before{
+      content: "Declined";
+    }
+  }
 }

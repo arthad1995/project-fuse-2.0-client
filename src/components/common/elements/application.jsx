@@ -4,7 +4,7 @@ import { mapMultKeys } from '../mapping_helpers'
 import { stopEvent } from './stopEvent'
 import {connect} from 'react-redux'
 
-export const ApplyButton = (keys, testFunc, callback = ()=>{}, text="Apply") => (elem, dispatch) => {
+export const ApplyButton = (keys, testFunc, callback = ()=>{}) => (elem, dispatch) => {
     @connect(mapMultKeys(keys))
     class Button extends Component {
         constructor(props) {
@@ -12,10 +12,11 @@ export const ApplyButton = (keys, testFunc, callback = ()=>{}, text="Apply") => 
         }
 
         render() {
-            if(!testFunc(this.props, elem))
+            const text = testFunc(this.props, elem)
+            if(!text)
                 return null
             return (
-                <div onClick={(e) => { stopEvent(e); callback(elem, dispatch); document.getElementById(`popup`).classList.add('show'); return false; }} className="btn tone1-1-color apply">{text}</div>
+                <div onClick={(e) => { stopEvent(e); callback(elem, dispatch); return false; }} className="btn tone1-1-color apply">{text}</div>
             )
         }
     }
