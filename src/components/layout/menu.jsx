@@ -34,6 +34,10 @@ export default class Menu extends Component {
             type: 'CHANGE_GLOBAL_SEARCH_TEXT',
             search_text: text
         })
+        this.props.dispatch({
+            type: 'GLOBAL_SEARCH_INFO_SET_PAGE',
+            page: 0
+        })
         if (this.props.history.location.pathname !== '/search' && text) {
             this.props.history.push('/search')
         } else {

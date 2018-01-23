@@ -21,12 +21,11 @@ const mapStateToProps = (state) => {
 class Search extends Component {
     constructor(props) {
         super(props)
-
         this.handleSearchChange = this.handleSearchChange.bind(this)
     }
 
     componentWillMount() {
-        globalSearch({ query: this.props.global_search.get('search') })
+        globalSearch({ query: this.props.global_search.get('search'), page: this.props.results.get('page') })
     }
 
     handleSearchChange(text) {
@@ -34,7 +33,14 @@ class Search extends Component {
             type: 'CHANGE_GLOBAL_SEARCH_TEXT',
             search_text: text
         })
-        globalSearch({ query: this.props.global_search.get('search') })
+        this.props.dispatch({
+            type: 'GLOBAL_SEARCH_INFO_SET_PAGE',
+            page: 0
+        })
+        globalSearch({
+            query: this.props.global_search.get('search'),
+            page: 0
+        })
     }
 
     render() {

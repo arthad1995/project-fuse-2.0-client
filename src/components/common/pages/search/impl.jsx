@@ -58,7 +58,6 @@ class Page extends Component {
                             <ul className='list'>
                                 {Object.keys(data).map((id) => {
                                     let elem = data[id]
-                                    console.log(elem.get('owner'))
                                     const owner = fromJS({
                                         name: elem.get('owner'),
                                         id: elem.get('owner_id')

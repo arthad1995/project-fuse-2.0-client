@@ -42,10 +42,16 @@ export const async_base = (base_name) => {
                             .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                     }
                 }
-            case '@@router/LOCATION_CHANGE':
-                if (state.has('errors'))
-                    return state.remove('errors')
-                break;
+            case `${base_name}_SET_PAGE`: 
+                return state.set('page', action.page)
+            case `${base_name}_SET_PAGE_SIZE`:
+                return state.set('page', 
+                            (typeof action.page !== 'undefined')
+                                ? action.page
+                                : Math.floor(
+                                    state.get('page') * state.get('pageSize') / action.pageSize)
+                                )
+                            .set('pageSize', action.pageSize)
             case 'LOGOUT_FULFILLED':
             case 'LOGOUT_REJECTED':
                 return not_loaded
