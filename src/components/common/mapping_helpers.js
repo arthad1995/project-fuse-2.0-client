@@ -12,6 +12,13 @@ export const mapSingleKeyWithSearch = (key) => (state) => {
     )
 }
 
+export const mapSingleKeyWithUI = (key) => (state) => {
+    return Object.assign(
+        mapSingleKey(key)(state),
+        {ui: state.ui}
+    )
+}
+
 export const mapMultKeys = (keys) => (state) => {
     let map = {}
     keys.forEach(key => {

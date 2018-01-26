@@ -16,8 +16,11 @@ import {friends} from './friends'
 import {members} from './members'
 import {scheduled_interviews} from './scheduled_interviews'
 import {search} from './search'
+import {related} from './related'
+import {applicants} from './applicants'
 
 export default {
+    applicants,
     user,
     edit_obj,
     feed, 
@@ -33,6 +36,7 @@ export default {
     organizations,
     teams,
     users,
+    related,
     scheduled_interviews,
     search,
     members

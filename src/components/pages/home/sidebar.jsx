@@ -26,18 +26,9 @@ class Sidebar extends Component {
                     <div className='section centered hideOnPhone'>
                         <h2>{`${name}`}</h2>
                     </div>
-                    <div className='section centered hideOnPhone'>
-                        <div className='num_friends'>
-                            <div>
-                                {num_friends}
-                            </div>
-                            <div>Friends</div>
-                            <div><Link to='/my-friends'>Find more Friends</Link></div>
-                        </div>
-                    </div>
-                    <Link to='/my-teams'>
+                    <Link to='/my-friends'>
                         <div className='section centered'>
-                            Teams
+                            Friends
                         </div>
                     </Link>
                     <Link to='/my-projects'>

@@ -76,9 +76,12 @@ class Card extends Component {
                     <div className='title'>{title}</div>
                 </div>
                 {contentTag}
-                <div className='cardFooter'>
-                    {footer}
-                </div>
+                {(footer) ? 
+                    <div className='cardFooter'>
+                        {footer}
+                    </div>
+                    : ''
+                }
                 <div className="time">
                     <Timestamp autoUpdate time={time} />
                 </div>

@@ -1,11 +1,18 @@
 @import "./../../common.scss";
-
-$header-height: 40px;
+$header-height: 30px;
 $header-padding: 0.75rem 1rem;
-
 body {
   font-family: $font-family-sans-serif;
   line-height: 150%;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  div {
+    padding: 1rem;
+  }
 }
 
 .search-input {
@@ -14,9 +21,9 @@ body {
   width: 100%;
   input {
     width: 100%;
-    height: $header-height;
+    height: $header-height + 10px;
     font-size: 14pt;
-    padding: $header-padding;
+    padding: $header-padding 10px;
   }
 }
 
@@ -30,16 +37,16 @@ body {
     top: 0;
     left: 0;
     position: absolute;
-    height: $header-height * 2;
+    height: $header-height * 2 + 10px;
     line-height: $header-height;
     z-index: 100;
     width: 100%;
     padding: $header-padding;
     .btn {
-      display:inline-block;
+      display: inline-block;
       max-width: 50px;
       margin: 0;
-      box-shadow: 2px 2px 3px rgba(0,0,0,0.15);
+      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.15);
     }
     &.hide {
       top: -80px;
@@ -80,7 +87,7 @@ body {
     color: #222;
     text-align: center;
     text-shadow: none !important;
-    padding: 10px;
+    padding: 5px;
   }
   a:hover .icon {
     $bgcol: darken(#ccc, 5%);
@@ -89,6 +96,7 @@ body {
     background-color: $bgcol;
   }
   img {
+    margin-top: $header-height/4;
     width: $header-height;
     height: $header-height;
   }
@@ -104,7 +112,7 @@ body {
       ul.dropdown {
         display: none;
         position: absolute;
-        top: 2rem;
+        top: 1rem;
         right: -1rem;
         padding-top: 1rem;
         z-index: 99999;
@@ -137,14 +145,14 @@ body {
 }
 
 .searchResult {
-  > div {
+  >div {
     display: inline-block;
     width: 50%;
   }
   .label {
     width: 90px;
     font-weight: bold;
-    & + div {
+    &+div {
       width: calc(100% - 90px) !important;
     }
   }
@@ -155,7 +163,7 @@ body {
 
 .smallText {
   font-size: 12pt;
-  color: rgba(25,25,25,0.7);
+  color: rgba(25, 25, 25, 0.7);
 }
 
 .pageBody {
@@ -168,9 +176,9 @@ body {
     max-width: 1100px;
   }
   a {
-    color: hsl(210, 97%, 58%);//rgba(3, 128, 245, 0.966);
+    color: hsl(210, 97%, 58%); //rgba(3, 128, 245, 0.966);
     text-decoration: none;
-     &:hover {
+    &:hover {
       color: hsl(210, 90%, 48%);
     }
   }
@@ -218,17 +226,16 @@ img.profileImage {
 
 .btn {
   @extend .pointer;
-  margin: 1rem 0.5rem;
-  padding: 0.5rem 0.75rem; //border-radius: 15px;
-  font-size: 125%;
+  margin: 0.5rem 0.25rem;
+  padding: 0.5rem 1rem; //border-radius: 15px;
+  font-size: 105%;
   text-align: center;
   width: 90%;
-  @include for-tablet-landscape-up {
+  @include for-tablet-portrait-up {
     display: inline-block;
     width: inherit;
   }
-
-  &.save{
+  &.save {
     min-width: 85px;
     min-height: 45px;
     font-size: 140%;
@@ -254,11 +261,15 @@ img.profileImage {
 }
 
 .login-box {
-  max-width: 350px;
+  max-width: 500px;
 }
 
 .register-box {
   max-width: 650px;
+}
+
+.relative {
+  position: relative;
 }
 
 .login-box,
@@ -268,7 +279,6 @@ img.profileImage {
   display: table;
   padding: 0;
   .centered {
-    font-size: 125%;
     display: table-cell;
     vertical-align: middle;
     >div {
@@ -294,19 +304,20 @@ img.profileImage {
         }
       }
       input {
-        height: 2.5em;
+        height: 2.5rem;
         line-height: 2em;
-        padding: 0.75rem;
+        padding: 0.25rem 0.5rem;
         margin: 0;
       }
       input.btn {
         margin: 1rem;
         height: auto;
         line-height: auto;
-        padding: 0.5rem 1rem;
+        padding: 0.25rem 0.75rem;
         float: none;
-        font-size: 120%;
+        font-size: 105%;
         font-weight: bold;
+        max-width: 150px;
       }
     }
   }
@@ -593,87 +604,86 @@ textarea {
   }
 }
 
-
 ///////////////////////////////////////
 /// Interview Time List
 ///////////////////////////////////////
-
 ul.interview_slots {
   list-style: none;
   padding: 0;
-  li{
-      height: 50px;
-      & ~ li{
-         margin-top: 20px; 
-      }
+  li {
+    height: 50px;
+    &~li {
+      margin-top: 20px;
+    }
   }
-
-  div{
-      &.inline{
-          margin-left: 20px;
+  div {
+    &.inline {
+      margin-left: 20px;
+    }
+    &.start,
+    &.end,
+    &.arrow,
+    &.tools {
+      display: inline-block;
+    }
+    &.end,
+    &.start {
+      position: relative;
+      top: -5px;
+    }
+    &.tools {
+      font-size: 200%;
+      line-height: 50px;
+      height: 60px;
+      text-align: center;
+      vertical-align: bottom;
+      i {
+        margin-left: 25px;
       }
-      &.start, &.end, &.arrow, &.tools{
-          display: inline-block;
-      }
-      &.end, &.start{
-          position: relative;
-          top: -5px;
-      }
-      &.tools{
-          font-size: 200%;
-          line-height: 50px;
-          height: 60px;
-          text-align: center;
-          vertical-align: bottom;
-          i {
-              margin-left: 25px;
-          }
-      }
+    }
+    $arrow-col: hsl(240, 50%, 50%);
+    .fa-arrow-right {
+      color: $arrow-col;
+      margin: 0rem 0.5rem;
+      height: 40px;
+      width: 50px;
+      margin-bottom: 5px;
+    }
+    &.arrow {
       $arrow-col: hsl(240, 50%, 50%);
-      .fa-arrow-right{
-          color: $arrow-col;
-          margin: 0rem 0.5rem;
-          height: 40px;
-          width: 50px;
-          margin-bottom: 5px;
+      width: 80px;
+      height: 50px;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        $arrow-size: 10px;
+        border-top: $arrow-size solid transparent;
+        border-bottom: $arrow-size solid transparent;
+        border-left: $arrow-size solid $arrow-col;
+        left: calc(50% + 15px);
+        top: calc(50% - 6px);
       }
-      &.arrow{
-          $arrow-col: hsl(240, 50%, 50%);
-          width: 80px;
-          height: 50px;
-          position: relative;
-          &::after{
-              content: '';
-              position: absolute;
-              width: 0; 
-              height: 0; 
-              $arrow-size: 10px;
-              border-top: $arrow-size solid transparent;
-              border-bottom: $arrow-size solid transparent;
-              border-left: $arrow-size solid $arrow-col;
-              left: calc(50% + 15px);
-              top: calc(50% - 6px);
-          }
-          &::before{
-              content: '';
-              position: absolute;
-              width: 30px; 
-              height: 0; 
-              border: 5px solid $arrow-col;
-              left: calc(50% - 15px);
-              top: calc(50% - 1px);
-          }
+      &::before {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 0;
+        border: 5px solid $arrow-col;
+        left: calc(50% - 15px);
+        top: calc(50% - 1px);
       }
+    }
   }
 }
-
 
 ///////////////////////////////////////
 /// Interview Time Picker
 ///////////////////////////////////////
-
-
-.done-date-btn, .DayPicker {
+.done-date-btn,
+.DayPicker {
   display: block;
   color: rgb(104, 104, 104);
   text-transform: uppercase;
@@ -685,11 +695,11 @@ ul.interview_slots {
   letter-spacing: 0.5px;
   line-height: normal;
   font-weight: 500;
-  text-align: center; 
+  text-align: center;
   background: rgb(244, 244, 244);
 }
 
-.DayPicker{
+.DayPicker {
   border-bottom: none;
 }
 
@@ -699,31 +709,29 @@ ul.interview_slots {
   padding-bottom: 0.2rem;
 }
 
-
 ///////////////////////////////////////
 /// List Item
 ///////////////////////////////////////
-
 li.listItem {
   div.name {
-      @include for-tablet-landscape-up {
-          float: left;
-      }
-      line-height: 50px;
+    @include for-tablet-portrait-up {
+      display: inline-block;
+    }
+    line-height: 50px;
   }
   .buttons {
-      @include for-tablet-landscape-up {
-          float: right;
-          .btn {
-              font-size: 100%;
-              margin: 0 0.5rem;
-          }
+    @include for-tablet-portrait-up {
+      float: right;
+      .btn {
+        font-size: 100%;
+        margin: 0 0.5rem;
       }
+    }
   }
   div.skills {
     clear: both;
     float: none;
-    color: rgba(25,25,25,0.7);
+    color: rgba(25, 25, 25, 0.7);
     li {
       width: inherit;
     }
@@ -736,14 +744,11 @@ li.listItem {
       font-weight: bold;
     }
   }
-} 
-
+}
 
 ///////////////////////////////////////
 /// Editor
 ///////////////////////////////////////
-
-
 .wysiwygEditor {
   min-height: 320px;
 }
@@ -763,8 +768,7 @@ li.listItem {
 ///////////////////////////////////////
 /// Clock
 ///////////////////////////////////////
-
-@mixin hand($height, $width, $color){
+@mixin hand($height, $width, $color) {
   content: "";
   border-radius: 30%;
   position: absolute;
@@ -776,160 +780,160 @@ li.listItem {
   width: $width;
 }
 
-@for $minute from 0 through 59{
-  .min-#{$minute}::before{
-      transform: rotateZ(360deg/60 * $minute);
+@for $minute from 0 through 59 {
+  .min-#{$minute}::before {
+    transform: rotateZ(360deg/60 * $minute);
   }
 }
 
-@for $hour from 0 through 12{
-  .hr-#{$hour}::after{
-      transform: rotateZ(360deg/12 * ($hour));
+@for $hour from 0 through 12 {
+  .hr-#{$hour}::after {
+    transform: rotateZ(360deg/12 * ($hour));
   }
 }
 
 $clock-size: 50px;
-
-.clock{
+.clock {
   position: relative;
   border: 4px solid hsl(240, 60%, 50%);
   border-radius: 50%;
   width: $clock-size;
   height: $clock-size;
-  &::before{
+  &::before {
     @include hand(45%, 10%, hsl(240, 50%, 40%));
   }
-  
-  &::after{
-      @include hand(30%, 12%, hsl(240, 50%, 40%));
+  &::after {
+    @include hand(30%, 12%, hsl(240, 50%, 40%));
   }
 }
 
 ///////////////////////////////////////
 /// Card
 ///////////////////////////////////////
-
-
 .card {
-$bubbleSize: 30px;
-@extend .clearfix;
-border: 1px solid rgba(0, 0, 0, 0.2);
-background-color: rgba(0, 0, 0, 0.065); //border-radius: 15px;
-&.light {
-  background-color: rgba(0, 0, 0, 0.035);
-}
-~.card {
-  margin-top: 1rem;
-}
-div {
-  border: none
-}
-.cardHeader {
-  display: flex;
-  flex-direction: row;
-  div.bubble {
-    position: relative;
-    z-index: 1; //border: inherit;
-    font-size: $bubbleSize/2;
-    height: $bubbleSize;
-    width: $bubbleSize;
-    min-width: $bubbleSize; //border-radius: 50%;
-    margin: 0.5rem 0.5rem 0rem 0.5rem;
-    svg {
-      position: absolute;
-      top: 50%;
-      bottom: 50%;
-      left: 50%;
-      right: 50%;
-      transform: translate(-50%, -50%);
-    }
-     :before {
-      line-height: $bubbleSize;
-      position: absolute;
-      text-align: center;
-      vertical-align: bottom;
-      z-index: 5;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: $bubbleSize;
-      height: $bubbleSize;
-      border-radius: $bubbleSize/2; //background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
-    }
-    @include for-tablet-portrait-below {
-      width: 30px;
-      height: 30px;
-    }
-  }
-  div.title {
-    padding: 0 1rem;
-    margin-top: 0.5rem;
-    font-size: 1.5rem;
-    color: hsl(0, 0%, 35%);
-    line-height: $bubbleSize;
-    vertical-align: middle;
-    @include for-tablet-portrait-below {
-      font-size: 1.25rem;
-      line-height: 30px;
-    }
-  }
-}
-.cardFooter {
+  $bubbleSize: 30px;
   @extend .clearfix;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.065); //border-radius: 15px;
+  &.light {
+    background-color: rgba(0, 0, 0, 0.035);
+  }
+  ~.card {
+    margin-top: 0.5rem;
+  }
   div {
-    float: left;
-    margin-left: 1rem;
-    margin-bottom: 0.5rem;
-    &.nofloat {
-      @extend .clearfix;
-      float: none;
-      ~div {
-        margin-top: 16px;
+    border: none
+  }
+  .cardHeader {
+    display: flex;
+    flex-direction: row;
+    div.bubble {
+      position: relative;
+      z-index: 1; //border: inherit;
+      font-size: $bubbleSize/2;
+      height: $bubbleSize;
+      width: $bubbleSize;
+      min-width: $bubbleSize; //border-radius: 50%;
+      margin: 0.5rem 0.5rem 0rem 0.5rem;
+      svg {
+        position: absolute;
+        top: 50%;
+        bottom: 50%;
+        left: 50%;
+        right: 50%;
+        transform: translate(-50%, -50%);
+      }
+       :before {
+        line-height: $bubbleSize;
+        position: absolute;
+        text-align: center;
+        vertical-align: bottom;
+        z-index: 5;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: $bubbleSize;
+        height: $bubbleSize;
+        border-radius: $bubbleSize/2; //background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2));
+      }
+      @include for-tablet-portrait-below {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    div.title {
+      padding: 0 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 1.5rem;
+      color: hsl(0, 0%, 35%);
+      line-height: $bubbleSize;
+      vertical-align: middle;
+      @include for-tablet-portrait-below {
+        font-size: 1.25rem;
+        line-height: 30px;
+      }
+      &.full {
+        width: 100%;
+      }
+      > div {
+        width: 100%;
+      }
+      div.name {
+        float: left;
+      }
+      div.smallText {
+        float: right
       }
     }
   }
-}
-div.time {
-  float: right;
-  font-size: 75%;
-  padding-right: 1rem;
-  padding-bottom: 0.5rem;
-}
-.content {
-  width: calc(100% - 2rem);
-  margin: 0rem 1rem;
-  padding: 1rem 0;
-  background-color: rgba(0, 0, 0, 0);
-}
-.minorPadding {
-  height: 0.7rem;
-}
+  .cardFooter {
+    @extend .clearfix;
+    div {
+      float: left;
+      margin-left: 1rem;
+      margin-bottom: 0.25rem;
+      &.nofloat {
+        @extend .clearfix;
+        float: none;
+        ~div {
+          margin-top: 16px;
+        }
+      }
+    }
+    @include for-tablet-portrait-up {
+      & ~ div.time {
+        margin-top: -25px
+      }
+    }
+  }
+  div.time {
+    float: right;
+    font-size: 75%;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+  }
+  .content {
+    width: calc(100% - 2rem);
+    margin: 0rem 1rem;
+    padding: 0.5rem 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .minorPadding {
+    height: 0.5rem;
+  }
 }
 
 ///////////////////////////////////////
 /// React Tabs
 ///////////////////////////////////////
-
+$tab-color: hsl(240, 80%, 58%);
 .react-tabs__tab-list {
   @extend .clearfix;
   list-style: none;
   margin: 0 auto;
   width: 80%;
   padding: 0px;
-}
-
-$tab-color: hsl(240, 80%, 58%);
-
-.react-tabs__tab-list::before{
-  border: 2px solid $tab-color;
-  position: absolute;
-  left: 0px;
-  z-index: 1;
-  top: 51px;
-  width: 100%;
-  background: black;
-  content: '';
 }
 
 .react-tabs__tab {
@@ -941,6 +945,12 @@ $tab-color: hsl(240, 80%, 58%);
   border-bottom: none;
   color: white;
   text-align: center;
+  + .react-tabs__tab {
+    border-left: 1px solid lighten($tab-color, 20%);
+  }
+}
+.react-tabs__tab.react-tabs__tab--selected + .react-tabs__tab {
+  border-left: 3px solid $tab-color;
 }
 
 .react-tabs__tab--selected {
@@ -952,14 +962,15 @@ $tab-color: hsl(240, 80%, 58%);
   z-index: 100;
 }
 
-.react-tabs__tab-panel {
-  margin-top: 20px;
+.react-tabs__tab-panel--selected {
+  border-top: 4px solid $tab-color;
+  padding-top: 20px;
+  margin-top: -4px;
 }
 
 ///////////////////////////////////////
 /// Tabs
 ///////////////////////////////////////
-
 .tabs {
   .tab-content {
     width: 100%;
@@ -971,9 +982,8 @@ $tab-color: hsl(240, 80%, 58%);
 ///////////////////////////////////////
 /// 
 ///////////////////////////////////////
-
-.zindex-fix{
-  z-index:-1;
+.zindex-fix {
+  z-index: -1;
 }
 
 .fade-enter {
@@ -994,7 +1004,8 @@ $tab-color: hsl(240, 80%, 58%);
   transition: z-index 0.6s, opacity 300ms ease-in;
 }
 
-.SlideInLeft-appear { z-index: 1;
+.SlideInLeft-appear {
+  z-index: 1;
   transform: translateX(30px);
   opacity: 0.3;
 }
@@ -1030,7 +1041,8 @@ $tab-color: hsl(240, 80%, 58%);
   transition: z-index 0.6s, all 0.2s linear;
 }
 
-.SlideInRight-appear { z-index: 1;
+.SlideInRight-appear {
+  z-index: 1;
   transform: translateX(-30px);
   opacity: 0.3;
 }
@@ -1066,7 +1078,8 @@ $tab-color: hsl(240, 80%, 58%);
   transition: z-index 0.6s, all 0.2s linear;
 }
 
-.SlideInTop-appear { z-index: 1;
+.SlideInTop-appear {
+  z-index: 1;
   transform: translatey(-30px);
   opacity: 0.3;
 }
@@ -1104,7 +1117,8 @@ $tab-color: hsl(240, 80%, 58%);
   transition: z-index 0.6s, all 0.2s linear;
 }
 
-.SlideInBottom-appear { z-index: 1;
+.SlideInBottom-appear {
+  z-index: 1;
   transform: translateY(30px);
   opacity: 0.3;
 }
@@ -1139,13 +1153,11 @@ $tab-color: hsl(240, 80%, 58%);
   width: 100%;
   transform: translateY(30px);
   transition: z-index 0.6s, all 0.2s linear;
-}  
+}
 
 ///////////////////////////////////////
 /// Profile Page
 ///////////////////////////////////////
-
-
 .description {
   iframe {
     margin: 1rem auto;
@@ -1154,58 +1166,60 @@ $tab-color: hsl(240, 80%, 58%);
   }
 }
 
-.profile_header{
-  height: 20rem;
+$profile_height: 15rem;
+.profile_header {
+  height: $profile_height;
   box-shadow: 0px 1px 4px gray;
   position: relative;
   z-index: 0;
   background-color: hsl(240, 80%, 70%);
-  &::before, &::after{
+  &::before,
+  &::after {
     content: '';
     left: 0;
     width: 100%;
-    height: 20rem;
+    height: $profile_height;
     top: 0;
     position: absolute;
     z-index: 1;
   }
-  &::before{
+  &::before {
     background: linear-gradient(to top left, hsl(240, 80%, 50%), hsl(270, 70%, 70%), hsl(300, 61%, 52%));
     z-index: 1;
   }
-  &::after{
+  &::after {
     z-index: 2;
     background-image: url('/assets/images/profile_overlay_1.svg');
   }
 }
 
-.profile{
+.profile {
   text-align: center;
-  h1.title{
+  h1.title {
     margin-top: 0;
   }
-  .edit-btn{
-    .fa-pencil-alt{
+  .edit-btn {
+    .fa-pencil-alt {
       right: 0rem;
-      top: -3.5rem;
+      top: -1.5rem;
       $size: 2.5rem;
       height: $size;
       width: $size;
       position: absolute;
     }
     position: relative;
-  } 
+  }
   .headline {
     font-style: italic;
     margin: 1rem;
   }
-  .profile_picture{
-    $size: 6.2rem;
-    $padding: 1rem;
+  .profile_picture {
+    $size: 70px;
+    $padding: 10px;
     $total-size: $size + $padding;
-    height: $total-size/2 + 1.25rem;
+    height: $total-size/2;
     position: relative;
-    div{
+    div {
       top: -($total-size/2);
       left: 50%;
       transform: translateX(-50%);
@@ -1216,33 +1230,33 @@ $tab-color: hsl(240, 80%, 58%);
       border: 0.2rem solid hsl(240, 5%, 100%);
       box-shadow: 0px 1px 8px 1px gray;
       z-index: 500;
-      .fa-user{
+      width: $size;
+      height: $size;
+      .fa-user {
         height: $size / 2;
         width: $size / 2;
         text-align: center;
       }
     }
   }
-  .summary, h3{
+  .summary,
+  h3 {
     &::before {
-        display: inline-block;
-        content: "";
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        border-top: 1px solid rgba(0, 0, 0, 0.2);
-        height: 0;
-        width: calc(100% - 2rem);
-        margin: 0 1rem;
-        transform: translateY(-1rem);
+      display: inline-block;
+      content: "";
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      height: 0;
+      width: calc(100% - 2rem);
+      margin: 0 1rem;
+      transform: translateY(-1rem);
     }
   }
 }
 
-
 ///////////////////////////////////////
 /// Shells
 ///////////////////////////////////////
-
-
 .content {
   @extend .card-color;
   float: left;
@@ -1271,65 +1285,65 @@ $tab-color: hsl(240, 80%, 58%);
 .leftSidebar,
 .leftSidebar-show,
 .leftSidebar-phone {
-@extend .card-color;
-width: calc(30% - 3rem);
-float: left;
-margin: 1rem 1rem 1rem;
-a:hover .section, .section.clickable:hover{
-  box-shadow: 1px 2px 6px gray;
-}
-.section {
-  width: 100%;
-  padding: 1rem;
-  ~.section,
-  ~a .section,
-  ~label .section {
+  @extend .card-color;
+  width: calc(30% - 3rem);
+  float: left;
+  margin: 1rem;
+  font-size: 90%;
+  a:hover .section,
+  .section.clickable:hover {
+    box-shadow: 1px 2px 6px gray;
+  }
+  .section {
+    width: 100%;
+    padding: 0.75rem;
+    ~.section,
+    ~a .section,
+    ~label .section {
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    label {
+      @extend .pointer;
+    }
+  }
+  label~label .section,
+  a~a .section {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
-  label {
-    @extend .pointer;
+  >div>a {
+    color: #111;
+    text-decoration: none;
   }
-}
-label~label .section,
-a~a .section {
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-}
-> div > a {
-  color: #111;
-  text-decoration: none;
-}
-.selected {
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, 0.065);
-}
+  .selected {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.065);
+  }
 }
 
 .leftSidebar-show {
-@include for-phone-only {
-  width: calc(100% - 2rem);
-  margin: 1rem;
-}
+  @include for-phone-only {
+    width: calc(100% - 2rem);
+    margin: 1rem;
+  }
 }
 
 .leftSidebar-phone {
-@include for-phone-only {
-  width: calc(100% - 2rem);
-  margin: 1rem;
-}
-@include for-tablet-portrait-up {
-  display: none;
-}
+  @include for-phone-only {
+    width: calc(100% - 2rem);
+    margin: 1rem;
+  }
+  @include for-tablet-portrait-up {
+    display: none;
+  }
 }
 
 .leftSidebar {
-@extend .hideOnPhone;
+  @extend .hideOnPhone;
 }
-
 
 ///////////////////////////////////////
 /// Online Indicator
 ///////////////////////////////////////
-
 .indicator {
   -webkit-transition: 0.5s;
   -moz-transition: 0.5s;
@@ -1338,23 +1352,20 @@ a~a .section {
   opacity: 0;
   visibility: hidden;
   padding: 10px;
-
   &.offline,
   &.was_offline {
     opacity: 1;
     visibility: visible;
   }
-
   &.offline {
     @extend .tone1-6-color;
     &::before {
       content: "You are currently offline. While you are offline, you may use the app but some features may not work and information may be outdated.";
     }
   }
-
   &.was_offline {
     @extend .tone1-2-color;
-    &::before{
+    &::before {
       content: "You were recently offline, refresh the page to get the most updated information.";
     }
   }
@@ -1363,20 +1374,20 @@ a~a .section {
 ///////////////////////////////////////
 /// Footer
 ///////////////////////////////////////
-  
 .footer {
-    @extend .accent-color;
-    height: 50px;
-    text-align: center;
-    width: 100%;
-    padding: 0.75rem 1rem;
+  @extend .accent-color;
+  height: 100px;
+  text-align: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  a {
+    color: white;
   }
+}
 
 ///////////////////////////////////////
 /// Home Sidebar
 ///////////////////////////////////////
-
-
 .num_friends {
   div {
     margin-top: 0.5rem;
@@ -1397,37 +1408,38 @@ a~a .section {
 ///////////////////////////////////////
 /// User Page
 ///////////////////////////////////////
-
-.skills{
-    ul{
-        list-style: none;
-        text-align: center;
-        li{
-            @extend .tone1-5-color;
-            padding: 0.25rem 0.75rem;
-            border-radius: 0.5rem;
-            display: inline-block;
-            margin: 0.15rem;
-        }
+.skills {
+  ul {
+    list-style: none;
+    text-align: center;
+    li {
+      @extend .tone1-5-color;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.5rem;
+      display: inline-block;
+      margin: 0.15rem;
     }
+  }
 }
 
 ///////////////////////////////////////
 /// Statistics Page Demo
 ///////////////////////////////////////
-
 .stats {
   .inline.margin {
-      margin-left: 10px
+    margin-left: 10px
   }
-  .inline{
-      width: calc(50% - 10px);
+  .inline {
+    width: calc(50% - 10px);
   }
   text-align: center;
 }
 
-
- .SlideInTopAbs-appear,.SlideInTopAbs-enter {
+///////////////////////////////////////
+/// Search Bar Transitions
+///////////////////////////////////////
+.SlideInTopAbs-appear,
+.SlideInTopAbs-enter {
   opacity: 0.5;
   position: absolute;
   left: 0;
@@ -1436,7 +1448,8 @@ a~a .section {
   transform: translateY(-80px);
 }
 
-.SlideInTopAbs-appear-active,.SlideInTopAbs-enter {
+.SlideInTopAbs-appear-active,
+.SlideInTopAbs-enter {
   opacity: 1;
   transform: translateY(0px);
   transition: z-index 0.6s, all 0.4s linear;
@@ -1456,13 +1469,8 @@ a~a .section {
   transition: z-index 0.6s, all 0.4s linear;
 }
 
-
-
-
-
-
-
-.SlideOutTopAbs-appear,.SlideOutTopAbs-enter {
+.SlideOutTopAbs-appear,
+.SlideOutTopAbs-enter {
   opacity: 1.0;
   position: absolute;
   left: 0;
@@ -1471,7 +1479,8 @@ a~a .section {
   transform: translateY(80px);
 }
 
-.SlideOutTopAbs-appear-active,.SlideOutTopAbs-enter {
+.SlideOutTopAbs-appear-active,
+.SlideOutTopAbs-enter {
   opacity: 0.5;
   transform: translateY(0px);
   transition: z-index 0.6s, all 0.4s linear;
@@ -1489,4 +1498,63 @@ a~a .section {
   opacity: 0;
   transform: translateY(0px);
   transition: z-index 0.6s, all 0.4s linear;
+}
+
+///////////////////////////////////////
+/// Applied Page status
+///////////////////////////////////////
+.applied_status {
+  display: inline-block;
+  margin: 1.5rem;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 25px;
+  &.accepted {
+    &:before {
+      content: "Accepted";
+    }
+    background-color: hsla(108,
+    86%,
+    29%,
+    1);
+  }
+  &.pending {
+    @extend .tone1-5-color;
+    &:before {
+      content: "Pending";
+    }
+  }
+  &.interviewed {
+    @extend .tone1-2-color;
+    &:before {
+      content: "Finished Interview";
+    }
+  }
+  &.interview_scheduled {
+    background-color: hsla(280, 86%, 40%, 1);
+    &:before {
+      content: "Interview Scheduled";
+    }
+  }
+  &.declined {
+    @extend .tone2-2-color;
+    &:before {
+      content: "Declined";
+    }
+  }
+}
+
+.owner {
+  @extend .clearfix;
+  font-size: 75%;
+  color: hsl(0, 0%, 35%);
+  padding: 0.5rem;
+  padding-top: 0;
+  border-radius: 25px;
+  &.owned::before {
+    content: "Owned";
+  }
+  &.not_owned::before {
+    content: "Owned by "
+  }
 }

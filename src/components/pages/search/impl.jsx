@@ -8,6 +8,7 @@ import SearchInput from 'react-search-input'
 import { globalSearch } from '../../../actions/search'
 import { fromJS } from 'immutable'
 import { CardImg } from '../../common'
+import InfiniteScroll from 'react-infinite-scroller'
 
 const mapStateToProps = (state) => {
     return {
@@ -20,12 +21,11 @@ const mapStateToProps = (state) => {
 class Search extends Component {
     constructor(props) {
         super(props)
-
         this.handleSearchChange = this.handleSearchChange.bind(this)
     }
 
     componentWillMount() {
-        globalSearch({ query: this.props.global_search.get('search') })
+        globalSearch({ query: this.props.global_search.get('search'), page: this.props.results.get('page') })
     }
 
     handleSearchChange(text) {
@@ -33,7 +33,14 @@ class Search extends Component {
             type: 'CHANGE_GLOBAL_SEARCH_TEXT',
             search_text: text
         })
-        globalSearch({ query: this.props.global_search.get('search') })
+        this.props.dispatch({
+            type: 'GLOBAL_SEARCH_INFO_SET_PAGE',
+            page: 0
+        })
+        globalSearch({
+            query: this.props.global_search.get('search'),
+            page: 0
+        })
     }
 
     render() {
@@ -41,28 +48,32 @@ class Search extends Component {
         const showUser = (user, index) => {
             const navTo = () => {
                 if (history) {
-                    history.push(`/users/${user.get('id')}`)
+                    history.push(`/users/${user.id}`)
                 }
             }
-            const skills = (user.get('skills')) ? user.get('skills') : []
+            const skills = (user.skills) ? user.skills : []
             return (
                 <CardImg
                     key={index}
-                    title={`${user.get('name')}`}
-                    footer={<div className="smallText">(Person)</div>}
+                    title={<div>
+                        <div className="name">{user.name} </div>
+                        <div className="smallText">(User)</div>
+                    </div>}
                     className="light pointer"
                     onClick={navTo}
                 >
                     <div className="searchResult">
-                        {(skills.size) ? 
-                        <div className="skills">
-                            <ul>
-                                {skills.map((skill, i) => {
-                                    return <li key={`${index}_${i}`}>{skill}</li>
-                                })}
-                            </ul>
-                        </div>
-                        : <div className="skills"><i>No Skills Listed</i></div>}
+                        <div className="label">Headline:</div>
+                        <div>{user.headline || "(None)"}</div>
+                        {(skills.length) ?
+                            <div className="skills">
+                                <ul>
+                                    {skills.map((skill, i) => {
+                                        return <li key={`${index}_${i}`}>{skill}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Skills Listed</i></div>}
                     </div>
                 </CardImg>
             )
@@ -70,20 +81,22 @@ class Search extends Component {
         const showOrg = (org, index) => {
             const navTo = () => {
                 if (history) {
-                    history.push(`/organizations/${org.get('id')}`)
+                    history.push(`/organizations/${org.id}`)
                 }
             }
             return (
                 <CardImg
                     key={index}
-                    title={`${org.get('name')}`}
-                    footer={<div className="smallText">(Organization)</div>}
+                    title={<div>
+                        <div className="name">{org.name} </div>
+                        <div className="smallText">(Organization)</div>
+                    </div>}
                     className="light pointer"
                     onClick={navTo}
                 >
                     <div className="searchResult">
                         <div className="label">Headline:</div>
-                        <div>{org.get('headline')}</div>
+                        <div>{org.headline || "(None)"}</div>
                     </div>
                 </CardImg>
             )
@@ -91,44 +104,57 @@ class Search extends Component {
         const showProj = (proj, index) => {
             const navTo = () => {
                 if (history) {
-                    history.push(`/projects/${proj.get('id')}`)
+                    history.push(`/projects/${proj.id}`)
                 }
             }
             return (
                 <CardImg
                     key={index}
-                    title={`${proj.get('name')}`}
-                    footer={<div className="smallText">(Project)</div>}
+                    title={<div>
+                        <div className="name">{proj.name} </div>
+                        <div className="smallText">(Project)</div>
+                    </div>}
                     className="light pointer"
                     onClick={navTo}
                 >
                     <div className="searchResult">
                         <div className="label">Headline:</div>
-                        <div>{proj.get('headline')}</div>
+                        <div>{proj.headline || "(None)"}</div>
                     </div>
                 </CardImg>
             )
         }
-        const data = (this.props.results.get('data') || fromJS({})).get('data') || fromJS([])
+        const data = ((this.props.results.get('data') || fromJS({})).get('data') || fromJS([])).filter(
+            d => d.get('index') !== 'team'
+        ).toJS()
+
         return (
             <div>
-                {!this.props.global_search.get('show') ? 
+                {!this.props.global_search.get('show') ?
                     <div className="minorPadding">
                         <SearchInput className="search-input" value={this.props.global_search.get('search')} onChange={this.handleSearchChange} />
                         <hr />
                     </div>
-                    : '' }
-                {data.map((result, index) => {
-                    switch (result.get('index')) {
-                        case 'users':
-                            return showUser(result, index)
-                        case 'organizations':
-                            return showOrg(result, index)
-                        case 'projects':
-                            return showProj(result, index)
-                        default: ''
-                    }
-                })}
+                    : ''}
+                <InfiniteScroll
+                    pageStart={0}
+                    loadMore={() => { }}
+                    hasMore={false}
+                    loader={<div className="loading"></div>}
+                >
+                    {data.map((result, index) => {
+                        switch (result.index) {
+                            case 'users':
+                                return showUser(result, index)
+                            case 'organizations':
+                                return showOrg(result, index)
+                            case 'projects':
+                                return showProj(result, index)
+                            default: ''
+                        }
+                    })}
+                </InfiniteScroll>
+                {data.length == 0 ? <div>No Results</div> : ''}
             </div>
         )
     }

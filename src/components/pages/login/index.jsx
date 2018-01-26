@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 }
 
 const sendLoginRequest = (values)=>{
-    login(
+    return login(
         values.email, 
         values.password
     )

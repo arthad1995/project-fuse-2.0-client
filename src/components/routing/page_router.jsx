@@ -6,6 +6,7 @@ import Home from '../pages/home'
 import { LoginPage } from '../pages/login'
 import { RegisterPage } from '../pages/register'
 import { logout } from '../../actions/auth'
+import {UserProjects,UserOrganizations} from '../pages/user-page'
 import findPagesParams from './find_pages_params'
 import __pages from './__pages'
 import pages from './nested_page_info'
@@ -28,6 +29,7 @@ export class PageRouter extends Component {
             const page = pages[pgkey]
             page.forEach((pg, index) => {
                 routes[index].add({path: pgkey, component: PageShell(pageComponents[pgkey](pg))})
+                routes[index].exact()
             })
         })
 
@@ -40,6 +42,8 @@ export class PageRouter extends Component {
                 <Route exact path="/login" component={PageShell(LoginPage)} />
                 <Route exact path="/register" component={PageShell(RegisterPage)} />
                 <Route exact path="/logout" render={() => {logout(); return <Redirect to="/login" />}} />
+                <Route exact path="/users/:id/projects" component={PageShell(UserProjects)} />
+                <Route exact path="/users/:id/organizations" component={PageShell(UserOrganizations)} />
                 {final_routes}
                 <Route exact path="/search" render={authUser(this.props.user)(PageShell(Search))} />
                 <Route exact path="/" render={authUser(this.props.user)(PageShell(Home))} />

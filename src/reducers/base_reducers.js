@@ -42,10 +42,16 @@ export const async_base = (base_name) => {
                             .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                     }
                 }
-            case '@@router/LOCATION_CHANGE':
-                if (state.has('errors'))
-                    return state.remove('errors')
-                break;
+            case `${base_name}_SET_PAGE`: 
+                return state.set('page', action.page)
+            case `${base_name}_SET_PAGE_SIZE`:
+                return state.set('page', 
+                            (typeof action.page !== 'undefined')
+                                ? action.page
+                                : Math.floor(
+                                    state.get('page') * state.get('pageSize') / action.pageSize)
+                                )
+                            .set('pageSize', action.pageSize)
             case 'LOGOUT_FULFILLED':
             case 'LOGOUT_REJECTED':
                 return not_loaded
@@ -161,6 +167,14 @@ export const append_wrapper = (type) => (to_wrap)  => (state, action) => {
 export const combine_wrapper = (what_to_combine) => (state, action) => {
     for(let i = 0; i < what_to_combine.length; ++i){
         state = what_to_combine[i](state, action)
+    }
+    return state
+}
+
+export const combine_wrapper_nested = (what_to_combine) => (state = fromJS({}), action) => {
+    for(let i = 0; i < what_to_combine.length; ++i){
+        const combo = what_to_combine[i]
+        state = state.set(combo.key, combo.func(state.get(combo.key), action))
     }
     return state
 }

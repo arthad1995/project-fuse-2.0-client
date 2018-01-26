@@ -1,7 +1,7 @@
 import {CreatePage, ApplyButton, SearchPage} from '../common'
 import { myProjects, myTeams, myOrganizations, myFriends } from '../../actions/my_'
 import createArray from './create_array'
-import { userTest, orgTest, teamTest, projTest } from './search_apply_testing'
+import { userTest, orgTest, projTest } from './search_apply_testing'
 import { addFriend, applyToOrganization, applyToTeam, applyToProject } from '../../actions/apply'
 import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '../../actions/search'
 import { createProject, createTeam, createOrganization } from '../../actions/create'
@@ -17,17 +17,6 @@ export default createArray(__pages.slice(0, -1).concat(['friends']), [
         new_tab: (tab) => CreatePage({
             path: 'projects',
             param: { name: 'Project', save: createProject },
-        })
-    },
-    {
-        load: myTeams,
-        search_tab: (tab) => SearchPage({
-            path: 'teams',
-            param: { apply: ApplyButton(['user', 'applied_teams', 'user_teams'], teamTest, applyToTeam), load: searchTeams },
-        }),
-        new_tab: (tab) => CreatePage({
-            path: 'teams',
-            param: { name: 'Team', save: createTeam },
         })
     },
     {

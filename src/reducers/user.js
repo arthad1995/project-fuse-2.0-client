@@ -1,5 +1,5 @@
 import { not_loaded } from './initial_states'
-import { async_base } from './base_reducers'
+import { async_base, combine_wrapper, combine_wrapper_nested } from './base_reducers'
 import {fromJS} from 'immutable'
 import Cookies from 'js-cookie'
 
@@ -61,5 +61,6 @@ export function user(state = not_loaded, action){
                     .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
         }
     }
+    
     return state;
 }

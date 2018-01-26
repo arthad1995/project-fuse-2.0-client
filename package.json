@@ -34,6 +34,7 @@
     "react-draft-wysiwyg": "^1.10.12",
     "react-easy-chart": "^0.1.16",
     "react-fader": "^1.1.4",
+    "react-infinite-scroller": "^1.1.2",
     "react-markdown": "^2.5.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",

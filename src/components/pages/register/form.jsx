@@ -5,7 +5,7 @@ let Form = props => {
     const { handleSubmit, disabled } = props
     return (
         <form className="withMargins" onSubmit={(vals) => {
-            handleSubmit(vals).then(()=>{this.props.dispatch(reset('register'))})
+            handleSubmit(vals).then(()=>{props.dispatch(reset('register'))})
         }}>
             <div>   
                 <Field component="input" disabled={disabled} required placeholder="Name" type="text" name="name" /><br />
