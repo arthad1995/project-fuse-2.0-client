@@ -8,9 +8,10 @@ var cache = {}
 export const MyListOfPage= (paramObj) => {
     const url = paramObj.path
     const params = paramObj.param || {}
+    const show_new = params.show_new
     if(cache[url]) return cache[url];
 
-    const tabInfo = TabbedSearchSidebar(url)
+    const tabInfo = TabbedSearchSidebar(url, show_new)
 
     const mapStateToProps = (state) =>{
         let obj = {
@@ -34,7 +35,7 @@ export const MyListOfPage= (paramObj) => {
 
         render(){
             return (
-                <Tabs selected_tab={this.props.selected_tab} generator={listGenerator(url)(this.props)} tabs={tabInfo.tabs} />
+                <Tabs selected_tab={this.props.selected_tab} generator={listGenerator(url)(Object.assign({}, this.props, params))} tabs={tabInfo.tabs} />
             )
         }
     }

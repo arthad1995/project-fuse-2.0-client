@@ -36,10 +36,11 @@ export const async_base = (base_name) => {
                         return _state.merge(fromJS({
                             data: response.data
                         }))
-                    } else
+                    } else {
                         return state.set('fetching', false)
                             .set('fetched', false)
                             .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
+                    }
                 }
             case '@@router/LOCATION_CHANGE':
                 if (state.has('errors'))
@@ -155,4 +156,25 @@ export const append_wrapper = (type) => (to_wrap)  => (state, action) => {
             return state.set('data', list.set(action.payload.id,fromJS(action.payload)))
     }
     return state;
+}
+
+export const combine_wrapper = (what_to_combine) => (state, action) => {
+    for(let i = 0; i < what_to_combine.length; ++i){
+        state = what_to_combine[i](state, action)
+    }
+    return state
+}
+
+export const reset_on_page_reloc = (to_wrap) => (state, action) => {
+    state = to_wrap(state, action)
+    if(action.type === '@@router/LOCATION_CHANGE')
+        state = to_wrap(undefined, {type: ''})
+    return state
+}
+
+export const reset_on_logout = (to_wrap) => (state, action) => {
+    state = to_wrap(state, action)
+    if(action.type === 'LOGOUT_FULFILLED' || action.type === 'LOGOUT_REJECTED')
+        state = to_wrap(undefined, {type: ''})
+    return state
 }

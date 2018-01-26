@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {fromJS} from 'immutable'
 
-require('./sidebar.scss')
+
 
 const mapStateToProps = (state) =>{
     return {
@@ -32,7 +32,7 @@ class Sidebar extends Component {
                                 {num_friends}
                             </div>
                             <div>Friends</div>
-                            <div><Link to='/users'>Find more Friends</Link></div>
+                            <div><Link to='/my-friends'>Find more Friends</Link></div>
                         </div>
                     </div>
                     <Link to='/my-teams'>

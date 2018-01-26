@@ -5,6 +5,13 @@ export const mapSingleKey = (key) => (state) => {
     return map
 }
 
+export const mapSingleKeyWithSearch = (key) => (state) => {
+    return Object.assign(
+        mapSingleKey(key)(state),
+        {local_search: state.ui.get('local_search')}
+    )
+}
+
 export const mapMultKeys = (keys) => (state) => {
     let map = {}
     keys.forEach(key => {

@@ -6,7 +6,6 @@ const mapStateToProps = (state) => {
         animation: state.ui.get('animation') || Map()
     }
 }
-require('./animations.scss')
 
 @connect(mapStateToProps)
 export default class AnimationHandler extends Component {

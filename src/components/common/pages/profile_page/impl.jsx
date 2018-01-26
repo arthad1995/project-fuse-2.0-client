@@ -6,7 +6,7 @@ const ReactMarkdown = require('react-markdown');
 import { AnimationHandler } from '../../../common'
 import {Map} from 'immutable'
 
-require('./style.scss')
+
 
 class Page extends Component {
     constructor(props) {
@@ -37,7 +37,7 @@ class Page extends Component {
         const params = this.props.match.params
         const data = this.props[this.props.index].get('data')
         const elem = (data) ? data.get(params.id) : null
-        const editBtn = (this.props.canEdit && this.props.canEdit(this.props, elem) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fa fa-pencil'></i></Link></div> : '')
+        const editBtn = (this.props.canEdit && this.props.canEdit(this.props, elem) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fas fa-pencil-alt'></i></Link></div> : '')
         const customElems = this.props.customElems || (e =>null)
 
         if (elem) {
@@ -48,7 +48,8 @@ class Page extends Component {
                         <div className="profile_header"></div>
                         <div className="profile_title">
                             <div className="profile_picture"><div><i className="fa fa-user" /></div></div>
-                            <h1 className='title'>{elem.get('name')}{editBtn}</h1>
+                            {editBtn}
+                            <h1 className='title'>{elem.get('name')}</h1>
                             {this.renderOwnerInfo(elem)}
                             <div className='headline'>
                                 {profile.get('headline') || ''}

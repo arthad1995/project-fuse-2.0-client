@@ -4,8 +4,6 @@ import React from 'react'
 import { Field } from 'redux-form'
 const v = require('voca')
 
-require('./style.scss')
-
 const format = (skill) =>{
     return skill
 }
@@ -17,11 +15,11 @@ export const UserCustomElems = (user) => {
     return <div className="skills">
         <h3>Skills</h3>
         <div className='fullWidth'>
-        <ul>
-            {skills.map((skill)=>{
-                return <li>{format(skill)}</li>
-            })}
-        </ul>
+            <ul>
+                {skills.map((skill, index)=>{
+                    return <li key={index}>{format(skill)}</li>
+                })}
+            </ul>
         </div>
     </div>
 }

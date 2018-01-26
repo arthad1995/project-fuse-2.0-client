@@ -5,6 +5,7 @@ import {TabSidebar} from './tabs'
 import { connect } from 'react-redux'
 import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
+import { goBack } from 'react-router-redux'
 
 const mapStateToProps = (state) =>{
     return {
@@ -12,12 +13,18 @@ const mapStateToProps = (state) =>{
     }
 }
 
-export const TabbedSearchSidebar = (url) => {
+export const TabbedSearchSidebar = (url, show_new = true) => {
     const display_name = url[0].toUpperCase() + url.slice(1)
-    const tabs = [
+    let tabs = [
         {id: 1, name: `My ${display_name}`, arr_key: `my_${url}`},
-        {id: 2, name: `Applied ${display_name}`, arr_key: `applied_${url}`}
+        {id: 2, name: `Applied ${display_name}`, arr_key: `applied_${url}`},
+        {id: 3, name: `Find ${display_name}`, arr_key: `search_${url}`, type: 'search'},
+        {id: 4, name: `New ${display_name.slice(0, -1)}`, arr_key: `new_${url}`, type: 'new'},
     ]
+    if(!show_new){
+        tabs = tabs.slice(0,-1)
+        tabs[1].name = `${display_name} Requests`
+    }
 
     @connect( mapStateToProps )
     class TabSidebarSearchPage extends Component {
@@ -32,16 +39,7 @@ export const TabbedSearchSidebar = (url) => {
 
             return (
                 <TabSidebar selected_tab={selected_tab} onTabChange={click_callback} tabs={tabs}>
-                    <Link to={"/" + url}>
-                        <div className="section centered">
-                            Find {display_name}
-                        </div>
-                    </Link>
-                    <Link to={`/${url}/new`}>
-                        <div className="section centered">
-                            New {display_name.slice(0, -1)}
-                        </div>
-                    </Link>
+                    <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
                     {this.props.children}
                 </TabSidebar>
             )

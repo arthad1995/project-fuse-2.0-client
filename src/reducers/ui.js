@@ -1,13 +1,38 @@
-import {fromJS} from 'immutable'
-import { show_time_picker } from '../actions/ui';
+import {
+    fromJS
+} from 'immutable'
+import {
+    show_time_picker
+} from '../actions/ui';
 
-export function ui(state = fromJS({online: true, show_time_picker: false, 'animation': {page: true, sidebar: true}, mock_data: 0}), action){
-    switch(action.type){
+export function ui(state = fromJS({
+    online: true,
+    show_time_picker: false,
+    animation: {
+        page: true,
+        sidebar: true
+    },
+    global_search: {
+        show: false,
+        search: ''
+    },
+    local_search: '',
+    mock_data: 0
+}), action) {
+    switch (action.type) {
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
-            return state.set('selected_tab', 'tab1').set('was_offline', false).set('animation', fromJS({
+        console.log(action)
+            state = state.set('selected_tab', 'tab1').set('was_offline', false).set('animation', fromJS({
                 page: true,
                 sidebar: true,
-            })).set('show_time_picker', false)
+            })).set('show_time_picker', false).set('local_search', '')
+            if (action.payload.pathname !== '/search') {
+                state = state.set('global_search', fromJS({
+                    show: false,
+                    search: ''
+                }))
+            }
+            return state
         case 'CHANGE_TAB':
             return state.set('selected_tab', action.payload)
         case 'ONLINE':
@@ -25,8 +50,18 @@ export function ui(state = fromJS({online: true, show_time_picker: false, 'anima
         case 'LOGOUT_FULFILLED':
         case 'LOGOUT_REJECTED':
             return state.set('mock_data', 0)
+        case 'TOGGLE_GLOBAL_SEARCH':
+            return state.set('global_search',
+                state.get('global_search').set('show', !state.get('global_search').get('show'))
+            )
+        case 'CHANGE_LOCAL_SEARCH_TEXT':
+            return state.set('local_search', action.search_text)
+        case 'CHANGE_GLOBAL_SEARCH_TEXT':
+            return state.set('global_search',
+                state.get('global_search').set('search', action.search_text)
+        )
     }
-    if(action.type.match(/ADD_INTERVIEW_SLOT_.+_FULFILLED/)){
+    if (action.type.match(/ADD_INTERVIEW_SLOT_.+_FULFILLED/)) {
         state = state.set('show_time_picker', false)
     }
     return state;

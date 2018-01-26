@@ -38,11 +38,11 @@ export default class InterviewSettings extends Component {
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}>
                 {this.props.showTimePicker
-                    ? <div key={1}><InterviewTimePicker onSubmit={this.props.onSubmit || (e=>null)} dispatch={this.props.dispatch} cancel={() => this.props.dispatch(hide_time_picker())} /></div>
+                    ? <div key={1}><InterviewTimePicker onSubmit={this.props.onSubmit} dispatch={this.props.dispatch} cancel={() => this.props.dispatch(hide_time_picker())} /></div>
                     : <div key={2} className='hidden'><InterviewTimePicker onSubmit={() => { }} dispatch={() => { }} cancel={() => { }} /></div>
                 }
             </CSSTransitionGroup>
-            <InterviewTimeList errors={this.props.data.errors} slots={this.props.data || {}} onSubmit={state => (vals) => console.log(vals)} />
+            <InterviewTimeList errors={this.props.data.errors} slots={this.props.data || {}} onSubmit={state => (vals) => null} />
         </div>
     }
 }

@@ -18,15 +18,13 @@ class Form extends Component {
 
         if (showName)
             nameField = [
-                <label htmlFor="name">Name</label>,
-                <Field component="input" className="fullWidth" required placeholder="Name" type="text" name="name" />,
-                <br />
+                <label key="name_label" htmlFor="name">Name</label>,
+                <Field key="name_input" component="input" className="fullWidth" required placeholder="Name" type="text" name="name" />,
+                <br key="line_break" />
             ]
 
         return (
-            <form className="withMargins" onSubmit={(vals) => {
-                handleSubmit(vals).then(()=>{this.props.dispatch(reset(this.props.formName))})
-            }}>
+            <form className="withMargins" onSubmit={handleSubmit}>
                 <div>
                     {nameField}
                     <label htmlFor="headline">Headline</label>
@@ -36,7 +34,7 @@ class Form extends Component {
                     {customElems ? customElems() : null}
                 </div>
                 <div className="buttons">
-                    <input className='btn tone1-1-color' type="submit" id="submit" name="submit" value="Save" />
+                    <input className='btn save tone1-1-color' type="submit" id="submit" name="submit" value="Save" />
                     <div onClick={cancelAction} className="centered btn tone1-2-color">
                         Cancel
                     </div>

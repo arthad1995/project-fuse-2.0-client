@@ -2,16 +2,22 @@ import React, { Component } from 'react'
 import {parse_date, date_format} from '../../../../utils/date_utils'
 import Clock from '../clock'
 
-require('./interview_time_list.scss')
-
 export default class InterviewTimeList extends Component {
     render() {
         const slots = this.props.slots || {}
+        const entries = Object.entries(slots)
+
+        if(entries.length == 0){
+            return <h3>No timeslots found</h3>
+        }
+
         return (
             <ul className="interview_slots">
-                {Object.entries(slots).map(elem => {
+                {entries.map(elem => {
                     const index = elem[0]
                     elem = elem[1]
+                    if(typeof elem !== 'object') return null
+                    if(!elem.start || !elem.end) return null
                     const startDate = parse_date(elem.start)
                     const endDate = parse_date(elem.end)
                     return (
@@ -27,9 +33,9 @@ export default class InterviewTimeList extends Component {
                                         </div>
                                     </div>
                                     <div className="inline">
-                                        <Clock min={startDate.minutes()} hr={startDate.hours()} />
+                                        <Clock min={startDate.minute()} hr={startDate.hour() % 12} />
                                     </div>
-                                    <div className='arrow' />
+                                    <i className="fas fa-arrow-right"></i>
                                     <div className='end'>
                                         <div className='date'> 
                                             {date_format(endDate, 'MMM Do')}
@@ -39,7 +45,7 @@ export default class InterviewTimeList extends Component {
                                         </div>
                                     </div>
                                     <div className="inline">
-                                        <Clock min={endDate.minutes()} hr={endDate.hours()} />
+                                        <Clock min={endDate.minute()} hr={endDate.hour() % 12} />
                                     </div>
                                     <div className='tools'>
                                         {/*<i className='fa fa-pencil' />

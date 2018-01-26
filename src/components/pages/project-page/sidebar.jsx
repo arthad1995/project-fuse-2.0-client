@@ -11,6 +11,11 @@ const mapStateToProps = (state) =>{
 @connect( mapStateToProps )
 class Sidebar extends Component {
     constructor(props){ super(props)}
+    
+    componentWillMount(){
+        if(this.props.loadFunc)
+            this.props.loadFunc(this.props.match.params.id)
+    }
 
     render(){
         const id = this.props.match.params.id
@@ -24,11 +29,11 @@ class Sidebar extends Component {
                     </div>
                 </Link>
                 <div className="hidden section centered"></div>
-                {/*<Link to={`/projects/${id}/members`}>*/}
+                <Link to={`/projects/${id}/members`}>
                     <div className="section centered">
                         Members
                     </div>
-                {/*</Link>*/}
+                </Link>
                 {/*<Link to={`/projects/${id}/teams`}>*/}
                     <div className="section centered">
                         Teams
@@ -46,6 +51,7 @@ class Sidebar extends Component {
                        Settings
                     </div>
                 </Link> : null}
+                <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
             </div>
         }else{
             return <div></div>
