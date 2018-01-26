@@ -21,7 +21,7 @@ class CardImg extends Component {
             <div className={`card ${this.props.className}`} onClick={this.props.onClick}>
                 <div className='cardHeader'>
                     {imgTag}
-                    <div className='title'>{title}</div>
+                    <div className='title full'>{title}</div>
                 </div>
                 {contentTag}
                 <div className='cardFooter'>

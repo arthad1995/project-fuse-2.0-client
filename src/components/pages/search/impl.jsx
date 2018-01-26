@@ -55,8 +55,10 @@ class Search extends Component {
             return (
                 <CardImg
                     key={index}
-                    title={`${user.name}`}
-                    footer={<div className="smallText">(Person)</div>}
+                    title={<div>
+                        <div className="name">{user.name} </div>
+                        <div className="smallText">(User)</div>
+                    </div>}
                     className="light pointer"
                     onClick={navTo}
                 >
@@ -85,8 +87,10 @@ class Search extends Component {
             return (
                 <CardImg
                     key={index}
-                    title={`${org.name}`}
-                    footer={<div className="smallText">(Organization)</div>}
+                    title={<div>
+                        <div className="name">{org.name} </div>
+                        <div className="smallText">(Organization)</div>
+                    </div>}
                     className="light pointer"
                     onClick={navTo}
                 >
@@ -106,8 +110,10 @@ class Search extends Component {
             return (
                 <CardImg
                     key={index}
-                    title={`${proj.name}`}
-                    footer={<div className="smallText">(Project)</div>}
+                    title={<div>
+                        <div className="name">{proj.name} </div>
+                        <div className="smallText">(Project)</div>
+                    </div>}
                     className="light pointer"
                     onClick={navTo}
                 >

@@ -1,5 +1,5 @@
 @import "./../../common.scss";
-$header-height: 40px;
+$header-height: 30px;
 $header-padding: 0.75rem 1rem;
 body {
   font-family: $font-family-sans-serif;
@@ -21,9 +21,9 @@ body {
   width: 100%;
   input {
     width: 100%;
-    height: $header-height;
+    height: $header-height + 10px;
     font-size: 14pt;
-    padding: $header-padding;
+    padding: $header-padding 10px;
   }
 }
 
@@ -37,7 +37,7 @@ body {
     top: 0;
     left: 0;
     position: absolute;
-    height: $header-height * 2;
+    height: $header-height * 2 + 10px;
     line-height: $header-height;
     z-index: 100;
     width: 100%;
@@ -87,7 +87,7 @@ body {
     color: #222;
     text-align: center;
     text-shadow: none !important;
-    padding: 10px;
+    padding: 5px;
   }
   a:hover .icon {
     $bgcol: darken(#ccc, 5%);
@@ -96,6 +96,7 @@ body {
     background-color: $bgcol;
   }
   img {
+    margin-top: $header-height/4;
     width: $header-height;
     height: $header-height;
   }
@@ -111,7 +112,7 @@ body {
       ul.dropdown {
         display: none;
         position: absolute;
-        top: 2rem;
+        top: 1rem;
         right: -1rem;
         padding-top: 1rem;
         z-index: 99999;
@@ -225,12 +226,12 @@ img.profileImage {
 
 .btn {
   @extend .pointer;
-  margin: 1rem 0.5rem;
-  padding: 0.5rem 0.75rem; //border-radius: 15px;
-  font-size: 125%;
+  margin: 0.5rem 0.25rem;
+  padding: 0.5rem 1rem; //border-radius: 15px;
+  font-size: 105%;
   text-align: center;
   width: 90%;
-  @include for-tablet-landscape-up {
+  @include for-tablet-portrait-up {
     display: inline-block;
     width: inherit;
   }
@@ -260,7 +261,7 @@ img.profileImage {
 }
 
 .login-box {
-  max-width: 350px;
+  max-width: 500px;
 }
 
 .register-box {
@@ -278,7 +279,6 @@ img.profileImage {
   display: table;
   padding: 0;
   .centered {
-    font-size: 125%;
     display: table-cell;
     vertical-align: middle;
     >div {
@@ -304,19 +304,20 @@ img.profileImage {
         }
       }
       input {
-        height: 2.5em;
+        height: 2.5rem;
         line-height: 2em;
-        padding: 0.75rem;
+        padding: 0.25rem 0.5rem;
         margin: 0;
       }
       input.btn {
         margin: 1rem;
         height: auto;
         line-height: auto;
-        padding: 0.5rem 1rem;
+        padding: 0.25rem 0.75rem;
         float: none;
-        font-size: 120%;
+        font-size: 105%;
         font-weight: bold;
+        max-width: 150px;
       }
     }
   }
@@ -713,13 +714,13 @@ ul.interview_slots {
 ///////////////////////////////////////
 li.listItem {
   div.name {
-    @include for-tablet-landscape-up {
+    @include for-tablet-portrait-up {
       display: inline-block;
     }
     line-height: 50px;
   }
   .buttons {
-    @include for-tablet-landscape-up {
+    @include for-tablet-portrait-up {
       float: right;
       .btn {
         font-size: 100%;
@@ -818,7 +819,7 @@ $clock-size: 50px;
     background-color: rgba(0, 0, 0, 0.035);
   }
   ~.card {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
   div {
     border: none
@@ -862,7 +863,7 @@ $clock-size: 50px;
       }
     }
     div.title {
-      padding: 0 1rem;
+      padding: 0 0.5rem;
       margin-top: 0.5rem;
       font-size: 1.5rem;
       color: hsl(0, 0%, 35%);
@@ -872,6 +873,18 @@ $clock-size: 50px;
         font-size: 1.25rem;
         line-height: 30px;
       }
+      &.full {
+        width: 100%;
+      }
+      > div {
+        width: 100%;
+      }
+      div.name {
+        float: left;
+      }
+      div.smallText {
+        float: right
+      }
     }
   }
   .cardFooter {
@@ -879,13 +892,18 @@ $clock-size: 50px;
     div {
       float: left;
       margin-left: 1rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
       &.nofloat {
         @extend .clearfix;
         float: none;
         ~div {
           margin-top: 16px;
         }
+      }
+    }
+    @include for-tablet-portrait-up {
+      & ~ div.time {
+        margin-top: -25px
       }
     }
   }
@@ -898,11 +916,11 @@ $clock-size: 50px;
   .content {
     width: calc(100% - 2rem);
     margin: 0rem 1rem;
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     background-color: rgba(0, 0, 0, 0);
   }
   .minorPadding {
-    height: 0.7rem;
+    height: 0.5rem;
   }
 }
 
@@ -1148,8 +1166,9 @@ $tab-color: hsl(240, 80%, 58%);
   }
 }
 
+$profile_height: 15rem;
 .profile_header {
-  height: 20rem;
+  height: $profile_height;
   box-shadow: 0px 1px 4px gray;
   position: relative;
   z-index: 0;
@@ -1159,7 +1178,7 @@ $tab-color: hsl(240, 80%, 58%);
     content: '';
     left: 0;
     width: 100%;
-    height: 20rem;
+    height: $profile_height;
     top: 0;
     position: absolute;
     z-index: 1;
@@ -1182,7 +1201,7 @@ $tab-color: hsl(240, 80%, 58%);
   .edit-btn {
     .fa-pencil-alt {
       right: 0rem;
-      top: -3.5rem;
+      top: -1.5rem;
       $size: 2.5rem;
       height: $size;
       width: $size;
@@ -1195,10 +1214,10 @@ $tab-color: hsl(240, 80%, 58%);
     margin: 1rem;
   }
   .profile_picture {
-    $size: 6.2rem;
-    $padding: 1rem;
+    $size: 70px;
+    $padding: 10px;
     $total-size: $size + $padding;
-    height: $total-size/2 + 1.25rem;
+    height: $total-size/2;
     position: relative;
     div {
       top: -($total-size/2);
@@ -1211,6 +1230,8 @@ $tab-color: hsl(240, 80%, 58%);
       border: 0.2rem solid hsl(240, 5%, 100%);
       box-shadow: 0px 1px 8px 1px gray;
       z-index: 500;
+      width: $size;
+      height: $size;
       .fa-user {
         height: $size / 2;
         width: $size / 2;
@@ -1267,14 +1288,15 @@ $tab-color: hsl(240, 80%, 58%);
   @extend .card-color;
   width: calc(30% - 3rem);
   float: left;
-  margin: 1rem 1rem 1rem;
+  margin: 1rem;
+  font-size: 90%;
   a:hover .section,
   .section.clickable:hover {
     box-shadow: 1px 2px 6px gray;
   }
   .section {
     width: 100%;
-    padding: 1rem;
+    padding: 0.75rem;
     ~.section,
     ~a .section,
     ~label .section {
