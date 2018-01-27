@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { stopEvent } from '../../elements/stopEvent'
 import SearchInput from 'react-search-input'
 import { fromJS } from 'immutable'
+import Pagination from 'react-js-pagination'
 
 const SearchHeader = (props) => {
     return <div>
@@ -43,11 +44,26 @@ class Page extends Component {
     }
 
     render() {
-
-        const data = (this.props.search && this.props.search.get('data')) ? this.props.search.get('data').toObject() : null
-
+        const data = (this.props.search &&
+                        this.props.search.get('data') &&
+                        this.props.search.get('data').get('items')) ?
+                            this.props.search.get('data').get('items').toObject() : 
+                            null
         const applicationHeadline = this.props.applicationHeadline || "Application Submitted!"
         const applicationSummary = this.props.applicationSummary || "Your application was submitted succesfully!"
+
+        const results = this.props.search
+        const numItems = results.get('totalItems')
+        const pageSize = results.get('pageSize');
+        const numPages = numItems / numPages;
+        const nextPage = numItems > results.get('end') + 1;
+        const prevPage = results.get('start') - 1 > 0;
+        const pageChange = ((page)=>{
+            page--
+            this.props.dispatch({type: this.props.name + '_SET_PAGE', page})
+            globalSearch({ query: this.props.global_search.get('search'), page })
+            window.scrollTo(0,150)
+        }).bind(this)
 
         let content = <div className="loading"></div>
         if (!this.props.search.get('fetching') || this.props.search.get('fetched')) {
@@ -68,7 +84,17 @@ class Page extends Component {
                                         {(Btn) ? <Btn /> : ''}
                                     </ListItem>
                                 })}
+                                {results.get('fetching') ? <div className="loading"></div> : ''}
                             </ul>
+                            {numItems > pageSize ?
+                                <Pagination
+                                    activePage={results.get('page') + 1}
+                                    itemsCountPerPage={pageSize}
+                                    totalItemsCount={numItems}
+                                    pageRangeDisplayed={5}
+                                    onChange={pageChange}
+                                >
+                                </Pagination> : ''}
                         </div>
                     </div>
                 )

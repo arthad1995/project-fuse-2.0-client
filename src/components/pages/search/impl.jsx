@@ -9,6 +9,7 @@ import { globalSearch } from '../../../actions/search'
 import { fromJS } from 'immutable'
 import { CardImg } from '../../common'
 import InfiniteScroll from 'react-infinite-scroller'
+import Pagination from 'react-js-pagination'
 
 const mapStateToProps = (state) => {
     return {
@@ -124,9 +125,23 @@ class Search extends Component {
                 </CardImg>
             )
         }
-        const data = ((this.props.results.get('data') || fromJS({})).get('data') || fromJS([])).filter(
-            d => d.get('index') !== 'team'
-        ).toJS()
+        const results = ((this.props.results.get('data') || fromJS({}))
+                            .get('data') || fromJS({}))
+        const data = (results
+                        .get('items') || fromJS([]))
+                        .filter(d => d.get('index') !== 'team')
+                        .toJS()
+        const numItems = results.get('totalItems')
+        const pageSize = results.get('pageSize');
+        const numPages = numItems / numPages;
+        const nextPage = numItems > results.get('end') + 1;
+        const prevPage = results.get('start') - 1 > 0;
+        const pageChange = ((page)=>{
+            page--
+            this.props.dispatch({type: 'GLOBAL_SEARCH_INFO_SET_PAGE', page})
+            globalSearch({ query: this.props.global_search.get('search'), page })
+            window.scrollTo(0,150)
+        }).bind(this)
 
         return (
             <div>
@@ -136,13 +151,8 @@ class Search extends Component {
                         <hr />
                     </div>
                     : ''}
-                <InfiniteScroll
-                    pageStart={0}
-                    loadMore={() => { }}
-                    hasMore={false}
-                    loader={<div className="loading"></div>}
-                >
-                    {data.map((result, index) => {
+                
+                {data.map((result, index) => {
                         switch (result.index) {
                             case 'users':
                                 return showUser(result, index)
@@ -153,8 +163,19 @@ class Search extends Component {
                             default: ''
                         }
                     })}
-                </InfiniteScroll>
-                {data.length == 0 ? <div>No Results</div> : ''}
+                {this.props.results.get('fetching') ? <div className="loading"></div> : ''}
+                {data.length == 0 ? <div>No Results</div> : 
+                    numItems > pageSize ?
+                        <Pagination
+                            activePage={this.props.results.get('page') + 1}
+                            itemsCountPerPage={pageSize}
+                            totalItemsCount={numItems}
+                            pageRangeDisplayed={5}
+                            onChange={pageChange}
+                        >
+                        </Pagination>
+                        : ''
+                }
             </div>
         )
     }
