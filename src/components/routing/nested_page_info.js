@@ -24,7 +24,7 @@ export default {
         { load: loadOrganizationSettings, component: OrganizationSettings }
     ]),
     applicants: createArray(__pages.slice(0,-1), [
-        { load: loadProjectApplicants },
-        { load: loadOrganizationApplicants }
+        { load: loadProjectApplicants, groupType: 'projects' },
+        { load: loadOrganizationApplicants, groupType: 'organizations' }
     ])
 }
