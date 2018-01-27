@@ -24,15 +24,15 @@ export default class InterviewSettings extends Component {
                 transitionName="fade"
                 transitionEnterTimeout={500}
                 transitionLeaveTimeout={300}>
-                {!this.props.showTimePicker ?
-                    <div className={'edit-btn'}>
-                        <a onClick={() => this.props.dispatch(show_time_picker())}>
-                            <i className='fa fa-plus'></i> New Timeslot</a>
-                    </div>
-                    : null
-                }
             </CSSTransitionGroup>
             </h2>
+            {!this.props.showTimePicker ?
+                <div className={'edit-btn left'}>
+                    <a onClick={() => this.props.dispatch(show_time_picker())}>
+                        <i className='fa fa-plus'></i> New Timeslot</a>
+                </div>
+                : null
+            }
             <CSSTransitionGroup
                 transitionName="fade"
                 transitionEnterTimeout={500}

@@ -186,6 +186,9 @@ body {
 
 div.edit-btn {
   float: right;
+  &.left {
+    float: left;
+  }
   cursor: pointer;
   margin-right: 2rem;
   a {
@@ -194,6 +197,10 @@ div.edit-btn {
       color: hsl(240, 20%, 10%);
     }
   }
+}
+
+.marginized{
+  margin-left: 0.5rem;
 }
 
 .centered {
@@ -930,10 +937,12 @@ $clock-size: 50px;
 $tab-color: hsl(240, 80%, 58%);
 .react-tabs__tab-list {
   @extend .clearfix;
+  background-color: darken($tab-color, 2.5%);
   list-style: none;
   margin: 0 auto;
   width: 80%;
   padding: 0px;
+  text-align: center;
 }
 
 .react-tabs__tab {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {InterviewSettings} from '../../common'
 import {addSlotProject} from '../../../actions/interview_settings'
+import {updateProject} from '../../../actions/access_settings'
+import {AccessSettings} from '../../common'
 
 class Page extends Component {
     constructor(props) {
@@ -13,7 +15,14 @@ class Page extends Component {
     }
 
     render() {
-        return <InterviewSettings onSubmit={addSlotProject(this.props.match.params.id)} />
+        return <div>
+            <div className="clearfix">
+                <InterviewSettings onSubmit={addSlotProject(this.props.match.params.id)} />
+            </div>
+            <div className="clearfix">
+                <AccessSettings onSubmit={updateProject(this.props.match.params.id)} />
+            </div>
+        </div>
     }
 }
 

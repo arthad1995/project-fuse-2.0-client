@@ -61,7 +61,7 @@ class Page extends Component {
     }
 
     showPending(data) {
-        return data ? <ul>{data.valueSeq().toArray().map((elem, index) => {
+        return data && data.size ? <ul>{data.valueSeq().toArray().map((elem, index) => {
             const decline = ((e) => stopEventWrapper(e,this.decline(elem))).bind(this)
             const inviteToJoin = ((e) => stopEventWrapper(e,this.inviteToJoin(elem))).bind(this)
             const schedInterview = ((e) => stopEventWrapper(e,this.schedInterview(elem))).bind(this)
@@ -98,11 +98,11 @@ class Page extends Component {
                     </li>
                 </Link>
             )
-        })}</ul> : <h2>No pending applications</h2>
+        })}</ul> : <h4>No pending applications</h4>
     }
 
     showInterviewed(data) {
-        return data ? <ul>{data.valueSeq().toArray().map((elem, index) => {
+        return data && data.size ? <ul>{data.valueSeq().toArray().map((elem, index) => {
             const decline = ((e) => stopEventWrapper(e,this.decline(elem))).bind(this)
             const inviteToJoin = ((e) => stopEventWrapper(e,this.inviteToJoin(elem))).bind(this)
             const schedInterview = ((e) => stopEventWrapper(e,this.schedInterview(elem))).bind(this)
@@ -134,8 +134,8 @@ class Page extends Component {
                             <div className='btn tone1-2-color'>View</div>
                             <div className='btn tone1-1-color' onClick={schedInterview}>Reinterview</div>
                             <div className='btn tone2-3-color' onClick={decline}>Decline</div>
-                            </div>
-                            : ''}
+                        </div>
+                        : ''}
                     </li>
                 </Link>
             )
@@ -143,7 +143,7 @@ class Page extends Component {
     }
 
     showInterviewScheduled(data) {
-        return data ? <ul>{data.valueSeq().toArray().map((elem, index) => {
+        return data && data.size ? <ul>{data.valueSeq().toArray().map((elem, index) => {
             const cancelInterview = ((e) => stopEventWrapper(e,this.cancelInterview(elem))).bind(this)
             const sender = elem.get('sender') || fromJS({})
             const profile = sender.get('profile')
@@ -176,11 +176,11 @@ class Page extends Component {
                     </li>
                 </Link>
             )
-        })}</ul> : <h2>No pending applications</h2>
+        })}</ul> : <h4>No pending applications</h4>
     }
 
     showDeclined(data) {
-        return data ? <ul>{data.valueSeq().toArray().map((elem, index) => {
+        return data && data.size ? <ul>{data.valueSeq().toArray().map((elem, index) => {
             const sender = elem.get('sender') || fromJS({})
             const profile = sender.get('profile')
             return (
@@ -211,7 +211,7 @@ class Page extends Component {
                     </li>
                 </Link>
             )
-        })}</ul> : <h2>No pending applications</h2>
+        })}</ul> : <h4>No pending applications</h4>
     }
 
     render() {
@@ -220,19 +220,26 @@ class Page extends Component {
         const editBtn = (this.props.canEdit && this.props.canEdit(this.props, elem) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fas fa-pencil-alt'></i></Link></div> : '')
         const customElems = this.props.customElems || (e => null)
 
+        console.log(this.props['applicants'].get('data'))
+
         return (
             <AnimationHandler anim="SlideInTop" animKey='always'>
                 <div className="relative">
                     <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.ui.get('applicant_tab'))}>
                         <TabList>
-                            <Tab>Pending</Tab>
-                            <Tab>Interview Scheduled</Tab>
+                            <Tab>New</Tab>
+                            <Tab>Interviews</Tab>
                             <Tab>Interviewed</Tab>
                             <Tab>Declined</Tab>
                         </TabList>
 
                         <TabPanel>
-                            {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showPending(data)}
+                            {this.props['applicants'].get('fetching') ?
+                                <div className="loading"></div> :
+                                this.props['applicants'].get('data') ?
+                                    this.showPending(data) :
+                                    <h2>No Applicants</h2>
+                            }
                         </TabPanel>
                         <TabPanel>
                             {this.props['applicants'].get('fetching') ? <div className="loading"></div> : this.showInterviewScheduled(data)}

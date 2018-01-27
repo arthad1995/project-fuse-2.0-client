@@ -30,7 +30,8 @@ const test_group = (groupList, elem) => {
 }
 
 const group_test = (groupLists, elem) => {
-    const ownerId = elem.get('owner_id') || elem.get('owner').get('id')
+    const ownerId = elem.get('owner_id') || (elem.get('owner') ? elem.get('owner').get('id') : null)
+    if (!ownerId) return '';
     return {
         show: [true].concat(groupLists).reduce((accumulator, list) => {
                         return accumulator && (!list || test_group(list, elem))
