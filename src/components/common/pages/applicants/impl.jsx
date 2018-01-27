@@ -7,7 +7,7 @@ import { AnimationHandler } from '../../../common'
 import { Map } from 'immutable'
 import { Tab, Tabs, TabList, TabPanel } from '../../../common'
 import {stopEvent} from '../../../common'
-import {declineApplicant, scheduleInterview, inviteAppToJoin, cancelAppInterview} from '../../../../actions/applicants'
+import {declineApplicant, scheduleInterview, inviteAppToJoin, cancelAppInterview, reconsiderApplicant} from '../../../../actions/applicants'
 
 const stopEventWrapper = (e, func) => {
     stopEvent(e)
@@ -24,6 +24,7 @@ class Page extends Component {
         this.schedInterview = this.schedInterview.bind(this)
         this.inviteToJoin = this.inviteToJoin.bind(this)
         this.showInvited = this.showInvited.bind(this)
+        this.reconsider = this.reconsider.bind(this)
 
         this.state = {
             tabs: [
@@ -53,6 +54,11 @@ class Page extends Component {
 
     inviteToJoin(elem) {
         inviteAppToJoin(this.props.groupType, this.props.match.params.id, elem.get('id'))
+            .then(this.reload)
+    }
+
+    reconsider(elem) {
+        reconsiderApplicant(this.props.groupType, this.props.match.params.id, elem.get('id'))
             .then(this.reload)
     }
 
@@ -152,7 +158,7 @@ class Page extends Component {
                     </li>
                 </Link>
             )
-        })}</ul> : <h3>No invited applicants</h3>
+        })}</ul> : <h4>No invited applicants</h4>
     }
 
     showInterviewed(data) {
@@ -193,7 +199,7 @@ class Page extends Component {
                     </li>
                 </Link>
             )
-        })}</ul> : <h3>No interviewed applicants</h3>
+        })}</ul> : <h4>No interviewed applicants</h4>
     }
 
     showInterviewScheduled(data) {
@@ -235,6 +241,7 @@ class Page extends Component {
 
     showDeclined(data) {
         return data && data.size ? <ul>{data.valueSeq().toArray().map((elem, index) => {
+            const reconsider = ((e) => stopEventWrapper(e,this.reconsider(elem))).bind(this)
             const sender = elem.get('sender') || fromJS({})
             const profile = sender.get('profile')
             return (
@@ -261,6 +268,7 @@ class Page extends Component {
                                 : <div className="skills"><i>No Skills Listed</i></div>}
                             </div>
                             : ''}
+                        <div className='btn tone1-2-color' onClick={reconsider}>Reconsider</div>
                         <div className='btn tone1-2-color'>View</div>
                     </li>
                 </Link>
@@ -280,7 +288,7 @@ class Page extends Component {
                 <div className="relative">
                     <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.ui.get('applicant_tab'))}>
                         <TabList>
-                            <Tab>New</Tab>
+                            <Tab>Pending</Tab>
                             <Tab>Interviews</Tab>
                             <Tab>Interviewed</Tab>
                             <Tab>Invited</Tab>

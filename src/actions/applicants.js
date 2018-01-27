@@ -30,3 +30,8 @@ export const cancelAppInterview = (groupType, groupId, appId) => {
     const network = new Network('CANCEL_APPLICANT_INTERVIEW')
     return network.PUT(`/${groupType}/${groupId}/applicants/${appId}/pending`)
 }
+
+export const reconsiderApplicant = (groupType, groupId, appId) => {
+    const network = new Network('RECONSIDER_APPLICANT')
+    return network.PUT(`/${groupType}/${groupId}/applicants/${appId}/pending`)
+} 
