@@ -20,7 +20,8 @@ export function ui(state = fromJS({
     mock_data: 0,
     applicant_tab: 'pending',
     show_interview_slots: false,
-    selected_timeslot: 0
+    selected_timeslot: 0,
+    invite_info: null
 }), action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
@@ -28,7 +29,7 @@ export function ui(state = fromJS({
                 page: true,
                 sidebar: true,
             })).set('show_time_picker', false).set('local_search', '').set('applicant_tab', 'pending')
-            .set('show_interview_slots', false).set('selected_timeslot', 0)
+            .set('show_interview_slots', false).set('selected_timeslot', 0).set('invite_info', null)
             if (action.payload.pathname !== '/search') {
                 state = state.set('global_search', fromJS({
                     show: false,
@@ -67,10 +68,15 @@ export function ui(state = fromJS({
             return state.set('applicant_tab', action.value)
         case 'SHOW_INTERVIEW_SLOTS':
             return state.set('show_interview_slots', true)
+        case 'LOAD_INTERVIEW_SLOTS_PENDING':
+        case 'LOAD_INTERVIEW_SLOTS_FULFILLED':
+            return state.set('selected_timeslot', 0)
         case 'HIDE_INTERVIEW_SLOTS':
             return state.set('show_interview_slots', false)
         case 'SELECT_TIMESLOT':
             return state.set('selected_timeslot', action.value)
+        case 'SET_INVITE_INFO':
+            return state.set('invite_info', fromJS(action.value))
     }
     if (action.type.match(/ADD_INTERVIEW_SLOT_.+_FULFILLED/)) {
         state = state.set('show_time_picker', false)

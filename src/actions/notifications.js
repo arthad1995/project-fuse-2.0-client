@@ -20,3 +20,8 @@ export const declineInvite = (type, payload) => {
     const network = new Network('DECLINE_INVITE')
     return network.POST(`/users/decline/invite/${type}`, payload)
 }
+
+export const acceptInvite = (type, payload) => {
+    const network = new Network('ACCEPT_INVITE')
+    return network.POST(`/users/accept/invite/${type}`, payload)
+}
