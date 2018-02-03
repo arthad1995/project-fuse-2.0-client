@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Card } from '../../common'
-import { List } from 'immutable'
-import { stopEvent } from '../../common'
-import mockData from '../../../mock_data'
 import SearchInput from 'react-search-input'
 import { globalSearch } from '../../../actions/search'
 import { fromJS } from 'immutable'
@@ -125,8 +121,7 @@ class Search extends Component {
                 </CardImg>
             )
         }
-        const results = ((this.props.results.get('data') || fromJS({}))
-                            .get('data') || fromJS({}))
+        const results = (this.props.results.get('data') || fromJS({}))
         const data = (results
                         .get('items') || fromJS([]))
                         .filter(d => d.get('index') !== 'team')
@@ -151,7 +146,7 @@ class Search extends Component {
                         <hr />
                     </div>
                     : ''}
-                
+
                 {data.map((result, index) => {
                         switch (result.index) {
                             case 'users':
@@ -164,7 +159,7 @@ class Search extends Component {
                         }
                     })}
                 {this.props.results.get('fetching') ? <div className="loading"></div> : ''}
-                {data.length == 0 ? <div>No Results</div> : 
+                {data.length == 0 ? <div>No Results</div> :
                     numItems > pageSize ?
                         <Pagination
                             activePage={this.props.results.get('page') + 1}

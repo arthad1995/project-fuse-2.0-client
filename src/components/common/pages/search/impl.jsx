@@ -47,7 +47,7 @@ class Page extends Component {
         const data = (this.props.search &&
                         this.props.search.get('data') &&
                         this.props.search.get('data').get('items')) ?
-                            this.props.search.get('data').get('items').toObject() : 
+                            this.props.search.get('data').get('items').toObject() :
                             null
         const applicationHeadline = this.props.applicationHeadline || "Application Submitted!"
         const applicationSummary = this.props.applicationSummary || "Your application was submitted succesfully!"

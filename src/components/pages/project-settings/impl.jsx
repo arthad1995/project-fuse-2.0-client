@@ -10,8 +10,8 @@ class Page extends Component {
     }
 
     componentDidMount() {
-        if (this.props.params && this.props.params.load)
-            this.props.params.load(this.props.match.params.id)
+        if (this.props.params && this.props.params.param && this.props.params.param.load)
+            this.props.params.param.load(this.props.match.params.id)
     }
 
     render() {

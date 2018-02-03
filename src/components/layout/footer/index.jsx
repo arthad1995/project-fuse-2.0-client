@@ -7,11 +7,11 @@ export default class Footer extends Component {
 
     render(){
         return (
-            <div className='footer'>
-                <div className='copyright'>
-                    &copy; Team Fusion 2018
-                </div>
-                <div className="flex">
+            <div className='footerWrapper'>
+                <div className='footer'>
+                    <div className='copyright'>
+                        &copy; Team Fusion 2018
+                    </div>
                     <div className='links'>
                         <a href="https://www.surveymonkey.com/r/RKVRXMK">Feedback</a>
                     </div>

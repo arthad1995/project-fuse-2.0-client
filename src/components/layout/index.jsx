@@ -18,7 +18,9 @@ export default class Layout extends Component {
             <div>
                 <Menu history={this.props.history} />
                 <OnlineIndicator />
-                <RouteHandling dispatch={this.props.dispatch} />
+                <div className="page">
+                    <RouteHandling dispatch={this.props.dispatch} />
+                </div>
                 <Footer />
             </div>
         )

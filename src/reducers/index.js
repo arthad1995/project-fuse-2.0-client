@@ -9,6 +9,7 @@ import {applied_teams} from './applied_teams'
 import {applied_organizations} from './applied_organizations'
 import {ui} from './ui'
 import {projects} from './projects'
+import {edit_obj_settings} from './edit_obj_settings'
 import {organizations} from './organizations'
 import {teams} from './teams'
 import {users} from './users'
@@ -18,20 +19,23 @@ import {scheduled_interviews} from './scheduled_interviews'
 import {search} from './search'
 import {related} from './related'
 import {applicants} from './applicants'
+import {notifications} from './notifications'
 
 export default {
     applicants,
     user,
     edit_obj,
-    feed, 
+    edit_obj_settings,
+    feed,
     friends,
-    user_projects, 
+    user_projects,
     user_teams,
-    user_organizations, 
-    applied_projects, 
+    user_organizations,
+    applied_projects,
     applied_teams,
-    applied_organizations, 
-    ui, 
+    applied_organizations,
+    notifications,
+    ui,
     projects,
     organizations,
     teams,

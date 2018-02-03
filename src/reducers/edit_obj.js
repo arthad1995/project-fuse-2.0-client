@@ -4,8 +4,8 @@ import {fromJS} from 'immutable'
 
 export function edit_obj(state = fromJS({}), action){
 
-    const isFulfilled = /LOAD\_[A-Z_]+\_FULFILLED/;
-    const isLoading = /LOAD\_[A-Z_]+\_PENDING/
+    const isFulfilled = /LOAD\_[A-Z_]+\ID_FULFILLED/;
+    const isLoading = /LOAD\_[A-Z_]+\ID_PENDING/
 
     if(action.type === '@@router/LOCATION_CHANGE'){
         return {}

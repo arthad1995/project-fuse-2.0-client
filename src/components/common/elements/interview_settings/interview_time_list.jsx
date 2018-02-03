@@ -16,6 +16,7 @@ export default class InterviewTimeList extends Component {
                 {entries.map(elem => {
                     const index = elem[0]
                     elem = elem[1]
+                    if(!elem) return null
                     if(typeof elem !== 'object') return null
                     if(!elem.start || !elem.end) return null
                     const startDate = parse_date(elem.start)
@@ -25,7 +26,7 @@ export default class InterviewTimeList extends Component {
                             <div className="row">
                                 <div className="inline">
                                     <div className='start'>
-                                        <div className='date'> 
+                                        <div className='date'>
                                             {date_format(startDate, 'MMM Do')}
                                         </div>
                                         <div className='time'>
@@ -37,7 +38,7 @@ export default class InterviewTimeList extends Component {
                                     </div>
                                     <i className="fas fa-arrow-right"></i>
                                     <div className='end'>
-                                        <div className='date'> 
+                                        <div className='date'>
                                             {date_format(endDate, 'MMM Do')}
                                         </div>
                                         <div className='time'>

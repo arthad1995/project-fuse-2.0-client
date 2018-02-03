@@ -36,7 +36,7 @@ class _AccessSettings extends Component {
         const restriction = this.props.data.restriction
         const props = this.props
         return <div>
-            <h2>Access Setings</h2>
+            <h2>Access Settings</h2>
             <div>
                 <form onSubmit={(vals) => {
                     handleSubmit(vals).then(()=>{
@@ -55,16 +55,16 @@ class _AccessSettings extends Component {
                 }}>
                     Join Restrictions:
                     <div>
-                    <label><Field name="restriction" 
-                                component="input" 
-                                type="radio" 
+                    <label><Field name="restriction"
+                                component="input"
+                                type="radio"
                                 value="NONE"
                             />
                                 None
                             </label>
-                    <label><Field name="restriction" 
-                                component="input" 
-                                type="radio" 
+                    <label><Field name="restriction"
+                                component="input"
+                                type="radio"
                                 value="INVITE"
                             />
                                 Apply/Invite
