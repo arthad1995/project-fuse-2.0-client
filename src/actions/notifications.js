@@ -13,7 +13,7 @@ export const markNotificationAsRead = id => {
 
 export const loadInterviewSlotsFor = (type, id) => {
     const network = new Network('LOAD_INTERVIEW_SLOTS')
-    return network.GET(`/${type}/${id}/interview_slots/available`).then(() => loadNotifications())
+    return network.GET(`/${type}/${id}/interview_slots/available`)
 }
 
 export const declineInvite = (type, payload) => {

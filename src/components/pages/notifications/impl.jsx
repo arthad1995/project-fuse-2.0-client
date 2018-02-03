@@ -4,10 +4,14 @@ import Timestamp from 'react-timestamp'
 import { connect } from 'react-redux'
 import { loadNotifications, markNotificationAsRead, loadInterviewSlotsFor, declineInvite } from '../../../actions/notifications'
 import {stopEvent} from '../../common'
+import {fromJS} from 'immutable'
 
 const mapStateToProps = (state) => {
     return {
-        notifications: state.notifications
+        notifications: state.notifications,
+        slots: state.interview_slots,
+        showSlots: state.ui.get('show_interview_slots'),
+        selectedSlot: state.ui.get('selected_timeslot')
     }
 }
 
@@ -24,7 +28,15 @@ class Notifications extends Component {
     render() {
         let history = this.props.history
         const dispatch = this.props.dispatch
-        const showSlots = () => {}
+        const showSlots = () => {
+            dispatch({type: 'SHOW_INTERVIEW_SLOTS'})
+        }
+        const hideSlots = () => {
+            dispatch({type: 'HIDE_INTERVIEW_SLOTS'})
+        }
+        const selectTimeslot = id => {
+            dispatch({type: 'SELECT_TIMESLOT', value: id})
+        }
         const dispatchReadEvent = id => {
             dispatch({type: 'INTERVIEW_READ', id})
         }
@@ -46,6 +58,7 @@ class Notifications extends Component {
             markRead(notifId)
             declineInvite(type, payload)
         }
+        const slot = this.props.selectedSlot
         if(!this.props.notifications.get('fetched')) {
             return  (
                 <div>
@@ -57,6 +70,32 @@ class Notifications extends Component {
         if (this.props.notifications.get('data') && this.props.notifications.get('data').size) {
             return (
                 <div>
+                    <div id="popup" className={`modalDialog ${this.props.showSlots ? 'show' : ''}`} onClick={(e) => { stopEvent(e); hideSlots() }}>
+                        <div onClick={(e) => { stopEvent(e); return false; }}>
+                            <div className="modal_close" onClick={(e) => { stopEvent(e); hideSlots() }}></div>
+                            <h2>Select an Interview Time Slot</h2>
+                            <div>
+                                {(this.props.slots.get('data') || fromJS({})).valueSeq().toArray().map(e => {
+                                    return (
+                                        <div
+                                            key={e.get('id')}
+                                            className={`btn ${e.get('id') === slot? 'tone1-4-color' : 'tone1-1-color'}`}
+                                            onClick={() => selectTimeslot(e.get('id'))}
+                                        >
+                                            <Timestamp time={e.get('start')} format='full' /> - <Timestamp time={e.get('end')} format='full' />
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <div className="modal__btns">
+                                {slot ?
+                                    <div className="btn tone1-2-color">Schedule</div>
+                                    : ''
+                                }
+                                <div className="btn tone2-1-color" onClick={(e) => { stopEvent(e); hideSlots() }}>Cancel</div>
+                            </div>
+                        </div>
+                    </div>
                     <h1>Notifications</h1>
                     <div className="notifications">
                         {this.props.notifications.get('data').valueSeq().toArray().reverse().map(notification => {
