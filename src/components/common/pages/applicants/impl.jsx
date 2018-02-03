@@ -39,7 +39,6 @@ class Page extends Component {
     }
 
     renderUser(user) {
-        console.log(user)
         if (!user) {
             return null
         }

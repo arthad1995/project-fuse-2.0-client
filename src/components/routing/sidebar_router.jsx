@@ -38,7 +38,7 @@ export class SidebarRouter extends Component {
 
         return (
             <div>
-                <div className="leftSidebar-fix" />
+                {this.props.showRouterFix? <div className="leftSidebar-fix" /> : ''}
                 {final_routes}
                 <Route exact path="/search" component={sidebar_shell(HomeSidebar, pos)} />
                 <Route exact path="/notifications" component={sidebar_shell(HomeSidebar, pos)} />

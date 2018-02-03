@@ -1707,6 +1707,7 @@ $profile_height: 15rem;
       color: hsl(0, 0%, 10%);
     }
   }
+
   .notification--read, .notification--unread{
     outline: 1px solid hsl(0, 0%, 10%);
     background-color: hsl(0,0%,98%);
@@ -1716,15 +1717,55 @@ $profile_height: 15rem;
       padding: 0.5rem;
       font-size: 105%;
     }
-    &__time {
-      text-align: right;
-      font-size: 75%;
-      color: hsl(0,0%,45%);
+    &__footer {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+      align-items: center;
+      &__time {
+        text-align: right;
+        font-size: 75%;
+        color: hsl(0,0%,45%);
+        align-self: center
+      }
+    }
+    &__actions > div{
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      @include for-tablet-portrait-up{
+        flex-direction: row;
+      }
+      @include for-phone-only{
+        flex-direction: column;
+      }
+      .btn {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        @include for-tablet-portrait-up{
+          & ~ .btn{
+            margin-left: 5%;
+          }
+        }
+        @include for-phone-only{
+          width: 80%;
+          margin: 0.5rem auto;
+        }
+      }
     }
   }
   .notification--unread {
     &__message {
       font-weight: bold;
+    }
+    &__footer{
+      &__mark-read {
+        @extend .pointer;
+        @extend .btn;
+        @extend .tone1-5-color;
+        font-size: 70%;
+        padding: 0.25rem 0.5rem;
+      }
     }
   }
 }
