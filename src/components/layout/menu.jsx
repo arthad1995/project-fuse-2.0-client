@@ -54,6 +54,9 @@ export default class Menu extends Component {
 
             restOfMenu = (
                 <div>
+                    <div className="search-bar-embeded-menu-wrapper">
+                        <SearchBar noBlue={true} value={this.props.ui.get('global_search').get('search')} searchCallback={this.handleSearchChange} buttonCallback={this.toggleSearchbar} />
+                    </div>
                     <ul className="menu">
                         <li>
                             <Link to={`/users/${user.get('id')}`}>
@@ -75,7 +78,7 @@ export default class Menu extends Component {
                         <li>
                             <Link to="/notifications"><i className="fa shadow fa-bell"></i></Link>
                         </li>
-                        <li>
+                        <li className="phoneOnly">
                             <a className="pointer" onClick={this.toggleSearchbar}><i className="fa shadow fa-search"></i></a>
                         </li>
                     </ul>
