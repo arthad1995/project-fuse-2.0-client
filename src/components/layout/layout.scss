@@ -53,6 +53,30 @@ body {
       margin-left: calc(15% + 5rem);
       width: calc(70% - 10rem);
     }
+
+    .search-bar-menu__content {
+      position: relative;
+      input {
+        color: hsl(0,0%,50%);
+        border-color: hsl(0,0,15%);
+        background-color: hsl(0,0,20%);
+        border-radius: 2rem;
+        padding-left: 2.5rem;
+        &:focus {
+          color: black;
+          background-color: white;
+        }
+      }
+      .search-icon {
+        position: absolute;
+        color: hsl(0,0%,50%);
+        top: 50%;
+        left: 2rem;
+        z-index: 999;
+        transform: translateY(-50%);
+        line-height: $header-padding / 2;
+      }
+    }
   }
   .search-bar-embeded-menu {
     width: 100%;
