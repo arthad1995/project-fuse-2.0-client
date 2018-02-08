@@ -18,12 +18,12 @@ body {
 
 .search-input {
   margin: 0.2rem;
-  line-height: $header-height;
+  font-size: $header-height / 2;
   width: 100%;
   input {
     width: 100%;
-    height: $header-height + 15px;
-    line-height: $header-height;
+    height: $header-height / 2 + 20px;
+    line-height: $header-height / 2;
     font-size: 14pt;
     padding: $header-padding 10px;
   }
@@ -177,7 +177,7 @@ body {
       width: calc(100% - 90px) !important;
     }
   }
-  .skills {
+  .skills, .skills--clickable {
     width: 100%;
     outline: none;
   }
@@ -741,7 +741,11 @@ ul.interview_slots {
 /// List Item
 ///////////////////////////////////////
 li.listItem {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   div.name {
+    width: 100%;
     @include for-tablet-portrait-up {
       display: inline-block;
     }
@@ -749,14 +753,13 @@ li.listItem {
   }
   .buttons {
     @include for-tablet-portrait-up {
-      float: right;
       .btn {
         font-size: 100%;
         margin: 0 0.5rem;
       }
     }
   }
-  div.skills {
+  div.skills, div.skills--clickable {
     clear: both;
     float: none;
     color: rgba(25, 25, 25, 0.7);
@@ -1472,17 +1475,27 @@ $profile_height: 15rem;
 ///////////////////////////////////////
 /// User Page
 ///////////////////////////////////////
-.skills {
+.skills, .skills--clickable {
+  margin-top: 0.45rem;
   ul {
     list-style: none;
     text-align: center;
     li {
       @extend .tone1-5-color;
+      outline: none;
       padding: 0.25rem 0.75rem;
       border-radius: 0.5rem;
       display: inline-block;
       margin: 0.15rem;
     }
+  }
+}
+.skills--clickable li {
+  border: none !important;
+  box-shadow: 2px 2px 3px grey;
+  &:hover{
+    box-shadow: 1px 1px 3px grey;
+    @extend .tone1-4-color;
   }
 }
 

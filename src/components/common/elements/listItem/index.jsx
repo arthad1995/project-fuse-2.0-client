@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import {stopEvent} from '../../../common'
 import Cookies from 'js-cookie'
 
 class ListItem extends Component {
@@ -10,6 +11,7 @@ class ListItem extends Component {
         const baseUrl = '/' + this.props.baseUrl
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
         const owner = this.props.owner
+        const handleSearchChange = this.props.handleSearchChange || null
         return (
             <Link to={baseUrl + '/' + this.props.id}>
                 <li className='listItem'>
@@ -24,10 +26,18 @@ class ListItem extends Component {
                     </div>
                         </div>
                         {(skills && skills.size) ?
-                            <div className="skills">
+                            <div className="skills--clickable">
                                 <div>Skills: </div>
                                 <ul>
-                                    {skills.map((skill, i) => {
+                                    {handleSearchChange ? skills.map((skill, i) => {
+                                        return <li key={`${i}`}
+                                            onClick={(e) => {
+                                                stopEvent(e)
+                                                handleSearchChange(`${skill}`)
+                                                return false;
+                                            }}
+                                        >{skill}</li>
+                                    }) : skills.map((skill, i) => {
                                         return <li key={`${i}`}>{skill}</li>
                                     })}
                                 </ul>

@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import SearchInput from 'react-search-input'
 import { globalSearch } from '../../../actions/search'
 import { fromJS } from 'immutable'
-import { CardImg } from '../../common'
+import { CardImg, stopEvent } from '../../common'
 import InfiniteScroll from 'react-infinite-scroller'
 import Pagination from 'react-js-pagination'
 
@@ -42,6 +41,7 @@ class Search extends Component {
 
     render() {
         const history = this.props.history
+        const handleSearchChange = this.handleSearchChange
         const showUser = (user, index) => {
             const navTo = () => {
                 if (history) {
@@ -63,10 +63,16 @@ class Search extends Component {
                         <div className="label">Headline:</div>
                         <div>{user.headline || "(None)"}</div>
                         {(skills.length) ?
-                            <div className="skills">
+                            <div className="skills--clickable">
                                 <ul>
                                     {skills.map((skill, i) => {
-                                        return <li key={`${index}_${i}`}>{skill}</li>
+                                        return <li key={`${index}_${i}`}
+                                            onClick={(e) => {
+                                                stopEvent(e)
+                                                handleSearchChange(`in:users ${skill}`)
+                                                return false;
+                                            }}
+                                        >{skill}</li>
                                     })}
                                 </ul>
                             </div>
@@ -135,18 +141,11 @@ class Search extends Component {
             page--
             this.props.dispatch({type: 'GLOBAL_SEARCH_INFO_SET_PAGE', page})
             globalSearch({ query: this.props.global_search.get('search'), page })
-            window.scrollTo(0,80)
+            window.scrollTo(0,0)
         }).bind(this)
 
         return (
             <div>
-                {!this.props.global_search.get('show') ?
-                    <div className="minorPadding">
-                        <SearchInput className="search-input" value={this.props.global_search.get('search')} onChange={this.handleSearchChange} />
-                        <hr />
-                    </div>
-                    : ''}
-
                 {data.map((result, index) => {
                         switch (result.index) {
                             case 'users':
