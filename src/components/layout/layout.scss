@@ -49,6 +49,10 @@ body {
     float: left;
     margin-left: 1.25rem;
     width: calc(100% - 10rem);
+    @include for-tablet-landscape-up {
+      margin-left: calc(15% + 5rem);
+      width: calc(70% - 10rem);
+    }
   }
   .search-bar-embeded-menu {
     width: 100%;
@@ -1481,7 +1485,6 @@ $profile_height: 15rem;
     list-style: none;
     text-align: center;
     li {
-      @extend .tone1-5-color;
       outline: none;
       padding: 0.25rem 0.75rem;
       border-radius: 0.5rem;
@@ -1490,7 +1493,14 @@ $profile_height: 15rem;
     }
   }
 }
+
+.skills li {
+  color: black;
+  background-color: hsl(0,0%,90%);
+}
+
 .skills--clickable li {
+  @extend .tone1-5-color;
   border: none !important;
   box-shadow: 2px 2px 3px grey;
   &:hover{
