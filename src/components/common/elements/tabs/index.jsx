@@ -4,6 +4,7 @@ import ListItem from '../listItem'
 import { Map } from 'immutable'
 import { AnimationHandler } from '../../../common'
 import { AppliedStatus } from '../applied_status'
+import {fromJS} from 'immutable'
 
 export class Tabs extends Component {
     constructor(props) { super(props) }
@@ -57,7 +58,14 @@ export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
                             if (!elem) return null
                             const group = elem.get('project') || elem.get('organization') || fromJS({})
                             const id = elem.get('id')
-                            return <ListItem owner={group.get('owner')} baseUrl={baseUrl} key={id} id={group.get('id')} name={group.get('name')}>
+                            return <ListItem
+                                elem={group.get('profile')}
+                                owner={group.get('owner')}
+                                baseUrl={baseUrl}
+                                key={id}
+                                id={group.get('id')}
+                                name={group.get('name')}
+                            >
                                 <AppliedStatus status={elem.get('status')} />
                             </ListItem>
                             return null
@@ -71,7 +79,14 @@ export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
                         {(data && data.size > 0) ? data.valueSeq().toArray().map((elem) => {
                             if (!elem) return null
                             const id = elem.get('id')
-                            return <ListItem owner={elem.get('owner')} baseUrl={baseUrl} key={id} id={id} name={elem.get('name')} />
+                            return <ListItem
+                                owner={elem.get('owner')}
+                                elem={elem.get('profile')}
+                                baseUrl={baseUrl}
+                                key={id}
+                                id={id}
+                                name={elem.get('name')}
+                            />
                         }) : 'No results'}
                     </ul>
                 </div>

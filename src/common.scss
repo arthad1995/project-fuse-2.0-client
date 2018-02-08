@@ -84,6 +84,11 @@ $color-schemes:(
         fg-color: $white,
         border: none
     ),
+    tone1-7:(
+        bg-color: hsl($hue1, 50%, 80%),
+        fg-color: $white,
+        border: none
+    ),
 
     tone2-1:(
         bg-color: hsl($hue2,100%, 50%),

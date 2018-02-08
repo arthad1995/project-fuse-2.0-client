@@ -17,7 +17,8 @@ export {default as AnimationHandler} from './elements/animation'
 export {Editor} from './elements/editor'
 export {ApplyButton} from './elements/application'
 export const Card = (props) => <Async load={import('./elements/card')} {...props} />
-export const CardImg = (props) => <Async load={import('./elements/card_img')} {...props} />
+import _CardImg from './elements/card_img'
+export const CardImg = _CardImg
 export const ErrorDisplay = (props) => <Async load={import('./elements/error_display')} {...props} ><div></div></Async>
 export const InterviewSettings = (props) => <Async load={import('./elements/interview_settings')} {...props} />
 export const AccessSettings = (props) => <Async load={import('./elements/access_settings')} {...props} />

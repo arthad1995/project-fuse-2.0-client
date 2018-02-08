@@ -56,7 +56,7 @@ class Search extends Component {
                         <div className="name">{user.name} </div>
                         <div className="smallText">(User)</div>
                     </div>}
-                    className="light pointer"
+                    className="light pointer clickable"
                     onClick={navTo}
                 >
                     <div className="searchResult">

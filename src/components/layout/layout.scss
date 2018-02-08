@@ -1,6 +1,10 @@
 @import "./../../common.scss";
 $header-height: 30px;
 $header-padding: 0.75rem 1rem;
+$li-border: 1px solid rgba(0,0,0,0.2);
+$elevation-1-shadow: 1px 1px 2px grey;
+$elevation-2-shadow: 2px 2px 3px grey;
+
 body {
   background-color: hsl(240, 7%, 27%);
   font-family: $font-family-sans-serif;
@@ -32,7 +36,8 @@ body {
 .page {
   min-height: calc(100vh - 147px);
   background-color: white;
-  margin-top: $header-height * 1.75;
+  margin-top: $header-height;
+  padding-top: $header-height * .75;
 }
 
 .header {
@@ -94,7 +99,7 @@ body {
       display: inline-block;
       max-width: 50px;
       margin: 0;
-      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.15);
+      box-shadow: $elevation-2-shadow;
     }
     &.hide {
       top: -80px;
@@ -102,6 +107,40 @@ body {
     .search-input {
       display: inline-block;
       width: calc(100% - 80px);
+    }
+  }
+  .phone-search {
+    .search-bar-menu__content {
+      position: relative;
+      .search-icon {
+        position: absolute;
+        top: 50%;
+        z-index: 999;
+        left: 0.5rem;
+        transform: translateY(-50%);
+        position: absolute;
+        color: gray;
+      }
+      .search-input {
+        margin-left: -1rem;
+        width: calc(100% - 50px);
+        input{
+          @extend .tone1-7-color;
+          color: gray;
+          border-radius: 25px;
+          padding-left: 2.15rem;
+          &:focus {
+            background-color: white;
+            color: black;
+          }
+        }
+      }
+      .btn {
+        box-shadow: 2px 2px 3px hsl(240, 50%, 30%);
+        &:hover{
+          box-shadow: 1px 1px 2px hsl(240, 50%, 30%);
+        }
+      }
     }
   }
   a:first-child {
@@ -264,7 +303,7 @@ ul.list {
   li {
     width: 100%;
     float: left;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: $li-border;
     padding: 0.5rem 1rem;
   }
   a~a li {
@@ -300,12 +339,12 @@ img.profileImage {
 
 .btn,
 .sm-btn {
-  box-shadow: 2px 2px 3px grey;
+  box-shadow: $elevation-2-shadow;
 }
 
 .btn:hover,
 .sm-btn:hover {
-  box-shadow: 1px 1px 2px grey;
+  box-shadow: $elevation-1-shadow;
 }
 
 .sm-btn {
@@ -768,10 +807,20 @@ ul.interview_slots {
 ///////////////////////////////////////
 /// List Item
 ///////////////////////////////////////
+
+li.listItem, .card.light.clickable, .card.light.pointer {
+  box-shadow: $elevation-2-shadow;
+  &:hover {
+    box-shadow: $elevation-1-shadow;
+    background-color: hsla(0,0%,0%,0.025);
+  }
+}
+
 li.listItem {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  border-top: $li-border !important;
   div.name {
     width: 100%;
     @include for-tablet-portrait-up {
@@ -779,11 +828,28 @@ li.listItem {
     }
     line-height: 50px;
   }
+
+  .listItem__content {
+    .headline {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-size: 85%;
+      color: hsl(0,0%,10%);
+    }
+  }
+
   .buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     @include for-tablet-portrait-up {
+      flex-wrap: none;
       .btn {
         font-size: 100%;
         margin: 0 0.5rem;
+        width: initial;
+        height: initial;
       }
     }
   }
@@ -875,7 +941,7 @@ $clock-size: 50px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.065); //border-radius: 15px;
   &.light {
-    background-color: rgba(0, 0, 0, 0.035);
+    background-color: white;
   }
   ~.card {
     margin-top: 0.5rem;
@@ -1616,21 +1682,18 @@ $profile_height: 15rem;
 ///////////////////////////////////////
 .applied_status {
   display: inline-block;
-  margin: 1.5rem;
+  margin: 0rem 1.5rem;
   color: white;
   padding: 0.5rem;
-  border-radius: 25px;
+  border-radius: 15px;
   &.accepted {
     &:before {
       content: "Accepted";
     }
-    background-color: hsla(108,
-    86%,
-    29%,
-    1);
+    background-color: hsla(108,86%,29%, 1);
   }
   &.pending {
-    @extend .tone1-5-color;
+    background-color: hsla(240, 35%, 40%, 1);
     &:before {
       content: "Pending";
     }
@@ -1736,9 +1799,6 @@ $profile_height: 15rem;
   .btns{
     display: flex;
     flex-direction: row;
-    .btn {
-      float: none;
-    }
     flex-wrap: wrap;
     justify-content: center;
   }

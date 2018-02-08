@@ -7,6 +7,18 @@ import Cookies from 'js-cookie'
 class ListItem extends Component {
     constructor(props) { super(props) }
 
+    dispElem(elem) {
+        if (!elem) {
+            return null
+        }
+        elem = elem.toJS();
+        return (
+            <div>
+                {elem.headline ? <div className="headline">{elem.headline}</div>:''}
+            </div>
+        )
+    }
+
     render() {
         const baseUrl = '/' + this.props.baseUrl
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
@@ -19,11 +31,14 @@ class ListItem extends Component {
                         <div className="name">
                             {this.props.name || this.props.elem.get('name')}
                         </div>
-                        <div className="buttons">
-                            {this.props.children}
-                            <div className="btn tone1-4-color">
-                                View
-                    </div>
+                        <div className="listItem__content">
+                            {this.dispElem(this.props.elem)}
+                            <div className="buttons">
+                                {this.props.children}
+                                <div className="btn tone1-4-color">
+                                    View
+                                </div>
+                            </div>
                         </div>
                         {(skills && skills.size) ?
                             <div className="skills--clickable">
