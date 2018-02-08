@@ -22,7 +22,8 @@ body {
   width: 100%;
   input {
     width: 100%;
-    height: $header-height + 10px;
+    height: $header-height + 15px;
+    line-height: $header-height;
     font-size: 14pt;
     padding: $header-padding 10px;
   }

@@ -62,7 +62,7 @@ class Page extends Component {
             page--
             this.props.dispatch({type: this.props.name + '_SET_PAGE', page})
             globalSearch({ query: this.props.global_search.get('search'), page })
-            window.scrollTo(0,150)
+            window.scrollTo(0,80)
         }).bind(this)
 
         let content = <div className="loading"></div>

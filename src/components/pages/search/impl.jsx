@@ -135,7 +135,7 @@ class Search extends Component {
             page--
             this.props.dispatch({type: 'GLOBAL_SEARCH_INFO_SET_PAGE', page})
             globalSearch({ query: this.props.global_search.get('search'), page })
-            window.scrollTo(0,150)
+            window.scrollTo(0,80)
         }).bind(this)
 
         return (

@@ -38,14 +38,14 @@ const declined_feed_data = () => {
                     id: id++,
                     type: 'reminder',
                     title: "Meeting at 11:00 AM with Jim on Dec 11",
-                    time: '2017-12-08T8:00:00+00:00',
+                    time: '2018-02-03T8:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'info',
                     title: "Tip of the day",
                     content: "Keep your résumé up to date so that people know what you can do.",
-                    time: '2017-12-08T06:00:00+00:00',
+                    time: '2018-02-03T06:00:00+00:00',
                 },
                 {
                     id: id++,
@@ -86,14 +86,14 @@ const accepted_feed_data = (time) => {
                     id: id++,
                     type: 'reminder',
                     title: "Meeting at 11:00 AM with Jim on Dec 11",
-                    time: '2017-12-08T8:00:00+00:00',
+                    time: '2018-02-03T8:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'info',
                     title: "Tip of the day",
                     content: "Keep your résumé up to date so that people know what you can do.",
-                    time: '2017-12-08T06:00:00+00:00',
+                    time: '2018-02-03T06:00:00+00:00',
                 },
                 {
                     id: id++,
@@ -126,20 +126,20 @@ const default_feed_data = () => {
                     type: 'invite',
                     title: "Invitation to Interview With Project Fuse",
                     content: "You are invited to interview for joining Project Fuse!",
-                    time: '2017-12-08T10:00:00+00:00'
+                    time: '2018-02-03T10:00:00+00:00'
                 },
                 {
                     id: id++,
                     type: 'reminder',
                     title: "Meeting at 11:00 AM with Jim on Dec 11",
-                    time: '2017-12-08T8:00:00+00:00',
+                    time: '2018-02-03T8:00:00+00:00',
                 },
                 {
                     id: id++,
                     type: 'info',
                     title: "Tip of the day",
                     content: "Keep your résumé up to date so that people know what you can do.",
-                    time: '2017-12-08T06:00:00+00:00',
+                    time: '2018-02-03T06:00:00+00:00',
                 },
                 {
                     id: id++,

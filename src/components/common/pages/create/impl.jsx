@@ -66,7 +66,7 @@ class Page extends Component {
         }
 
         if (props.get('REDIRECT_ID')) {
-            return <Redirect to={`/${this.props.index}/${props.get('REDIRECT_ID')}`} />
+            return <Redirect push to={`/${this.props.index}/${props.get('REDIRECT_ID')}`} />
         }
 
         const action = (this.state.edit) ? `Update ${this.props.name}` : `Create a new ${this.props.name} `
