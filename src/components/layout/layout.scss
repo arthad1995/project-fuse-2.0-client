@@ -1469,6 +1469,19 @@ $profile_height: 15rem;
     box-shadow: 1px 2px 6px gray;
   }
   .section {
+    position: relative;
+    z-index: 2;
+    &.sub-section {
+      z-index: 0;
+      &:hover > div{
+        box-shadow: none !important;
+      }
+      background-color: hsl(240, 10%, 95%);
+      > div {
+        background-color: white;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+    }
     width: 100%;
     padding: 0.75rem;
     ~.section,
@@ -1484,7 +1497,7 @@ $profile_height: 15rem;
   a~a .section {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
-  >div>a {
+  >div>a, .sub-section > div > a {
     color: #111;
     text-decoration: none;
   }

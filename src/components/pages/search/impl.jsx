@@ -49,7 +49,6 @@ class Search extends Component {
                     history.push(`/users/${user.id}`)
                 }
             }
-            console.log(user)
             const skills = (user.skills) ? user.skills : []
             return (
                 <CardImg

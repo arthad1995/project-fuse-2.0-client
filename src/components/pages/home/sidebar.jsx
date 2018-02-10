@@ -17,6 +17,7 @@ class Sidebar extends Component {
     constructor(props){ super(props)}
 
     render(){
+        console.log(this.props)
         const data = this.props.user.get('data') || fromJS({})
         const user = data.get('user') || fromJS({})
         const name = user.get('name') || ''
@@ -41,6 +42,11 @@ class Sidebar extends Component {
                             Organizations
                         </div>
                     </Link>
+                    {
+                        this.props.location.pathname !== '/' ?
+                            <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div> :
+                            ''
+                    }
                 </div>
         )
     }

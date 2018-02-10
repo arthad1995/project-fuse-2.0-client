@@ -25,7 +25,6 @@ class ListItem extends Component {
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
         const owner = this.props.owner
         const handleSearchChange = this.props.handleSearchChange || null
-        console.log(this.props)
         return (
             <Link to={baseUrl + '/' + this.props.id}>
                 <li className='listItem'>

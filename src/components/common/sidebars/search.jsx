@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {change_tab} from '../../../actions/ui'
 import {Link} from 'react-router-dom'
-import {TabSidebar} from './tabs' 
+import {TabSidebar} from './tabs'
 import { connect } from 'react-redux'
 import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
@@ -9,7 +9,8 @@ import { goBack } from 'react-router-redux'
 
 const mapStateToProps = (state) =>{
     return {
-        selected_tab: state.ui.get('selected_tab')
+        selected_tab: state.ui.get('selected_tab'),
+        user: state.user
     }
 }
 
@@ -31,17 +32,52 @@ export const TabbedSearchSidebar = (url, show_new = true) => {
         render(){
             const dispatch = this.props.dispatch;
 
+            const data = this.props.user.get('data') || fromJS({})
+            const user = data.get('user') || fromJS({})
+            const name = user.get('name') || ''
+
             const click_callback = this.props.onTabChange || ((target_tab) => ()=>{
                 dispatch(change_tab(target_tab))
             })
 
             const selected_tab = this.props.selected_tab || 'tab1'
 
+            const tabbed = (
+                <div className="sub-section section">
+                    <TabSidebar selected_tab={selected_tab} onTabChange={click_callback} tabs={tabs}>
+                        {this.props.children}
+                    </TabSidebar>
+                </div>
+            )
+
             return (
-                <TabSidebar selected_tab={selected_tab} onTabChange={click_callback} tabs={tabs}>
-                    <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
-                    {this.props.children}
-                </TabSidebar>
+                <div>
+                    <div className='section centered hideOnPhone'>
+                        <h2>{`${name}`}</h2>
+                    </div>
+                    {url !== 'friends'?
+                        <Link to='/my-friends'>
+                            <div className='section centered'>
+                                Friends
+                            </div>
+                        </Link> : tabbed
+                    }
+                    {url !== 'projects'?
+                        <Link to='/my-projects'>
+                            <div className='section centered'>
+                                Projects
+                            </div>
+                        </Link> : tabbed
+                    }
+                    {url !== 'organizations'?
+                        <Link to='/my-organizations'>
+                            <div className='section centered'>
+                                Organizations
+                            </div>
+                        </Link> : tabbed
+                    }
+                    <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div>
+                </div>
             )
         }
     }
