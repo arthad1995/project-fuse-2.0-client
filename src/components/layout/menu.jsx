@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom'
 import { AnimationHandler } from '../common'
 import SearchBar from './search'
 import {globalSearch} from '../../actions/search'
+import {loadCurUserInfo} from '../../actions/my_'
+import config from '../../config'
+import {fromJS} from 'immutable'
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        ui: state.ui
+        ui: state.ui,
+        curUser: state.cur_user
     }
 }
 
@@ -22,6 +26,10 @@ export default class Menu extends Component {
 
         this.toggleSearchbar = this.toggleSearchbar.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
+    }
+
+    componentWillMount() {
+        loadCurUserInfo()
     }
 
     toggleSearchbar() {
@@ -49,6 +57,7 @@ export default class Menu extends Component {
         let user = this.props.user
         let shouldRenderUserItems = user.size > 2 && user.get('fetched') && user.get('data') && user.get('data').get('user')
         let restOfMenu = ''
+        const curUser = this.props.curUser.get('data') || fromJS({})
         if (shouldRenderUserItems) {
             user = user.get('data').get('user')
 
@@ -60,7 +69,13 @@ export default class Menu extends Component {
                     <ul className="menu">
                         <li>
                             <Link to={`/users/${user.get('id')}`}>
-                                <i className="icon fa fa-user"></i>
+                                <div className="menu__profile-icon">
+                                    <img src={
+                                        (curUser.get('profile') && curUser.get('profile').get('thumbnail_id')) ?
+                                            config.host + '/files/download/' + curUser.get('profile').get('thumbnail_id') :
+                                            '/assets/images/profile_icon.svg'
+                                    } />
+                                </div>
                             </Link>
                             <ul className="dropdown">
                                 <Link to={`/users/${user.get('id')}`}>

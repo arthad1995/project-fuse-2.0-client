@@ -28,3 +28,8 @@ export const myOrganizations = () =>{
         network2.GET(`/users/${Cookies.get('ID')}/organizations/applications?not_status=accepted`)
     ])
 }
+
+export const loadCurUserInfo = () => {
+    const network = new Network('LOAD_CUR_USER_INFO')
+    return network.GET(`/users/${Cookies.get('ID')}`)
+}

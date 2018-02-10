@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom'
 const ReactMarkdown = require('react-markdown');
 import { AnimationHandler } from '../../../common'
 import {Map} from 'immutable'
-
-
+import config from '../../../../config'
 
 class Page extends Component {
     constructor(props) {
@@ -45,9 +44,18 @@ class Page extends Component {
             return (
                 <AnimationHandler anim="SlideInTop" animKey='always'>
                     <div className="profile">
-                        <div className="profile_header"></div>
+                        <div className="profile_header">
+                            <img src={(profile.get('background_Id')
+                                ? config.host + '/files/download/' + profile.get('background_Id')
+                                : '/assets/images/background-default.png')}
+                            />
+                        </div>
                         <div className="profile_title">
-                            <div className="profile_picture"><div><i className="fa fa-user" /></div></div>
+                            <div className="profile_picture"><div><img src={
+                                profile.get('thumbnail_id') ?
+                                    config.host + '/files/download/' + profile.get('thumbnail_id') :
+                                    '/assets/images/profile_icon.svg'
+                            } className="profile_picture__img" /></div></div>
                             {editBtn}
                             <h1 className='title'>{elem.get('name')}</h1>
                             {this.renderOwnerInfo(elem)}

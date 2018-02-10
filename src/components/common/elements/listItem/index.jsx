@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {stopEvent} from '../../../common'
 import Cookies from 'js-cookie'
+import config from '../../../../config'
 
 class ListItem extends Component {
     constructor(props) { super(props) }
@@ -24,12 +25,23 @@ class ListItem extends Component {
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
         const owner = this.props.owner
         const handleSearchChange = this.props.handleSearchChange || null
+        console.log(this.props)
         return (
             <Link to={baseUrl + '/' + this.props.id}>
                 <li className='listItem'>
                     <div>
-                        <div className="name">
-                            {this.props.name || this.props.elem.get('name')}
+                        <div className="listItem__header">
+                            <div className="listItem__header__img">
+                                <img src={
+                                    (this.props.elem.get('img') ?
+                                        config.host + '/files/download/' + this.props.elem.get('img') :
+                                        '/assets/images/profile_icon.svg'
+                                    )
+                                } />
+                            </div>
+                            <div className="listItem__header__name">
+                                {this.props.name || this.props.elem.get('name')}
+                            </div>
                         </div>
                         <div className="listItem__content">
                             {this.dispElem(this.props.elem)}

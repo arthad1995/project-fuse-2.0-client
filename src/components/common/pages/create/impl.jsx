@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom'
 import Form from './form'
 import {EditorState} from 'draft-js'
 import {fromJS} from 'immutable'
+import config from '../../../../config'
 
 const mapObject = key => state => {
     let map = {
@@ -80,7 +81,14 @@ class Page extends Component {
         return <div>
             <h2>{action}</h2>
             {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
-            <this.Form formName={`create=${this.props.name}`} customElems={this.props.customElems} showName={showName} initialValues={this.props.initialValues} disabled={props.get("fetching")} onSubmit={saveFunc} cancelAction={this.props.history.goBack} />
+            <this.Form formName={`create=${this.props.name}`}
+                thumbnail={(this.props.initialValues.thumbnail_id ? config.host + '/files/download/' + this.props.initialValues.thumbnail_id : null)}
+                customElems={this.props.customElems}
+                showName={showName}
+                initialValues={this.props.initialValues}
+                disabled={props.get("fetching")}
+                onSubmit={saveFunc}
+                cancelAction={this.props.history.goBack} />
             <ErrorDisplay errors={props.get('errors')} />
         </div>
     }

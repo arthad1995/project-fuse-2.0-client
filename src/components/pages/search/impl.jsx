@@ -5,6 +5,7 @@ import { fromJS } from 'immutable'
 import { CardImg, stopEvent } from '../../common'
 import InfiniteScroll from 'react-infinite-scroller'
 import Pagination from 'react-js-pagination'
+import config from '../../../config'
 
 const mapStateToProps = (state) => {
     return {
@@ -48,11 +49,20 @@ class Search extends Component {
                     history.push(`/users/${user.id}`)
                 }
             }
+            console.log(user)
             const skills = (user.skills) ? user.skills : []
             return (
                 <CardImg
                     key={index}
                     title={<div>
+                        <div className="img">
+                            <img src={
+                                (user.img ?
+                                    config.host + '/files/download/' + user.img :
+                                    '/assets/images/profile_icon.svg'
+                                )
+                            } />
+                        </div>
                         <div className="name">{user.name} </div>
                         <div className="smallText">(User)</div>
                     </div>}
@@ -60,8 +70,7 @@ class Search extends Component {
                     onClick={navTo}
                 >
                     <div className="searchResult">
-                        <div className="label">Headline:</div>
-                        <div>{user.headline || "(None)"}</div>
+                        <div>{user.headline || ""}</div>
                         {(skills.length) ?
                             <div className="skills--clickable">
                                 <ul>
@@ -91,6 +100,14 @@ class Search extends Component {
                 <CardImg
                     key={index}
                     title={<div>
+                        <div className="img">
+                            <img src={
+                                (org.img ?
+                                    config.host + '/files/download/' + org.img :
+                                    '/assets/images/profile_icon.svg'
+                                )
+                            } />
+                        </div>
                         <div className="name">{org.name} </div>
                         <div className="smallText">(Organization)</div>
                     </div>}
@@ -114,6 +131,14 @@ class Search extends Component {
                 <CardImg
                     key={index}
                     title={<div>
+                        <div className="img">
+                            <img src={
+                                (proj.img ?
+                                    config.host + '/files/download/' + proj.img :
+                                    '/assets/images/profile_icon.svg'
+                                )
+                            } />
+                        </div>
                         <div className="name">{proj.name} </div>
                         <div className="smallText">(Project)</div>
                     </div>}
