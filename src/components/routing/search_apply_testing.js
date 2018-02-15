@@ -4,7 +4,17 @@ import v from 'voca'
 
 const test = (groupList, elem) =>{
     const list = groupList.get('data')
-    return !(list && list.get(elem.get('id')))
+    if (!list) return true
+    let found = false
+    return !list.find(item => {
+        if(!item.get('sender') || !item.get('receiver')) {
+            return false
+        }
+        if (item.get('receiver').get('id') === elem.get('id') || item.get('sender').get('id') === elem.get('id')) {
+            return true
+        }
+        return false
+    })
 }
 
 const findIndex = (arr, func) => {

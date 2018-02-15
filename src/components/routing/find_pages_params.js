@@ -12,8 +12,8 @@ export default createArray(__pages.slice(0, -1).concat(['friends']), [
         load: myProjects,
         search_tab: (tab) => SearchPage({
             path: 'projects',
-            param: { 
-                apply: ApplyButton(['user', 'applied_projects', 'user_projects'], projTest, applyToProject), 
+            param: {
+                apply: ApplyButton(['user', 'applied_projects', 'user_projects'], projTest, applyToProject),
                 load: searchProjects,
                 name: 'SEARCH_PROJECT_INFO'
             }
@@ -27,8 +27,8 @@ export default createArray(__pages.slice(0, -1).concat(['friends']), [
         load: myOrganizations,
         search_tab: (tab) => SearchPage({
             path: 'organizations',
-            param: { 
-                apply: ApplyButton(['user', 'applied_organizations', 'user_organizations'], orgTest, applyToOrganization), 
+            param: {
+                apply: ApplyButton(['user', 'applied_organizations', 'user_organizations'], orgTest, applyToOrganization),
                 load: searchOrganizations,
                 name: 'SEARCH_ORGANIZATION_INFO'
             },
@@ -43,10 +43,10 @@ export default createArray(__pages.slice(0, -1).concat(['friends']), [
         show_new: false,
         search_tab: (tab) => SearchPage({
             path: 'friends',
-            param: { 
-                apply: ApplyButton(['user', 'friends'], userTest, addFriend, 'Add Friend'), 
-                load: searchUsers, 
-                applicationHeadline: "Friend invite sent!", 
+            param: {
+                apply: ApplyButton(['user', 'friends'], userTest, addFriend, 'Add Friend'),
+                load: searchUsers,
+                applicationHeadline: "Friend invite sent!",
                 applicationSummary: "Your friend invite was sent succesfully!" ,
                 name: 'SEARCH_USERS_INFO'
             }
