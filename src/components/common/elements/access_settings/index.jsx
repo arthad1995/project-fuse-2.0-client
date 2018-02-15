@@ -67,7 +67,7 @@ class _AccessSettings extends Component {
                                 type="radio"
                                 value="INVITE"
                             />
-                                Apply/Invite
+                                Apply
                             </label>
                     </div>
                     <div>

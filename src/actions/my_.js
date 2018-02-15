@@ -2,8 +2,8 @@ import Network from '../network'
 import Cookies from 'js-cookie'
 
 export const myFriends = () =>{
-    const network = new Network('LOAD_FRIEND_INFO')
-    //return network.GET('/users/friends')
+    const network = new Network('LOAD_FRIENDS')
+    return network.GET('/friends/all')
 }
 
 export const myProjects = () =>{

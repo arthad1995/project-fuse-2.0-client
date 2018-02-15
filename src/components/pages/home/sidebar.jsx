@@ -17,7 +17,6 @@ class Sidebar extends Component {
     constructor(props){ super(props)}
 
     render(){
-        console.log(this.props)
         const data = this.props.user.get('data') || fromJS({})
         const user = data.get('user') || fromJS({})
         const name = user.get('name') || ''

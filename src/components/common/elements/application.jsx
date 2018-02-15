@@ -16,7 +16,7 @@ export const ApplyButton = (keys, testFunc, callback = ()=>{}) => (elem, dispatc
             if(!text)
                 return null
             return (
-                <div onClick={(e) => { stopEvent(e); callback(elem, dispatch); return false; }} className="btn tone1-1-color apply">{text}</div>
+                <div onClick={(e) => { stopEvent(e); console.log(callback); callback(elem, dispatch); return false; }} className="btn tone1-1-color apply">{text}</div>
             )
         }
     }

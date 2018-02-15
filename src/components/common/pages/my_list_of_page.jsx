@@ -17,8 +17,12 @@ export const MyListOfPage= (paramObj) => {
         let obj = {
             selected_tab: state.ui.get('selected_tab')
         }
-        obj[`my_${url}`] =state[`user_${url}`]
-        obj[`applied_${url}`] =state[`applied_${url}`]
+        if (url !== 'friends') {
+            obj[`my_${url}`] =state[`user_${url}`]
+            obj[`applied_${url}`] =state[`applied_${url}`]
+        } else {
+            obj[`my_${url}`] = obj[`applied_${url}`] = state['friends']
+        }
         return obj
     }
 
