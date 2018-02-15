@@ -100,6 +100,8 @@ const friendItem = (tab, data) => {
         const ButtonDecline = declineConstructor(friendship)
         return (
             <ListItem
+                baseUrl={'users'}
+                id={friend.get('id')}
                 img={friend.get('thumbnail_id')}
                 name={friend.get('name')}
                 elem={friend.get('profile').set('skills', null)}
