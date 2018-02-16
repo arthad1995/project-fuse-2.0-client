@@ -11,7 +11,7 @@ import {friends} from './friends'
 import {interview_slots} from './interview_slots'
 import {members} from './members'
 import {notifications} from './notifications'
-import {organizations} from './organizations'
+import {organizations, organization_projects} from './organizations'
 import {projects} from './projects'
 import {related} from './related'
 import {scheduled_interviews} from './scheduled_interviews'
@@ -39,6 +39,7 @@ export default {
     members,
     notifications,
     organizations,
+    organization_projects,
     projects,
     related,
     scheduled_interviews,

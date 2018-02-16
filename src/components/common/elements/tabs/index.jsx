@@ -35,7 +35,7 @@ const isFriendList = data => {
     return (data && data.size && data.valueSeq().toArray()[0].get('sender') && data.valueSeq().toArray()[0].get('reciever'))
 }
 
-const normalItem = (tab, data) => {
+const normalItem = (baseUrl, tab, data) => {
     if (tab.arr_key.indexOf('applied_') === 0) {
         return <div className="generated_list">
             <h3>{tab.name}</h3>
@@ -143,7 +143,7 @@ export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
         }
         default: {
             const data = (props[tab.arr_key] && props[tab.arr_key].get('data')) ? props[tab.arr_key].get('data') : null
-            return baseUrl == 'friends' ? friendItem(tab, data) : normalItem(tab, data)
+            return baseUrl == 'friends' ? friendItem(tab, data) : normalItem(baseUrl, tab, data)
         }
     }
 }

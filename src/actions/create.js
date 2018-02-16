@@ -1,12 +1,15 @@
 import Network from '../network'
 
-export const createProject = (values) =>{ 
+export const createProject = (values) =>{
     const network = new Network('CREATE_PROJECT')
     return network.POST('/projects',{
         name: values.name,
         profile:{
             headline: values.headline,
             summary: values.summary
+        },
+        organization: {
+            id: values.orgId || null
         }
     })
 }
@@ -20,7 +23,7 @@ export const createTeam = values => {
             summary: values.summary
         }
     })
-} 
+}
 
 export const createOrganization = values => {
     const network = new Network('CREATE_ORGANIZATION')

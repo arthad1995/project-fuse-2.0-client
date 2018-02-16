@@ -25,21 +25,25 @@ class Form extends Component {
 
         return (
             <div>
-                <ImageUpload
-                    curImg={this.props.background}
-                    type="background"
-                    width={688}
-                    height={240}
-                    defaultImg={"/assets/images/background-default.png"}
-                    label='Change Background'
-                />
-                <ImageUpload
-                    curImg={this.props.thumbnail}
-                    className="centered"
-                    type="thumbnail"
-                    defaultImg={"/assets/images/profile_icon.svg"}
-                    label='Change Profile'
-                />
+                {this.props.imgUpload ?
+                    <div>
+                        <ImageUpload
+                            curImg={this.props.background}
+                            type="background"
+                            width={688}
+                            height={240}
+                            defaultImg={"/assets/images/background-default.png"}
+                            label='Change Background'
+                        />
+                        <ImageUpload
+                            curImg={this.props.thumbnail}
+                            className="centered"
+                            type="thumbnail"
+                            defaultImg={"/assets/images/profile_icon.svg"}
+                            label='Change Profile'
+                        />
+                    </div>
+                : ''}
                 <form className="withMargins" onSubmit={handleSubmit}>
                     <div>
                         {nameField}
@@ -48,6 +52,10 @@ class Form extends Component {
                         <label htmlFor="summary">Summary</label><br />
                         <Field component="textarea" className="fullWidth" placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
                         {customElems ? customElems() : null}
+                        {this.props.orgId ?
+                            <Field component="input" type="hidden" name="orgId" />
+                            : ''
+                        }
                     </div>
                     <div className="buttons">
                         <input className='btn save tone1-1-color' type="submit" id="submit" name="submit" value="Save" />

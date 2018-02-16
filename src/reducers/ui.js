@@ -21,7 +21,8 @@ export function ui(state = fromJS({
     applicant_tab: 'pending',
     show_interview_slots: false,
     selected_timeslot: 0,
-    invite_info: null
+    invite_info: null,
+    sub_tab: "all"
 }), action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
@@ -29,7 +30,7 @@ export function ui(state = fromJS({
                 page: true,
                 sidebar: true,
             })).set('show_time_picker', false).set('local_search', '').set('applicant_tab', 'pending')
-            .set('show_interview_slots', false).set('selected_timeslot', 0).set('invite_info', null)
+            .set('show_interview_slots', false).set('selected_timeslot', 0).set('invite_info', null).set('sub_tab', "all")
             if (action.payload.pathname !== '/search') {
                 state = state.set('global_search', fromJS({
                     show: false,
@@ -39,6 +40,8 @@ export function ui(state = fromJS({
             return state
         case 'CHANGE_TAB':
             return state.set('selected_tab', action.payload)
+        case 'CHANGE_SUB_TAB':
+            return state.set('sub_tab', action.value)
         case 'ONLINE':
             return state.set('online', true)
         case 'OFFLINE':

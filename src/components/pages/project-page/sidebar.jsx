@@ -24,6 +24,13 @@ class Sidebar extends Component {
         const tab = this.props.location.pathname.substr(this.props.location.pathname.lastIndexOf('/') + 1)
         if(data){
             return <div>
+                {
+                    data.get('organization') ? <Link to={`/organizations/${data.get('organization').get('id')}/projects`}>
+                        <div className={'section centered'}>
+                            <i className="fas fa-caret-square-up" /> {data.get('organization').get('name')}
+                        </div>
+                    </Link> : ''
+                }
                 <Link to={`/projects/${id}`}>
                     <div className={'section centered' + (tab == id ? ' selected' : '')}>
                         {data.get('name')}
