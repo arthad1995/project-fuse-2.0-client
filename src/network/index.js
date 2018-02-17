@@ -41,7 +41,7 @@ export default class Network {
         })
         return request
     }
-    
+
     DELETE(url, data={}, host) {
         host = host || this.host
         const request = axios.delete(host+ url, data, {withCredentials: true, headers: {'SESSIONID': Cookies.get('SESSIONID')}})
@@ -87,4 +87,24 @@ export default class Network {
         })
         return promise
     }
+}
+
+export const fileUpload = (url, file, action_prefix = 'FILE_UPLOAD', host = config.host) => {
+    store.dispatch({type: `${action_prefix}_PENDING`})
+    const formData = new FormData();
+    formData.append('file',file)
+    const config = {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'SESSIONID': Cookies.get('SESSIONID')
+        }
+    }
+    return  axios.post(host + url, formData,config)
+        .then(response => {
+            store.dispatch({type: `${action_prefix}_FULFILLED`, payload: response})
+            return response
+        })
+        .catch(response => {
+            store.dispatch({type: `${action_prefix}_REJECTED`, payload: response})
+        })
 }

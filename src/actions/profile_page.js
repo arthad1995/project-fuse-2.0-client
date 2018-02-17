@@ -20,11 +20,17 @@ export const loadOrganization = (id) => {
     return network.GET(`/organizations/${id}`)
 }
 
+export const loadOrganizationProjets = id => {
+    const network = new Network('LOAD_ORGANIZATION_PROJECTS_INFO')
+    return network.GET(`/organizations/${id}/projects`)
+}
+
 export const loadProjectSettings = (id) => {
     const network = new Network('LOAD_PROJECT_BY_ID_SETTINGS')
-    return loadProject(id).then(()=>{
-        return network.GET(`/projects/${id}/interview_slots/available`)
-    })
+    return Promise.all([
+        loadProject(id),
+        network.GET(`/projects/${id}/interview_slots/available`)
+    ])
 }
 
 export const loadTeamSettings = (id) => {
@@ -36,7 +42,8 @@ export const loadTeamSettings = (id) => {
 
 export const loadOrganizationSettings = (id) => {
     const network = new Network('LOAD_ORGANIZATION_BY_ID_SETTINGS')
-    return loadOrganization(id).then(()=>{
-        return network.GET(`/organizations/${id}/interview_slots/available`)
-    })
+    return Promise.all([
+        loadProject(id),
+        network.GET(`/organizations/${id}/interview_slots/available`)
+    ])
 }

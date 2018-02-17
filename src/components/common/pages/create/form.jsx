@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { ErrorDisplay } from '../../elements/error_display'
 import { goBack } from 'react-router-redux'
 import { Field, reset } from 'redux-form'
 import { Redirect } from 'react-router-dom'
+import ImageUpload from '../../elements/image_upload'
 
 class Form extends Component {
 
@@ -24,22 +24,47 @@ class Form extends Component {
             ]
 
         return (
-            <form className="withMargins" onSubmit={handleSubmit}>
-                <div>
-                    {nameField}
-                    <label htmlFor="headline">Headline</label>
-                    <Field component="input" className="fullWidth" placeholder="A short phrase or sentance to describe who you are" type="text" name="headline" /><br />
-                    <label htmlFor="summary">Summary</label><br />
-                    <Field component="textarea" className="fullWidth" placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
-                    {customElems ? customElems() : null}
-                </div>
-                <div className="buttons">
-                    <input className='btn save tone1-1-color' type="submit" id="submit" name="submit" value="Save" />
-                    <div onClick={cancelAction} className="centered btn tone1-2-color">
-                        Cancel
+            <div>
+                {this.props.imgUpload ?
+                    <div>
+                        <ImageUpload
+                            curImg={this.props.background}
+                            type="background"
+                            width={688}
+                            height={240}
+                            defaultImg={"/assets/images/background-default.png"}
+                            label='Change Background'
+                        />
+                        <ImageUpload
+                            curImg={this.props.thumbnail}
+                            className="centered"
+                            type="thumbnail"
+                            defaultImg={"/assets/images/profile_icon.svg"}
+                            label='Change Profile'
+                        />
                     </div>
-                </div>
-            </form>
+                : ''}
+                <form className="withMargins" onSubmit={handleSubmit}>
+                    <div>
+                        {nameField}
+                        <label htmlFor="headline">Headline</label>
+                        <Field component="input" className="fullWidth" placeholder="A short phrase or sentance to describe who you are" type="text" name="headline" /><br />
+                        <label htmlFor="summary">Summary</label><br />
+                        <Field component="textarea" className="fullWidth" placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
+                        {customElems ? customElems() : null}
+                        {this.props.orgId ?
+                            <Field component="input" type="hidden" name="orgId" />
+                            : ''
+                        }
+                    </div>
+                    <div className="buttons">
+                        <input className='btn save tone1-1-color' type="submit" id="submit" name="submit" value="Save" />
+                        <div onClick={cancelAction} className="centered btn tone1-2-color">
+                            Cancel
+                        </div>
+                    </div>
+                </form>
+            </div>
         )
     }
 }

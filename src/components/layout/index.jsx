@@ -14,11 +14,15 @@ export default class Layout extends Component {
     constructor(props){ super(props)}
 
     render(){
+        const noSidebarPaths = ["/login", "/register"]
+        const showRouterFix = -1 === noSidebarPaths.indexOf(this.props.location.pathname)
         return (
             <div>
                 <Menu history={this.props.history} />
                 <OnlineIndicator />
-                <RouteHandling dispatch={this.props.dispatch} />
+                <div className="page">
+                    <RouteHandling showRouterFix={showRouterFix} dispatch={this.props.dispatch} />
+                </div>
                 <Footer />
             </div>
         )

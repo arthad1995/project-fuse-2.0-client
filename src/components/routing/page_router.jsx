@@ -15,6 +15,8 @@ import pageComponents from './page_components'
 import authUser from './auth_user'
 import routeBuilder from './route_builder'
 import Search from '../pages/search'
+import Notifications from '../pages/notifications'
+import {OrganizationProjects} from '../pages/organization-page'
 
 export class PageRouter extends Component {
     constructor(props) { super(props) }
@@ -45,7 +47,9 @@ export class PageRouter extends Component {
                 <Route exact path="/users/:id/projects" component={PageShell(UserProjects)} />
                 <Route exact path="/users/:id/organizations" component={PageShell(UserOrganizations)} />
                 {final_routes}
+                <Route exact path="/organizations/:id/projects" component={PageShell(OrganizationProjects)} />
                 <Route exact path="/search" render={authUser(this.props.user)(PageShell(Search))} />
+                <Route exact path="/notifications" render={authUser(this.props.user)(PageShell(Notifications))} />
                 <Route exact path="/" render={authUser(this.props.user)(PageShell(Home))} />
             </div>
         )

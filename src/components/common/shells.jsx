@@ -32,7 +32,7 @@ export const SidebarShell = (pos) => (Elem, load) => {
     if (!show)
         return props => <span></span>
 
-    return props => <AnimationHandler animKey="sidebar" anim="SlideInRight" renderClassName={className}>
+    return props => <div className={className}>
     {(load)? <Elem {...props} loadFunc={load} /> : <Elem {...props} />}
-</AnimationHandler>
+</div>
 }

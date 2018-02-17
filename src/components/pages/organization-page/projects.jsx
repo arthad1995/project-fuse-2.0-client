@@ -1,0 +1,124 @@
+import React, {Component} from 'react'
+import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
+import {loadOrganizationProjets} from '../../../actions/profile_page'
+import {ListItem, AnimationHandler, Tabs, Tab, TabList, TabPanel} from '../../common'
+import {fromJS} from 'immutable'
+import CreatePage from '../../common/pages/create/impl'
+import {createProject} from '../../../actions/create'
+
+@connect(state => {
+    return {
+        organization: state.edit_obj,
+        projects: state.organization_projects.get('data'),
+        tab: state.ui.get('sub_tab')
+    }
+})
+class OrganizationProjects extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            tabs: [
+                "all",
+                "create"
+            ]
+        }
+
+        this.tabChange = this.tabChange.bind(this)
+        this.showProjectList = this.showProjectList.bind(this)
+        this.getOrgName = this.getOrgName.bind(this)
+        this.showProjectForm = this.showProjectForm.bind(this)
+        this.handleCreation = this.handleCreation.bind(this)
+    }
+
+    componentWillMount() {
+        loadOrganizationProjets(this.props.match.params.id)
+    }
+
+    tabChange(index, lastIndex, event) {
+        if (index === lastIndex) {
+            return
+        }
+
+        console.log(index)
+        console.log(this.state)
+        console.log(this.state.tabs[index])
+
+        this.props.dispatch({ type: "CHANGE_SUB_TAB", value: this.state.tabs[index] })
+    }
+
+    getOrgName() {
+        return this.props.organization.name || ''
+    }
+
+    render() {
+        return (
+            <AnimationHandler anim="SlideInTop" animKey='always'>
+                <div className="relative">
+                    <h2>Projects for {this.getOrgName()}</h2>
+                    <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.tab)}>
+                        <TabList>
+                            <Tab>Project List</Tab>
+                            <Tab>Create Project</Tab>
+                        </TabList>
+
+                        <TabPanel>
+                            {this.showProjectList()}
+                        </TabPanel>
+
+                        <TabPanel>
+                            {this.showProjectForm()}
+                        </TabPanel>
+                    </Tabs>
+                </div>
+            </AnimationHandler>
+        )
+    }
+
+    showProjectList() {
+        return (
+            <div>
+                {this.props.projects && this.props.projects.size
+                    ?
+                        <ul className='list'>
+                            {this.props.projects.valueSeq().toArray().map(proj => {
+                                console.log(proj.toJS())
+                                return (
+                                    <ListItem
+                                        key={proj.get('id')}
+                                        elem={proj.get('profile')}
+                                        owner={proj.get('owner')}
+                                        baseUrl={"projects"}
+                                        id={proj.get('id')}
+                                        name={proj.get('name')}
+                                    />
+                                )
+                            })}
+                        </ul>
+                    : "No Projects are associated with " + this.getOrgName()}
+            </div>
+        )
+    }
+
+    handleCreation() {
+        loadOrganizationProjets(this.props.match.params.id)
+        this.props.dispatch({ type: "CHANGE_SUB_TAB", value: "all" })
+    }
+
+    showProjectForm() {
+        const handleCreation = this.handleCreation
+        return <CreatePage
+            match={{}}
+            index={'projects'}
+            redirectFunc={true}
+            save={(...args) => createProject(...args).then(handleCreation)}
+            name={`Project for ${this.getOrgName()}`}
+            initialValues={{orgId: this.props.match.params.id}}
+            cancelAction={this.handleCreation}
+            orgId={this.props.match.params.id}
+        />
+    }
+}
+
+export default OrganizationProjects

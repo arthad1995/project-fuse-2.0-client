@@ -1,7 +1,13 @@
 @import "./../../common.scss";
 $header-height: 30px;
 $header-padding: 0.75rem 1rem;
+$li-border: 1px solid rgba(0,0,0,0.2);
+$elevation-1-shadow: 1px 1px 2px grey;
+$elevation-2-shadow: 2px 2px 3px grey;
+$bubbleSize: 40px;
+
 body {
+  background-color: hsl(240, 7%, 27%);
   font-family: $font-family-sans-serif;
   line-height: 150%;
 }
@@ -17,22 +23,70 @@ body {
 
 .search-input {
   margin: 0.2rem;
-  line-height: $header-height;
+  font-size: $header-height / 2;
   width: 100%;
   input {
     width: 100%;
-    height: $header-height + 10px;
+    height: $header-height / 2 + 20px;
+    line-height: $header-height / 2;
     font-size: 14pt;
     padding: $header-padding 10px;
   }
 }
 
+.page {
+  min-height: calc(100vh - 147px);
+  background-color: white;
+  margin-top: $header-height;
+  padding-top: $header-height * .75;
+}
+
 .header {
   @extend .accent-color;
   @extend .clearfix;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
   padding: $header-padding;
   line-height: $header-height;
   font-size: 14pt;
+  .search-bar-embeded-menu-wrapper{
+    @extend .hideOnPhone;
+    float: left;
+    margin-left: 1.25rem;
+    width: calc(100% - 10rem);
+    @include for-tablet-landscape-up {
+      margin-left: calc(15% + 5rem);
+      width: calc(70% - 10rem);
+    }
+
+    .search-bar-menu__content {
+      position: relative;
+      input {
+        color: hsl(0,0%,50%);
+        border-color: hsl(0,0,15%);
+        background-color: hsl(0,0,20%);
+        border-radius: 2rem;
+        padding-left: 2.5rem;
+        &:focus {
+          color: black;
+          background-color: white;
+        }
+      }
+      .search-icon {
+        position: absolute;
+        color: hsl(0,0%,50%);
+        top: 50%;
+        left: 2rem;
+        z-index: 999;
+        transform: translateY(-50%);
+        line-height: $header-padding / 2;
+      }
+    }
+  }
+  .search-bar-embeded-menu {
+    width: 100%;
+  }
   .search-bar-menu {
     top: 0;
     left: 0;
@@ -46,7 +100,7 @@ body {
       display: inline-block;
       max-width: 50px;
       margin: 0;
-      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.15);
+      box-shadow: $elevation-2-shadow;
     }
     &.hide {
       top: -80px;
@@ -54,6 +108,40 @@ body {
     .search-input {
       display: inline-block;
       width: calc(100% - 80px);
+    }
+  }
+  .phone-search {
+    .search-bar-menu__content {
+      position: relative;
+      .search-icon {
+        position: absolute;
+        top: 50%;
+        z-index: 999;
+        left: 0.5rem;
+        transform: translateY(-50%);
+        position: absolute;
+        color: gray;
+      }
+      .search-input {
+        margin-left: -1rem;
+        width: calc(100% - 50px);
+        input{
+          @extend .tone1-7-color;
+          color: gray;
+          border-radius: 25px;
+          padding-left: 2.15rem;
+          &:focus {
+            background-color: white;
+            color: black;
+          }
+        }
+      }
+      .btn {
+        box-shadow: 2px 2px 3px hsl(240, 50%, 30%);
+        &:hover{
+          box-shadow: 1px 1px 2px hsl(240, 50%, 30%);
+        }
+      }
     }
   }
   a:first-child {
@@ -105,6 +193,25 @@ body {
     list-style: none;
     margin: 0;
     margin-top: 0.5rem;
+    padding-left: 0;
+    .menu__profile-icon {
+      width: $header-height;
+      height: $header-height;
+      border-radius: 50%;
+      overflow: hidden;
+      padding: 0;
+      position: relative;
+      img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        margin-top: 1px;
+        width: $header-height + 5px;
+        height: $header-height + 5px;
+      }
+    }
     li {
       float: right;
       position: relative;
@@ -156,8 +263,9 @@ body {
       width: calc(100% - 90px) !important;
     }
   }
-  .skills {
+  .skills, .skills--clickable {
     width: 100%;
+    outline: none;
   }
 }
 
@@ -169,7 +277,6 @@ body {
 .pageBody {
   @extend .clearfix;
   margin: 0rem 0.5rem;
-  min-height: calc(100vh - 127px);
   @include for-tablet-landscape-up {
     margin: 0rem auto;
     width: calc(100% - 1rem);
@@ -186,6 +293,9 @@ body {
 
 div.edit-btn {
   float: right;
+  &.left {
+    float: left;
+  }
   cursor: pointer;
   margin-right: 2rem;
   a {
@@ -194,6 +304,10 @@ div.edit-btn {
       color: hsl(240, 20%, 10%);
     }
   }
+}
+
+.marginized{
+  margin-left: 0.5rem;
 }
 
 .centered {
@@ -208,7 +322,7 @@ ul.list {
   li {
     width: 100%;
     float: left;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: $li-border;
     padding: 0.5rem 1rem;
   }
   a~a li {
@@ -244,12 +358,12 @@ img.profileImage {
 
 .btn,
 .sm-btn {
-  box-shadow: 2px 2px 3px grey;
+  box-shadow: $elevation-2-shadow;
 }
 
 .btn:hover,
 .sm-btn:hover {
-  box-shadow: 1px 1px 2px grey;
+  box-shadow: $elevation-1-shadow;
 }
 
 .sm-btn {
@@ -712,23 +826,66 @@ ul.interview_slots {
 ///////////////////////////////////////
 /// List Item
 ///////////////////////////////////////
-li.listItem {
-  div.name {
-    @include for-tablet-portrait-up {
-      display: inline-block;
-    }
-    line-height: 50px;
+
+li.listItem, .card.light.clickable, .card.light.pointer {
+  box-shadow: $elevation-2-shadow;
+  &:hover {
+    box-shadow: $elevation-1-shadow;
+    background-color: hsla(0,0%,0%,0.025);
   }
+}
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  border-top: $li-border !important;
+  &__header {
+    display: flex;
+    flex-direction: row;
+    &__name {
+      width: 100%;
+      @include for-tablet-portrait-up {
+        display: inline-block;
+      }
+      line-height: 50px;
+    }
+
+    &__img {
+      img {
+        width: $bubbleSize;
+        height: $bubbleSize;
+      }
+      margin-right: 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  .listItem__content {
+    .headline {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-size: 85%;
+      color: hsl(0,0%,10%);
+    }
+  }
+
   .buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     @include for-tablet-portrait-up {
-      float: right;
+      flex-wrap: none;
       .btn {
         font-size: 100%;
         margin: 0 0.5rem;
+        width: initial;
+        height: initial;
       }
     }
   }
-  div.skills {
+  div.skills, div.skills--clickable {
     clear: both;
     float: none;
     color: rgba(25, 25, 25, 0.7);
@@ -811,12 +968,11 @@ $clock-size: 50px;
 /// Card
 ///////////////////////////////////////
 .card {
-  $bubbleSize: 30px;
   @extend .clearfix;
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: rgba(0, 0, 0, 0.065); //border-radius: 15px;
   &.light {
-    background-color: rgba(0, 0, 0, 0.035);
+    background-color: white;
   }
   ~.card {
     margin-top: 0.5rem;
@@ -863,11 +1019,20 @@ $clock-size: 50px;
       }
     }
     div.title {
+      display: flex;
       padding: 0 0.5rem;
       margin-top: 0.5rem;
       font-size: 1.5rem;
       color: hsl(0, 0%, 35%);
       line-height: $bubbleSize;
+      .img {
+        img {
+          float: left;
+          margin-right: 0.5rem;
+          width: $bubbleSize;
+          height: $bubbleSize;
+        }
+      }
       vertical-align: middle;
       @include for-tablet-portrait-below {
         font-size: 1.25rem;
@@ -930,10 +1095,12 @@ $clock-size: 50px;
 $tab-color: hsl(240, 80%, 58%);
 .react-tabs__tab-list {
   @extend .clearfix;
+  background-color: darken($tab-color, 2.5%);
   list-style: none;
   margin: 0 auto;
-  width: 80%;
+  max-width: 100%;
   padding: 0px;
+  text-align: center;
 }
 
 .react-tabs__tab {
@@ -980,7 +1147,7 @@ $tab-color: hsl(240, 80%, 58%);
 }
 
 ///////////////////////////////////////
-/// 
+///
 ///////////////////////////////////////
 .zindex-fix {
   z-index: -1;
@@ -1172,24 +1339,9 @@ $profile_height: 15rem;
   box-shadow: 0px 1px 4px gray;
   position: relative;
   z-index: 0;
-  background-color: hsl(240, 80%, 70%);
-  &::before,
-  &::after {
-    content: '';
-    left: 0;
+  img {
     width: 100%;
-    height: $profile_height;
-    top: 0;
-    position: absolute;
-    z-index: 1;
-  }
-  &::before {
-    background: linear-gradient(to top left, hsl(240, 80%, 50%), hsl(270, 70%, 70%), hsl(300, 61%, 52%));
-    z-index: 1;
-  }
-  &::after {
-    z-index: 2;
-    background-image: url('/assets/images/profile_overlay_1.svg');
+    height: 100%;
   }
 }
 
@@ -1201,7 +1353,7 @@ $profile_height: 15rem;
   .edit-btn {
     .fa-pencil-alt {
       right: 0rem;
-      top: -1.5rem;
+      top: -3rem;
       $size: 2.5rem;
       height: $size;
       width: $size;
@@ -1214,12 +1366,22 @@ $profile_height: 15rem;
     margin: 1rem;
   }
   .profile_picture {
-    $size: 70px;
+    $size: 100px;
     $padding: 10px;
     $total-size: $size + $padding;
     height: $total-size/2;
     position: relative;
+
+    &__img {
+      position: absolute;
+      width: $size;
+      height: $size;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+    }
     div {
+      overflow:hidden;
       top: -($total-size/2);
       left: 50%;
       transform: translateX(-50%);
@@ -1285,7 +1447,19 @@ $profile_height: 15rem;
 .leftSidebar,
 .leftSidebar-show,
 .leftSidebar-phone {
+  @include for-tablet-landscape-up{
+    left: 1.5rem;
+  }
+}
+
+.leftSidebar,
+.leftSidebar-show,
+.leftSidebar-phone,
+.leftSidebar-fix {
   @extend .card-color;
+  @include for-tablet-landscape-up {
+    position:fixed;
+  }
   width: calc(30% - 3rem);
   float: left;
   margin: 1rem;
@@ -1295,6 +1469,19 @@ $profile_height: 15rem;
     box-shadow: 1px 2px 6px gray;
   }
   .section {
+    position: relative;
+    z-index: 2;
+    &.sub-section {
+      z-index: 0;
+      &:hover > div{
+        box-shadow: none !important;
+      }
+      background-color: hsl(240, 10%, 95%);
+      > div {
+        background-color: white;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+    }
     width: 100%;
     padding: 0.75rem;
     ~.section,
@@ -1310,7 +1497,7 @@ $profile_height: 15rem;
   a~a .section {
     border-top: 1px solid rgba(0, 0, 0, 0.2);
   }
-  >div>a {
+  >div>a, .sub-section > div > a {
     color: #111;
     text-decoration: none;
   }
@@ -1318,6 +1505,12 @@ $profile_height: 15rem;
     font-weight: bold;
     background-color: rgba(0, 0, 0, 0.065);
   }
+}
+
+.leftSidebar-fix {
+  border: none;
+  position: initial;
+  min-height: 250px;
 }
 
 .leftSidebar-show {
@@ -1339,6 +1532,10 @@ $profile_height: 15rem;
 
 .leftSidebar {
   @extend .hideOnPhone;
+}
+
+.leftSidebar-fix {
+  @extend .hideOnTabletPortraitBelow;
 }
 
 ///////////////////////////////////////
@@ -1376,13 +1573,25 @@ $profile_height: 15rem;
 ///////////////////////////////////////
 .footer {
   @extend .accent-color;
-  height: 100px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  bottom: 0;
+  left: 0;
   text-align: center;
   width: 100%;
-  padding: 0.75rem 1rem;
   a {
     color: white;
   }
+  div {
+    padding: 0rem 0.5rem;
+  }
+}
+
+.footerWrapper, .footer {
+  height: 50px;
+  padding: 0.75rem 0.25rem;
 }
 
 ///////////////////////////////////////
@@ -1408,17 +1617,33 @@ $profile_height: 15rem;
 ///////////////////////////////////////
 /// User Page
 ///////////////////////////////////////
-.skills {
+.skills, .skills--clickable {
+  margin-top: 0.45rem;
   ul {
     list-style: none;
     text-align: center;
     li {
-      @extend .tone1-5-color;
+      outline: none;
       padding: 0.25rem 0.75rem;
       border-radius: 0.5rem;
       display: inline-block;
       margin: 0.15rem;
     }
+  }
+}
+
+.skills li {
+  color: black;
+  background-color: hsl(0,0%,90%);
+}
+
+.skills--clickable li {
+  @extend .tone1-5-color;
+  border: none !important;
+  box-shadow: 2px 2px 3px grey;
+  &:hover{
+    box-shadow: 1px 1px 3px grey;
+    @extend .tone1-4-color;
   }
 }
 
@@ -1505,21 +1730,18 @@ $profile_height: 15rem;
 ///////////////////////////////////////
 .applied_status {
   display: inline-block;
-  margin: 1.5rem;
+  margin: 0rem 1.5rem;
   color: white;
   padding: 0.5rem;
-  border-radius: 25px;
+  border-radius: 15px;
   &.accepted {
     &:before {
       content: "Accepted";
     }
-    background-color: hsla(108,
-    86%,
-    29%,
-    1);
+    background-color: hsla(108,86%,29%, 1);
   }
   &.pending {
-    @extend .tone1-5-color;
+    background-color: hsla(240, 35%, 40%, 1);
     &:before {
       content: "Pending";
     }
@@ -1556,5 +1778,176 @@ $profile_height: 15rem;
   }
   &.not_owned::before {
     content: "Owned by "
+  }
+}
+
+.pagination > li.active > a, .pagination > li.active > span {
+  background-color: hsl(240, 60%, 54%);
+  color: white;
+}
+
+.pagination > li:hover > a, .pagination> li:hover >span {
+  background-color: hsl(0, 0%, 90%);
+}
+.pagination > li.active > a:hover, .pagination > li.active > span:hover {
+  background-color: hsl(240,60%,40%);
+}
+.pagination > li.disabled {
+  background-color: hsl(240,60%,30%);
+}
+
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  > li {
+    display: inline;
+    > a, > span {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      line-height: 1.42857143;
+      text-decoration: none;
+      color: #337ab7;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-left: -1px;
+    }
+  }
+}
+
+.applicant-list {
+  list-style: none;
+  padding: 0.5rem 1rem;
+
+  li {
+    background-color: hsl(0,0%,96%);
+    padding: 1.5rem;
+    margin: 0.5rem;
+  }
+
+  .applicant {
+    display: flex;
+    flex-direction: row;
+
+    > div {
+      margin: 0.5rem;
+    }
+
+    .applicant-info {
+      display:flex;
+      flex-direction: column;
+    }
+  }
+
+  .btns{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  a, a:hover {
+    color: hsl(0, 0%, 10%);
+  }
+}
+
+.notifications{
+  a {
+    color: hsl(0, 0%, 10%);
+    &:hover {
+      color: hsl(0, 0%, 10%);
+    }
+  }
+
+  .notification--read, .notification--unread{
+    outline: 1px solid hsl(0, 0%, 10%);
+    background-color: hsl(0,0%,98%);
+    margin: 0.5rem;
+    padding: 0.5rem;
+    &__message {
+      padding: 0.5rem;
+      font-size: 105%;
+    }
+    &__footer {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row-reverse;
+      align-items: center;
+      &__time {
+        text-align: right;
+        font-size: 75%;
+        color: hsl(0,0%,45%);
+        align-self: center
+      }
+    }
+    &__actions > div{
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      @include for-tablet-portrait-up{
+        flex-direction: row;
+      }
+      @include for-phone-only{
+        flex-direction: column;
+      }
+      .btn {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        @include for-tablet-portrait-up{
+          & ~ .btn{
+            margin-left: 5%;
+          }
+        }
+        @include for-phone-only{
+          width: 80%;
+          margin: 0.5rem auto;
+        }
+      }
+    }
+  }
+  .notification--unread {
+    &__message {
+      font-weight: bold;
+    }
+    &__footer{
+      &__mark-read {
+        @extend .pointer;
+        @extend .btn;
+        @extend .tone1-5-color;
+        font-size: 70%;
+        padding: 0.25rem 0.5rem;
+      }
+    }
+  }
+}
+
+.image-upload-section {
+  max-width: 100%;
+  img {
+    max-width: 100%;
+  }
+  .image-upload {
+    div[title] {
+      max-width: 100%;
+    }
+    position: relative;
+    &__profile-img {
+      position: absolute;
+    }
+    span {
+      display: none
+    }
+    &.centered {
+      left: 50%;
+      transform: translateX(-50%);
+      width: fit-content;
+      margin: 0;
+      text-align: initial;
+    }
   }
 }

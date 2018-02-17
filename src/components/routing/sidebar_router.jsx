@@ -6,7 +6,7 @@ import { ProjectPageSidebar } from '../pages/project-page'
 import { UserPageSidebar } from '../pages/user-page'
 import { OrganizationPageSidebar } from '../pages/organization-page'
 import findPagesParams from './find_pages_params'
-import { loadUser, loadProject, loadTeam, loadOrganization, loadProjectSettings, loadTeamSettings, loadOrganizationSettings } from '../../actions/profile_page'
+import { loadUser, loadProject, loadTeam, loadOrganization } from '../../actions/profile_page'
 import routeBuilder from './route_builder'
 import pages from './nested_page_info'
 
@@ -14,7 +14,7 @@ export class SidebarRouter extends Component {
     constructor(props) { super(props) }
 
     render() {
-        
+
         let pos = this.props.pos || 'none'
         let sidebar_shell = SidebarShell(pos)
 
@@ -38,9 +38,9 @@ export class SidebarRouter extends Component {
 
         return (
             <div>
+                {this.props.showRouterFix? <div className="leftSidebar-fix" /> : ''}
                 {final_routes}
-                <Route exact path="/search" component={sidebar_shell(HomeSidebar, pos)} />
-                <Route exact path="/" component={sidebar_shell(HomeSidebar, pos)} />
+                <Route exact path="/(search|notifications|)/" component={sidebar_shell(HomeSidebar, pos)} />
             </div>
         )
     }

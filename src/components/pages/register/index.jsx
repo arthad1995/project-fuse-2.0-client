@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
 }
 
 const sendRegisterRequest = (dispatch) => (values)=>{
-    event.preventDefault()
     let errors = [];
     if(!values.name)
         errors.push('Missing name')

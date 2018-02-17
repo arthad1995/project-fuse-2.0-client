@@ -4,11 +4,15 @@ import { Link } from 'react-router-dom'
 import { AnimationHandler } from '../common'
 import SearchBar from './search'
 import {globalSearch} from '../../actions/search'
+import {loadCurUserInfo} from '../../actions/my_'
+import config from '../../config'
+import {fromJS} from 'immutable'
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        ui: state.ui
+        ui: state.ui,
+        curUser: state.cur_user
     }
 }
 
@@ -22,6 +26,10 @@ export default class Menu extends Component {
 
         this.toggleSearchbar = this.toggleSearchbar.bind(this)
         this.handleSearchChange = this.handleSearchChange.bind(this)
+    }
+
+    componentWillMount() {
+        loadCurUserInfo()
     }
 
     toggleSearchbar() {
@@ -49,15 +57,25 @@ export default class Menu extends Component {
         let user = this.props.user
         let shouldRenderUserItems = user.size > 2 && user.get('fetched') && user.get('data') && user.get('data').get('user')
         let restOfMenu = ''
+        const curUser = this.props.curUser.get('data') || fromJS({})
         if (shouldRenderUserItems) {
             user = user.get('data').get('user')
 
             restOfMenu = (
                 <div>
+                    <div className="search-bar-embeded-menu-wrapper">
+                        <SearchBar noBlue={true} value={this.props.ui.get('global_search').get('search')} searchCallback={this.handleSearchChange} buttonCallback={this.toggleSearchbar} />
+                    </div>
                     <ul className="menu">
                         <li>
                             <Link to={`/users/${user.get('id')}`}>
-                                <i className="icon fa fa-user"></i>
+                                <div className="menu__profile-icon">
+                                    <img src={
+                                        (curUser.get('profile') && curUser.get('profile').get('thumbnail_id')) ?
+                                            config.host + '/files/download/' + curUser.get('profile').get('thumbnail_id') :
+                                            '/assets/images/profile_icon.svg'
+                                    } />
+                                </div>
                             </Link>
                             <ul className="dropdown">
                                 <Link to={`/users/${user.get('id')}`}>
@@ -73,20 +91,33 @@ export default class Menu extends Component {
                             </ul>
                         </li>
                         <li>
-                            <Link to="/"><i className="fa shadow fa-bell"></i></Link>
+                            <Link to="/notifications"><i className="fa shadow fa-bell"></i></Link>
                         </li>
-                        <li>
+                        <li className="phoneOnly">
                             <a className="pointer" onClick={this.toggleSearchbar}><i className="fa shadow fa-search"></i></a>
                         </li>
                     </ul>
                     {(this.props.ui.get('global_search').get('show')) ?
                         <AnimationHandler anim="SlideInTopAbs" animKey='always'>
-                            <SearchBar value={this.props.ui.get('global_search').get('search')} searchCallback={this.handleSearchChange} buttonCallback={this.toggleSearchbar} />
+                            <div className="phone-search">
+                                <SearchBar
+                                    value={this.props.ui.get('global_search').get('search')}
+                                    searchCallback={this.handleSearchChange}
+                                    buttonCallback={this.toggleSearchbar}
+                                />
+                            </div>
                         </AnimationHandler>
                         : (this.state.animHide) ?
                             <div>
                             <AnimationHandler anim="SlideOutTopAbs" animKey='always'>
-                                <SearchBar value={this.props.ui.get('global_search').get('search')} buttonCallback={this.toggleSearchbar} searchCallback={this.handleSearchChange} className='hide' />
+                                <div className="phone-search">
+                                    <SearchBar
+                                        value={this.props.ui.get('global_search').get('search')}
+                                        buttonCallback={this.toggleSearchbar}
+                                        searchCallback={this.handleSearchChange}
+                                        className='hide'
+                                    />
+                                </div>
                             </AnimationHandler>
                             </div>
                             : ''

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { stopEvent } from '../../elements/stopEvent'
 import SearchInput from 'react-search-input'
 import { fromJS } from 'immutable'
+import Pagination from 'react-js-pagination'
 
 const SearchHeader = (props) => {
     return <div>
@@ -43,42 +44,73 @@ class Page extends Component {
     }
 
     render() {
-
-        const data = (this.props.search && this.props.search.get('data')) ? this.props.search.get('data').toObject() : null
-
+        const data = (this.props.search &&
+                        this.props.search.get('data') &&
+                        this.props.search.get('data').get('items')) ?
+                            this.props.search.get('data').get('items').toObject() :
+                            null
         const applicationHeadline = this.props.applicationHeadline || "Application Submitted!"
         const applicationSummary = this.props.applicationSummary || "Your application was submitted succesfully!"
 
+        const doSearch = this.doSearch
+        const results = this.props.search
+        const numItems = results.get('totalItems')
+        const pageSize = results.get('pageSize');
+        const numPages = numItems / numPages;
+        const nextPage = numItems > results.get('end') + 1;
+        const prevPage = results.get('start') - 1 > 0;
+        const pageChange = ((page)=>{
+            page--
+            this.props.dispatch({type: this.props.name + '_SET_PAGE', page})
+            globalSearch({ query: this.props.global_search.get('search'), page })
+            window.scrollTo(0,80)
+        }).bind(this)
+
         let content = <div className="loading"></div>
-        if (!this.props.search.get('fetching') || this.props.search.get('fetched')) {
-            if (data && Object.keys(data).length) {
-                content = (
+        if (data && Object.keys(data).length) {
+            content = (
+                <div>
                     <div>
-                        <div>
-                            <ul className='list'>
-                                {Object.keys(data).map((id) => {
-                                    let elem = data[id]
-                                    const owner = fromJS({
-                                        name: elem.get('owner'),
-                                        id: elem.get('owner_id')
-                                    })
-                                    const Btn = (this.props.apply) ? this.props.apply(elem, this.props.dispatch) : null
-                                    return <ListItem key={id} baseUrl={this.props.index} id={id} elem={elem} owner={owner}>
-                                        {(this.props.buttons) ? (this.props.buttons(elem)) : ''}
-                                        {(Btn) ? <Btn /> : ''}
-                                    </ListItem>
-                                })}
-                            </ul>
-                        </div>
+                        <ul className='list'>
+                            {Object.keys(data).map((id) => {
+                                let elem = data[id]
+                                const owner = fromJS({
+                                    name: elem.get('owner'),
+                                    id: elem.get('owner_id')
+                                })
+                                const Btn = (this.props.apply) ? this.props.apply(elem, this.props.dispatch) : null
+                                return <ListItem
+                                    key={id}
+                                    handleSearchChange={doSearch}
+                                    baseUrl={this.props.index}
+                                    id={elem.get('id')}
+                                    elem={elem}
+                                    owner={owner}
+                                >
+                                    {(this.props.buttons) ? (this.props.buttons(elem)) : ''}
+                                    {(Btn) ? <Btn /> : ''}
+                                </ListItem>
+                            })}
+                            {results.get('fetching') ? <div className="loading"></div> : ''}
+                        </ul>
+                        {numItems > pageSize ?
+                            <Pagination
+                                activePage={results.get('page') + 1}
+                                itemsCountPerPage={pageSize}
+                                totalItemsCount={numItems}
+                                pageRangeDisplayed={5}
+                                onChange={pageChange}
+                            >
+                            </Pagination> : ''}
                     </div>
-                )
-            } else {
-                content = (
-                    <div>
-                        {this.props.notFoundMsg || "No Results"}
-                    </div>
-                )
-            }
+                </div>
+            )
+        } else if (!this.props.search.get('fetching') || this.props.search.get('fetched')) {
+            content = (
+                <div>
+                    {this.props.notFoundMsg || "No Results"}
+                </div>
+            )
         }
         return <div>
             <SearchHeader value={this.props.local_search} handleSearchChange={this.doSearch} />

@@ -22,31 +22,36 @@ class Sidebar extends Component {
         const data = this.props.users.get('data')
         const id = params.id
         const elem = (data) ? data.get(id) : null
+        const tab = this.props.location.pathname.substr(this.props.location.pathname.lastIndexOf('/') + 1)
         if (elem) {
             return <div>
                 <Link to={`/users/${id}`}>
-                    <div className='section centered'>
+                    <div className={'section centered' + (tab == id ? ' selected' : '')}>
                         {elem.get('name')}
                     </div>
                 </Link>
-                <Link to={`/users/${id}/friends`}>
-                    <div className='section centered'>
-                        Friends
+                <div className="hidden section centered"></div>
+                <div className="section sub-section">
+                    <div>
+                        <Link to={`/users/${id}/friends`}>
+                            <div className={'section centered' + (tab === 'friends' ? ' selected' : '')}>
+                                Friends
+                            </div>
+                        </Link>
+                        <Link to={`/users/${id}/projects`}>
+                            <div className={'section centered' + (tab === 'projects' ? ' selected' : '')}>
+                                Projects
+                            </div>
+                        </Link>
+                        <Link to={`/users/${id}/organizations`}>
+                            <div className={'section centered' + (tab === 'organizations' ? ' selected' : '')}>
+                                Organizations
+                            </div>
+                        </Link>
                     </div>
-                </Link>
-                <Link to={`/users/${id}/projects`}>
-                    <div className="section centered">
-                        Projects
-                    </div>
-                </Link>
-                <Link to={`/users/${id}/organizations`}>
-                    <div className="section centered">
-                        Organizations
-                    </div>
-                </Link>
-                <a>
-                    <div onClick={this.props.history.goBack} className="section centered pointer clickable">Back</div>
-                </a>
+                </div>
+                <div onClick={() => this.props.history.push('/my-friends')} className="section centered pointer clickable">Your Friends</div>
+                <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div>
             </div>
         } else {
             return <div></div>

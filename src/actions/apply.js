@@ -1,14 +1,19 @@
 import Network from '../network'
-import { myProjects, myOrganizations } from './my_';
+import { myProjects, myOrganizations, myFriends } from './my_';
 
 export const addFriend = (user, dispatch) => {
-    dispatch({
-        type: "ADD_FRIEND",
-        payload: {
-            id: user.get('id'),
-            name: user.get('name')
-        }
-    })
+    const network = new Network('SEND_FRIEND_REQUEST')
+    return network.POST('/friends/' + user.get('id')).then(() => myFriends())
+}
+
+export const acceptFriend = friendship => {
+    const network = new Network('ACCEPT_FRIEND_REQUEST')
+    return network.PUT('/friends/accept/' + friendship.get('id')).then(() => myFriends())
+}
+
+export const declineFriend = friendship => {
+    const network = new Network('DECLINE_FRIEND_REQUEST')
+    return network.PUT('/friends/declined/' + friendship.get('id')).then(() => myFriends())
 }
 
 export const applyToOrganization = (organization, dispatch) => {

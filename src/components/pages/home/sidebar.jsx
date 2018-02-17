@@ -41,6 +41,11 @@ class Sidebar extends Component {
                             Organizations
                         </div>
                     </Link>
+                    {
+                        this.props.location.pathname !== '/' ?
+                            <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div> :
+                            ''
+                    }
                 </div>
         )
     }

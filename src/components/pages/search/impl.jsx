@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Card } from '../../common'
-import { List } from 'immutable'
-import { stopEvent } from '../../common'
-import mockData from '../../../mock_data'
-import SearchInput from 'react-search-input'
 import { globalSearch } from '../../../actions/search'
 import { fromJS } from 'immutable'
-import { CardImg } from '../../common'
+import { CardImg, stopEvent } from '../../common'
 import InfiniteScroll from 'react-infinite-scroller'
+import Pagination from 'react-js-pagination'
+import config from '../../../config'
 
 const mapStateToProps = (state) => {
     return {
@@ -45,6 +42,7 @@ class Search extends Component {
 
     render() {
         const history = this.props.history
+        const handleSearchChange = this.handleSearchChange
         const showUser = (user, index) => {
             const navTo = () => {
                 if (history) {
@@ -56,20 +54,33 @@ class Search extends Component {
                 <CardImg
                     key={index}
                     title={<div>
+                        <div className="img">
+                            <img src={
+                                (user.img ?
+                                    config.host + '/files/download/' + user.img :
+                                    '/assets/images/profile_icon.svg'
+                                )
+                            } />
+                        </div>
                         <div className="name">{user.name} </div>
                         <div className="smallText">(User)</div>
                     </div>}
-                    className="light pointer"
+                    className="light pointer clickable"
                     onClick={navTo}
                 >
                     <div className="searchResult">
-                        <div className="label">Headline:</div>
-                        <div>{user.headline || "(None)"}</div>
+                        <div>{user.headline || ""}</div>
                         {(skills.length) ?
-                            <div className="skills">
+                            <div className="skills--clickable">
                                 <ul>
                                     {skills.map((skill, i) => {
-                                        return <li key={`${index}_${i}`}>{skill}</li>
+                                        return <li key={`${index}_${i}`}
+                                            onClick={(e) => {
+                                                stopEvent(e)
+                                                handleSearchChange(`in:users ${skill}`)
+                                                return false;
+                                            }}
+                                        >{skill}</li>
                                     })}
                                 </ul>
                             </div>
@@ -88,6 +99,14 @@ class Search extends Component {
                 <CardImg
                     key={index}
                     title={<div>
+                        <div className="img">
+                            <img src={
+                                (org.img ?
+                                    config.host + '/files/download/' + org.img :
+                                    '/assets/images/profile_icon.svg'
+                                )
+                            } />
+                        </div>
                         <div className="name">{org.name} </div>
                         <div className="smallText">(Organization)</div>
                     </div>}
@@ -111,6 +130,14 @@ class Search extends Component {
                 <CardImg
                     key={index}
                     title={<div>
+                        <div className="img">
+                            <img src={
+                                (proj.img ?
+                                    config.host + '/files/download/' + proj.img :
+                                    '/assets/images/profile_icon.svg'
+                                )
+                            } />
+                        </div>
                         <div className="name">{proj.name} </div>
                         <div className="smallText">(Project)</div>
                     </div>}
@@ -124,25 +151,26 @@ class Search extends Component {
                 </CardImg>
             )
         }
-        const data = ((this.props.results.get('data') || fromJS({})).get('data') || fromJS([])).filter(
-            d => d.get('index') !== 'team'
-        ).toJS()
+        const results = (this.props.results.get('data') || fromJS({}))
+        const data = (results
+                        .get('items') || fromJS([]))
+                        .filter(d => d.get('index') !== 'team')
+                        .toJS()
+        const numItems = results.get('totalItems')
+        const pageSize = results.get('pageSize');
+        const numPages = numItems / numPages;
+        const nextPage = numItems > results.get('end') + 1;
+        const prevPage = results.get('start') - 1 > 0;
+        const pageChange = ((page)=>{
+            page--
+            this.props.dispatch({type: 'GLOBAL_SEARCH_INFO_SET_PAGE', page})
+            globalSearch({ query: this.props.global_search.get('search'), page })
+            window.scrollTo(0,0)
+        }).bind(this)
 
         return (
             <div>
-                {!this.props.global_search.get('show') ?
-                    <div className="minorPadding">
-                        <SearchInput className="search-input" value={this.props.global_search.get('search')} onChange={this.handleSearchChange} />
-                        <hr />
-                    </div>
-                    : ''}
-                <InfiniteScroll
-                    pageStart={0}
-                    loadMore={() => { }}
-                    hasMore={false}
-                    loader={<div className="loading"></div>}
-                >
-                    {data.map((result, index) => {
+                {data.map((result, index) => {
                         switch (result.index) {
                             case 'users':
                                 return showUser(result, index)
@@ -153,8 +181,19 @@ class Search extends Component {
                             default: ''
                         }
                     })}
-                </InfiniteScroll>
-                {data.length == 0 ? <div>No Results</div> : ''}
+                {this.props.results.get('fetching') ? <div className="loading"></div> : ''}
+                {data.length == 0 ? <div>No Results</div> :
+                    numItems > pageSize ?
+                        <Pagination
+                            activePage={this.props.results.get('page') + 1}
+                            itemsCountPerPage={pageSize}
+                            totalItemsCount={numItems}
+                            pageRangeDisplayed={5}
+                            onChange={pageChange}
+                        >
+                        </Pagination>
+                        : ''
+                }
             </div>
         )
     }

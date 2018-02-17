@@ -84,6 +84,11 @@ $color-schemes:(
         fg-color: $white,
         border: none
     ),
+    tone1-7:(
+        bg-color: hsl($hue1, 50%, 80%),
+        fg-color: $white,
+        border: none
+    ),
 
     tone2-1:(
         bg-color: hsl($hue2,100%, 50%),
@@ -131,7 +136,7 @@ $glow-amt: 8%;
         color: map-get($value, fg-color);
         border: map-get($value, border);
     }
-    
+
     .btn.#{$key}-color, .sm-btn.#{$key}-color, .#{$key}-color-glow{
         $lightbg: lighten(map-get($value, bg-color), $glow-amt);
         $darkbg: darken(map-get($value, bg-color), $glow-amt);
@@ -229,6 +234,12 @@ $ranges: (
     @media(min-width: map-get(map-get($ranges, big-desktop), min)) { @content; }
 }
 
+.hideOnTabletPortraitBelow{
+    @include for-tablet-portrait-below {
+      display: none;
+    }
+}
+
 .hideOnPhone{
     @include for-phone-only {
       display: none;
@@ -242,7 +253,7 @@ $ranges: (
     }
 }
 
-.pointer{
+.pointer, .clickable{
     cursor: pointer;
 }
 
@@ -264,8 +275,8 @@ input{
 .no-border {
     border: 0 none !important;
   }
-  
+
   .border {
     border: 1px solid rgba(0, 0, 0, 0.5);
   }
-  
+
