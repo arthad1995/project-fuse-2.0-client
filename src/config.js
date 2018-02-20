@@ -1,4 +1,6 @@
 
 module.exports = {
-    host: "http://localhost:8080"
+    host: node.env.NODE_ENV === 'production' ?
+        "https://api.project-fuse.com" :
+        "http://localhost:8080"
 }
