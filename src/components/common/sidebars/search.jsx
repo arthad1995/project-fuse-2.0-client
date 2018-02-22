@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
 import { goBack } from 'react-router-redux'
+import { fromJS } from 'immutable'
 
 const mapStateToProps = (state) =>{
     return {

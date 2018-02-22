@@ -46,9 +46,9 @@ export class PageRouter extends Component {
                 <Route exact path="/users/:id/projects" component={PageShell(UserProjects)} />
                 <Route exact path="/users/:id/organizations" component={PageShell(UserOrganizations)} />
                 {final_routes}
-                <Route exact path="/search" render={authUser(this.props.user)(PageShell(Search))} />
-                <Route exact path="/notifications" render={authUser(this.props.user)(PageShell(Notifications))} />
-                <Route exact path="/" render={authUser(this.props.user)(PageShell(Home))} />
+                <Route exact path="/search" render={preFunc(PageShell(Search))} />
+                <Route exact path="/notifications" render={preFunc(PageShell(Notifications))} />
+                <Route exact path="/" render={preFunc(PageShell(Home))} />
             </div>
         )
     }

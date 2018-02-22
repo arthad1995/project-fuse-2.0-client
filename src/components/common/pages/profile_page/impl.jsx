@@ -45,8 +45,8 @@ class Page extends Component {
                 <AnimationHandler anim="SlideInTop" animKey='always'>
                     <div className="profile">
                         <div className="profile_header">
-                            <img src={(profile.get('background_Id')
-                                ? config.host + '/files/download/' + profile.get('background_Id')
+                            <img src={(profile.get('background_id')
+                                ? config.host + '/files/download/' + profile.get('background_id')
                                 : '/assets/images/background-default.png')}
                             />
                         </div>

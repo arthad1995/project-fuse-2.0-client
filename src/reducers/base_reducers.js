@@ -42,10 +42,10 @@ export const async_base = (base_name) => {
                             .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                     }
                 }
-            case `${base_name}_SET_PAGE`: 
+            case `${base_name}_SET_PAGE`:
                 return state.set('page', action.page)
             case `${base_name}_SET_PAGE_SIZE`:
-                return state.set('page', 
+                return state.set('page',
                             (typeof action.page !== 'undefined')
                                 ? action.page
                                 : Math.floor(
@@ -154,7 +154,7 @@ export const async_list_get_and_create = (base_name) => {
     }
 }
 
-export const append_wrapper = (type) => (to_wrap)  => (state, action) => {
+export const append_wrapper = type => to_wrap  => (state, action) => {
     state = to_wrap(state, action)
     const list = state.get('data') || fromJS({})
     switch (action.type) {
