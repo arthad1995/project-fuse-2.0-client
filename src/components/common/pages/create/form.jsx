@@ -25,21 +25,25 @@ class Form extends Component {
 
         return (
             <div>
-                <ImageUpload
-                    curImg={this.props.background}
-                    type="background"
-                    width={688}
-                    height={240}
-                    defaultImg={"/assets/images/background-default.png"}
-                    label='Change Background'
-                />
-                <ImageUpload
-                    curImg={this.props.thumbnail}
-                    className="centered"
-                    type="thumbnail"
-                    defaultImg={"/assets/images/profile_icon.svg"}
-                    label='Change Profile'
-                />
+                {!showName?
+                <div>
+                    <ImageUpload
+                        curImg={this.props.background}
+                        type="background"
+                        width={688}
+                        height={240}
+                        defaultImg={"/assets/images/background-default.png"}
+                        label='Change Background'
+                    />
+                    <ImageUpload
+                        curImg={this.props.thumbnail}
+                        className="centered"
+                        type="thumbnail"
+                        defaultImg={"/assets/images/profile_icon.svg"}
+                        label='Change Profile'
+                    />
+                </div>
+                : ''}
                 <form className="withMargins" onSubmit={handleSubmit}>
                     <div>
                         {nameField}
