@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { mapSingleKey } from '../../mapping_helpers'
 import { Link } from 'react-router-dom'
 const ReactMarkdown = require('react-markdown');
-import { AnimationHandler } from '../../../common'
-import {Map} from 'immutable'
+import { AnimationHandler, ListItem } from '../../../common'
+import {Map, fromJS} from 'immutable'
 
 class Page extends Component {
     constructor(props) {
@@ -17,13 +17,16 @@ class Page extends Component {
     }
 
     renderUser(user){
+        console.log(user)
         return (
-            <li key={user.get('id')}>
-                <div className='user-info'>
-                    <div className='user-name'>{user.get('name')}</div>
-                    <div className='user-email'>{user.get('email')}</div>
-                </div>
-            </li>
+            <ListItem
+                elem={user.get('profile') || fromJS({})}
+                baseUrl={'users'}
+                key={user.get('id')}
+                id={user.get('id')}
+                name={user.get('name')}
+            >
+            </ListItem>
         )
     }
 
@@ -39,9 +42,12 @@ class Page extends Component {
         if (data) {
             return (
                 <AnimationHandler anim="SlideInTop" animKey='always'>
-                    <ul className="member-list">
+                    <div>
+                        <h2>Members</h2>
+                        <ul className="list">
                             {data.valueSeq().toArray().map(this.renderUser)}
-                    </ul>
+                        </ul>
+                    </div>
                 </AnimationHandler>
             )
         }
