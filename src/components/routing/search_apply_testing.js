@@ -53,7 +53,7 @@ const group_test = (groupLists, elem) => {
 export const userTest = ({user, friends}, curUser) =>{
     if(user.get('data').get('user').get('id') == curUser.get('id'))
         return false
-    return test(friends, curUser) ? "Send Request" : false
+    return test(friends, curUser) ? "Send Friend Request" : false
 }
 
 export const projTest = ({user_projects, applied_projects}, cur) =>{

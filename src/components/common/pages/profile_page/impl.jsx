@@ -58,7 +58,7 @@ class Page extends Component {
                             } className="profile_picture__img" /></div></div>
                             {editBtn}
                             <h1 className='title'>{elem.get('name')}</h1>
-                            {this.renderOwnerInfo(elem)}
+                            {elem.get('owner') ? this.renderOwnerInfo(elem) : ''}
                             <div className='headline'>
                                 {profile.get('headline') || ''}
                             </div>

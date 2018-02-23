@@ -183,10 +183,21 @@ body {
     box-shadow: 0px 2px 8px #040405;
     background-color: $bgcol;
   }
-  img {
-    margin-top: $header-height/4;
+  .main-icon {
     width: $header-height;
     height: $header-height;
+    display: inline-block;
+    img {
+      top: 2px;
+      width: $header-height * 2;
+      height: $header-height * 2;
+      position: absolute;
+      @include for-phone-only {
+        top: 7.5px;
+        width: $header-height * 1.5;
+        height: $header-height * 1.5;
+      }
+    }
   }
   ul {
     float: right;

@@ -128,7 +128,11 @@ export default class Menu extends Component {
 
         return (
             <div className="header">
-                <Link to="/"><img className="shadow" src="/assets/images/project_fuse.svg" /></Link>
+                <Link to="/">
+                    <div className="main-icon">
+                        <img className="shadow" src="/assets/images/project_fuse.svg" />
+                    </div>
+                </Link>
                 {restOfMenu}
             </div>
         )
