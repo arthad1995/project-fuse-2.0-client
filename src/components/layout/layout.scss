@@ -871,6 +871,17 @@ li.listItem, .card.light.clickable, .card.light.pointer {
     }
   }
 
+  &__array{
+    color: grey;
+    font-size:75%;
+    &__item{
+      display: inline-block;
+      & ~ &:before{
+        content: ", ";
+      }
+    }
+  }
+
   .buttons {
     display: flex;
     flex-direction: row;

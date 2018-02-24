@@ -25,12 +25,22 @@ export const async_base = (base_name) => {
                         const _state = state.set('fetching', false)
                             .set('fetched', true)
                         if (Array.isArray(response.data)) {
+                            let noId = false
                             let data = {}
                             response.data.forEach((elem) => {
+                                if(typeof elem.id === 'undefined') {
+                                    noId = true
+                                }
                                 data[elem.id] = elem
                             })
+
+                            if(!noId) {
+                                return _state.merge(fromJS({
+                                    data
+                                }))
+                            }
                             return _state.merge(fromJS({
-                                data
+                                data: response.data
                             }))
                         }
                         return _state.merge(fromJS({

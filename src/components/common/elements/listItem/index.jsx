@@ -70,6 +70,18 @@ class ListItem extends Component {
                             </div>
                             : (skills) ? <div className="skills smallText"><i>No Skills Listed</i></div> : ''}
                     </div>
+                    {(this.props.arr) ?
+                        <div className="listItem__array">
+                            {this.props.arrText}
+                            {(this.props.arr || fromJS([])).toJS().map(
+                                item => {
+                                    return <div key={item} className="listItem__array__item">
+                                        {item}
+                                    </div>
+                                }
+                            )}
+                        </div>
+                        : ''}
                     {(owner) ?
                         <div><div className={`owner ${owner.get('id') == Cookies.get('ID') ? 'owned' : 'not_owned'}`}>
                             {owner.get('id') == Cookies.get('ID') ? '' : owner.get('name')}
