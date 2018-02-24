@@ -1913,7 +1913,7 @@ $profile_height: 15rem;
   }
   .notification--unread {
     &__message {
-      font-weight: bold;
+      font-weight: initial;
     }
     &__footer{
       &__mark-read {
@@ -1923,6 +1923,11 @@ $profile_height: 15rem;
         font-size: 70%;
         padding: 0.25rem 0.5rem;
       }
+    }
+  }
+  .notification--read{
+    &__message {
+      font-weight: bold;
     }
   }
 }
@@ -1955,4 +1960,17 @@ $profile_height: 15rem;
 
 input {
   outline: none !important;
+}
+
+.welcome{
+  h1 {
+    text-align: center;
+    .em-svg{
+      margin-top: -20px;
+    }
+  }
+  div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }

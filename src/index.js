@@ -7,6 +7,8 @@ import Layout from './components/layout'
 import Cookies from 'js-cookie'
 import mockData from './mock_data'
 
+require('./emoji.css')
+
 mockData(store.dispatch)
 
 function updateOnlineStatus(event) {

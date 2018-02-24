@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
 class Notifications extends Component {
     constructor(props) {
         super(props)
+        this.showWelcomeMessage = this.showWelcomeMessage.bind(this)
     }
 
     componentWillMount() {
@@ -27,6 +28,8 @@ class Notifications extends Component {
     }
 
     render() {
+        console.log(this.props.match.path)
+        const isHome = this.props.match.path === '/'
         let history = this.props.history
         const dispatch = this.props.dispatch
         const showSlots = () => {
@@ -83,7 +86,7 @@ class Notifications extends Component {
             if(this.props.notifications.get('fetching')) {
                 return  (
                     <div>
-                        <h1>Notifications</h1>
+                        {isHome ? '' : <h1>Notifications</h1>}
                         <div className='loading' />
                     </div>
                 )
@@ -91,8 +94,8 @@ class Notifications extends Component {
             else {
                 return (
                     <div>
-                        <h1>Notifications</h1>
-                        <h3>You have no notificatoions</h3>
+                        {isHome ? '' : <h1>Notifications</h1>}
+                        <h3>You have no notifications</h3>
                     </div>
                 )
             }
@@ -128,10 +131,10 @@ class Notifications extends Component {
                             </div>
                         </div>
                     </div>
-                    <h1>Notifications</h1>
+                    {isHome ? '' : <h1>Notifications</h1>}
                     <div className="notifications">
                         {this.props.notifications.get('data').valueSeq().toArray().reverse().map(notification => {
-                            const className = notification.get('hasRead') ? 'read' : 'unread';
+                            const className = (!notification.get('hasRead') && !isHome) ? 'read' : 'unread';
                             let notificationActions = null
                             let Wrapper = (e => <div
                                 key={notification.get('id')}
@@ -144,10 +147,10 @@ class Notifications extends Component {
                             </div>
                             );
 
-                            if (notification.get('objectType') && notification.get('data')) {
+                            if (notification.get('notification_type') && notification.get('data')) {
                                 const data = notification.get('data')
                                 let link = false;
-                                switch(notification.get('objectType')) {
+                                switch(notification.get('notification_type')) {
                                     case 'ProjectApplicant':
                                         link = `/projects/${data.get('id')}/applicants`
                                         break
@@ -225,7 +228,7 @@ class Notifications extends Component {
                                 }
                                 if (link) {
                                     Wrapper = (e => <span className="clickable" onClick={()=>{
-                                        if(!notificationActions && !notification.get('hasRead')) {
+                                        if(!notificationActions && !notification.get('action_done')) {
                                             markNotificationAsRead(notification.get('id')).then(
                                                 () => {
                                                     history.push(link)
@@ -243,7 +246,7 @@ class Notifications extends Component {
                                     <div className={`notification--${className}__message`}>
                                         {notification.get('message')}
                                     </div>
-                                    {notificationActions && !notification.get('hasRead')?
+                                    {notificationActions && !notification.get('action_done')?
                                         <div className={`notification--${className}__actions`}>
                                             {notificationActions}
                                         </div>
@@ -253,7 +256,7 @@ class Notifications extends Component {
                                         <div className={`notification--${className}__footer__time`}>
                                             <Timestamp autoUpdate time={notification.get('time')} />
                                         </div>
-                                        {!notificationActions && !notification.get('hasRead') ?
+                                        {!notificationActions && !notification.get('hasRead') && !isHome ?
                                             <div onClick={markReadAction(notification.get('id'))}
                                                 className='notification--unread__footer__mark-read'>
                                                 Mark Read
@@ -269,10 +272,36 @@ class Notifications extends Component {
 
         return (
             <div>
-                <h1>Notifications</h1>
-                <h3>No Results Found</h3>
+                {isHome ? '' : <h1>Notifications</h1>}
+                {isHome? this.showWelcomeMessage() : <h3>No Results Found</h3>}
             </div>
         )
+    }
+
+    showWelcomeMessage () {
+        return <div className="welcome">
+            <h1><i className="em-svg em-tada"></i> Welcome! <i className="em-svg em-tada"></i></h1>
+            <div>
+                <div>
+                    We're glad to have you here!
+                </div>
+                <div>
+                    To get started, you should first update your profile. You can do that by clicking on the profile icon in the upper-right corner and then hitting the Edit Icon <i className='fas fa-pencil-alt'></i>.
+                </div>
+                <div>
+                    Once you are done, click on the "Home" link on the left and then click on "Friends" to find new friends, "Projects" to join a public project, or "Organziations" to join a class, non-profit, or business.
+                </div>
+                <div>
+                    If you ever get lost, Just click on the Project Fuse logo in the upper-left corner to come back here.
+                </div>
+                <div>
+                    Once you start getting invitations and notifications we'll show those here.
+                </div>
+                <div>
+                    Have fun! <i className="em-svg em-smile"></i>
+                </div>
+            </div>
+        </div>
     }
 }
 
