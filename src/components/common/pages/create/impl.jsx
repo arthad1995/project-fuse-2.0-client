@@ -83,6 +83,7 @@ class Page extends Component {
             {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
             <this.Form formName={`create=${this.props.name}`}
                 thumbnail={(this.props.initialValues.thumbnail_id ? config.host + '/files/download/' + this.props.initialValues.thumbnail_id : null)}
+                background={(this.props.initialValues.background_id ? config.host + '/files/download/' + this.props.initialValues.background_id : null)}
                 customElems={this.props.customElems}
                 showName={showName}
                 initialValues={this.props.initialValues}
