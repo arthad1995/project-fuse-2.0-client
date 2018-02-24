@@ -104,7 +104,7 @@ const friendItem = (tab, data) => {
                 id={friend.get('id')}
                 img={friend.get('thumbnail_id')}
                 name={friend.get('name')}
-                elem={friend.get('profile').set('skills', null)}
+                elem={(friend.get('profile') || fromJS({})).set('skills', null)}
                 key={friendship.get('id')}
             >
                 {isApplied?<div><ButtonAccept /><ButtonDecline /></div> : null}
