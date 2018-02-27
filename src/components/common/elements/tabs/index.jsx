@@ -143,11 +143,7 @@ export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
         }
         default: {
             const data = (props[tab.arr_key] && props[tab.arr_key].get('data')) ? props[tab.arr_key].get('data') : null
-<<<<<<< HEAD
             return baseUrl == 'friends' ? friendItem(tab, data) : normalItem(tab, data, baseUrl)
-=======
-            return baseUrl == 'friends' ? friendItem(tab, data) : normalItem(baseUrl, tab, data)
->>>>>>> nested_integration
         }
     }
 }

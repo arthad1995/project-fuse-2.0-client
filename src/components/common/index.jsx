@@ -14,7 +14,6 @@ export {CreateSidebar} from './sidebars/create'
 export {SearchPageSidebar} from './sidebars/search'
 
 export {default as AnimationHandler} from './elements/animation'
-export {default as ListItem} from './elements/listItem'
 export {Editor} from './elements/editor'
 export {ApplyButton} from './elements/application'
 export const Card = (props) => <Async load={import('./elements/card')} {...props} />
