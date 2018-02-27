@@ -48,6 +48,8 @@ class Page extends Component {
     }
 
     render() {
+        console.log(this.props)
+        console.log(this.state)
         if(!this.props.index) return <div className="loading"></div>
         const params = this.props.match.params
         const props = this.props[this.props.index] || fromJS({})
@@ -66,7 +68,7 @@ class Page extends Component {
             },
         }
 
-        if (props.get('REDIRECT_ID')) {
+        if (props.get('REDIRECT_ID') && !this.props.redirectFunc) {
             return <Redirect push to={`/${this.props.index}/${props.get('REDIRECT_ID')}`} />
         }
 
@@ -89,7 +91,10 @@ class Page extends Component {
                 initialValues={this.props.initialValues}
                 disabled={props.get("fetching")}
                 onSubmit={saveFunc}
-                cancelAction={this.props.history.goBack} />
+                redirectFunc={this.props.redirectFunc}
+                orgId={this.props.orgId}
+                imgUpload={this.state.edit}
+                cancelAction={this.props.cancelAction || this.props.history.goBack} />
             <ErrorDisplay errors={props.get('errors')} />
         </div>
     }

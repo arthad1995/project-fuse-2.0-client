@@ -52,6 +52,10 @@ class Form extends Component {
                         <label htmlFor="summary">Summary</label><br />
                         <Field component="textarea" className="fullWidth" placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
                         {customElems ? customElems() : null}
+                        {this.props.orgId ?
+                            <Field component="input" type="hidden" name="orgId" />
+                            : ''
+                        }
                     </div>
                     <div className="buttons">
                         <input className='btn save tone1-1-color' type="submit" id="submit" name="submit" value="Save" />
