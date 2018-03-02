@@ -29,6 +29,18 @@ class Page extends Component {
         return '';
     }
 
+    renderLinks() {
+        if (profile.get('links')) {
+            <div className="cardWrapper">
+                {profile.get('links').map((link, index) => <div key={index} className="card lights">
+                    <div class="content">
+                        <a href={link.get('link')}target="_blank">{link.get('name')}</a>
+                    </div>
+                </div>)}
+            </div>
+        }
+    }
+
     render() {
         if (this.props[this.props.index].get('fetching')) {
             return <div className="loading"></div>
@@ -69,6 +81,8 @@ class Page extends Component {
                             <div className='description'>
                                 <ReactMarkdown source={elem.get('content') || ''} />
                             </div>
+                            <h3 className='title'>{'Links'}</h3>
+                            {this.renderLinks}
                         </div>
                     </div>
                 </AnimationHandler>

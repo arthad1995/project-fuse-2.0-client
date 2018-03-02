@@ -8,7 +8,7 @@ import ImageUpload from '../../elements/image_upload'
 class Form extends Component {
 
     render() {
-        const { handleSubmit, cancelAction, formErrors, customElems } = this.props
+        const { handleSubmit, cancelAction, addLinkAction, formErrors, customElems } = this.props
         let showName = this.props.showName
 
         if (showName !== false)
@@ -52,6 +52,18 @@ class Form extends Component {
                         <label htmlFor="summary">Summary</label><br />
                         <Field component="textarea" className="fullWidth" placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
                         {customElems ? customElems() : null}
+                        <h3 className='title'>{'Links'}</h3>
+                        <div onClick={addLinkAction} className="btn tone1-4-color"> {/*TODO use different button*/}
+                            Add link
+                        </div>
+                        {/* <div className="cardWrapper">
+                            {profile.get('links').map((link, index) => <div key={index} className="card lights">
+                                <div class="content">
+                                <Field component="input" className="fullWidth" placeholder="A short phrase or sentance to describe who you are" type="text" name="headline" /><br />
+                                    <a href={link.get('link')}target="_blank">{link.get('name')}</a>
+                                </div>
+                            </div>)}
+                        </div> */}
                     </div>
                     <div className="buttons">
                         <input className='btn save tone1-1-color' type="submit" id="submit" name="submit" value="Save" />
