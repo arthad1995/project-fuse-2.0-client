@@ -38,9 +38,16 @@ class Page extends Component {
             if(!relationship.get('user')) {
                 return null;
             }
+            let profile = relationship.get('user').get('profile') || fromJS({})
+            profile = profile.set(
+                'skills',
+                (profile.get('skills') ?
+                    fromJS(profile.get('skills').split(','))
+                : null)
+            )
             return (
                 <ListItem
-                    elem={relationship.get('user').get('profile') || fromJS({})}
+                    elem={profile}
                     baseUrl={'users'}
                     key={relationship.get('user').get('id')}
                     id={relationship.get('user').get('id')}
