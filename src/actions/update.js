@@ -80,6 +80,17 @@ export const updateCurrentUser = history => id => values => {
             let promises = []
             if(thumbnail) {
                 return fileUpload(`/users/upload/thumbnail`, thumbnail, 'UPLOAD_USER_THUMBNAIL')
+                    .then(response => {
+                        if (response.data) {
+                            response = response.data
+                            if (response.data) {
+                                response = response.data
+                                if (response.id) {
+                                    store.dispatch({type: 'UPDATE_THUMBNAIL_UI', val: response.id})
+                                }
+                            }
+                        }
+                    })
             } else {
                 return Promise.resolve()
             }
