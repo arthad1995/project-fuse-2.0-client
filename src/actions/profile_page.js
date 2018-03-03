@@ -20,7 +20,7 @@ export const loadOrganization = (id) => {
     return network.GET(`/organizations/${id}`)
 }
 
-export const loadOrganizationProjets = id => {
+export const          loadOrganizationProjects = id => {
     const network = new Network('LOAD_ORGANIZATION_PROJECTS_INFO')
     return network.GET(`/organizations/${id}/projects`)
 }

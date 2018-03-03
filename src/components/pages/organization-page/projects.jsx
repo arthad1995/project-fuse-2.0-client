@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
-import {loadOrganizationProjets} from '../../../actions/profile_page'
-import {ListItem, AnimationHandler, Tabs, Tab, TabList, TabPanel} from '../../common'
+import {loadOrganizationProjects} from '../../../actions/profile_page'
+import {ListItem, AnimationHandler, Tabs, Tab, TabList, TabPanel, stopEvent} from '../../common'
 import {fromJS} from 'immutable'
 import CreatePage from '../../common/pages/create/impl'
 import {createProject} from '../../../actions/create'
+import {applyToProject} from '../../../actions/apply'
 
 @connect(state => {
     return {
@@ -33,17 +34,13 @@ class OrganizationProjects extends Component {
     }
 
     componentWillMount() {
-        loadOrganizationProjets(this.props.match.params.id)
+        loadOrganizationProjects(this.props.match.params.id)
     }
 
     tabChange(index, lastIndex, event) {
         if (index === lastIndex) {
             return
         }
-
-        console.log(index)
-        console.log(this.state)
-        console.log(this.state.tabs[index])
 
         this.props.dispatch({ type: "CHANGE_SUB_TAB", value: this.state.tabs[index] })
     }
@@ -77,6 +74,7 @@ class OrganizationProjects extends Component {
     }
 
     showProjectList() {
+        const dispatch = this.props.dispatch
         return (
             <div>
                 {this.props.projects && this.props.projects.size
@@ -92,7 +90,16 @@ class OrganizationProjects extends Component {
                                         baseUrl={"projects"}
                                         id={proj.get('id')}
                                         name={proj.get('name')}
-                                    />
+                                    >
+                                    {proj.get('canApply') || proj.get('canJoin') ?
+                                        <div
+                                            onClick={(e) => { stopEvent(e); applyToProject(proj, dispatch).then(() => loadOrganizationProjects(this.props.match.params.id));
+                                                return false; }}
+                                            className="btn tone1-1-color apply"
+                                        >{proj.get('canApply') ? 'Apply' : 'Join'}</div>
+                                        : ''
+                                    }
+                                    </ListItem>
                                 )
                             })}
                         </ul>
@@ -102,7 +109,7 @@ class OrganizationProjects extends Component {
     }
 
     handleCreation() {
-        loadOrganizationProjets(this.props.match.params.id)
+        loadOrganizationProjects(this.props.match.params.id)
         this.props.dispatch({ type: "CHANGE_SUB_TAB", value: "all" })
     }
 

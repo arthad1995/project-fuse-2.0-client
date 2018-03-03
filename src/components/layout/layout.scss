@@ -1837,9 +1837,13 @@ $profile_height: 15rem;
   padding: 0.5rem 1rem;
 
   li {
-    background-color: hsl(0,0%,96%);
+    background-color: hsl(0,0%,98%);
     padding: 1.5rem;
     margin: 0.5rem;
+    .skills li {
+      color: black;
+      background-color: hsl(0,0%,85%);
+    }
   }
 
   .applicant {

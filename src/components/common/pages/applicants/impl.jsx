@@ -42,7 +42,7 @@ class Page extends Component {
         if (!user) {
             return null
         }
-        const profile = user.get('profile')
+        const profile = user.get('profile') || fromJS({})
         return (
             <div className="applicant">
                 <div className="applicant-info">
@@ -57,7 +57,7 @@ class Page extends Component {
                         <div className="summary">
                             {profile.get('summary')}
                         </div>
-                        {(profile.get('skills').length) ?
+                        {(profile.get('skills') && profile.get('skills').length) ?
                         <div className="skills">
                             <ul>
                                 {profile.get('skills').split(',').map((skill, i) => {
