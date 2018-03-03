@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
-import {change_tab} from '../../../actions/ui'
 import {Link} from 'react-router-dom'
-import {TabSidebar} from './tabs' 
+import {TabSidebar} from './tabs'
 import { connect } from 'react-redux'
 import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
