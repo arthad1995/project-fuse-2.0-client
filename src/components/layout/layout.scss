@@ -1985,3 +1985,12 @@ input {
     padding-bottom: 10px;
   }
 }
+
+.success-feedback {
+  border: 2px solid hsl(115, 100%, 30%);
+  background-color: hsl(98, 100%, 85%);
+  color: hsl(115, 100%, 20%);
+  font-weight: bold;
+  text-align: center;
+  padding: 1.5rem;
+}
