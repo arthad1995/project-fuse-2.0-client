@@ -2,7 +2,15 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import Timestamp from 'react-timestamp'
 import { connect } from 'react-redux'
-import { loadNotifications, markNotificationAsRead, loadInterviewSlotsFor, declineInvite, acceptInvite } from '../../../actions/notifications'
+import {
+    loadNotifications,
+    markNotificationAsRead,
+    markNotificationAsDone,
+    loadInterviewSlotsFor,
+    declineInvite,
+    acceptInvite
+} from '../../../actions/notifications'
+import { acceptFriend, declineFriend, applyToOrganization, applyToProject } from '../../../actions/apply'
 import {stopEvent} from '../../common'
 import {fromJS} from 'immutable'
 
@@ -149,14 +157,21 @@ class Notifications extends Component {
 
                             if (notification.get('notification_type') && notification.get('data')) {
                                 const data = notification.get('data')
+                                console.log(notification.get('notification_type'))
+                                console.log(JSON.stringify(data))
                                 let link = false;
                                 switch(notification.get('notification_type')) {
                                     case 'ProjectApplicant':
                                         link = `/projects/${data.get('id')}/applicants`
                                         break
-                                    case 'ProjectInvitation':
+                                    case 'ProjectInvitation:Invite':
                                         notificationActions = <div>
-                                            <div className="btn tone1-1-color" onClick={stopEvent}>
+                                            <div className="btn tone1-1-color" onClick={(e) => {
+                                                stopEvent(e)
+                                                applyToProject(data).then(() => markNotificationAsDone(notification.get('id')))
+                                                markNotificationAsRead(notification.get('id'))
+                                                return false
+                                            }}>
                                                 Join
                                             </div>
                                             <div className="btn tone2-1-color" onClick={handleDeclineInvite('project',{
@@ -196,9 +211,14 @@ class Notifications extends Component {
                                         </div>
                                         link = `/organizations/${data.get('organization').get('id')}`
                                         break
-                                    case 'OrganizationInvitation':
+                                    case 'OrganizationInvitation:Invite':
                                         notificationActions = <div>
-                                            <div className="btn tone1-1-color" onClick={stopEvent}>
+                                            <div className="btn tone1-1-color" onClick={(e) => {
+                                                stopEvent(e)
+                                                applyToOrganization(data).then(() => markNotificationAsDone(notification.get('id')))
+                                                markNotificationAsRead(notification.get('id'))
+                                                return false
+                                            }}>
                                                 Join
                                             </div>
                                             <div className="btn tone2-1-color"  onClick={handleDeclineInvite('organization',{
@@ -215,10 +235,20 @@ class Notifications extends Component {
                                         break
                                     case 'Friend:Request':
                                         notificationActions = <div>
-                                            <div className="btn tone1-1-color" onClick={stopEvent}>
+                                            <div className="btn tone1-1-color" onClick={(e) => {
+                                                stopEvent(e)
+                                                acceptFriend(data).then(() => markNotificationAsDone(notification.get('id')))
+                                                markNotificationAsRead(notification.get('id'))
+                                                return false
+                                            }}>
                                                 Accept
                                             </div>
-                                            <div className="btn tone2-1-color" onClick={stopEvent}>
+                                            <div className="btn tone2-1-color" onClick={(e) => {
+                                                stopEvent(e)
+                                                declineFriend(data).then(() => markNotificationAsDone(notification.get('id')))
+                                                markNotificationAsRead(notification.get('id'))
+                                                return false
+                                            }}>
                                                 Dismiss
                                             </div>
                                         </div>
