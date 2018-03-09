@@ -19,13 +19,13 @@ export const declineFriend = friendship => {
 
 export const applyToOrganization = (invitation, dispatch) => {
     const network = new Network('JOIN_ORGANIZATION')
-    const organization = invitation.get('organization') || fromJS({})
+    const organization = invitation.get('organization') || invitation
     return network.POST(`/organizations/${organization.get('id')}/join`).then(() => myOrganizations())
 }
 
 export const applyToProject = (invitation, dispatch) => {
     const network = new Network('JOIN_PROJECT')
-    const project = invitation.get('project') || fromJS({})
+    const project = invitation.get('project') || invitation
     return network.POST(`/projects/${project.get('id')}/join`).then(() => myProjects())
 }
 

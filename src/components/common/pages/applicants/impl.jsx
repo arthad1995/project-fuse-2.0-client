@@ -1,3 +1,4 @@
+import moment from 'moment'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapSingleKey } from '../../mapping_helpers'
@@ -7,6 +8,7 @@ import { AnimationHandler } from '../../../common'
 import { Map, fromJS } from 'immutable'
 import { Tab, Tabs, TabList, TabPanel } from '../../../common'
 import {stopEvent} from '../../../common'
+import {date_format} from '../../../../utils/date_utils'
 import {declineApplicant, scheduleInterview, inviteAppToJoin, cancelAppInterview, reconsiderApplicant} from '../../../../actions/applicants'
 
 const stopEventWrapper = (e, func) => {
@@ -184,10 +186,35 @@ class Page extends Component {
         return data && data.size ? <ul className="applicant-list">{data.valueSeq().toArray().map((elem, index) => {
             const cancelInterview = ((e) => stopEventWrapper(e,this.cancelInterview(elem))).bind(this)
             const sender = elem.get('sender') || fromJS({})
+            const interview = elem.get('interview')
             return (
                 <Link to={`/users/${sender.get('id')}`} key={index}>
                     <li className="sender">
                         {this.renderUser(sender)}
+                        {interview ?
+                            <div className="interview-time">
+                                Interview Time:
+                                <div className="interview-time__time-display">
+                                    <div className='interview-time__time-display__from'>
+                                        <div className='date'>
+                                            {date_format(moment(interview.get('start')), 'MMM Do')}
+                                        </div>
+                                        <div className='time'>
+                                            {date_format(moment(interview.get('start')), 'h:mm A')}
+                                        </div>
+                                    </div>
+                                    <div className="interview-time__time-display__separator"> - </div>
+                                    <div className='interview-time__time-display__to'>
+                                        <div className='date'>
+                                                {date_format(moment(interview.get('end')), 'MMM Do')}
+                                            </div>
+                                            <div className='time'>
+                                                {date_format(moment(interview.get('end')), 'h:mm A')}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            : null}
                         <div className="btns">
                             <div className='btn tone1-2-color'>View</div>
                             <div className='btn tone2-1-color' onClick={cancelInterview}>Cancel Interview</div>

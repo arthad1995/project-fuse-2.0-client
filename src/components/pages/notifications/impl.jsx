@@ -49,7 +49,10 @@ class Notifications extends Component {
             dispatch({type: 'SELECT_TIMESLOT', value: id})
         }
         const dispatchReadEvent = id => {
-            dispatch({type: 'INTERVIEW_READ', id})
+            dispatch({type: 'NOTIFICATION_READ', id})
+        }
+        const dispatchDoneEvent = id => {
+            dispatch({type: 'NOTIFICATION_DONE', id})
         }
         const handleInterviewInvite = (type,id, inviteId, notifId) => (e) => {
             stopEvent(e)
@@ -70,9 +73,13 @@ class Notifications extends Component {
             stopEvent(e)
             markRead(id)
         }
+        const markDone = id => {
+            dispatchDoneEvent(id)
+            markNotificationAsDone(id)
+        }
         const handleDeclineInvite = (type, payload, notifId) => e => {
             stopEvent(e)
-            markRead(notifId)
+            markDone(notifId)
             declineInvite(type, payload)
         }
         const slot = this.props.selectedSlot
@@ -80,7 +87,7 @@ class Notifications extends Component {
         const scheduleInterview = e => {
             stopEvent(e)
             const inviteInfo = props.inviteInfo
-            markRead(inviteInfo.get('notifId'))
+            markDone(inviteInfo.get('notifId'))
             const payload = {
                 id: inviteInfo.get('inviteId'),
                 interview: {
@@ -89,6 +96,7 @@ class Notifications extends Component {
             }
             acceptInvite(inviteInfo.get('type').slice(0, -1),payload).then(() => hideSlots())
         }
+        console.log(JSON.stringify(this.props.notifications.get('origData')))
         if(!this.props.notifications.get('origData')) {
             if(this.props.notifications.get('fetching')) {
                 return  (
@@ -157,13 +165,17 @@ class Notifications extends Component {
                             let link = false;
                             if (notification.get('notification_type') && notification.get('data')) {
                                 const data = notification.get('data')
-                                // console.log(notification.get('notification_type'))
-                                // console.log(JSON.stringify(data))
+                                console.log(notification.get('notification_type'))
+                                console.log(notification.get('data_type'))
+                                console.log(JSON.stringify(data))
                                 switch(notification.get('notification_type')) {
                                     case 'ProjectApplicant:Info':
-                                        link = `/projects/${(data.get('project') || fromJS({})).get('id')}/applicants`
+                                        link = `/projects/${data.get('project').get('id')}/applicants`
                                         break
-                                    case 'ProjectInvitation:Invite':
+                                    case 'ProjectJoined:Info':
+                                        link = `/projects/${data.get('id')}/members`
+                                        break
+                                    case 'ProjectInvitation:Pending':
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
@@ -187,7 +199,7 @@ class Notifications extends Component {
                                             </div>
                                         </div>
                                         break
-                                    case 'ProjectInterview:Invite':
+                                    case 'ProjectInterview:Pending':
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
@@ -206,7 +218,7 @@ class Notifications extends Component {
                                             </div>
                                         </div>
                                         break
-                                    case 'OrganizationInterview:Invite':
+                                    case 'OrganizationInterview:Pending':
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
@@ -225,7 +237,7 @@ class Notifications extends Component {
                                             </div>
                                         </div>
                                         break
-                                    case 'OrganizationInvitation:Invite':
+                                    case 'OrganizationInvitation:Pending':
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
@@ -250,13 +262,16 @@ class Notifications extends Component {
                                         </div>
                                         break
                                     case 'OrganizationApplicant:Info':
-                                        link = `/organizations/${(data.get('organizations') || fromJS({})).get('id')}/applicants`
+                                        link = `/organizations/${data.get('organization').get('id')}/applicants`
+                                        break
+                                    case 'OrganizationJoined:Info':
+                                        link = `/organizations/${data.get('id')}/members`
                                         break
                                     case 'FriendRequest:Pending':
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
-                                                onClick={()=>history.push(link)}
+                                                onClick={()=>history.push(`/users/${data.get('receiver').get('id')}`)}
                                             >
                                                 View
                                             </div>
@@ -277,8 +292,9 @@ class Notifications extends Component {
                                                 Dismiss
                                             </div>
                                         </div>
+                                        break
                                     case 'FriendRequest:Accepted':
-                                        link = `/users/${data.get('reciever').get('id')}`
+                                        link = `/users/${data.get('receiver').get('id')}`
                                         break
                                 }
                             }
@@ -288,14 +304,22 @@ class Notifications extends Component {
                                     <div className={`notification--${className}__message`}>
                                         {notification.get('message')}
                                     </div>
-                                    {notificationActions && !notification.get('action_done')?
+                                    {link?
                                         <div className={`notification--${className}__actions`}>
-                                            {link? <div><div
-                                                className="btn tone1-4-color"
-                                                onClick={()=>history.push(link)}
-                                                >View</div></div> : notificationActions}
-                                        </div>
-                                        : ''
+                                            <div>
+                                                <div
+                                                    className="btn tone1-4-color"
+                                                    onClick={()=>history.push(link)}
+                                                >
+                                                    View
+                                                </div>
+                                            </div>
+                                        </div> :
+                                        notificationActions && !notification.get('action_done') ?
+                                            <div className={`notification--${className}__actions`}>
+                                                {notificationActions}
+                                            </div>
+                                            : ''
                                     }
                                     <div className={`notification--${className}__footer`}>
                                         <div className={`notification--${className}__footer__time`}>
