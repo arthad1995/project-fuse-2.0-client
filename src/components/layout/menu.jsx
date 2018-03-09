@@ -91,7 +91,7 @@ export default class Menu extends Component {
                             </ul>
                         </li>
                         <li>
-                            <Link to="/notifications"><i className="fa shadow fa-bell"></i></Link>
+                            <Link to="/"><i className="fa shadow fa-bell"></i></Link>
                         </li>
                         <li className="phoneOnly">
                             <a className="pointer" onClick={this.toggleSearchbar}><i className="fa shadow fa-search"></i></a>
