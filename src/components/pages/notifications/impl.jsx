@@ -82,6 +82,7 @@ class Notifications extends Component {
             markDone(notifId)
             declineInvite(type, payload)
         }
+        const navToOnClick = link => () => history.push(link)
         const slot = this.props.selectedSlot
         const props = this.props
         const scheduleInterview = e => {
@@ -175,7 +176,7 @@ class Notifications extends Component {
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
-                                                onClick={()=>history.push(`/projects/${data.get('project').get('id')}`)}
+                                                onClick={navToOnClick(`/projects/${data.get('project').get('id')}`)}
                                             >
                                                 View
                                             </div>
@@ -199,7 +200,7 @@ class Notifications extends Component {
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
-                                                onClick={()=>history.push(`/projects/${data.get('project').get('id')}`)}
+                                                onClick={navToOnClick(`/projects/${data.get('project').get('id')}`)}
                                             >
                                                 View
                                             </div>
@@ -218,7 +219,7 @@ class Notifications extends Component {
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
-                                                onClick={()=>history.push(`/organizations/${data.get('organization').get('id')}`)}
+                                                onClick={navToOnClick(`/organizations/${data.get('organization').get('id')}`)}
                                             >
                                                 View
                                             </div>
@@ -237,7 +238,7 @@ class Notifications extends Component {
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
-                                                onClick={()=>history.push(`/organizations/${(data.get('organizations') || fromJS({})).get('id')}`)}
+                                                onClick={navToOnClick(`/organizations/${data.get('organizations').get('id')}`)}
                                             >
                                                 View
                                             </div>
@@ -267,7 +268,7 @@ class Notifications extends Component {
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
-                                                onClick={()=>history.push(`/users/${data.get('receiver').get('id')}`)}
+                                                onClick={navToOnClick(`/users/${data.get('receiver').get('id')}`)}
                                             >
                                                 View
                                             </div>
@@ -305,7 +306,7 @@ class Notifications extends Component {
                                             <div>
                                                 <div
                                                     className="btn tone1-4-color"
-                                                    onClick={()=>history.push(link)}
+                                                    onClick={navToOnClick(link)}
                                                 >
                                                     View
                                                 </div>
@@ -322,8 +323,10 @@ class Notifications extends Component {
                                             <Timestamp autoUpdate time={notification.get('time')} />
                                         </div>
                                         {!notificationActions && !notification.get('hasRead') && !isHome ?
-                                            <div onClick={markReadAction(notification.get('id'))}
-                                                className='notification--unread__footer__mark-read'>
+                                            <div
+                                                onClick={markReadAction(notification.get('id'))}
+                                                className='notification--unread__footer__mark-read'
+                                            >
                                                 Mark Read
                                             </div> : ''}
                                     </div>
