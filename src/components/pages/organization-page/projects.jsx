@@ -81,7 +81,6 @@ class OrganizationProjects extends Component {
                     ?
                         <ul className='list'>
                             {this.props.projects.valueSeq().toArray().map(proj => {
-                                console.log(proj.toJS())
                                 return (
                                     <ListItem
                                         key={proj.get('id')}

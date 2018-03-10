@@ -96,7 +96,6 @@ class Notifications extends Component {
             }
             acceptInvite(inviteInfo.get('type').slice(0, -1),payload).then(() => hideSlots())
         }
-        console.log(JSON.stringify(this.props.notifications.get('origData')))
         if(!this.props.notifications.get('origData')) {
             if(this.props.notifications.get('fetching')) {
                 return  (
@@ -165,9 +164,6 @@ class Notifications extends Component {
                             let link = false;
                             if (notification.get('notification_type') && notification.get('data')) {
                                 const data = notification.get('data')
-                                console.log(notification.get('notification_type'))
-                                console.log(notification.get('data_type'))
-                                console.log(JSON.stringify(data))
                                 switch(notification.get('notification_type')) {
                                     case 'ProjectApplicant:Info':
                                         link = `/projects/${data.get('project').get('id')}/applicants`

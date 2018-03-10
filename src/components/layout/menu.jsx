@@ -69,12 +69,19 @@ export default class Menu extends Component {
                     <ul className="menu">
                         <li>
                             <Link to={`/users/${user.get('id')}`}>
-                                <div className="menu__profile-icon">
-                                    <img src={
-                                        (curUser.get('profile') && curUser.get('profile').get('thumbnail_id')) ?
-                                            config.host + '/files/download/' + curUser.get('profile').get('thumbnail_id') :
-                                            '/assets/images/profile_icon.svg'
-                                    } />
+                                <div className="menu__dropdown">
+                                    <div className="menu__dropdown__profile-icon">
+                                        <img src={
+                                            (curUser.get('profile') && curUser.get('profile').get('thumbnail_id')) ?
+                                                config.host + '/files/download/' + curUser.get('profile').get('thumbnail_id') :
+                                                '/assets/images/profile_icon.svg'
+                                        } />
+                                    </div>
+                                    <div className="menu__dropdown__name">
+                                        <div>
+                                            {(curUser.get('name') || '').split(" ")[0]}
+                                        </div>
+                                    </div>
                                 </div>
                             </Link>
                             <ul className="dropdown">

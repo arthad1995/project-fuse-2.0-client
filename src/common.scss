@@ -222,6 +222,10 @@ $ranges: (
     @media(max-width: map-get(map-get($ranges, tablet-portrait), max)) { @content; }
 }
 
+@mixin for-tablet-portrait{
+    @media(max-width: map-get(map-get($ranges, tablet-portrait), max)) and (min-width: map-get(map-get($ranges, tablet-portrait), min)) { @content; }
+}
+
 @mixin for-tablet-landscape-up{
     @media(min-width: map-get(map-get($ranges, tablet-landscape), min)) { @content; }
 }

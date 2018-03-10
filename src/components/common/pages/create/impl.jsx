@@ -48,8 +48,6 @@ class Page extends Component {
     }
 
     render() {
-        console.log(this.props)
-        console.log(this.state)
         if(!this.props.index) return <div className="loading"></div>
         const params = this.props.match.params
         const props = this.props[this.props.index] || fromJS({})

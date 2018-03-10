@@ -66,13 +66,15 @@ body {
   padding: $header-padding;
   line-height: $header-height;
   font-size: 14pt;
+  $col: #040405;
+  box-shadow: 0px 2px 2px $col;
   .search-bar-embeded-menu-wrapper{
     @extend .hideOnPhone;
     float: left;
     margin-left: 1.25rem;
     width: calc(100% - 10rem);
     @include for-tablet-landscape-up {
-      margin-left: calc(15% + 5rem);
+      margin-left: calc(15% + 2.5rem);
       width: calc(70% - 10rem);
     }
 
@@ -221,22 +223,62 @@ body {
     margin: 0;
     margin-top: 0.5rem;
     padding-left: 0;
-    .menu__profile-icon {
-      width: $header-height;
-      height: $header-height;
-      border-radius: 50%;
-      overflow: hidden;
-      padding: 0;
-      position: relative;
-      img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        margin: 0;
-        margin-top: 1px;
-        width: $header-height + 5px;
-        height: $header-height + 5px;
+    .menu {
+      &__dropdown {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: nowrap;
+        @include for-tablet-portrait {
+          flex-direction: column;
+        }
+        &__profile-icon {
+          width: $header-height;
+          height: $header-height;
+          border-radius: 50%;
+          overflow: hidden;
+          padding: 0;
+          position: relative;
+          img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            margin-top: 1px;
+            width: $header-height + 5px;
+            height: $header-height + 5px;
+          }
+          box-shadow: 0px 3px 8px $col;
+          &:hover{
+            box-shadow: 0px 1px 2px $col;
+          };
+        }
+        &__name {
+          margin-right: 1rem;
+          div {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: right;
+            max-width: 6rem;
+          }
+          @include for-tablet-portrait {
+            position: relative;
+            height: 1rem;
+            margin-right: 0;
+            div {
+              position: absolute;
+              display: inline-block;
+              font-size: 50%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-align: right;
+              width: 5rem;
+              right: -10px;
+            }
+          }
+        }
       }
     }
     li {
@@ -246,10 +288,11 @@ body {
       ul.dropdown {
         display: none;
         position: absolute;
-        top: 1rem;
+        top: 1.1rem;
         right: -1rem;
         padding-top: 1rem;
         z-index: 99999;
+        box-shadow: 2px 2px 2px $col;
         a {
           @extend .accent-color;
           text-align: center;
@@ -262,7 +305,8 @@ body {
         }
         li {
           padding: 0.25rem 0.5rem;
-          width: 150px;
+          min-width: 150px;
+          width: 100%;
           text-align: center;
         }
       }
