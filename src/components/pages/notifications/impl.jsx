@@ -295,7 +295,7 @@ class Notifications extends Component {
                                         notificationActions = <div>
                                             <div
                                                 className="btn tone1-4-color"
-                                                onClick={navToOnClick(`/organizations/${data.get('organizations').get('id')}`)}
+                                                onClick={navToOnClick(`/organizations/${data.get('organization').get('id')}`)}
                                             >
                                                 View
                                             </div>
