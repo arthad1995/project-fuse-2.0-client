@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { mapSingleKey } from '../../mapping_helpers'
 import { Link } from 'react-router-dom'
 const ReactMarkdown = require('react-markdown');
-import { AnimationHandler, ListItem, stopEventWrapper } from '../../../common'
+import { ListItem, stopEventWrapper } from '../../../common'
 import {Map, fromJS} from 'immutable'
 import {
     grantAdminAccess,
@@ -74,14 +74,12 @@ class Page extends Component {
 
         if (data) {
             return (
-                <AnimationHandler anim="SlideInTop" animKey='always'>
-                    <div>
-                        <h2>Members</h2>
-                        <ul className="list">
-                            {data.map(this.renderRelationship(canEdit))}
-                        </ul>
-                    </div>
-                </AnimationHandler>
+                <div>
+                    <h2>Members</h2>
+                    <ul className="list">
+                        {data.map(this.renderRelationship(canEdit))}
+                    </ul>
+                </div>
             )
         }
         else {

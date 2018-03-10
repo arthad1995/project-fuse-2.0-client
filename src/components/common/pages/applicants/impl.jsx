@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapSingleKey } from '../../mapping_helpers'
 import { Link } from 'react-router-dom'
-const ReactMarkdown = require('react-markdown');
-import { AnimationHandler } from '../../../common'
+const ReactMarkdown = require('react-markdown')
 import { Map, fromJS } from 'immutable'
 import { Tab, Tabs, TabList, TabPanel } from '../../../common'
 import {stopEvent} from '../../../common'
@@ -251,48 +250,46 @@ class Page extends Component {
 
 
         return (
-            <AnimationHandler anim="SlideInTop" animKey='always'>
-                <div className="relative">
-                    <h2>Applicants</h2>
-                    <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.ui.get('applicant_tab'))}>
-                        <TabList>
-                            <Tab>Pending</Tab>
-                            <Tab>Interviews</Tab>
-                            <Tab>Interviewed</Tab>
-                            <Tab>Invited</Tab>
-                            <Tab>Declined</Tab>
-                        </TabList>
+            <div className="relative">
+                <h2>Applicants</h2>
+                <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.ui.get('applicant_tab'))}>
+                    <TabList>
+                        <Tab>Pending</Tab>
+                        <Tab>Interviews</Tab>
+                        <Tab>Interviewed</Tab>
+                        <Tab>Invited</Tab>
+                        <Tab>Declined</Tab>
+                    </TabList>
 
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showPending(data)
-                            }
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showInterviewScheduled(data)
-                            }
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showInterviewed(data)}
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showInvited(data)}
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showDeclined(data)}
-                        </TabPanel>
-                    </Tabs>
-                </div>
-            </AnimationHandler>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showPending(data)
+                        }
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showInterviewScheduled(data)
+                        }
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showInterviewed(data)}
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showInvited(data)}
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showDeclined(data)}
+                    </TabPanel>
+                </Tabs>
+            </div>
         )
     }
 }

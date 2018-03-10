@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Async, AnimationHandler } from '../../../common'
+import { Async } from '../../../common'
 import { show_time_picker, hide_time_picker } from '../../../../actions/ui'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import { Field, reset, reduxForm } from 'redux-form'

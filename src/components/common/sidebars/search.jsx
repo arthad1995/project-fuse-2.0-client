@@ -70,9 +70,7 @@ export const TabbedSearchSidebar = (url, show_new = true) => {
 
             return (
                 <div>
-                    <div className='section centered hideOnPhone'>
-                        <h2>{`${name}`}</h2>
-                    </div>
+                    <div className="hidden section centered"></div>
                     {url !== 'friends'?
                         <Link to='/my-friends'>
                             <div className='section centered'>

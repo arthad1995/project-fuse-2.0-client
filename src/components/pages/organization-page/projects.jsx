@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {loadOrganizationProjects} from '../../../actions/profile_page'
-import {ListItem, AnimationHandler, Tabs, Tab, TabList, TabPanel, stopEvent} from '../../common'
+import {ListItem, Tabs, Tab, TabList, TabPanel, stopEvent} from '../../common'
 import {fromJS} from 'immutable'
 import CreatePage from '../../common/pages/create/impl'
 import {createProject} from '../../../actions/create'
@@ -51,25 +51,23 @@ class OrganizationProjects extends Component {
 
     render() {
         return (
-            <AnimationHandler anim="SlideInTop" animKey='always'>
-                <div className="relative">
-                    <h2>Projects for {this.getOrgName()}</h2>
-                    <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.tab)}>
-                        <TabList>
-                            <Tab>Project List</Tab>
-                            <Tab>Create Project</Tab>
-                        </TabList>
+            <div className="relative">
+                <h2>Projects for {this.getOrgName()}</h2>
+                <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.tab)}>
+                    <TabList>
+                        <Tab>Project List</Tab>
+                        <Tab>Create Project</Tab>
+                    </TabList>
 
-                        <TabPanel>
-                            {this.showProjectList()}
-                        </TabPanel>
+                    <TabPanel>
+                        {this.showProjectList()}
+                    </TabPanel>
 
-                        <TabPanel>
-                            {this.showProjectForm()}
-                        </TabPanel>
-                    </Tabs>
-                </div>
-            </AnimationHandler>
+                    <TabPanel>
+                        {this.showProjectForm()}
+                    </TabPanel>
+                </Tabs>
+            </div>
         )
     }
 

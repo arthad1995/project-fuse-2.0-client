@@ -105,15 +105,13 @@ export default class Menu extends Component {
                         </li>
                     </ul>
                     {(this.props.ui.get('global_search').get('show')) ?
-                        <AnimationHandler anim="SlideInTopAbs" animKey='always'>
-                            <div className="phone-search">
-                                <SearchBar
-                                    value={this.props.ui.get('global_search').get('search')}
-                                    searchCallback={this.handleSearchChange}
-                                    buttonCallback={this.toggleSearchbar}
-                                />
-                            </div>
-                        </AnimationHandler>
+                        <div className="phone-search">
+                            <SearchBar
+                                value={this.props.ui.get('global_search').get('search')}
+                                searchCallback={this.handleSearchChange}
+                                buttonCallback={this.toggleSearchbar}
+                            />
+                        </div>
                         : (this.state.animHide) ?
                             <div>
                             <AnimationHandler anim="SlideOutTopAbs" animKey='always'>
