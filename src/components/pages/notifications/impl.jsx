@@ -128,10 +128,18 @@ class Notifications extends Component {
                                         return (
                                             <div
                                                 key={e.get('id')}
-                                                className={`btn ${e.get('id') === slot? 'tone1-4-color' : slot? 'tone1-3-color' : 'tone1-1-color'}`}
+                                                className={
+                                                    `btn ${e.get('id') === slot ?
+                                                            'tone1-4-color' :
+                                                                slot ?
+                                                                    'tone1-3-color' :
+                                                                    'tone1-1-color'}`
+                                                }
                                                 onClick={() => selectTimeslot(e.get('id'))}
                                             >
-                                                <Timestamp time={e.get('start')} format='full' /> - <Timestamp time={e.get('end')} format='full' />
+                                                <Timestamp time={e.get('start')} format='full' />
+                                                -
+                                                <Timestamp time={e.get('end')} format='full' />
                                             </div>
                                         )
                                     })}
@@ -139,7 +147,12 @@ class Notifications extends Component {
                             }
                             <div className="modal__btns">
                                 {slot ?
-                                    <div className="btn tone1-1-color" onClick={scheduleInterview}>Schedule</div>
+                                    <div
+                                        className="btn tone1-1-color"
+                                        onClick={scheduleInterview}
+                                    >
+                                        Schedule
+                                    </div>
                                     : ''
                                 }
                                 <div className="btn tone2-1-color" onClick={(e) => { stopEvent(e); hideSlots() }}>Cancel</div>
@@ -180,18 +193,29 @@ class Notifications extends Component {
                                             >
                                                 View
                                             </div>
-                                            <div className="btn tone1-1-color" onClick={(e) => {
-                                                stopEvent(e)
-                                                applyToProject(data).then(() => markNotificationAsDone(notification.get('id')))
-                                                markNotificationAsRead(notification.get('id'))
-                                                return false
-                                            }}>
+                                            <div
+                                                className="btn tone1-1-color"
+                                                onClick={(e) => {
+                                                        stopEvent(e)
+                                                        applyToProject(data).then(() => markNotificationAsDone(notification.get('id')))
+                                                        markNotificationAsRead(notification.get('id'))
+                                                        return false
+                                                    }
+                                                }
+                                            >
                                                 Join
                                             </div>
-                                            <div className="btn tone2-1-color" onClick={handleDeclineInvite('project',{
-                                                project:{id: data.get('project').get('id')},
-                                                id: data.get('id')
-                                            }, notification.get('id'))}>
+                                            <div
+                                                className="btn tone2-1-color"
+                                                onClick={
+                                                    handleDeclineInvite('project',
+                                                    {
+                                                        project:{id: data.get('project').get('id')},
+                                                        id: data.get('id')
+                                                    },
+                                                    notification.get('id'))
+                                                }
+                                            >
                                                 Decline
                                             </div>
                                         </div>
@@ -204,13 +228,30 @@ class Notifications extends Component {
                                             >
                                                 View
                                             </div>
-                                            <div className="btn tone1-1-color" onClick={handleInterviewInvite('projects', data.get('project').get('id'), data.get('id'), notification.get('id'))}>
+                                            <div
+                                                className="btn tone1-1-color"
+                                                onClick={
+                                                    handleInterviewInvite(
+                                                        'projects',
+                                                        data.get('project').get('id'),
+                                                        data.get('id'),
+                                                        notification.get('id')
+                                                    )
+                                                }
+                                            >
                                                 Accept
                                             </div>
-                                            <div className="btn tone2-1-color" onClick={handleDeclineInvite('project',{
-                                                project:{id: data.get('project').get('id')},
-                                                id: data.get('id')
-                                            }, notification.get('id'))}>
+                                            <div
+                                                className="btn tone2-1-color"
+                                                onClick={
+                                                    handleDeclineInvite('project',
+                                                    {
+                                                        project:{id: data.get('project').get('id')},
+                                                        id: data.get('id')
+                                                    },
+                                                    notification.get('id'))
+                                                }
+                                            >
                                                 Decline
                                             </div>
                                         </div>
@@ -223,13 +264,29 @@ class Notifications extends Component {
                                             >
                                                 View
                                             </div>
-                                            <div className="btn tone1-1-color"  onClick={handleInterviewInvite('organizations', data.get('organization').get('id'), data.get('id'), notification.get('id'))}>
+                                            <div
+                                                className="btn tone1-1-color"
+                                                onClick={
+                                                    handleInterviewInvite(
+                                                        'organizations',
+                                                        data.get('organization').get('id'),
+                                                        data.get('id'),
+                                                        notification.get('id')
+                                                    )
+                                                }
+                                            >
                                                 Accept
                                             </div>
-                                            <div className="btn tone2-1-color" onClick={handleDeclineInvite('organization',{
-                                                organization:{id: data.get('organization').get('id')},
-                                                id: data.get('id')
-                                            }, notification.get('id'))}>
+                                            <div
+                                                className="btn tone2-1-color"
+                                                onClick={
+                                                    handleDeclineInvite('organization',{
+                                                        organization:{id: data.get('organization').get('id')},
+                                                        id: data.get('id')
+                                                    },
+                                                    notification.get('id'))
+                                                }
+                                            >
                                                 Decline
                                             </div>
                                         </div>
@@ -250,10 +307,16 @@ class Notifications extends Component {
                                             }}>
                                                 Join
                                             </div>
-                                            <div className="btn tone2-1-color"  onClick={handleDeclineInvite('organization',{
-                                                project:{id: data.get('organization').get('id')},
-                                                id: data.get('id')
-                                            }, notification.get('id'))}>
+                                            <div
+                                                className="btn tone2-1-color"
+                                                onClick={
+                                                    handleDeclineInvite('organization',{
+                                                        project:{id: data.get('organization').get('id')},
+                                                        id: data.get('id')
+                                                    },
+                                                    notification.get('id'))
+                                                }
+                                            >
                                                 Decline
                                             </div>
                                         </div>
