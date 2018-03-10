@@ -30,7 +30,23 @@ body {
     height: $header-height / 2 + 20px;
     line-height: $header-height / 2;
     font-size: 14pt;
-    padding: $header-padding 10px;
+    padding: 0 10px;
+  }
+}
+
+.interview-time {
+  background-color: white;
+  border: 2px solid blue;
+  border-radius: 25px;
+  padding: 15px;
+  margin: 10px;
+  &__time-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    &__separator {
+      margin: 0.5rem;
+    }
   }
 }
 
