@@ -759,6 +759,11 @@ textarea {
 
 .fullWidth {
   width: 100%;
+  max-width: initial;
+}
+
+input.with-char-count, textarea.with-char-count {
+  margin-bottom: 0;
 }
 
 textarea {
@@ -2057,4 +2062,18 @@ input {
   font-weight: bold;
   text-align: center;
   padding: 1.5rem;
+}
+
+
+.character-count {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-size: 75%;
+  padding-right: 0.5rem;
+  &__current {
+    &:after {
+      content: "/"
+    }
+  }
 }

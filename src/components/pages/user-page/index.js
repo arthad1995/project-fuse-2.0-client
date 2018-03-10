@@ -10,7 +10,7 @@ const format = (skill) =>{
     return skill
 }
 
-export const UserPageSidebar = Sidebar 
+export const UserPageSidebar = Sidebar
 export const UserCustomElems = (user) => {
     const profile = user.get('profile') || Map()
     const skills = (profile.get('skills')) ? profile.get('skills').split(',') : []
@@ -29,7 +29,13 @@ export const UserCustomElems = (user) => {
 export const UserCustomElemsEdit = () => {
     return <div>
         <label htmlFor="skills">Skills</label>
-        <Field component="input" className="fullWidth" required placeholder="A comma-separated list of your skills. e.g. UI, C++,C#,Java,HTML,SQL" type="text" name="skills" /><br />
+        <Field
+            component="input"
+            className="fullWidth"
+            placeholder="A comma-separated list of your skills. e.g. UI, C++,C#,Java,HTML,SQL"
+            type="text"
+            name="skills"
+        /><br />
     </div>
 }
 
