@@ -3,6 +3,8 @@ import store from '../store'
 
 export const updateProject = history => id => values =>{
     const network = new Network('UPDATE_PROJECT')
+    const thumbnail = store.getState().fileUpload.get('thumbnail')
+    const background = store.getState().fileUpload.get('background')
     return network.PUT(`/projects/${id}`,{
         profile:{
             headline: values.headline,
@@ -40,6 +42,8 @@ export const updateTeam = history => id => values => {
 
 export const updateOrganization = history => id => values => {
     const network = new Network('UPDATE_ORGANIZATION')
+    const thumbnail = store.getState().fileUpload.get('thumbnail')
+    const background = store.getState().fileUpload.get('background')
     return network.PUT(`/organizations/${id}`,{
         profile:{
             headline: values.headline,
