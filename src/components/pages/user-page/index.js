@@ -1,6 +1,7 @@
 import Sidebar from './sidebar'
 import Projects from './projects_page'
 import Organizations from './organizations_page'
+import Friends from './friends_page'
 import {Map} from 'immutable'
 import React from 'react'
 import { Field } from 'redux-form'
@@ -41,3 +42,4 @@ export const UserCustomElemsEdit = () => {
 
 export const UserProjects = Projects
 export const UserOrganizations = Organizations
+export const UserFriends = Friends
