@@ -1,3 +1,4 @@
+import {fromJS} from 'immutable'
 import Network from '../network'
 import { myProjects, myOrganizations, myFriends } from './my_';
 
@@ -16,23 +17,15 @@ export const declineFriend = friendship => {
     return network.PUT('/friends/declined/' + friendship.get('id')).then(() => myFriends())
 }
 
-export const applyToOrganization = (organization, dispatch) => {
+export const applyToOrganization = (invitation, dispatch) => {
     const network = new Network('JOIN_ORGANIZATION')
+    const organization = invitation.get('organization') || invitation
     return network.POST(`/organizations/${organization.get('id')}/join`).then(() => myOrganizations())
 }
 
-export const applyToTeam = (team, dispatch) => {
-    dispatch({
-        type: "APPLY_TO_TEAM",
-        payload: {
-            id: team.get('id'),
-            name: team.get('name')
-        }
-    })
-}
-
-export const applyToProject = (project, dispatch) => {
+export const applyToProject = (invitation, dispatch) => {
     const network = new Network('JOIN_PROJECT')
+    const project = invitation.get('project') || invitation
     return network.POST(`/projects/${project.get('id')}/join`).then(() => myProjects())
 }
 

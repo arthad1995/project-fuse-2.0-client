@@ -10,14 +10,6 @@ import {EditorState} from 'draft-js'
 import {fromJS} from 'immutable'
 import config from '../../../../config'
 
-const mapObject = key => state => {
-    let map = {
-        initialValues: state.edit_obj
-    }
-    map[key] = state[key]
-    return map
-}
-
 class Page extends Component {
     constructor(props) {
         super(props)
@@ -66,7 +58,7 @@ class Page extends Component {
             },
         }
 
-        if (props.get('REDIRECT_ID')) {
+        if (props.get('REDIRECT_ID') && !this.props.redirectFunc) {
             return <Redirect push to={`/${this.props.index}/${props.get('REDIRECT_ID')}`} />
         }
 
@@ -78,17 +70,25 @@ class Page extends Component {
             return <div className='loading'></div>
         }
 
+        console.log(this.props.formState)
+
         return <div>
             <h2>{action}</h2>
             {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
-            <this.Form formName={`create=${this.props.name}`}
+            <this.Form
+                formName={`create=${this.props.name}`}
+                formState={this.props.formState}
                 thumbnail={(this.props.initialValues.thumbnail_id ? config.host + '/files/download/' + this.props.initialValues.thumbnail_id : null)}
+                background={(this.props.initialValues.background_id ? config.host + '/files/download/' + this.props.initialValues.background_id : null)}
                 customElems={this.props.customElems}
                 showName={showName}
                 initialValues={this.props.initialValues}
                 disabled={props.get("fetching")}
                 onSubmit={saveFunc}
-                cancelAction={this.props.history.goBack} />
+                redirectFunc={this.props.redirectFunc}
+                orgId={this.props.orgId}
+                imgUpload={this.state.edit}
+                cancelAction={this.props.cancelAction || this.props.history.goBack} />
             <ErrorDisplay errors={props.get('errors')} />
         </div>
     }

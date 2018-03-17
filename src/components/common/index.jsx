@@ -14,7 +14,6 @@ export {CreateSidebar} from './sidebars/create'
 export {SearchPageSidebar} from './sidebars/search'
 
 export {default as AnimationHandler} from './elements/animation'
-export {default as ListItem} from './elements/listItem'
 export {Editor} from './elements/editor'
 export {ApplyButton} from './elements/application'
 export const Card = (props) => <Async load={import('./elements/card')} {...props} />
@@ -23,6 +22,7 @@ export const CardImg = _CardImg
 export const ErrorDisplay = (props) => <Async load={import('./elements/error_display')} {...props} ><div></div></Async>
 export const InterviewSettings = (props) => <Async load={import('./elements/interview_settings')} {...props} />
 export const AccessSettings = (props) => <Async load={import('./elements/access_settings')} {...props} />
+export const ListItem = props => <Async load={import('./elements/listItem')} {...props} />
 
 export {stopEvent, stopEventWrapper} from './elements/stopEvent'
 

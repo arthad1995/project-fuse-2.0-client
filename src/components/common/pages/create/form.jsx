@@ -8,7 +8,8 @@ import ImageUpload from '../../elements/image_upload'
 class Form extends Component {
 
     render() {
-        const { handleSubmit, cancelAction, addLinkAction, formErrors, customElems } = this.props
+        const { handleSubmit, cancelAction, addLinkAction, formErrors, customElems, formName } = this.props
+        console.log(this.props)
         let showName = this.props.showName
 
         if (showName !== false)
@@ -16,10 +17,13 @@ class Form extends Component {
 
         let nameField = null
 
+        const formState = this.props.formState || {}
+        const vals = (formState[formName] || {}).values || {}
+
         if (showName)
             nameField = [
                 <label key="name_label" htmlFor="name">Name</label>,
-                <Field key="name_input" component="input" className="fullWidth" required placeholder="Name" type="text" name="name" />,
+                <Field key="name_input" component="input" className="fullWidth" placeholder="Name" type="text" name="name" />,
                 <br key="line_break" />
             ]
 
@@ -48,9 +52,39 @@ class Form extends Component {
                     <div>
                         {nameField}
                         <label htmlFor="headline">Headline</label>
-                        <Field component="input" className="fullWidth" placeholder="A short phrase or sentance to describe who you are" type="text" name="headline" /><br />
+                        <Field
+                            maxLength="50"
+                            component="input"
+                            className="fullWidth with-char-count"
+                            placeholder="A short phrase or sentance to describe who you are"
+                            type="text"
+                            name="headline"
+                        />
+                        <div className="character-count">
+                            <div className="character-count__current">
+                                {(vals.headline || '').length}
+                            </div>
+                            <div className="character-count__max">
+                                50
+                            </div>
+                        </div>
                         <label htmlFor="summary">Summary</label><br />
-                        <Field component="textarea" className="fullWidth" placeholder="A quick, on paragraph summary of what you do" type="text" name="summary" /><br />
+                        <Field
+                            maxLength="300"
+                            component="textarea"
+                            className="fullWidth with-char-count"
+                            placeholder="A quick, on paragraph summary of what you do"
+                            type="text"
+                            name="summary"
+                        />
+                        <div className="character-count">
+                            <div className="character-count__current">
+                                {(vals.summary || '').length}
+                            </div>
+                            <div className="character-count__max">
+                                300
+                            </div>
+                        </div>
                         {customElems ? customElems() : null}
                         <h3 className='title'>{'Links'}</h3>
                         <div onClick={addLinkAction} className="btn tone1-4-color"> {/*TODO use different button*/}
@@ -64,6 +98,10 @@ class Form extends Component {
                                 </div>
                             </div>)}
                         </div> */}
+                        {this.props.orgId ?
+                            <Field component="input" type="hidden" name="orgId" />
+                            : ''
+                        }
                     </div>
                     <div className="buttons">
                         <input className='btn save tone1-1-color' type="submit" id="submit" name="submit" value="Save" />

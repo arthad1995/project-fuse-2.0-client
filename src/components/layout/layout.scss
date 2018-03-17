@@ -30,7 +30,23 @@ body {
     height: $header-height / 2 + 20px;
     line-height: $header-height / 2;
     font-size: 14pt;
-    padding: $header-padding 10px;
+    padding: 0 10px;
+  }
+}
+
+.interview-time {
+  background-color: white;
+  border: 2px solid blue;
+  border-radius: 25px;
+  padding: 15px;
+  margin: 10px;
+  &__time-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    &__separator {
+      margin: 0.5rem;
+    }
   }
 }
 
@@ -50,13 +66,15 @@ body {
   padding: $header-padding;
   line-height: $header-height;
   font-size: 14pt;
+  $col: #040405;
+  box-shadow: 0px 2px 2px $col;
   .search-bar-embeded-menu-wrapper{
     @extend .hideOnPhone;
     float: left;
     margin-left: 1.25rem;
     width: calc(100% - 10rem);
     @include for-tablet-landscape-up {
-      margin-left: calc(15% + 5rem);
+      margin-left: calc(15% + 2.5rem);
       width: calc(70% - 10rem);
     }
 
@@ -205,22 +223,62 @@ body {
     margin: 0;
     margin-top: 0.5rem;
     padding-left: 0;
-    .menu__profile-icon {
-      width: $header-height;
-      height: $header-height;
-      border-radius: 50%;
-      overflow: hidden;
-      padding: 0;
-      position: relative;
-      img {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        margin: 0;
-        margin-top: 1px;
-        width: $header-height + 5px;
-        height: $header-height + 5px;
+    .menu {
+      &__dropdown {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: nowrap;
+        @include for-tablet-portrait {
+          flex-direction: column;
+        }
+        &__profile-icon {
+          width: $header-height;
+          height: $header-height;
+          border-radius: 50%;
+          overflow: hidden;
+          padding: 0;
+          position: relative;
+          img {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            margin-top: 1px;
+            width: $header-height + 5px;
+            height: $header-height + 5px;
+          }
+          box-shadow: 0px 3px 8px $col;
+          &:hover{
+            box-shadow: 0px 1px 2px $col;
+          };
+        }
+        &__name {
+          margin-right: 1rem;
+          div {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: right;
+            max-width: 6rem;
+          }
+          @include for-tablet-portrait {
+            position: relative;
+            height: 1rem;
+            margin-right: 0;
+            div {
+              position: absolute;
+              display: inline-block;
+              font-size: 50%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-align: right;
+              width: 5rem;
+              right: -10px;
+            }
+          }
+        }
       }
     }
     li {
@@ -230,10 +288,11 @@ body {
       ul.dropdown {
         display: none;
         position: absolute;
-        top: 1rem;
+        top: 1.1rem;
         right: -1rem;
         padding-top: 1rem;
         z-index: 99999;
+        box-shadow: 2px 2px 2px $col;
         a {
           @extend .accent-color;
           text-align: center;
@@ -246,7 +305,8 @@ body {
         }
         li {
           padding: 0.25rem 0.5rem;
-          width: 150px;
+          min-width: 150px;
+          width: 100%;
           text-align: center;
         }
       }
@@ -699,6 +759,11 @@ textarea {
 
 .fullWidth {
   width: 100%;
+  max-width: initial;
+}
+
+input.with-char-count, textarea.with-char-count {
+  margin-bottom: 0;
 }
 
 textarea {
@@ -1194,26 +1259,25 @@ $tab-color: hsl(240, 80%, 58%);
 
 .SlideInLeft-appear {
   z-index: 1;
-  transform: translateX(30px);
+  transform: translateX(15px);
   opacity: 0.3;
 }
 
 .SlideInLeft-appear.SlideInLeft-appear-active {
   opacity: 1;
   transform: translateX(0);
-  ;
-  transition: z-index 0.6s, all 0.5s linear;
+  transition: z-index 0.3s, all 0.3s linear;
 }
 
 .SlideInLeft-enter {
   opacity: 0;
-  transform: translateX(30px);
+  transform: translateX(15px);
 }
 
 .SlideInLeft-enter.SlideInLeft-enter-active {
   opacity: 1;
   transform: translateX(0);
-  transition: z-index 0.6s, all 0.2s linear 0.4s;
+  transition: z-index 0.3s, all 0.2s linear 0.3s;
 }
 
 .SlideInLeft-leave {
@@ -1225,8 +1289,8 @@ $tab-color: hsl(240, 80%, 58%);
   opacity: 0;
   position: absolute;
   width: 100%;
-  transform: translateX(-30px);
-  transition: z-index 0.6s, all 0.2s linear;
+  transform: translateX(-15px);
+  transition: z-index 0.3s, all 0.2s linear;
 }
 
 .SlideInRight-appear {
@@ -1374,7 +1438,7 @@ $profile_height: 15rem;
   .edit-btn {
     .fa-pencil-alt {
       right: 0rem;
-      top: -1.5rem;
+      top: -3rem;
       $size: 2.5rem;
       height: $size;
       width: $size;
@@ -1846,9 +1910,13 @@ $profile_height: 15rem;
   padding: 0.5rem 1rem;
 
   li {
-    background-color: hsl(0,0%,96%);
+    background-color: hsl(0,0%,98%);
     padding: 1.5rem;
     margin: 0.5rem;
+    .skills li {
+      color: black;
+      background-color: hsl(0,0%,85%);
+    }
   }
 
   .applicant {
@@ -1992,5 +2060,28 @@ input {
   div {
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+}
+
+.success-feedback {
+  border: 2px solid hsl(115, 100%, 30%);
+  background-color: hsl(98, 100%, 85%);
+  color: hsl(115, 100%, 20%);
+  font-weight: bold;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+
+.character-count {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-size: 75%;
+  padding-right: 0.5rem;
+  &__current {
+    &:after {
+      content: "/"
+    }
   }
 }

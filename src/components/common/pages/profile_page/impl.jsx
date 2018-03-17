@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapSingleKey } from '../../mapping_helpers'
 import { Link } from 'react-router-dom'
-const ReactMarkdown = require('react-markdown');
-import { AnimationHandler } from '../../../common'
+const ReactMarkdown = require('react-markdown')
 import {Map} from 'immutable'
 import config from '../../../../config'
 
@@ -54,38 +53,35 @@ class Page extends Component {
         if (elem) {
             const profile = elem.get('profile') || Map()
             return (
-                <AnimationHandler anim="SlideInTop" animKey='always'>
-                    <div className="profile">
-                        <div className="profile_header">
-                            <img src={(profile.get('background_id')
-                                ? config.host + '/files/download/' + profile.get('background_id')
-                                : '/assets/images/background-default.png')}
-                            />
-                        </div>
-                        <div className="profile_title">
-                            <div className="profile_picture"><div><img src={
-                                profile.get('thumbnail_id') ?
-                                    config.host + '/files/download/' + profile.get('thumbnail_id') :
-                                    '/assets/images/profile_icon.svg'
-                            } className="profile_picture__img" /></div></div>
-                            {editBtn}
-                            <h1 className='title'>{elem.get('name')}</h1>
-                            {elem.get('owner') ? this.renderOwnerInfo(elem) : ''}
-                            <div className='headline'>
-                                {profile.get('headline') || ''}
-                            </div>
-                            <div className='summary'>
-                                {profile.get('summary') || ''}
-                            </div>
-                            {customElems(elem)}
-                            <div className='description'>
-                                <ReactMarkdown source={elem.get('content') || ''} />
-                            </div>
-                            <h3 className='title'>{'Links'}</h3>
-                            {this.renderLinks}
-                        </div>
+                <div className="profile">
+                    <div className="profile_header">
+                        <img src={(profile.get('background_id')
+                            ? config.host + '/files/download/' + profile.get('background_id')
+                            : '/assets/images/background-default.png')}
+                        />
                     </div>
-                </AnimationHandler>
+                    <div className="profile_title">
+                        <div className="profile_picture"><div><img src={
+                            profile.get('thumbnail_id') ?
+                                config.host + '/files/download/' + profile.get('thumbnail_id') :
+                                '/assets/images/profile_icon.svg'
+                        } className="profile_picture__img" /></div></div>
+                        {editBtn}
+                        <h1 className='title'>{elem.get('name')}</h1>
+                        {elem.get('owner') ? this.renderOwnerInfo(elem) : ''}
+                        <div className='headline'>
+                            {profile.get('headline') || ''}
+                        </div>
+                        <div className='summary'>
+                            {profile.get('summary') || ''}
+                        </div>
+                        {customElems(elem)}
+                        <div className='description'>
+                            <ReactMarkdown source={elem.get('content') || ''} />
+                        </div>
+                        {this.renderLinks}
+                    </div>
+                </div>
             )
         }
         else {

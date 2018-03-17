@@ -49,12 +49,6 @@ class Sidebar extends Component {
                             </div>
                         </Link> : null}
                         {data.get('canEdit') ?
-                        <Link to={`/organizations/${id}/stats`}>
-                            <div className={"section centered" + (tab === 'stats' ? ' selected' : '')}>
-                                Statistics
-                            </div>
-                        </Link> : null}
-                        {data.get('canEdit') ?
                         <Link to={`/organizations/${id}/settings`}>
                             <div className={"section centered" + (tab === 'settings' ? ' selected' : '')}>
                                 Settings
@@ -62,7 +56,6 @@ class Sidebar extends Component {
                         </Link> : null}
                     </div>
                 </div>
-                <div onClick={() => this.props.history.push('/my-organizations')} className="section centered pointer clickable">Your Organizations</div>
                 <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div>
             </div>
         }else{

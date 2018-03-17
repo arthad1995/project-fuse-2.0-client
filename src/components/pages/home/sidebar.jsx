@@ -23,9 +23,6 @@ class Sidebar extends Component {
         const num_friends = user.get('friend_count') || 0
         return (
                 <div>
-                    <div className='section centered hideOnPhone'>
-                        <h2>{`${name}`}</h2>
-                    </div>
                     <Link to='/my-friends'>
                         <div className='section centered'>
                             Friends
@@ -43,7 +40,9 @@ class Sidebar extends Component {
                     </Link>
                     {
                         this.props.location.pathname !== '/' ?
-                            <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div> :
+                            <Link to='/'>
+                                <div className="section centered pointer clickable">Home</div>
+                            </Link> :
                             ''
                     }
                 </div>

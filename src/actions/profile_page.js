@@ -20,6 +20,11 @@ export const loadOrganization = (id) => {
     return network.GET(`/organizations/${id}`)
 }
 
+export const          loadOrganizationProjects = id => {
+    const network = new Network('LOAD_ORGANIZATION_PROJECTS_INFO')
+    return network.GET(`/organizations/${id}/projects`)
+}
+
 export const loadProjectSettings = (id) => {
     const network = new Network('LOAD_PROJECT_BY_ID_SETTINGS')
     return Promise.all([

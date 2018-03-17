@@ -74,10 +74,10 @@ class Page extends Component {
                         <ul className='list'>
                             {Object.keys(data).map((id) => {
                                 let elem = data[id]
-                                const owner = fromJS({
+                                const owner = elem.get('owner') ? fromJS({
                                     name: elem.get('owner'),
                                     id: elem.get('owner_id')
-                                })
+                                }) : null
                                 const Btn = (this.props.apply) ? this.props.apply(elem, this.props.dispatch) : null
                                 return <ListItem
                                     key={id}

@@ -39,11 +39,13 @@ export const async_base = (base_name) => {
 
                             if(!noId) {
                                 return _state.merge(fromJS({
-                                    data
+                                    data,
+                                    origData: response.data
                                 }))
                             }
                             return _state.merge(fromJS({
-                                data: response.data
+                                data: response.data,
+                                origData: response.data
                             }))
                         }
                         return _state.merge(fromJS({

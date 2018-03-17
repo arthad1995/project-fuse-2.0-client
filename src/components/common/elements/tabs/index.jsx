@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ListItem from '../listItem'
 import { Map } from 'immutable'
-import { AnimationHandler, ApplyButton } from '../../../common'
+import { ApplyButton } from '../../../common'
 import { AppliedStatus } from '../applied_status'
 import {fromJS} from 'immutable'
 import Cookies from 'js-cookie'
@@ -23,7 +23,7 @@ export class Tabs extends Component {
             <div className='tabs'>
                 {tabs.map((tab) => {
                     return <section key={tab.id} id={`tab${tab.id}_content`} className={base_class + ((`tab${tab.id}` === selected_tab) ? 'visible' : 'hidden')}>
-                        {(`tab${tab.id}` === selected_tab) ? <AnimationHandler anim="SlideInTop" animKey='always'>{generator(tab)}</AnimationHandler> : null}
+                        {(`tab${tab.id}` === selected_tab) ? generator(tab) : null}
                     </section>
                 })}
             </div>

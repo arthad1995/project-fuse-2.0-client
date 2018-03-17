@@ -10,7 +10,8 @@ export const CreatePage = (paramObj) => {
 
     const mapObject = key => state => {
         let map ={
-            initialValues: state.edit_obj
+            initialValues: state.edit_obj,
+            formState: state.form
         }
         map[key] = state[key]
         return map
@@ -26,11 +27,11 @@ export const CreatePage = (paramObj) => {
                 }
             })
         }
-    
+
         componentWillUnmount() {
             this.cancelUpdate = true
         }
-    
+
         render() {
             return this.Component ? <this.Component index={key} {...this.props} {...paramObj.param} /> : this.props.children || <div className='loading'></div>
         }

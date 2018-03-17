@@ -8,6 +8,10 @@ const load_handler = async_base('LOAD_USER')
 export function user(state = not_loaded, action){
     state = load_handler(state, action)
     switch(action.type){
+        case '@@router/LOCATION_CHANGE':
+            if (state.has('errors'))
+                return state.remove('errors')
+            break;
         case 'REGISTER_PENDING':
             return state.set('fetched', false).set('fetching', true).set('reg_user', fromJS(action.payload))
         case 'LOGIN_REJECTED':
@@ -25,11 +29,6 @@ export function user(state = not_loaded, action){
             Cookies.remove('ID')
             Cookies.remove('NAME')
             Cookies.remove('EMAIL')
-            if('serviceWorker' in navigator){
-                try{
-                    navigator.serviceWorker.controller.postMessage("clear-cached-user-data");
-                } catch (e) {}
-            }
             break;
         case 'LOGIN_FULFILLED':{
             const response = action.payload.data
@@ -61,6 +60,6 @@ export function user(state = not_loaded, action){
                     .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
         }
     }
-    
+
     return state;
 }
