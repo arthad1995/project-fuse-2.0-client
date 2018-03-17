@@ -28,14 +28,23 @@ class Page extends Component {
         return '';
     }
 
-    renderLinks() {
+    renderLinks(profile) {
         if (profile.get('links')) {
-            <div className="cardWrapper">
-                {profile.get('links').map((link, index) => <div key={index} className="card lights">
-                    <div class="content">
-                        <a href={link.get('link')}target="_blank">{link.get('name')}</a>
-                    </div>
-                </div>)}
+            return <div>
+                <h3>Links</h3>
+                <div className="profile-links">
+                    {profile.get('links').map((link, index) => (
+                        <a key={index} target="_blank" href={link.get('link')}>
+                            <div className="link-card">
+                                {link.get('img') ? <div className="link-card__img">
+                                    <img src={link.get('img')} />
+                                </div> : <div class="link-card__title">
+                                    {link.get('title') || link.get('name')}
+                                </div>}
+                            </div>
+                        </a>)
+                    )}
+                </div>
             </div>
         }
     }
@@ -47,7 +56,15 @@ class Page extends Component {
         const params = this.props.match.params
         const data = this.props[this.props.index].get('data')
         const elem = (data) ? data.get(params.id) : null
-        const editBtn = (this.props.canEdit && this.props.canEdit(this.props, elem) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fas fa-pencil-alt'></i></Link></div> : '')
+        const editBtn = (
+            this.props.canEdit && this.props.canEdit(this.props, elem) ?
+                <div className='edit-btn'>
+                    <Link to={`/${this.props.index}/${params.id}/edit`}>
+                        <i className='fas fa-pencil-alt'/>
+                    </Link>
+                </div> :
+                ''
+        )
         const customElems = this.props.customElems || (e =>null)
 
         if (elem) {
@@ -79,13 +96,19 @@ class Page extends Component {
                         <div className='description'>
                             <ReactMarkdown source={elem.get('content') || ''} />
                         </div>
-                        {this.renderLinks}
+                        {this.renderLinks(profile)}
                     </div>
                 </div>
             )
         }
         else {
-            return (<div><h1>{this.props.notFoundMsg}</h1></div>)
+            return (
+                <div>
+                    <h1>
+                        {this.props.notFoundMsg}
+                    </h1>
+                </div>
+            )
         }
     }
 }

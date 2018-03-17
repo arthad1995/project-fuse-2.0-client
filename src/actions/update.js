@@ -14,20 +14,24 @@ export const updateProject = history => id => values =>{
         () => {
             let promises = []
             if(thumbnail) {
-                return fileUpload(`/projects/${id}/upload/thumbnail`, thumbnail, 'UPLOAD_PROJ_THUMBNAIL')
-            } else {
-                return Promise.resolve()
+                promises.push(fileUpload(`/projects/${id}/upload/thumbnail`, thumbnail, 'UPLOAD_PROJ_THUMBNAIL'))
             }
-        }
-    ).then(
-        () => {
             if(background) {
-                return fileUpload(`/projects/${id}/upload/background`, background, 'UPLOAD_PROJ_BACKGROUND')
-            } else {
-                return Promise.resolve()
+                promises.push(fileUpload(`/projects/${id}/upload/background`, background, 'UPLOAD_PROJ_BACKGROUND'))
             }
+            if (values.profileLinks) {
+                promises.push(
+                    (new Network('UPDATE_PROJECT_LINKS')).PUT(
+                        `/projects/${id}/links`,
+                        JSON.parse(values.profileLinks)
+                    )
+                )
+            }
+
+            return Promise.all(promises)
         }
-    ).then(()=>history.push(`/projects/${id}`))
+    )
+    .then(()=>history.push(`/projects/${id}`))
 }
 
 export const updateTeam = history => id => values => {
@@ -53,20 +57,24 @@ export const updateOrganization = history => id => values => {
         () => {
             let promises = []
             if(thumbnail) {
-                return fileUpload(`/organizations/${id}/upload/thumbnail`, thumbnail, 'UPLOAD_ORG_THUMBNAIL')
-            } else {
-                return Promise.resolve()
+                promises.push(fileUpload(`/organizations/${id}/upload/thumbnail`, thumbnail, 'UPLOAD_ORG_THUMBNAIL'))
             }
-        }
-    ).then(
-        () => {
             if(background) {
-                return fileUpload(`/organizations/${id}/upload/background`, background, 'UPLOAD_ORG_BACKGROUND')
-            } else {
-                return Promise.resolve()
+                promises.push(fileUpload(`/organizations/${id}/upload/background`, background, 'UPLOAD_ORG_BACKGROUND'))
             }
+            if (values.profileLinks) {
+                promises.push(
+                    (new Network('UPDATE_ORGANIZATION_LINKS')).PUT(
+                        `/organizations/${id}/links`,
+                        JSON.parse(values.profileLinks)
+                    )
+                )
+            }
+
+            return Promise.all(promises)
         }
-    ).then(()=>history.push(`/organizations/${id}`))
+    )
+    .then(()=>history.push(`/organizations/${id}`))
 }
 
 export const updateCurrentUser = history => id => values => {
@@ -83,7 +91,7 @@ export const updateCurrentUser = history => id => values => {
         () => {
             let promises = []
             if(thumbnail) {
-                return fileUpload(`/users/upload/thumbnail`, thumbnail, 'UPLOAD_USER_THUMBNAIL')
+                promises.push(fileUpload(`/users/upload/thumbnail`, thumbnail, 'UPLOAD_USER_THUMBNAIL')
                     .then(response => {
                         if (response.data) {
                             response = response.data
@@ -94,18 +102,21 @@ export const updateCurrentUser = history => id => values => {
                                 }
                             }
                         }
-                    })
-            } else {
-                return Promise.resolve()
+                    }))
             }
-        }
-    ).then(
-        () => {
             if(background) {
-                return fileUpload(`/users/upload/background`, background, 'UPLOAD_USER_BACKGROUND')
-            } else {
-                return Promise.resolve()
+                promises.push(fileUpload(`/users/upload/background`, background, 'UPLOAD_USER_BACKGROUND'))
             }
+            if (values.profileLinks) {
+                promises.push(
+                    (new Network('UPDATE_USER_LINKS')).PUT(
+                        `/users/${id}/links`,
+                        JSON.parse(values.profileLinks)
+                    )
+                )
+            }
+
+            return Promise.all(promises)
         }
     ).then(() => history.push(`/users/${id}`))
 }

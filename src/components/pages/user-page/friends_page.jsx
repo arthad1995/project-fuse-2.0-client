@@ -34,7 +34,7 @@ class Friends extends Component {
                     <ul className='list'>
                         {data.toList().map((elem) => {
                             const friend = elem.get('receiver').get('id') == userId ? elem.get('sender') : elem.get('receiver')
-                            console.log(elem.toJS())
+                            // console.log(elem.toJS())
                             return <ListItem
                                 key={elem.get('id')}
                                 baseUrl="users"

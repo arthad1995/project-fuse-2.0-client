@@ -230,6 +230,10 @@ $ranges: (
     @media(min-width: map-get(map-get($ranges, tablet-landscape), min)) { @content; }
 }
 
+@mixin for-tablet-landscape{
+    @media(min-width: map-get(map-get($ranges, tablet-landscape), min)) and (max-width: map-get(map-get($ranges, desktop), max)) { @content; }
+}
+
 @mixin for-desktop-up{
     @media(min-width: map-get(map-get($ranges, desktop), min)) { @content; }
 }
@@ -270,10 +274,12 @@ $ranges: (
     display:none;
 }
 
-input{
+input, select{
     border: 1px solid rgba(0,0,0,0.4);
     margin: 0.3rem 1rem;
-    max-width: calc(100% - 2rem);
+    &.error {
+        border: 2px solid rgb(255, 0, 0);
+    }
 }
 
 .no-border {

@@ -425,6 +425,9 @@ img.profileImage {
     min-height: 45px;
     font-size: 140%;
   }
+  &.right {
+    float: right;
+  }
 }
 
 .btn,
@@ -752,7 +755,8 @@ $loading-size: 100px;
 }
 
 input[type=text],
-textarea {
+textarea,
+select {
   margin: 0.5rem 0rem 1.25rem;
   padding: 0.5rem;
 }
@@ -2046,7 +2050,7 @@ $profile_height: 15rem;
   }
 }
 
-input {
+input,select {
   outline: none !important;
 }
 
@@ -2082,6 +2086,64 @@ input {
   &__current {
     &:after {
       content: "/"
+    }
+  }
+}
+
+.profile-form {
+  &__link-add {
+    @extend .clearfix;
+    &__input {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap-reverse;
+      width: 100%;
+      > div {
+        width: 50%;
+        > div {
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+        }
+      }
+      input {
+        width: 100%;
+      }
+      select {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+.profile-links {
+  display: grid;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(4, 3fr);
+  @include for-tablet-landscape {
+    grid-template-columns: repeat(3, 4fr);
+  }
+  @include for-tablet-portrait {
+    grid-template-columns: repeat(2, 6fr);
+  }
+  @include for-phone-only {
+    grid-template-columns: repeat(1, 12fr);
+  }
+  grid-gap: 10px;
+  background-color: white;
+  justify-content: stretch;
+  align-content: stretch;
+  justify-items: stretch;
+  align-items: stretch;
+  .link-card {
+    &__img {
+      img {
+        max-width: 70%;
+        margin: 15%;
+      }
+    }
+    @include for-phone-only {
+      max-width: 100%;
     }
   }
 }
