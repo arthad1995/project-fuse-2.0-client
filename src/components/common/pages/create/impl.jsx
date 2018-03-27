@@ -73,8 +73,6 @@ class Page extends Component {
         const links = (((this.props.initialValues || {}).profile || {}).links || [])
         this.props.initialValues.profileLinks = JSON.stringify(links)
 
-        // console.log(this.props.formState)
-
         return <div>
             <h2>{action}</h2>
             {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
