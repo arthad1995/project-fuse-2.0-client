@@ -23,6 +23,7 @@ class ListItem extends Component {
     render() {
         const baseUrl = '/' + this.props.baseUrl
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
+        console.log(skills)
         const owner = this.props.owner
         const handleSearchChange = this.props.handleSearchChange || null
         return (
@@ -42,15 +43,6 @@ class ListItem extends Component {
                                 {this.props.name || this.props.elem.get('name')}
                             </div>
                         </div>
-                        <div className="listItem__content">
-                            {this.dispElem(this.props.elem)}
-                            <div className="buttons">
-                                {this.props.children}
-                                <div className="btn tone1-4-color">
-                                    View
-                                </div>
-                            </div>
-                        </div>
                         {(skills && skills.size) ?
                             <div className="skills--clickable">
                                 <div>Skills: </div>
@@ -68,7 +60,7 @@ class ListItem extends Component {
                                     })}
                                 </ul>
                             </div>
-                            : (skills) ? <div className="skills smallText"><i>No Skills Listed</i></div> : ''}
+                            : <div className="skills smallText"><i>No Skills Listed</i></div>}
                     </div>
                     {(this.props.arr) ?
                         <div className="listItem__array">
@@ -87,6 +79,9 @@ class ListItem extends Component {
                             {owner.get('id') == Cookies.get('ID') ? '' : owner.get('name')}
                         </div></div>
                         : ''}
+                    <div className="listItem__content">
+                        {this.dispElem(this.props.elem)}
+                    </div>
                 </li>
             </Link>
         )

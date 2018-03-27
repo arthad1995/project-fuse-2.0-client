@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { globalSearch } from '../../../actions/search'
+import { addFriend, applyToOrganization, applyToProject } from '../../../actions/apply'
 import { fromJS } from 'immutable'
 import { CardImg, stopEvent } from '../../common'
 import InfiniteScroll from 'react-infinite-scroller'
 import Pagination from 'react-js-pagination'
 import config from '../../../config'
+import v from 'voca'
 
 const mapStateToProps = (state) => {
     return {
@@ -43,6 +45,7 @@ class Search extends Component {
     render() {
         const history = this.props.history
         const handleSearchChange = this.handleSearchChange
+        const dispatch = this.props.dispatch
         const showUser = (user, index) => {
             const navTo = () => {
                 if (history) {
@@ -85,6 +88,33 @@ class Search extends Component {
                                 </ul>
                             </div>
                             : <div className="skills"><i>No Skills Listed</i></div>}
+                        <div className="buttons">
+                            {user.actions_available === 'add' ?
+                                <div
+                                    className="btn tone1-1-color apply"
+                                    onClick={e => {
+                                        stopEvent(e)
+                                        addFriend(fromJS(user))
+                                            .catch(e => dispatch({
+                                                type: 'ADD_ACTION_FOR_RESULT',
+                                                payload: {
+                                                    result: index,
+                                                    action: "add"
+                                                }
+                                            }))
+                                        dispatch({
+                                            type: 'REMOVE_ACTION_FOR_RESULT',
+                                            payload: {
+                                                result: index
+                                            }
+                                        })
+                                        return false
+                                    }}
+                                >
+                                    Send Friend Request
+                                </div>
+                            : ''}
+                        </div>
                     </div>
                 </CardImg>
             )
@@ -116,6 +146,33 @@ class Search extends Component {
                     <div className="searchResult">
                         <div className="label">Headline:</div>
                         <div>{org.headline || "(None)"}</div>
+                        <div className="buttons">
+                            {org.actions_available === 'join' || org.actions_available === 'apply' ?
+                                <div
+                                    className="btn tone1-1-color apply"
+                                    onClick={e => {
+                                        stopEvent(e)
+                                        applyToOrganization(fromJS(org))
+                                            .catch(e => dispatch({
+                                                type: 'ADD_ACTION_FOR_RESULT',
+                                                payload: {
+                                                    result: index,
+                                                    action: org.actions_available
+                                                }
+                                            }))
+                                        dispatch({
+                                            type: 'REMOVE_ACTION_FOR_RESULT',
+                                            payload: {
+                                                result: index
+                                            }
+                                        })
+                                        return false
+                                    }}
+                                >
+                                    {v.titleCase(org.actions_available)}
+                                </div>
+                            : ''}
+                        </div>
                     </div>
                 </CardImg>
             )
@@ -147,6 +204,33 @@ class Search extends Component {
                     <div className="searchResult">
                         <div className="label">Headline:</div>
                         <div>{proj.headline || "(None)"}</div>
+                        <div className="buttons">
+                            {proj.actions_available === 'join' || proj.actions_available === 'apply' ?
+                                <div
+                                    className="btn tone1-1-color apply"
+                                    onClick={e => {
+                                        stopEvent(e)
+                                        applyToProject(fromJS(proj))
+                                            .catch(e => dispatch({
+                                                type: 'ADD_ACTION_FOR_RESULT',
+                                                payload: {
+                                                    result: index,
+                                                    action: proj.actions_available
+                                                }
+                                            }))
+                                        dispatch({
+                                            type: 'REMOVE_ACTION_FOR_RESULT',
+                                            payload: {
+                                                result: index
+                                            }
+                                        })
+                                        return false
+                                    }}
+                                >
+                                    {v.titleCase(proj.actions_available)}
+                                </div>
+                            : ''}
+                        </div>
                     </div>
                 </CardImg>
             )

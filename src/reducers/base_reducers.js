@@ -9,6 +9,9 @@ export const async_base = (base_name) => {
                 return state.set('fetching', true).set('fetched', false).remove('errors')
             case `${base_name}_REJECTED`:
                 {
+                    if(!action.payload.response) {
+                        return state
+                    }
                     let response = action.payload.response.data
                     if (response.errors)
                         return state.set('fetching', false)
@@ -79,6 +82,10 @@ export const async_base_id = (base_name) => {
                 return state.set('fetching', true).set('fetched', false)
             case `${base_name}_REJECTED`:
                 {
+                    
+                    if(!action.payload.response) {
+                        return state
+                    }
                     let response = action.payload.response.data || action.payload
                     if (response.errors)
                         return state.set('fetching', false)

@@ -70,7 +70,8 @@ class Page extends Component {
             return <div className='loading'></div>
         }
 
-        console.log(this.props.formState)
+        const links = (((this.props.initialValues || {}).profile || {}).links || [])
+        this.props.initialValues.profileLinks = JSON.stringify(links)
 
         return <div>
             <h2>{action}</h2>
@@ -88,6 +89,8 @@ class Page extends Component {
                 redirectFunc={this.props.redirectFunc}
                 orgId={this.props.orgId}
                 imgUpload={this.state.edit}
+                newLinkType={this.props.newLinkType}
+                newLinkUrl={this.props.newLinkUrl}
                 cancelAction={this.props.cancelAction || this.props.history.goBack} />
             <ErrorDisplay errors={props.get('errors')} />
         </div>

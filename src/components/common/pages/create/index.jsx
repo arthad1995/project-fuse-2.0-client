@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {formValueSelector} from 'redux-form'
 
 export const CreatePage = (paramObj) => {
 
@@ -7,11 +8,14 @@ export const CreatePage = (paramObj) => {
     const name = params.name || ''
     const save = params.save || (() => { })
     const key = paramObj.path
+    const selector = formValueSelector(`create=${name}`)
 
     const mapObject = key => state => {
         let map ={
             initialValues: state.edit_obj,
-            formState: state.form
+            formState: state.form,
+            newLinkType: selector(state, 'newLinkType'),
+            newLinkUrl: selector(state, 'newLinkUrl')
         }
         map[key] = state[key]
         return map
