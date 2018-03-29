@@ -29,12 +29,18 @@ class Page extends Component {
     }
 
     renderLinks(profile) {
+        const formatLink = link => {
+            if (!link.match(/^https?:\/\//)) {
+                return 'http://' + link
+            }
+            return link
+        }
         if (profile.get('links')) {
             return <div>
                 <h3>Links</h3>
                 <div className="profile-links">
                     {profile.get('links').map((link, index) => (
-                        <a key={index} target="_blank" href={link.get('link')}>
+                        <a key={index} target="_blank" href={formatLink(link.get('link'))}>
                             <div className="link-card">
                                 {link.get('img') ? <div className="link-card__img">
                                     <img src={link.get('img')} />
