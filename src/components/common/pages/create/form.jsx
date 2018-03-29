@@ -151,7 +151,7 @@ class Form extends Component {
                                             <option>Wordpress</option>
                                             <option>Drupal</option>
                                             <option>Website</option>
-                                            <option>Résumé</option>
+                                            <option>Resume</option>
                                             <option>Published Article</option>
                                         </Field>
                                         </div>
