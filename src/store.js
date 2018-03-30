@@ -16,7 +16,7 @@ const store = createStore(
         form
     }),
     applyMiddleware(
-        // createLogger(),
+        createLogger(),
         promise(),
         thunkMiddleware,
         routerMiddleware(history)

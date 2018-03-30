@@ -12,7 +12,7 @@ export const acceptFriend = friendship => {
         friendship = new Map().set('id', friendship)
     }
     const network = new Network('ACCEPT_FRIEND_REQUEST')
-    return network.PUT('/friends/accept/' + friendship.get('id')).then(() => myFriends())
+    return network.PUT('/friends/accept/' + friendship.get('id'))
 }
 
 export const declineFriend = friendship => {
@@ -20,18 +20,18 @@ export const declineFriend = friendship => {
         friendship = new Map().set('id', friendship)
     }
     const network = new Network('DECLINE_FRIEND_REQUEST')
-    return network.PUT('/friends/declined/' + friendship.get('id')).then(() => myFriends())
+    return network.PUT('/friends/declined/' + friendship.get('id'))
 }
 
 export const applyToOrganization = invitation => {
     const network = new Network('JOIN_ORGANIZATION')
     const organization = invitation.get('organization') || invitation
-    return network.POST(`/organizations/${organization.get('id')}/join`).then(() => myOrganizations())
+    return network.POST(`/organizations/${organization.get('id')}/join`)
 }
 
 export const applyToProject = invitation => {
     const network = new Network('JOIN_PROJECT')
     const project = invitation.get('project') || invitation
-    return network.POST(`/projects/${project.get('id')}/join`).then(() => myProjects())
+    return network.POST(`/projects/${project.get('id')}/join`)
 }
 
