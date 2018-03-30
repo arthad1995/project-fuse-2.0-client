@@ -34,7 +34,7 @@ class Projects extends Component {
                         {data.toList().map((elem) => {
                             const id = elem.get('id')
                             return <ListItem key={id}
-                            defaultProfileImg="profile_icon.svg" baseUrl="projects" id={id} elem={elem}>
+                            defaultProfileImg="project_profile_icon.svg" baseUrl="projects" id={id} elem={elem}>
                             </ListItem>
                         })}
                     </ul>

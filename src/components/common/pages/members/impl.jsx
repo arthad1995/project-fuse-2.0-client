@@ -67,7 +67,13 @@ class Page extends Component {
         }
         const params = this.props.match.params
         const data = this.props['members'].get('data')
-        const editBtn = (this.props.canEdit && this.props.canEdit(this.props, elem) ? <div className='edit-btn'><Link to={`/${this.props.index}/${params.id}/edit`}><i className='fas fa-pencil-alt'></i></Link></div> : '')
+        const editBtn = (this.props.canEdit && this.props.canEdit(this.props, elem) ?
+            <div className='edit-btn'>
+                <Link to={`/${this.props.index}/${params.id}/edit`}>
+                    <i className='fas fa-pencil-alt' />
+                </Link>
+            </div> : ''
+        )
         const customElems = this.props.customElems || (e =>null)
 
         const canEdit = (this.props.edit_obj || {}).canEdit || false
