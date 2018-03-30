@@ -81,6 +81,7 @@ class OrganizationProjects extends Component {
                             {this.props.projects.valueSeq().toArray().map(proj => {
                                 return (
                                     <ListItem
+                                        defaultProfileImg="project_profile_icon.svg"
                                         key={proj.get('id')}
                                         elem={proj.get('profile')}
                                         owner={proj.get('owner')}

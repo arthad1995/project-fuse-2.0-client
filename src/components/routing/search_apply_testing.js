@@ -6,7 +6,6 @@ export const userTest = (_, curUser) =>{
 }
 
 export const projTest = (_, cur) =>{
-    console.log(cur)
     if (cur.get('actions_available') === 'join')
         return 'Join Project'
     if (cur.get('actions_available') === 'apply')

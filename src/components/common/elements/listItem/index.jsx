@@ -25,6 +25,7 @@ class ListItem extends Component {
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
         const owner = this.props.owner
         const handleSearchChange = this.props.handleSearchChange || null
+        const defaultProfileImg = this.props.defaultProfileImg ? `/assets/images/${this.props.defaultProfileImg}` : '/assets/images/profile_icon.svg'
         return (
             <Link to={baseUrl + '/' + this.props.id}>
                 <li className='listItem'>
@@ -34,7 +35,7 @@ class ListItem extends Component {
                                 <img src={
                                     (this.props.elem.get('img') ?
                                         config.host + '/files/download/' + this.props.elem.get('img') :
-                                        '/assets/images/profile_icon.svg'
+                                        defaultProfileImg
                                     )
                                 } />
                             </div>

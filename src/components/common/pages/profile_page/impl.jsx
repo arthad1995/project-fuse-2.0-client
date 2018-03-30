@@ -163,6 +163,7 @@ class Page extends Component {
 
         if (elem) {
             const profile = elem.get('profile') || Map()
+            console.log(elem.get('groupType'))
             return (
                 <div className="profile">
                     <div className="profile_header">
@@ -175,7 +176,9 @@ class Page extends Component {
                         <div className="profile_picture"><div><img src={
                             profile.get('thumbnail_id') ?
                                 config.host + '/files/download/' + profile.get('thumbnail_id') :
-                                '/assets/images/profile_icon.svg'
+                                    elem.get('groupType') === 'Project' ? '/assets/images/project_profile_icon.svg' :
+                                    elem.get('groupType') === 'Organization' ? '/assets/images/org_profile_icon.svg' :
+                                            '/assets/images/profile_icon.svg'
                         } className="profile_picture__img" /></div></div>
                         {editBtn}
                         <h1 className='title'>{elem.get('name')}</h1>

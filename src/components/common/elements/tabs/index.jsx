@@ -45,6 +45,11 @@ const normalItem = (tab, data, baseUrl) => {
                     const group = elem.get('project') || elem.get('organization') || fromJS({})
                     const id = elem.get('id')
                     return <ListItem
+                        defaultProfileImg={
+                            baseUrl === 'projects' ? 'project_profile_icon.svg' :
+                            baseUrl === 'organizations' ? 'org_profile_icon.svg' :
+                                    'profile_icon.svg'
+                        }
                         elem={group.get('profile')}
                         owner={group.get('owner')}
                         baseUrl={baseUrl}
@@ -72,6 +77,11 @@ const normalItem = (tab, data, baseUrl) => {
                         key={id}
                         id={id}
                         name={elem.get('name')}
+                        defaultProfileImg={
+                            baseUrl === 'projects' ? 'project_profile_icon.svg' :
+                                baseUrl === 'organizations' ? 'org_profile_icon.svg' :
+                                    'profile_icon.svg'
+                        }
                     />
                 }) : 'No results'}
             </ul>

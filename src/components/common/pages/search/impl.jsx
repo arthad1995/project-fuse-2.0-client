@@ -86,6 +86,11 @@ class Page extends Component {
                                     id={elem.get('id')}
                                     elem={elem}
                                     owner={owner}
+                                    defaultProfileImg={
+                                        this.props.index === 'projects' ? 'project_profile_icon.svg' :
+                                            this.props.index === 'organizations' ? 'org_profile_icon.svg' :
+                                                'profile_icon.svg'
+                                    }
                                 >
                                     {(this.props.buttons) ? (this.props.buttons(elem)) : ''}
                                     {(Btn) ? <Btn /> : ''}
