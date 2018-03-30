@@ -23,8 +23,19 @@ export const getEmbedLink = link => {
         if (!link.match(/^(https?:)?\/\//)) {
             link = `https://${link}`
         }
-        return urlParser.create(urlParser.parse(link))
-    } catch (_) {
+        console.log(link)
+        console.log(urlParser.parse(link))
+        return urlParser.create(
+            {
+                videoInfo: urlParser.parse(link),
+                format: 'embed',
+                params: {
+                    rel: 0
+                }
+            }
+        )
+    } catch (e) {
+        console.error(e)
         return ''
     }
 }

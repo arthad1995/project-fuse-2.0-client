@@ -8,6 +8,7 @@ import {Map} from 'immutable'
 import config from '../../../../config'
 import UrlParse from 'url-parse'
 import {titleName, getEmbedLink} from '../../../../utils/link'
+import VideoEmbed from '../../elements/video_embed'
 
 class Page extends Component {
     constructor(props) {
@@ -99,19 +100,16 @@ class Page extends Component {
                 {numVideos > 0 ?
                     <div>
                         <h3>Videos</h3>
-                        <div className="profile-videos">
+                        <div className="video-links">
                             {profile.get('links')
                                 .filter(link => link.get('name') === 'video')
                                 .reverse()
                                 .map((link, index) => (
-                                <a
-                                    key={index}
-                                    target="_blank"
-                                    href={formatLink(link.get('link'), link.get('name'))}
-                                    title={titleName(link.get('title') || link.get('name'))}
-                                >
-                                    {JSON.stringify(link.toJS())}
-                                </a>)
+                                <div key={index} className="link-card">
+                                    <div className="link-card__video">
+                                        <VideoEmbed src={link.get('link')} />
+                                    </div>
+                                </div>)
                             )}
                         </div>
                     </div>

@@ -2153,10 +2153,7 @@ input,select {
   }
 }
 
-
 .profile-links {
-  display: grid;
-  grid-auto-rows: 1fr;
   grid-template-columns: repeat(4, 3fr);
   @include for-tablet-landscape {
     grid-template-columns: repeat(3, 4fr);
@@ -2167,6 +2164,18 @@ input,select {
   @include for-phone-only {
     grid-template-columns: repeat(1, 12fr);
   }
+}
+
+.video-links {
+  grid-template-columns: repeat(2, 1fr);
+  @include for-tablet-portrait-below {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.profile-links, .video-links {
+  display: grid;
+  grid-auto-rows: 1fr;
   grid-gap: 10px;
   background-color: white;
   justify-content: stretch;
@@ -2181,18 +2190,7 @@ input,select {
       }
     }
     &__video {
-      &__vid-wrapper{
-        position: relative;
-        width: 100%;
-        height: 0;
-        padding-bottom: 51%;
-      }
-      iframe {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0; top: 0;
-      }
+      max-width: 100%;
     }
     @include for-phone-only {
       max-width: 100%;
@@ -2202,5 +2200,21 @@ input,select {
         }
       }
     }
+  }
+}
+
+.video {
+  width: 100%;
+  &__vid-wrapper{
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 51%;
+  }
+  iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0; top: 0;
   }
 }

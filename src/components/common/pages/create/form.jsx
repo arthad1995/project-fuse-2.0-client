@@ -5,7 +5,8 @@ import { Field, reset } from 'redux-form'
 import { Redirect } from 'react-router-dom'
 import { addLink, loadEditLinkInfoFor, deleteLink } from '../../../../actions/link'
 import ImageUpload from '../../elements/image_upload'
-import {titleName} from '../../../../utils/link'
+import VideoEmbed from '../../elements/video_embed'
+import {titleName, getEmbedLink} from '../../../../utils/link'
 
 class Form extends Component {
 
@@ -144,16 +145,7 @@ class Form extends Component {
                                                             Video
                                                         </div>
                                                         <div className="link-card__video">
-                                                            <div className="link-card__video__vid-wrapper">
-                                                                <iframe
-                                                                    width="560"
-                                                                    height="315"
-                                                                    src={getEmbedLink(link.link)}
-                                                                    frameborder="0"
-                                                                    allow="autoplay; encrypted-media"
-                                                                    allowfullscreen
-                                                                />
-                                                            </div>
+                                                            <VideoEmbed src={link.link} />
                                                         </div>
                                                         <div className="link-card__actions">
                                                             {/* <div className="btn tone1-2-color">h
