@@ -25,7 +25,6 @@ class ListItem extends Component {
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
         const owner = this.props.owner
         const handleSearchChange = this.props.handleSearchChange || null
-        const children = (Array.isArray(this.props.children) ? this.props.children : []).filter(c => c)
         return (
             <Link to={baseUrl + '/' + this.props.id}>
                 <li className='listItem'>
@@ -82,8 +81,8 @@ class ListItem extends Component {
                     <div className="listItem__content">
                         {this.dispElem(this.props.elem)}
                     </div>
-                    {children.length ?
-                        <div className="listItem__actions"> {children} </div> : null}
+                    {this.props.children ?
+                        <div className="listItem__actions"> {this.props.children} </div> : null}
                 </li>
             </Link>
         )
