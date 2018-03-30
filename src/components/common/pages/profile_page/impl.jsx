@@ -41,6 +41,9 @@ class Page extends Component {
     }
 
     getAcceptButton(elemRaw) {
+        if (!elemRaw) {
+            return null
+        }
         const elem = elemRaw.toJS()
         const dispatch = this.props.dispatch
 
@@ -69,6 +72,32 @@ class Page extends Component {
                 </div>
             }
             return null
+        } else if (elem.groupType === 'Project') {
+            if (elem.canJoin || elem.canApply) {
+                return <div
+                    className="btn"
+                    onClick={e => {
+                        stopEvent(e)
+                        applyToProject(elemRaw).then(this.load)
+                        return false
+                    }}
+                >
+                    {elem.canJoin ? 'Join Project' : 'Apply to Project'}
+                </div>
+            }
+        } else if (elem.groupType === 'Organization') {
+            if (elem.canJoin || elem.canApply) {
+                return <div
+                    className="btn"
+                    onClick={e => {
+                        stopEvent(e)
+                        applyToOrganization(elemRaw).then(this.load)
+                        return false
+                    }}
+                >
+                    {elem.canJoin ? 'Join Organization' : 'Apply to Organization'}
+                </div>
+            }
         }
 
         return null
