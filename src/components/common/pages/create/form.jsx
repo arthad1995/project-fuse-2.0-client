@@ -139,7 +139,7 @@ class Form extends Component {
                                         .map(
                                             (link, index) => {
                                                 return (
-                                                    <div className="link-card">
+                                                    <div key={index} className="link-card">
                                                         <div className="link-card__title">
                                                             Video
                                                         </div>
@@ -245,7 +245,7 @@ class Form extends Component {
                                     .map(
                                         (link, index) => {
                                             return (
-                                                <div className="link-card">
+                                                <div key={index} className="link-card">
                                                     <div className="link-card__title">
                                                         {titleName(link.title || link.name)}
                                                     </div>
