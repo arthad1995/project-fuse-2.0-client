@@ -1,4 +1,4 @@
-import {fromJS} from 'immutable'
+import {fromJS, Map} from 'immutable'
 import Network from '../network'
 import { myProjects, myOrganizations, myFriends } from './my_';
 
@@ -8,11 +8,17 @@ export const addFriend = user => {
 }
 
 export const acceptFriend = friendship => {
+    if (!(friendship instanceof Map)) {
+        friendship = new Map().set('id', friendship)
+    }
     const network = new Network('ACCEPT_FRIEND_REQUEST')
     return network.PUT('/friends/accept/' + friendship.get('id')).then(() => myFriends())
 }
 
 export const declineFriend = friendship => {
+    if (!(friendship instanceof Map)) {
+        friendship = new Map().set('id', friendship)
+    }
     const network = new Network('DECLINE_FRIEND_REQUEST')
     return network.PUT('/friends/declined/' + friendship.get('id')).then(() => myFriends())
 }

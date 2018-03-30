@@ -9,13 +9,21 @@ import config from '../../../../config'
 import UrlParse from 'url-parse'
 import {titleName, getEmbedLink} from '../../../../utils/link'
 import VideoEmbed from '../../elements/video_embed'
+import {stopEvent} from '../../../common'
+import {addFriend, acceptFriend, declineFriend, applyToOrganization, applyToProject} from '../../../../actions/apply'
 
 class Page extends Component {
     constructor(props) {
         super(props)
+        this.getAcceptButton = this.getAcceptButton.bind(this)
+        this.load = this.load.bind(this)
     }
 
     componentDidMount() {
+        this.load()
+    }
+
+    load() {
         if (this.props.load)
             this.props.load(this.props.match.params.id)
     }
@@ -30,6 +38,40 @@ class Page extends Component {
             </div>
         }
         return '';
+    }
+
+    getAcceptButton(elemRaw) {
+        const elem = elemRaw.toJS()
+        const dispatch = this.props.dispatch
+
+        if (elem.friendAction) {
+            if (elem.friendAction === 'send') {
+                return <div
+                    className="btn"
+                    onClick={e => {
+                        stopEvent(e)
+                        addFriend(elemRaw).then(this.load)
+                        return false
+                    }}
+                >
+                    Send Friend Request
+                </div>
+            } else if (elem.friendAction === 'accept' && elem.friendInvitationId) {
+                return <div
+                    className="btn"
+                    onClick={e => {
+                        stopEvent(e)
+                        acceptFriend(elem.friendInvitationId).then(this.load)
+                        return false
+                    }}
+                >
+                    Accept Friend Request
+                </div>
+            }
+            return null
+        }
+
+        return null
     }
 
     renderLinks(profile) {
@@ -159,13 +201,16 @@ class Page extends Component {
                 </div> :
                 ''
         )
+        const acceptButton = this.getAcceptButton(elem)
         const customElems = this.props.customElems || (e =>null)
 
         if (elem) {
             const profile = elem.get('profile') || Map()
-            console.log(elem.get('groupType'))
             return (
                 <div className="profile">
+                    <div className="profile_buttons">
+                        {acceptButton}
+                    </div>
                     <div className="profile_header">
                         <img src={(profile.get('background_id')
                             ? config.host + '/files/download/' + profile.get('background_id')

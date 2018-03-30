@@ -1454,6 +1454,7 @@ $profile_height: 15rem;
 
 .profile {
   text-align: center;
+  position: relative;
   h1.title {
     margin-top: 0;
   }
@@ -1519,6 +1520,17 @@ $profile_height: 15rem;
       width: calc(100% - 2rem);
       margin: 0 1rem;
       transform: translateY(-1rem);
+    }
+  }
+
+  & &_buttons {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    z-index: 9;
+    .btn  {
+      background-color: hsla(210, 90%, 28%, 0.5);
+      color: white;
     }
   }
 }
