@@ -28,7 +28,7 @@ export function edit_obj(state = fromJS({}), action){
             {},
             profile,
             {
-                links: profile.links.concat([{
+                links: (profile.links || []).concat([{
                     name: action.payload.type,
                     link: action.payload.url,
                     tmpId: action.payload.tmpId
