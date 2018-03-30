@@ -5,6 +5,7 @@ import { Field, reset } from 'redux-form'
 import { Redirect } from 'react-router-dom'
 import { addLink, loadEditLinkInfoFor, deleteLink } from '../../../../actions/link'
 import ImageUpload from '../../elements/image_upload'
+import {titleName} from '../../../../utils/link'
 
 class Form extends Component {
 
@@ -27,9 +28,9 @@ class Form extends Component {
             customElems,
             formName,
             newLinkType,
-            newLinkUrl
+            newLinkUrl,
+            newVideoUrl
         } = this.props
-        console.log(this.props)
         let showName = this.props.showName
 
         if (showName !== false)
@@ -107,7 +108,78 @@ class Form extends Component {
                             </div>
                         </div>
                         {customElems ? customElems() : null}
-                        <h3 className='title'>{'Links'}</h3>
+                        <h3 className='title'>Videos</h3>
+                        <div className="profile-form__video-add">
+                            <div className="profile-form__video-add__input">
+                                <div>
+                                    <label htmlFor="newVideoUrl">
+                                        Video URL:
+                                    </label>
+                                    <Field
+                                        placeholder="New Video URL"
+                                        component="input"
+                                        type="text"
+                                        name="newVideoUrl"
+                                        id="newVideoUrl"
+                                        className={this.state.urlErrors ? 'error': ''}
+                                    />
+                                </div>
+                            </div>
+                            <div className="profile-form__video-add__button">
+                                <div onClick={(() => {
+                                    this.addVideoAction(newVideoUrl)
+                                }).bind(this)} className="btn right tone1-4-color">
+                                    <i className="fas fa-plus" /> Add Video
+                                </div>
+                            </div>
+                            <div className="video-links">
+                                {
+                                    this.links()
+                                        .filter(link => (link.title || link.name) === 'video')
+                                        .map(
+                                            (link, index) => {
+                                                return (
+                                                    <div className="link-card">
+                                                        <div className="link-card__title">
+                                                            Video
+                                                        </div>
+                                                        <div className="link-card__video">
+                                                            <div className="link-card__video__vid-wrapper">
+                                                                <iframe
+                                                                    width="560"
+                                                                    height="315"
+                                                                    src={getEmbedLink(link.link)}
+                                                                    frameborder="0"
+                                                                    allow="autoplay; encrypted-media"
+                                                                    allowfullscreen
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div className="link-card__actions">
+                                                            {/* <div className="btn tone1-2-color">h
+                                                                Edit
+                                                            </div> */}
+                                                            <div
+                                                                className="btn tone2-2-color"
+                                                                onClick={() => delLink(index)}
+                                                            >
+                                                                Delete
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        )
+                                }
+                            </div>
+                            {this.props.orgId ?
+                                <Field component="input" type="hidden" name="orgId" />
+                                : ''
+                            }
+                            <Field component="input" type="hidden" name="profileLinks" />
+                        </div>
+
+                        <h3 className='title'>Links</h3>
                         <div className="profile-form__link-add">
                             <div className="profile-form__link-add__input">
                                 <div className="profile-form__link-add__input__url">
@@ -143,16 +215,16 @@ class Form extends Component {
                                             className={this.state.typeErrors ? 'error': ''}
                                         >
                                             <option>Please Select</option>
-                                            <option>GitHub</option>
-                                            <option>YouTube</option>
-                                            <option>LinkedIn</option>
-                                            <option>Facebook</option>
-                                            <option>Twitter</option>
-                                            <option>Wordpress</option>
-                                            <option>Drupal</option>
-                                            <option>Website</option>
-                                            <option>Resume</option>
-                                            <option>Published Article</option>
+                                            <option value="github">GitHub</option>
+                                            <option value="youtube_channel">YouTube Channel</option>
+                                            <option value="linkedin">LinkedIn</option>
+                                            <option value="facebook">Facebook</option>
+                                            <option value="twitter">Twitter</option>
+                                            <option value="wordpress">Wordpress</option>
+                                            <option value="drupal">Drupal</option>
+                                            <option value="website">Website</option>
+                                            <option value="resume">Resume</option>
+                                            <option value='published_article'>Published Article</option>
                                         </Field>
                                         </div>
                                     </div>
@@ -169,18 +241,19 @@ class Form extends Component {
                         <div className="profile-links">
                             {
                                 this.links()
+                                    .filter(link => (link.title || link.name) !== 'video')
                                     .map(
                                         (link, index) => {
                                             return (
                                                 <div className="link-card">
                                                     <div className="link-card__title">
-                                                        {link.title || link.name}
+                                                        {titleName(link.title || link.name)}
                                                     </div>
                                                     <div className="link-card__url">
                                                         ({link.link})
                                                     </div>
                                                     <div className="link-card__actions">
-                                                        {/* <div className="btn tone1-2-color">
+                                                        {/* <div className="btn tone1-2-color">h
                                                             Edit
                                                         </div> */}
                                                         <div
@@ -231,6 +304,10 @@ class Form extends Component {
 
     links() {
         return (((this.props.initialValues || {}).profile || {}).links || [])
+    }
+
+    addVideoAction(url) {
+        return this.addLinkAction(url, 'video')
     }
 
     addLinkAction(url, type) {

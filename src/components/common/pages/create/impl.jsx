@@ -90,6 +90,7 @@ class Page extends Component {
                 orgId={this.props.orgId}
                 imgUpload={this.state.edit}
                 newLinkType={this.props.newLinkType}
+                newVideoUrl={this.props.newVideoUrl}
                 newLinkUrl={this.props.newLinkUrl}
                 cancelAction={this.props.cancelAction || this.props.history.goBack} />
             <ErrorDisplay errors={props.get('errors')} />

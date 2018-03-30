@@ -15,7 +15,8 @@ export const CreatePage = (paramObj) => {
             initialValues: state.edit_obj,
             formState: state.form,
             newLinkType: selector(state, 'newLinkType'),
-            newLinkUrl: selector(state, 'newLinkUrl')
+            newLinkUrl: selector(state, 'newLinkUrl'),
+            newVideoUrl: selector(state, 'newVideoUrl')
         }
         map[key] = state[key]
         return map

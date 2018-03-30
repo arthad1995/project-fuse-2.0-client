@@ -178,6 +178,7 @@ class Search extends Component {
             )
         }
         const showProj = (proj, index) => {
+            console.log(proj)
             const navTo = () => {
                 if (history) {
                     history.push(`/projects/${proj.id}`)

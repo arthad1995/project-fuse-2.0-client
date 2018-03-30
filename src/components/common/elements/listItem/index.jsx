@@ -23,9 +23,9 @@ class ListItem extends Component {
     render() {
         const baseUrl = '/' + this.props.baseUrl
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
-        console.log(skills)
         const owner = this.props.owner
         const handleSearchChange = this.props.handleSearchChange || null
+        const children = this.props.children.filter(c => c)
         return (
             <Link to={baseUrl + '/' + this.props.id}>
                 <li className='listItem'>
@@ -82,6 +82,8 @@ class ListItem extends Component {
                     <div className="listItem__content">
                         {this.dispElem(this.props.elem)}
                     </div>
+                    {children.length ?
+                        <div className="listItem__actions"> {children} </div> : null}
                 </li>
             </Link>
         )

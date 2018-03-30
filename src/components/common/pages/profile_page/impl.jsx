@@ -1,3 +1,4 @@
+import v from 'voca'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapSingleKey } from '../../mapping_helpers'
@@ -5,6 +6,8 @@ import { Link } from 'react-router-dom'
 const ReactMarkdown = require('react-markdown')
 import {Map} from 'immutable'
 import config from '../../../../config'
+import UrlParse from 'url-parse'
+import {titleName, getEmbedLink} from '../../../../utils/link'
 
 class Page extends Component {
     constructor(props) {
@@ -29,28 +32,115 @@ class Page extends Component {
     }
 
     renderLinks(profile) {
-        const formatLink = link => {
+        const formatLink = (link, type) => {
             if (!link.match(/^https?:\/\//)) {
-                return 'http://' + link
+                link = `http://${link}`
             }
-            return link
+            let parsed = UrlParse(link)
+
+            const getLinkWithHost = (link, host, pathNamePrepend) => {
+                link = `https://${host}/${link.replace(/^(\w+:)?\/\//, '')}`
+                let parsed = UrlParse(link)
+                if (pathNamePrepend) {
+                    const regex = new RegExp(`/^\\/${pathNamePrepend}/`)
+                    if (!regex.test(parsed.pathname)) {
+                        parsed.pathname = `/${pathNamePrepend}${parsed.pathname}`
+                    }
+                }
+                return parsed
+            }
+
+            const badHostName = (parsed, hostname) => parsed.hostname !== hostname && parsed.hostname !== `www.${hostname}`
+
+            switch (v.lowerCase(type)) {
+                case 'github': {
+                    if (badHostName(parsed, 'github.com')) {
+                        parsed = getLinkWithHost(link, 'github.com')
+                    }
+                    break
+                }
+                case 'linkedin': {
+                    if (badHostName(parsed, 'linkedin.com')) {
+                        parsed = getLinkWithHost(link, 'www.linkedin.com', 'in')
+                    }
+                    break
+                }
+                case 'youtube': {
+                    if (badHostName(parsed, 'youtube.com')) {
+                        parsed = getLinkWithHost(link, 'www.youtube.com', 'channel')
+                    }
+                    break
+                }
+                case 'facebook': {
+                    if (badHostName(parsed, 'facebook.com')) {
+                        parsed = getLinkWithHost(link, 'www.facebook.com')
+                    }
+                    break
+                }
+                case 'twitter': {
+                    if (badHostName(parsed, 'twitter.com')) {
+                        parsed = getLinkWithHost(link, 'www.twitter.com')
+                    }
+                    break
+                }
+                case 'wordpress': {
+                    if (!parsed.hostname.match(/\.wordpress\.com/) && !parsed.hostname.match(/\.\w+/)) {
+                        parsed.hostname += '.wordpress.com'
+                    }
+                    break
+                }
+            }
+            return `${parsed.protocol}//${parsed.hostname}${parsed.pathname}${parsed.query}`
         }
-        if (profile.get('links')) {
+        if (profile.get('links') && profile.get('links').size) {
+            const numLinks = profile.get('links').filter(link => link.get('name') !== 'video').size
+            const numVideos = profile.get('links').filter(link => link.get('name') === 'video').size
             return <div>
-                <h3>Links</h3>
-                <div className="profile-links">
-                    {profile.get('links').map((link, index) => (
-                        <a key={index} target="_blank" href={formatLink(link.get('link'))}>
-                            <div className="link-card">
-                                {link.get('img') ? <div className="link-card__img">
-                                    <img src={link.get('img')} />
-                                </div> : <div class="link-card__title">
-                                    {link.get('title') || link.get('name')}
-                                </div>}
-                            </div>
-                        </a>)
-                    )}
-                </div>
+                {numVideos > 0 ?
+                    <div>
+                        <h3>Videos</h3>
+                        <div className="profile-videos">
+                            {profile.get('links')
+                                .filter(link => link.get('name') === 'video')
+                                .reverse()
+                                .map((link, index) => (
+                                <a
+                                    key={index}
+                                    target="_blank"
+                                    href={formatLink(link.get('link'), link.get('name'))}
+                                    title={titleName(link.get('title') || link.get('name'))}
+                                >
+                                    {JSON.stringify(link.toJS())}
+                                </a>)
+                            )}
+                        </div>
+                    </div>
+                 : null}
+                {numLinks > 0 ?
+                    <div>
+                        <h3>Links</h3>
+                        <div className="profile-links">
+                            {profile.get('links')
+                                .filter(link => link.get('name') !== 'video')
+                                .sort((a, b) => a.get('name') < b.get('name') ? -1 : b.get('name') < a.get('name') ? 1 : 0)
+                                .map((link, index) => (
+                                <a
+                                    key={index}
+                                    target="_blank"
+                                    href={formatLink(link.get('link'), link.get('name'))}
+                                    title={titleName(link.get('title') || link.get('name'))}
+                                >
+                                    <div className="link-card">
+                                        {link.get('img') ? <div className="link-card__img">
+                                            <img src={link.get('img')} />
+                                        </div> : <div className="link-card__title">
+                                            {v.titleCase(link.get('title')) || v.titleCase(link.get('name'))}
+                                        </div>}
+                                    </div>
+                                </a>)
+                            )}
+                        </div>
+                    </div>: null}
             </div>
         }
     }
