@@ -23,6 +23,7 @@ class ListItem extends Component {
     render() {
         const baseUrl = '/' + this.props.baseUrl
         const skills = (this.props.elem && this.props.elem.get('skills')) ? this.props.elem.get('skills') : null
+
         const owner = this.props.owner
         const handleSearchChange = this.props.handleSearchChange || null
         const defaultProfileImg = this.props.defaultProfileImg ? `/assets/images/${this.props.defaultProfileImg}` : '/assets/images/profile_icon.svg'

@@ -125,6 +125,7 @@ class Search extends Component {
                     history.push(`/organizations/${org.id}`)
                 }
             }
+            const tags  = (org.tags) ? org.tags : []
             return (
                 <CardImg
                     key={index}
@@ -146,6 +147,21 @@ class Search extends Component {
                     <div className="searchResult">
                         <div className="label">Headline:</div>
                         <div>{org.headline || "(None)"}</div>
+                        {(tags.length) ?
+                            <div className="skills--clickable">
+                                <ul>
+                                    {tags.map((tag, i) => {
+                                        return <li key={`${index}_${i}`}
+                                            onClick={(e) => {
+                                                stopEvent(e)
+                                                handleSearchChange(`in:orgs ${tag}`)
+                                                return false;
+                                            }}
+                                        >{tag}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Tags Listed</i></div>}
                         <div className="buttons">
                             {org.actions_available === 'join' || org.actions_available === 'apply' ?
                                 <div
@@ -183,6 +199,7 @@ class Search extends Component {
                     history.push(`/projects/${proj.id}`)
                 }
             }
+            const tags  = (proj.tags) ? proj.tags : []
             return (
                 <CardImg
                     key={index}
@@ -204,6 +221,21 @@ class Search extends Component {
                     <div className="searchResult">
                         <div className="label">Headline:</div>
                         <div>{proj.headline || "(None)"}</div>
+                        {(tags.length) ?
+                            <div className="skills--clickable">
+                                <ul>
+                                    {tags.map((tag, i) => {
+                                        return <li key={`${index}_${i}`}
+                                            onClick={(e) => {
+                                                stopEvent(e)
+                                                handleSearchChange(`in:projs ${tag}`)
+                                                return false;
+                                            }}
+                                        >{tag}</li>
+                                    })}
+                                </ul>
+                            </div>
+                            : <div className="skills"><i>No Tags Listed</i></div>}
                         <div className="buttons">
                             {proj.actions_available === 'join' || proj.actions_available === 'apply' ?
                                 <div
