@@ -82,7 +82,7 @@ export const async_base_id = (base_name) => {
                 return state.set('fetching', true).set('fetched', false)
             case `${base_name}_REJECTED`:
                 {
-                    
+
                     if(!action.payload.response) {
                         return state
                     }
@@ -168,6 +168,9 @@ export const async_list_get_and_create = (base_name) => {
             case '@@router/LOCATION_CHANGE':
                 return state.remove('errors')
                     .remove('REDIRECT_ID')
+            case 'LOGOUT_FULFILLED':
+            case 'LOGOUT_REJECTED':
+                return not_loaded
         }
         return state
     }

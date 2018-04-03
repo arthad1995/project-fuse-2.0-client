@@ -2,7 +2,7 @@ import { not_loaded } from './initial_states'
 import { async_base } from './base_reducers'
 import {fromJS} from 'immutable'
 
-export function edit_obj(state = fromJS({}), action){
+export function edit_obj(state = {}, action){
 
     const isFulfilled = /LOAD\_[A-Z_]+\ID_FULFILLED/;
     const isLoading = /LOAD\_[A-Z_]+\ID_PENDING/
@@ -62,6 +62,9 @@ export function edit_obj(state = fromJS({}), action){
             }
         )
     }
+
+    if (action.type === 'LOGOUT_FULFILLED' || 'LOGOUT_REJECTED')
+        return Object.assign({}, {})
 
     return state
 }

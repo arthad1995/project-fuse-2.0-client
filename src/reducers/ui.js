@@ -5,7 +5,7 @@ import {
     show_time_picker
 } from '../actions/ui';
 
-export function ui(state = fromJS({
+const baseState = fromJS({
     online: true,
     show_time_picker: false,
     animation: {
@@ -27,7 +27,9 @@ export function ui(state = fromJS({
     organization_search: '',
     project_search: '',
     user_search: ''
-}), action) {
+})
+
+export function ui(state = baseState, action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
             console.log(action)
@@ -82,7 +84,7 @@ export function ui(state = fromJS({
             return state.set('mock_data_time', action.payload)
         case 'LOGOUT_FULFILLED':
         case 'LOGOUT_REJECTED':
-            return state.set('mock_data', 0)
+            return baseState
         case 'TOGGLE_GLOBAL_SEARCH':
             return state.set('global_search',
                 state.get('global_search').set('show', !state.get('global_search').get('show'))

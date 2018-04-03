@@ -23,6 +23,9 @@ export const cur_user = combine_wrapper([
                 }
                 return state
             }
+            case 'LOGOUT_FULFILLED':
+            case 'LOGOUT_REJECTED':
+                return fromJS({})
             default: {
                 return state
             }
