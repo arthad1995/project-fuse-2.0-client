@@ -8,11 +8,13 @@ import { UserCustomElemsEdit } from '../pages/user-page'
 import {ProjectSettings } from '../pages/project-settings'
 import {TeamSettings} from '../pages/team-settings'
 import {OrganizationSettings} from '../pages/organization-settings'
+import { ProjectCustomElemsEdit } from '../pages/project-page';
+import { OrganizationCustomElemsEdit } from '../pages/organization-page';
 
 export default {
     edit: createArray(__pages, [
-        { name: 'Project', save: updateProject, load: loadProject },
-        { name: 'Organization', save: updateOrganization, load: loadOrganization },
+        { name: 'Project', save: updateProject, load: loadProject, customElems: ProjectCustomElemsEdit },
+        { name: 'Organization', save: updateOrganization, load: loadOrganization, customElems: OrganizationCustomElemsEdit },
         { name: 'Profile', save: updateCurrentUser, load: loadUser, customElems: UserCustomElemsEdit },
     ]),
     members: createArray(__pages.slice(0, -1), [

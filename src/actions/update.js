@@ -8,7 +8,8 @@ export const updateProject = history => id => values =>{
     return network.PUT(`/projects/${id}`,{
         profile:{
             headline: values.headline,
-            summary: values.summary
+            summary: values.summary,
+            tags: values.tags
         }
     }).then(
         () => {
@@ -51,7 +52,8 @@ export const updateOrganization = history => id => values => {
     return network.PUT(`/organizations/${id}`,{
         profile:{
             headline: values.headline,
-            summary: values.summary
+            summary: values.summary,
+            tags: values.tags
         }
     }).then(
         () => {
