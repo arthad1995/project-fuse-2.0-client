@@ -22,20 +22,46 @@ export function ui(state = fromJS({
     show_interview_slots: false,
     selected_timeslot: 0,
     invite_info: null,
-    sub_tab: "all"
+    sub_tab: "all",
+    last_search_page: '',
+    organization_search: '',
+    project_search: '',
+    user_search: ''
 }), action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
+            console.log(action)
             state = state.set('selected_tab', 'tab1').set('was_offline', false).set('animation', fromJS({
                 page: true,
                 sidebar: true,
-            })).set('show_time_picker', false).set('local_search', '').set('applicant_tab', 'pending')
+            })).set('show_time_picker', false).set('applicant_tab', 'pending')
             .set('show_interview_slots', false).set('selected_timeslot', 0).set('invite_info', null).set('sub_tab', "all")
             if (action.payload.pathname !== '/search') {
                 state = state.set('global_search', fromJS({
                     show: false,
-                    search: ''
+                    search: state.get('global_search').get('search')
                 }))
+            }
+
+            const resetLocalSearch = ['/my-friends', '/my-projects', '/my-organizations']
+            if (resetLocalSearch.indexOf(action.payload.pathname) !== -1 && state.get('last_search_page') !== action.payload.pathname) {
+                const search = state.get('local_search')
+                const lastSearchPage = state.get('last_search_page')
+                if (lastSearchPage === '/my-friends') {
+                    state = state.set('user_search', search)
+                } else if (lastSearchPage === '/my-projects') {
+                    state = state.set('project_search', search)
+                } else if (lastSearchPage === '/my-organizations') {
+                    state = state.set('organization_search', search)
+                }
+                if (action.payload.pathname === '/my-friends') {
+                    state = state.set('local_search', state.get('user_search'))
+                } else if (action.payload.pathname === '/my-projects') {
+                    state = state.set('local_search', state.get('project_search'))
+                } else {
+                    state = state.set('local_search', state.get('organization_search'))
+                }
+                state = state.set('last_search_page', action.payload.pathname)
             }
             return state
         case 'CHANGE_TAB':

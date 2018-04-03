@@ -56,16 +56,18 @@ class OrganizationProjects extends Component {
                 <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.tab)}>
                     <TabList>
                         <Tab>Project List</Tab>
-                        <Tab>Create Project</Tab>
+                        {this.props.organization.canCreateProject ? <Tab>Create Project</Tab> : '' }
                     </TabList>
 
                     <TabPanel>
                         {this.showProjectList()}
                     </TabPanel>
 
-                    <TabPanel>
-                        {this.showProjectForm()}
-                    </TabPanel>
+                    {this.props.organization.canCreateProject ?
+                        <TabPanel>
+                            {this.showProjectForm()}
+                        </TabPanel>
+                     : '' }
                 </Tabs>
             </div>
         )
