@@ -5,6 +5,7 @@ import { Field } from 'redux-form'
 
 export const OrganizationPageSidebar = (props) => <Async load={import('./sidebar')} {...props}/>
 export const OrganizationProjects = props => <Async load={import('./projects')} {...props} />
+export const OrganizationStatistics = props => <Async load={import('./statistics')} {...props} />
 
 const format = (tag) =>{
     return tag

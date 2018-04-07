@@ -10,5 +10,8 @@ export const parse_date = (date, format) => {
 }
 
 export const date_format = (date, format=ISO_format) => {
+    if (!date.format) {
+        return parse_date(date).format(format)
+    }
     return date.format(format)
 }

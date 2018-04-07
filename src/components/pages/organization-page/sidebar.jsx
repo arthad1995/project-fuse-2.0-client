@@ -54,6 +54,12 @@ class Sidebar extends Component {
                                 Settings
                             </div>
                         </Link> : null}
+                        {data.get('canEdit') ?
+                        <Link to={`/organizations/${id}/statistics`}>
+                            <div className={"section centered" + (tab === 'statistics' ? ' selected' : '')}>
+                                Statistics
+                            </div>
+                        </Link> : null}
                     </div>
                 </div>
                 <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div>

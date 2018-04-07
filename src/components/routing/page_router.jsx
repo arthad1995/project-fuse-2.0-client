@@ -16,7 +16,7 @@ import authUser from './auth_user'
 import routeBuilder from './route_builder'
 import Search from '../pages/search'
 import Notifications from '../pages/notifications'
-import {OrganizationProjects} from '../pages/organization-page'
+import {OrganizationProjects, OrganizationStatistics} from '../pages/organization-page'
 
 export class PageRouter extends Component {
     constructor(props) { super(props) }
@@ -49,6 +49,7 @@ export class PageRouter extends Component {
                 <Route exact path="/users/:id/friends" component={PageShell(UserFriends)} />
                 {final_routes}
                 <Route exact path="/organizations/:id/projects" component={PageShell(OrganizationProjects)} />
+                <Route exact path="/organizations/:id/statistics" component={PageShell(OrganizationStatistics)} />
                 <Route exact path="/search" render={preFunc(PageShell(Search))} />
                 <Route exact path="/notifications" render={preFunc(PageShell(Notifications))} />
                 <Route exact path="/" render={preFunc(PageShell(Home))} />

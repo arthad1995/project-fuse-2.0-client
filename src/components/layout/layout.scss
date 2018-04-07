@@ -2230,3 +2230,92 @@ input,select {
     left: 0; top: 0;
   }
 }
+
+.user-profile-charts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px;
+  @include for-tablet-portrait {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include for-phone-only {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  div {
+    margin: 0 auto;
+  }
+  text-align: center;
+}
+
+.user-interviews-scheduled-charts,
+.project-interviews-scheduled-charts,
+.user-profile-charts > div {
+  display: flex;
+  flex-direction: column;
+  > div {
+    margin: 0 auto;
+  }
+}
+
+.statistics {
+  h1 {
+    line-height: 1.5em;
+  }
+}
+
+.show-breakdown {
+  color: hsl(210, 97%, 58%);
+  cursor: pointer;
+  &::before{
+    content: '∨ Show Breakdown'
+  }
+}
+
+.hide-breakdown {
+  color: hsl(210, 97%, 58%);
+  cursor: pointer;
+  &::before{
+    content: '∧ Hide Breakdown'
+  }
+}
+
+.user-profile-breakdown, .project-interview-breakdown {
+  grid-template-columns: repeat(4, 1fr);
+}
+.user-profile-breakdown, .project-interview-breakdown, .user-interview-breakdown {
+  margin-top: 0.5rem;
+  padding: 2px;
+  display: grid;
+  grid-gap: 1px;
+  background-color: rgba(0,0,0,0.1);
+  &__header{
+    font-weight: bold;
+  }
+  div {
+    background-color: rgba(255,255,255,0.9);
+    padding: 10px;
+  }
+}
+
+.user-profile-breakdown {
+  .upb-yes {
+    text-align: center;
+    background-color: hsla(115, 100%, 60%, 0.4);
+    color: hsl(115, 100%, 30%);
+    &::before{
+      content: '✔'
+    }
+  }
+  .upb-no {
+    text-align: center;
+    background-color: hsla(15, 100%, 60%, 0.4);
+    color: hsl(15, 100%, 30%);
+    &::before{
+      content: '✘'
+    }
+  }
+}
+
+.user-interview-breakdown {
+  grid-template-columns: repeat(2, 1fr);
+}

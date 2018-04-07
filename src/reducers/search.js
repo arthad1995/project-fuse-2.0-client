@@ -31,6 +31,9 @@ export const search = combine_wrapper([
                     )
                 )
             )}
+        case 'LOGOUT_FULFILLED':
+        case 'LOGOUT_REJECTED':
+            return fromJS({})
         default:
             return state
         }

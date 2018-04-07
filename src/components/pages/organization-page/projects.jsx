@@ -10,7 +10,7 @@ import {applyToProject} from '../../../actions/apply'
 
 @connect(state => {
     return {
-        organization: state.edit_obj,
+        organization: state.org,
         projects: state.organization_projects.get('data'),
         tab: state.ui.get('sub_tab')
     }
@@ -50,6 +50,7 @@ class OrganizationProjects extends Component {
     }
 
     render() {
+        console.log(this.props.organization)
         return (
             <div className="relative">
                 <h2>Projects for {this.getOrgName()}</h2>
