@@ -24,24 +24,38 @@ export function edit_obj(state = {}, action){
 
     const profile = state.profile
     if(action.type === 'ADD_LINK_TO_EDIT_OBJ') {
-        const newProfile = Object.assign(
-            {},
-            profile,
-            {
-                links: (profile.links || []).concat([{
-                    name: action.payload.type,
-                    link: action.payload.url,
-                    tmpId: action.payload.tmpId
-                }])
-            }
-        )
-        return Object.assign(
-            {},
-            state,
-            {
-                profile: newProfile
-            }
-        )
+        if (profile) {
+            const newProfile = Object.assign(
+                {},
+                profile,
+                {
+                    links: (profile.links || []).concat([{
+                        name: action.payload.type,
+                        link: action.payload.url,
+                        tmpId: action.payload.tmpId
+                    }])
+                }
+            )
+            return Object.assign(
+                {},
+                state,
+                {
+                    profile: newProfile
+                }
+            )
+        } else {
+            return Object.assign(
+                {},
+                state,
+                {
+                    link: (state.links || []).concat([{
+                        name: action.payload.type,
+                        link: action.payload.url,
+                        tmpId: action.payload.tmpId
+                    }])
+                }
+            )
+        }
     }
 
     if (action.type === 'DELETE_LINK_AT_INDEX') {
@@ -63,7 +77,7 @@ export function edit_obj(state = {}, action){
         )
     }
 
-    if (action.type === 'LOGOUT_FULFILLED' || 'LOGOUT_REJECTED')
+    if (action.type === 'LOGOUT_FULFILLED' || action.type === 'LOGOUT_REJECTED')
         return Object.assign({}, {})
 
     return state

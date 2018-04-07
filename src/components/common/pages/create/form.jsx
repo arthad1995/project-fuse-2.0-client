@@ -109,158 +109,162 @@ class Form extends Component {
                             </div>
                         </div>
                         {customElems ? customElems() : null}
-                        <h3 className='title'>Videos</h3>
-                        <div className="profile-form__video-add">
-                            <div className="profile-form__video-add__input">
-                                <div>
-                                    <label htmlFor="newVideoUrl">
-                                        Video URL:
-                                    </label>
-                                    <Field
-                                        placeholder="New Video URL"
-                                        component="input"
-                                        type="text"
-                                        name="newVideoUrl"
-                                        id="newVideoUrl"
-                                        className={this.state.urlErrors ? 'error': ''}
-                                    />
-                                </div>
-                            </div>
-                            <div className="profile-form__video-add__button">
-                                <div onClick={(() => {
-                                    this.addVideoAction(newVideoUrl)
-                                }).bind(this)} className="btn right tone1-4-color">
-                                    <i className="fas fa-plus" /> Add Video
-                                </div>
-                            </div>
-                            <div className="video-links">
-                                {
-                                    this.links()
-                                        .filter(link => (link.title || link.name) === 'video')
-                                        .map(
-                                            (link, index) => {
-                                                return (
-                                                    <div key={index} className="link-card">
-                                                        <div className="link-card__title">
-                                                            Video
-                                                        </div>
-                                                        <div className="link-card__video">
-                                                            <VideoEmbed src={link.link} />
-                                                        </div>
-                                                        <div className="link-card__actions">
-                                                            {/* <div className="btn tone1-2-color">h
-                                                                Edit
-                                                            </div> */}
-                                                            <div
-                                                                className="btn tone2-2-color"
-                                                                onClick={() => delLink(index)}
-                                                            >
-                                                                Delete
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }
-                                        )
-                                }
-                            </div>
-                            {this.props.orgId ?
-                                <Field component="input" type="hidden" name="orgId" />
-                                : ''
-                            }
-                            <Field component="input" type="hidden" name="profileLinks" />
-                        </div>
-
-                        <h3 className='title'>Links</h3>
-                        <div className="profile-form__link-add">
-                            <div className="profile-form__link-add__input">
-                                <div className="profile-form__link-add__input__url">
-                                    <div>
+                        {showName ? null :
+                            <div>
+                                <h3 className='title'>Videos</h3>
+                                <div className="profile-form__video-add">
+                                    <div className="profile-form__video-add__input">
                                         <div>
-                                            <label htmlFor="newLinkUrl">
-                                                Link URL:
+                                            <label htmlFor="newVideoUrl">
+                                                Video URL:
                                             </label>
-                                        </div>
-                                        <div>
                                             <Field
-                                                placeholder="New Link URL"
+                                                placeholder="New Video URL"
                                                 component="input"
                                                 type="text"
-                                                name="newLinkUrl"
-                                                id="newLinkUrl"
+                                                name="newVideoUrl"
+                                                id="newVideoUrl"
                                                 className={this.state.urlErrors ? 'error': ''}
                                             />
                                         </div>
                                     </div>
-                                </div>
-                                <div className="profile-form__link-add__input__type">
-                                    <div>
-                                        <div>
-                                            <label htmlFor="newLinkType">
-                                                Link Type:
-                                            </label>
+                                    <div className="profile-form__video-add__button">
+                                        <div onClick={(() => {
+                                            this.addVideoAction(newVideoUrl)
+                                        }).bind(this)} className="btn right tone1-4-color">
+                                            <i className="fas fa-plus" /> Add Video
                                         </div>
-                                        <div>
-                                        <Field
-                                            name="newLinkType"
-                                            component="select"
-                                            className={this.state.typeErrors ? 'error': ''}
-                                        >
-                                            <option>Please Select</option>
-                                            <option value="github">GitHub</option>
-                                            <option value="youtube_channel">YouTube Channel</option>
-                                            <option value="linkedin">LinkedIn</option>
-                                            <option value="facebook">Facebook</option>
-                                            <option value="twitter">Twitter</option>
-                                            <option value="wordpress">Wordpress</option>
-                                            <option value="drupal">Drupal</option>
-                                            <option value="website">Website</option>
-                                            <option value="resume">Resume</option>
-                                            <option value='published_article'>Published Article</option>
-                                        </Field>
+                                    </div>
+                                    <div className="video-links">
+                                        {
+                                            this.links()
+                                                .filter(link => (link.title || link.name) === 'video')
+                                                .map(
+                                                    (link, index) => {
+                                                        return (
+                                                            <div key={index} className="link-card">
+                                                                <div className="link-card__title">
+                                                                    Video
+                                                                </div>
+                                                                <div className="link-card__video">
+                                                                    <VideoEmbed src={link.link} />
+                                                                </div>
+                                                                <div className="link-card__actions">
+                                                                    {/* <div className="btn tone1-2-color">h
+                                                                        Edit
+                                                                    </div> */}
+                                                                    <div
+                                                                        className="btn tone2-2-color"
+                                                                        onClick={() => delLink(index)}
+                                                                    >
+                                                                        Delete
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                )
+                                        }
+                                    </div>
+                                    {this.props.orgId ?
+                                        <Field component="input" type="hidden" name="orgId" />
+                                        : ''
+                                    }
+                                    <Field component="input" type="hidden" name="profileLinks" />
+                                </div>
+
+                                <h3 className='title'>Links</h3>
+                                <div className="profile-form__link-add">
+                                    <div className="profile-form__link-add__input">
+                                        <div className="profile-form__link-add__input__url">
+                                            <div>
+                                                <div>
+                                                    <label htmlFor="newLinkUrl">
+                                                        Link URL:
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <Field
+                                                        placeholder="New Link URL"
+                                                        component="input"
+                                                        type="text"
+                                                        name="newLinkUrl"
+                                                        id="newLinkUrl"
+                                                        className={this.state.urlErrors ? 'error': ''}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="profile-form__link-add__input__type">
+                                            <div>
+                                                <div>
+                                                    <label htmlFor="newLinkType">
+                                                        Link Type:
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                <Field
+                                                    name="newLinkType"
+                                                    component="select"
+                                                    className={this.state.typeErrors ? 'error': ''}
+                                                >
+                                                    <option>Please Select</option>
+                                                    <option value="github">GitHub</option>
+                                                    <option value="youtube_channel">YouTube Channel</option>
+                                                    <option value="linkedin">LinkedIn</option>
+                                                    <option value="facebook">Facebook</option>
+                                                    <option value="twitter">Twitter</option>
+                                                    <option value="wordpress">Wordpress</option>
+                                                    <option value="drupal">Drupal</option>
+                                                    <option value="website">Website</option>
+                                                    <option value="resume">Resume</option>
+                                                    <option value='published_article'>Published Article</option>
+                                                </Field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="profile-form__link-add__button">
+                                        <div onClick={(() => {
+                                            this.addLinkAction(newLinkUrl, newLinkType)
+                                        }).bind(this)} className="btn right tone1-4-color">
+                                            <i className="fas fa-plus" /> Add Link
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="profile-form__link-add__button">
-                                <div onClick={(() => {
-                                    this.addLinkAction(newLinkUrl, newLinkType)
-                                }).bind(this)} className="btn right tone1-4-color">
-                                    <i className="fas fa-plus" /> Add Link
+                                <div className="profile-links">
+                                    {
+                                        this.links()
+                                            .filter(link => (link.title || link.name) !== 'video')
+                                            .map(
+                                                (link, index) => {
+                                                    return (
+                                                        <div key={index} className="link-card">
+                                                            <div className="link-card__title">
+                                                                {titleName(link.title || link.name)}
+                                                            </div>
+                                                            <div className="link-card__url">
+                                                                ({link.link})
+                                                            </div>
+                                                            <div className="link-card__actions">
+                                                                {/* <div className="btn tone1-2-color">h
+                                                                    Edit
+                                                                </div> */}
+                                                                <div
+                                                                    className="btn tone2-2-color"
+                                                                    onClick={() => delLink(index)}
+                                                                >
+                                                                    Delete
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }
+                                            )
+                                    }
                                 </div>
                             </div>
-                        </div>
-                        <div className="profile-links">
-                            {
-                                this.links()
-                                    .filter(link => (link.title || link.name) !== 'video')
-                                    .map(
-                                        (link, index) => {
-                                            return (
-                                                <div key={index} className="link-card">
-                                                    <div className="link-card__title">
-                                                        {titleName(link.title || link.name)}
-                                                    </div>
-                                                    <div className="link-card__url">
-                                                        ({link.link})
-                                                    </div>
-                                                    <div className="link-card__actions">
-                                                        {/* <div className="btn tone1-2-color">h
-                                                            Edit
-                                                        </div> */}
-                                                        <div
-                                                            className="btn tone2-2-color"
-                                                            onClick={() => delLink(index)}
-                                                        >
-                                                            Delete
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        }
-                                    )
-                            }
-                        </div>
+                        }
                         {this.props.orgId ?
                             <Field component="input" type="hidden" name="orgId" />
                             : ''
@@ -295,7 +299,7 @@ class Form extends Component {
     }
 
     links() {
-        return (((this.props.initialValues || {}).profile || {}).links || [])
+        return (((this.props.initialValues || {}).profile || this.props.initialValues || {}).links || [])
     }
 
     addVideoAction(url) {

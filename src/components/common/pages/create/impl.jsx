@@ -9,6 +9,7 @@ import Form from './form'
 import {EditorState} from 'draft-js'
 import {fromJS} from 'immutable'
 import config from '../../../../config'
+import _ from 'lodash'
 
 class Page extends Component {
     constructor(props) {
@@ -70,7 +71,7 @@ class Page extends Component {
             return <div className='loading'></div>
         }
 
-        const links = (((this.props.initialValues || {}).profile || {}).links || [])
+        const links = (((this.props.initialValues || {}).profile || this.props.initialValues || {}).links || [])
         this.props.initialValues.profileLinks = JSON.stringify(links)
 
         return <div>

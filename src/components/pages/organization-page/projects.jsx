@@ -50,7 +50,6 @@ class OrganizationProjects extends Component {
     }
 
     render() {
-        console.log(this.props.organization)
         return (
             <div className="relative">
                 <h2>Projects for {this.getOrgName()}</h2>

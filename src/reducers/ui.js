@@ -32,7 +32,6 @@ const baseState = fromJS({
 export function ui(state = baseState, action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE': // resets tabs on page change
-            console.log(action)
             state = state.set('selected_tab', 'tab1').set('was_offline', false).set('animation', fromJS({
                 page: true,
                 sidebar: true,
