@@ -1,4 +1,5 @@
 import {async_base, combine_wrapper} from './base_reducers'
+import { fromJS } from 'immutable'
 
 export const search = combine_wrapper([
     async_base('GLOBAL_SEARCH_INFO'),
