@@ -38,6 +38,7 @@ class OrganizationStatistics extends Component {
     render() {
         return (
             <div className="statistics">
+                <h3>Percentage of users by number of interviews</h3>
                 {this.drawUserInterviewSummary()}
                 {this.drawUserInterviewBreakdown()}
                 {this.drawProjectInterviewSummary()}
@@ -202,12 +203,12 @@ class OrganizationStatistics extends Component {
                     const data = entry[1]
                     if (count !== "1") {
                         return {
-                            key: `${count} Interviews Scheduled`,
+                            key: `Users with ${count} Interviews`,
                             value: data
                         }
                     }
                     return {
-                        key: '1 Interview Scheduled',
+                        key: 'Users with 1 Interview',
                         value: data
                     }
                 }
@@ -324,10 +325,10 @@ class OrganizationStatistics extends Component {
                                             {entry.member_name || <i>None</i>}
                                         </div>,
                                         <div className='project-interview-breakdown__start' key={`upb-headline-${entry.id}`}>
-                                            {date_format(entry.startTime, 'MM/DD/YYYY h:mm:ssA')}
+                                            {date_format(entry.start, 'MM/DD/YYYY h:mm:ssA')}
                                         </div>,
                                         <div className='project-interview-breakdown__end' key={`upb-image-${entry.id}`}>
-                                            {date_format(entry.endTime, 'MM/DD/YYYY h:mm:ss A')}
+                                            {date_format(entry.end, 'MM/DD/YYYY h:mm:ss A')}
                                         </div>,
                                     ]
                                 }
