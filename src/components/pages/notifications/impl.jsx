@@ -185,6 +185,8 @@ class Notifications extends Component {
                                         break
                                     case 'ProjectJoined:Info':
                                         link = `/projects/${data.get('id')}/members`
+                                        if (notification.get('interview'))
+                                        link = `/projects/${data.get('id')}/applicants`
                                         break
                                     case 'ProjectInvitation:Pending':
                                         notificationActions = <div>
@@ -327,6 +329,8 @@ class Notifications extends Component {
                                         break
                                     case 'OrganizationJoined:Info':
                                         link = `/organizations/${data.get('id')}/members`
+                                        if (notification.get('interview'))
+                                        link = `/organizations/${data.get('id')}/applicants`
                                         break
                                     case 'FriendRequest:Pending':
                                         notificationActions = <div>
