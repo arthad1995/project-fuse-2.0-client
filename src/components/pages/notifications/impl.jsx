@@ -13,6 +13,7 @@ import {
 import { acceptFriend, declineFriend, applyToOrganization, applyToProject } from '../../../actions/apply'
 import {stopEvent} from '../../common'
 import {fromJS} from 'immutable'
+import {date_format} from '../../../utils/date_utils'
 
 const mapStateToProps = (state) => {
     return {
@@ -363,6 +364,7 @@ class Notifications extends Component {
                                 <div onClick={markReadAction(notification.get('id'))} className={`notification--${className}`}>
                                     <div className={`notification--${className}__message`}>
                                         {notification.get('message')}
+                                        {notification.get('interview') ? ` from ${date_format(notification.get('interview').get('start'),'MM/DD/YYYY h:mm:ssA')} to ${date_format(notification.get('interview').get('end'),'MM/DD/YYYY h:mm:ssA')}` : ''}
                                     </div>
                                     {link?
                                         <div className={`notification--${className}__actions`}>

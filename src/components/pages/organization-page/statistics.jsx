@@ -152,12 +152,12 @@ class OrganizationStatistics extends Component {
                     const data = entry[1]
                     if (count !== "1") {
                         return {
-                            key: `${count} Interviews Scheduled`,
+                            key: `Users with ${count} Interviews`,
                             value: data
                         }
                     }
                     return {
-                        key: '1 Interview Scheduled',
+                        key: 'Users with 1 Interview',
                         value: data
                     }
                 }
@@ -203,12 +203,12 @@ class OrganizationStatistics extends Component {
                     const data = entry[1]
                     if (count !== "1") {
                         return {
-                            key: `Users with ${count} Interviews`,
+                            key: `Projects with ${count} Interviews`,
                             value: data
                         }
                     }
                     return {
-                        key: 'Users with 1 Interview',
+                        key: 'Projects with 1 Interview',
                         value: data
                     }
                 }
