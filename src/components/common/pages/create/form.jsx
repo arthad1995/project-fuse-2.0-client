@@ -138,9 +138,10 @@ class Form extends Component {
                                     <div className="video-links">
                                         {
                                             this.links()
-                                                .filter(link => (link.title || link.name) === 'video')
+                                                .map((link, index) => ({link, index}))
+                                                .filter(({link}) => (link.title || link.name) === 'video')
                                                 .map(
-                                                    (link, index) => {
+                                                    ({link, index}) => {
                                                         return (
                                                             <div key={index} className="link-card">
                                                                 <div className="link-card__title">
@@ -235,9 +236,10 @@ class Form extends Component {
                                 <div className="profile-links">
                                     {
                                         this.links()
-                                            .filter(link => (link.title || link.name) !== 'video')
+                                            .map((link, index) => ({link, index}))
+                                            .filter(({link}) => (link.title || link.name) !== 'video')
                                             .map(
-                                                (link, index) => {
+                                                ({link, index}) => {
                                                     return (
                                                         <div key={index} className="link-card">
                                                             <div className="link-card__title">
