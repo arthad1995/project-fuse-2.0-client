@@ -38,7 +38,6 @@ class OrganizationStatistics extends Component {
     render() {
         return (
             <div className="statistics">
-                <h3>Percentage of users by number of interviews</h3>
                 {this.drawUserInterviewSummary()}
                 {this.drawUserInterviewBreakdown()}
                 {this.drawProjectInterviewSummary()}
@@ -119,7 +118,7 @@ class OrganizationStatistics extends Component {
                             size={150}
                             data={userImageData}
                         />
-                        <Legend data={userHeadlineDate} dataId={'key'} horizontal />
+                        <Legend data={userImageData} dataId={'key'} horizontal />
                     </div>
                 </div>
             </div>
@@ -167,6 +166,7 @@ class OrganizationStatistics extends Component {
             return <div>
                 <h1>User Interviews Scheduled</h1>
                 <div className="user-interviews-scheduled-charts">
+                    <h3>Percentage of users by number of interviews</h3>
                     <PieChart
                         size={200}
                         data={data}
