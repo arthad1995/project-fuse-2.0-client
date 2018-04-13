@@ -50,7 +50,6 @@ class Sidebar extends Component {
                         </Link>
                     </div>
                 </div>
-                <div onClick={() => this.props.history.push('/my-friends')} className="section centered pointer clickable">Your Friends</div>
                 <div onClick={() => this.props.history.push('/')} className="section centered pointer clickable">Home</div>
             </div>
         } else {

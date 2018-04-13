@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {AnimationHandler} from '../../common'
 
 
 
@@ -20,8 +19,6 @@ export default class OnlineIndicator extends Component {
         let online = this.props.online
         let className = (online) ? (this.props.was_offline) ? 'indicator online was_offline' : 'indicator online' : 'indicator offline'
 
-        return <AnimationHandler anim="SlideInTop" animKey="always">
-            <div className={className}></div>
-        </AnimationHandler>
+        return <div className={className}></div>
     }
 }

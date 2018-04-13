@@ -6,7 +6,8 @@ export const createProject = (values) =>{
         name: values.name,
         profile:{
             headline: values.headline,
-            summary: values.summary
+            summary: values.summary,
+            tags: values.tags 
         },
         organization: {
             id: values.orgId || null
@@ -31,7 +32,8 @@ export const createOrganization = values => {
         name: values.name,
         profile:{
             headline: values.headline,
-            summary: values.summary
+            summary: values.summary,
+            tags: values.tags
         }
     })
 }

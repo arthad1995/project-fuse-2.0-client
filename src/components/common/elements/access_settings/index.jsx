@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Async, AnimationHandler } from '../../../common'
+import { Async } from '../../../common'
 import { show_time_picker, hide_time_picker } from '../../../../actions/ui'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import { Field, reset, reduxForm } from 'redux-form'
@@ -17,6 +17,20 @@ const mapStateToProps = (state) => {
 
 @connect(mapStateToProps)
 class _AccessSettings extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            success: false
+        }
+
+        this.redraw = this.redraw.bind(this)
+    }
+
+    redraw() {
+        this.forceUpdate()
+    }
 
     componentWillMount(){
         this.props.dispatch({
@@ -35,11 +49,18 @@ class _AccessSettings extends Component {
         const {handleSubmit} = this.props
         const restriction = this.props.data.restriction
         const props = this.props
+        let state = this.state
+        const redraw = this.redraw
         return <div>
             <h2>Access Settings</h2>
             <div>
                 <form onSubmit={(vals) => {
                     handleSubmit(vals).then(()=>{
+                        state.success = true
+                        setTimeout(() => {
+                            state.success = false
+                            redraw()
+                        }, 3000)
                         props.dispatch(reset(formName))
                         props.dispatch({
                             type: '@@redux-form/CHANGE',
@@ -73,6 +94,11 @@ class _AccessSettings extends Component {
                     <div>
                         <button className="btn tone1-4-color" type="submit">Save</button>
                     </div>
+                    {this.state.success ?
+                        <div className="success-feedback">
+                            Settings Saved!
+                        </div>
+                    : '' }
                 </form>
             </div>
         </div>

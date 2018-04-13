@@ -9,14 +9,7 @@ import Form from './form'
 import {EditorState} from 'draft-js'
 import {fromJS} from 'immutable'
 import config from '../../../../config'
-
-const mapObject = key => state => {
-    let map = {
-        initialValues: state.edit_obj
-    }
-    map[key] = state[key]
-    return map
-}
+import _ from 'lodash'
 
 class Page extends Component {
     constructor(props) {
@@ -48,8 +41,6 @@ class Page extends Component {
     }
 
     render() {
-        console.log(this.props)
-        console.log(this.state)
         if(!this.props.index) return <div className="loading"></div>
         const params = this.props.match.params
         const props = this.props[this.props.index] || fromJS({})
@@ -80,11 +71,17 @@ class Page extends Component {
             return <div className='loading'></div>
         }
 
+        const links = (((this.props.initialValues || {}).profile || this.props.initialValues || {}).links || [])
+        this.props.initialValues.profileLinks = JSON.stringify(links)
+
         return <div>
             <h2>{action}</h2>
             {this.props.initialValues.name? <h3>{this.props.initialValues.name}</h3>:null}
-            <this.Form formName={`create=${this.props.name}`}
+            <this.Form
+                formName={`create=${this.props.name}`}
+                formState={this.props.formState}
                 thumbnail={(this.props.initialValues.thumbnail_id ? config.host + '/files/download/' + this.props.initialValues.thumbnail_id : null)}
+                background={(this.props.initialValues.background_id ? config.host + '/files/download/' + this.props.initialValues.background_id : null)}
                 customElems={this.props.customElems}
                 showName={showName}
                 initialValues={this.props.initialValues}
@@ -93,6 +90,9 @@ class Page extends Component {
                 redirectFunc={this.props.redirectFunc}
                 orgId={this.props.orgId}
                 imgUpload={this.state.edit}
+                newLinkType={this.props.newLinkType}
+                newVideoUrl={this.props.newVideoUrl}
+                newLinkUrl={this.props.newLinkUrl}
                 cancelAction={this.props.cancelAction || this.props.history.goBack} />
             <ErrorDisplay errors={props.get('errors')} />
         </div>

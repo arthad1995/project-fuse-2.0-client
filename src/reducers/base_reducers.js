@@ -9,6 +9,9 @@ export const async_base = (base_name) => {
                 return state.set('fetching', true).set('fetched', false).remove('errors')
             case `${base_name}_REJECTED`:
                 {
+                    if(!action.payload.response) {
+                        return state
+                    }
                     let response = action.payload.response.data
                     if (response.errors)
                         return state.set('fetching', false)
@@ -25,12 +28,24 @@ export const async_base = (base_name) => {
                         const _state = state.set('fetching', false)
                             .set('fetched', true)
                         if (Array.isArray(response.data)) {
+                            let noId = false
                             let data = {}
                             response.data.forEach((elem) => {
+                                if(typeof elem.id === 'undefined') {
+                                    noId = true
+                                }
                                 data[elem.id] = elem
                             })
+
+                            if(!noId) {
+                                return _state.merge(fromJS({
+                                    data,
+                                    origData: response.data
+                                }))
+                            }
                             return _state.merge(fromJS({
-                                data
+                                data: response.data,
+                                origData: response.data
                             }))
                         }
                         return _state.merge(fromJS({
@@ -42,10 +57,10 @@ export const async_base = (base_name) => {
                             .set('errors', fromJS(response.errors || ["Unable to process your request at this time"]))
                     }
                 }
-            case `${base_name}_SET_PAGE`: 
+            case `${base_name}_SET_PAGE`:
                 return state.set('page', action.page)
             case `${base_name}_SET_PAGE_SIZE`:
-                return state.set('page', 
+                return state.set('page',
                             (typeof action.page !== 'undefined')
                                 ? action.page
                                 : Math.floor(
@@ -67,6 +82,10 @@ export const async_base_id = (base_name) => {
                 return state.set('fetching', true).set('fetched', false)
             case `${base_name}_REJECTED`:
                 {
+
+                    if(!action.payload.response) {
+                        return state
+                    }
                     let response = action.payload.response.data || action.payload
                     if (response.errors)
                         return state.set('fetching', false)
@@ -149,12 +168,15 @@ export const async_list_get_and_create = (base_name) => {
             case '@@router/LOCATION_CHANGE':
                 return state.remove('errors')
                     .remove('REDIRECT_ID')
+            case 'LOGOUT_FULFILLED':
+            case 'LOGOUT_REJECTED':
+                return not_loaded
         }
         return state
     }
 }
 
-export const append_wrapper = (type) => (to_wrap)  => (state, action) => {
+export const append_wrapper = type => to_wrap  => (state, action) => {
     state = to_wrap(state, action)
     const list = state.get('data') || fromJS({})
     switch (action.type) {

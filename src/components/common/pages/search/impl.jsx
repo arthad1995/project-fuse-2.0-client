@@ -9,19 +9,32 @@ import Pagination from 'react-js-pagination'
 
 const SearchHeader = (props) => {
     return <div>
-        <SearchInput autoFocus value={props.value} className="search-input" onChange={props.handleSearchChange} /><hr />
+        <SearchInput
+            autoFocus
+            value={props.value}
+            className="search-input"
+            onChange={props.handleSearchChange}
+            /><hr />
     </div>
 }
 
 class Page extends Component {
     constructor(props) {
         super(props)
+        this.doSearch = this.doSearch.bind(this)
+        const query = this.props.history.location.search
+        const parsedQuery = query
+            .slice(1)
+            .split('&')
+            .map(q => q.split('='))
+            .map(q => ({[q[0]]: q[1]}))
+            .reduce(Object.assign, {})
+        const searchText = parsedQuery.q
         this.state = {
             appliedTo: null,
-            lastText: ''
+            lastText: searchText,
+            didLocalSearch: false
         }
-
-        this.doSearch = this.doSearch.bind(this)
     }
 
     doSearch(text) {
@@ -30,17 +43,18 @@ class Page extends Component {
                 type: 'CHANGE_LOCAL_SEARCH_TEXT',
                 search_text: text
             })
-            if (this.props.load)
-                this.props.load({ query: text })
-            this.setState({
-                lastText: text
-            })
+            const location = this.props.history.location
+            const newLocation = `${location.pathname}?tab=tab3&q=${text}`
+            if(this.props.load) {
+                this.props.load({query: text})
+            }
         }
     }
 
     componentDidMount() {
-        if (this.props.load)
-            this.props.load({ query: '' })
+
+        if(this.props.load)
+            this.props.load({query: this.props.local_search})
     }
 
     render() {
@@ -66,6 +80,7 @@ class Page extends Component {
             window.scrollTo(0,80)
         }).bind(this)
 
+
         let content = <div className="loading"></div>
         if (data && Object.keys(data).length) {
             content = (
@@ -74,11 +89,17 @@ class Page extends Component {
                         <ul className='list'>
                             {Object.keys(data).map((id) => {
                                 let elem = data[id]
-                                const owner = fromJS({
+                                const owner = elem.get('owner') ? fromJS({
                                     name: elem.get('owner'),
                                     id: elem.get('owner_id')
-                                })
-                                const Btn = (this.props.apply) ? this.props.apply(elem, this.props.dispatch) : null
+                                }) : null
+                                const Btn = (this.props.apply) ? this.props.apply(
+                                    elem,
+                                    this.props.dispatch,
+                                    (() => {
+                                        return this.props.load({query: this.state.lastText})
+                                    }).bind(this)
+                                ) : null
                                 return <ListItem
                                     key={id}
                                     handleSearchChange={doSearch}
@@ -86,6 +107,11 @@ class Page extends Component {
                                     id={elem.get('id')}
                                     elem={elem}
                                     owner={owner}
+                                    defaultProfileImg={
+                                        this.props.index === 'projects' ? 'project_profile_icon.svg' :
+                                            this.props.index === 'organizations' ? 'org_profile_icon.svg' :
+                                                'profile_icon.svg'
+                                    }
                                 >
                                     {(this.props.buttons) ? (this.props.buttons(elem)) : ''}
                                     {(Btn) ? <Btn /> : ''}

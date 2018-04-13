@@ -69,12 +69,19 @@ export default class Menu extends Component {
                     <ul className="menu">
                         <li>
                             <Link to={`/users/${user.get('id')}`}>
-                                <div className="menu__profile-icon">
-                                    <img src={
-                                        (curUser.get('profile') && curUser.get('profile').get('thumbnail_id')) ?
-                                            config.host + '/files/download/' + curUser.get('profile').get('thumbnail_id') :
-                                            '/assets/images/profile_icon.svg'
-                                    } />
+                                <div className="menu__dropdown">
+                                    <div className="menu__dropdown__profile-icon">
+                                        <img src={
+                                            (curUser.get('profile') && curUser.get('profile').get('thumbnail_id')) ?
+                                                config.host + '/files/download/' + curUser.get('profile').get('thumbnail_id') :
+                                                '/assets/images/profile_icon.svg'
+                                        } />
+                                    </div>
+                                    <div className="menu__dropdown__name">
+                                        <div>
+                                            {(curUser.get('name') || '').split(" ")[0]}
+                                        </div>
+                                    </div>
                                 </div>
                             </Link>
                             <ul className="dropdown">
@@ -91,22 +98,20 @@ export default class Menu extends Component {
                             </ul>
                         </li>
                         <li>
-                            <Link to="/notifications"><i className="fa shadow fa-bell"></i></Link>
+                            <Link to="/"><i className="fa shadow fa-bell"></i></Link>
                         </li>
                         <li className="phoneOnly">
                             <a className="pointer" onClick={this.toggleSearchbar}><i className="fa shadow fa-search"></i></a>
                         </li>
                     </ul>
                     {(this.props.ui.get('global_search').get('show')) ?
-                        <AnimationHandler anim="SlideInTopAbs" animKey='always'>
-                            <div className="phone-search">
-                                <SearchBar
-                                    value={this.props.ui.get('global_search').get('search')}
-                                    searchCallback={this.handleSearchChange}
-                                    buttonCallback={this.toggleSearchbar}
-                                />
-                            </div>
-                        </AnimationHandler>
+                        <div className="phone-search">
+                            <SearchBar
+                                value={this.props.ui.get('global_search').get('search')}
+                                searchCallback={this.handleSearchChange}
+                                buttonCallback={this.toggleSearchbar}
+                            />
+                        </div>
                         : (this.state.animHide) ?
                             <div>
                             <AnimationHandler anim="SlideOutTopAbs" animKey='always'>
@@ -128,7 +133,11 @@ export default class Menu extends Component {
 
         return (
             <div className="header">
-                <Link to="/"><img className="shadow" src="/assets/images/project_fuse.svg" /></Link>
+                <Link to="/">
+                    <div className="main-icon">
+                        <img className="shadow" src="/assets/images/project_fuse.svg" />
+                    </div>
+                </Link>
                 {restOfMenu}
             </div>
         )

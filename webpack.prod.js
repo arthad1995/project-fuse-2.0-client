@@ -14,7 +14,7 @@ module.exports = merge(common, {
         ],
     },
     plugins: [
-        new webpack.DefinePlugin({ 
+        new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
             }
@@ -29,12 +29,11 @@ module.exports = merge(common, {
             chunks: ["vendor"],
             filename: 'vendor.bundle.js',
         }),
-        new webpack.optimize.AggressiveMergingPlugin(), 
+        new webpack.optimize.AggressiveMergingPlugin(),
         //new BundleAnalyzerPlugin(),
-        new UglifyJSPlugin(), 
+        new UglifyJSPlugin(),
         new CopyWebpackPlugin([
             { from: 'index.html' },
-            { from: 'service-worker.js' },
             { from: 'assets', to: 'assets' }
         ])
     ],

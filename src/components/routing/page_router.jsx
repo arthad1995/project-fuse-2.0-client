@@ -6,7 +6,7 @@ import Home from '../pages/home'
 import { LoginPage } from '../pages/login'
 import { RegisterPage } from '../pages/register'
 import { logout } from '../../actions/auth'
-import {UserProjects,UserOrganizations} from '../pages/user-page'
+import {UserProjects,UserOrganizations,UserFriends} from '../pages/user-page'
 import findPagesParams from './find_pages_params'
 import __pages from './__pages'
 import pages from './nested_page_info'
@@ -16,7 +16,7 @@ import authUser from './auth_user'
 import routeBuilder from './route_builder'
 import Search from '../pages/search'
 import Notifications from '../pages/notifications'
-import {OrganizationProjects} from '../pages/organization-page'
+import {OrganizationProjects, OrganizationStatistics} from '../pages/organization-page'
 
 export class PageRouter extends Component {
     constructor(props) { super(props) }
@@ -46,11 +46,13 @@ export class PageRouter extends Component {
                 <Route exact path="/logout" render={() => {logout(); return <Redirect to="/login" />}} />
                 <Route exact path="/users/:id/projects" component={PageShell(UserProjects)} />
                 <Route exact path="/users/:id/organizations" component={PageShell(UserOrganizations)} />
+                <Route exact path="/users/:id/friends" component={PageShell(UserFriends)} />
                 {final_routes}
                 <Route exact path="/organizations/:id/projects" component={PageShell(OrganizationProjects)} />
-                <Route exact path="/search" render={authUser(this.props.user)(PageShell(Search))} />
-                <Route exact path="/notifications" render={authUser(this.props.user)(PageShell(Notifications))} />
-                <Route exact path="/" render={authUser(this.props.user)(PageShell(Home))} />
+                <Route exact path="/organizations/:id/statistics" component={PageShell(OrganizationStatistics)} />
+                <Route exact path="/search" render={preFunc(PageShell(Search))} />
+                <Route exact path="/notifications" render={preFunc(PageShell(Notifications))} />
+                <Route exact path="/" render={preFunc(PageShell(Home))} />
             </div>
         )
     }

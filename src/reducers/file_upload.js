@@ -11,6 +11,9 @@ export const fileUpload = (state = fromJS({thumbnail: null, background: null}), 
         case '@@router/LOCATION_CHANGE': {
             return state.set('thumbnail', null).set('background', null)
         }
+        case 'LOGOUT_FULFILLED':
+        case 'LOGOUT_REJECTED':
+            return fromJS({thumbnail: null, background: null})
     }
     return state
 }

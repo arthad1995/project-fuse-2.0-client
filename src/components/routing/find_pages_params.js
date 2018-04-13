@@ -7,6 +7,9 @@ import { searchUsers, searchProjects, searchTeams, searchOrganizations } from '.
 import { createProject, createTeam, createOrganization } from '../../actions/create'
 import __pages from './__pages'
 
+import { ProjectCustomElemsEdit } from '../pages/project-page';
+import { OrganizationCustomElemsEdit } from '../pages/organization-page';
+
 export default createArray(__pages.slice(0, -1).concat(['friends']), [
     {
         load: myProjects,
@@ -20,7 +23,7 @@ export default createArray(__pages.slice(0, -1).concat(['friends']), [
         }),
         new_tab: (tab) => CreatePage({
             path: 'projects',
-            param: { name: 'Project', save: createProject },
+            param: { name: 'Project', save: createProject, customElems: ProjectCustomElemsEdit },
         })
     },
     {
@@ -35,7 +38,7 @@ export default createArray(__pages.slice(0, -1).concat(['friends']), [
         }),
         new_tab: (tab) => CreatePage({
             path: 'organizations',
-            param: { name: 'Organization', save: createOrganization }
+            param: { name: 'Organization', save: createOrganization, customElems: OrganizationCustomElemsEdit }
         })
     },
     {

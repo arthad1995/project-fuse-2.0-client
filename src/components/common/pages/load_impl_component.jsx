@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { mapSingleKeyWithUI, mapSingleKeyWithSearch } from '../mapping_helpers'
+import { mapSingleKeyWithUI, mapSingleKeyWithSearch, mapMultKeys } from '../mapping_helpers'
 
 const LoadImplComponent = load => (paramObj, notFoundMsg, key, ui=false) => {
     key = key || paramObj.path
-    const canEdit = paramObj.param.canEdit 
-    const mapFunc = ui ? mapSingleKeyWithUI(key) : mapSingleKeyWithSearch(key)
+    const canEdit = paramObj.param.canEdit
+    const mapFunc = ui ? mapSingleKeyWithUI(key) :
+        Array.isArray(key) ? mapMultKeys(key) : mapSingleKeyWithSearch(key)
 
     @connect(mapFunc)
     class Page extends Component {
@@ -18,11 +19,11 @@ const LoadImplComponent = load => (paramObj, notFoundMsg, key, ui=false) => {
                 }
             })
         }
-    
+
         componentWillUnmount() {
             this.cancelUpdate = true
         }
-    
+
         render() {
             return this.Component ? <this.Component index={paramObj.path} {...this.props} {...paramObj.param} canEdit={canEdit} notFoundMsg={notFoundMsg} /> : this.props.children || <div className='loading'></div>
         }

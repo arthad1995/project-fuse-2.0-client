@@ -23,7 +23,6 @@ class Home extends Component {
 
     render() {
         const feed = this.props.feed || List()
-        console.log(feed.valueSeq().toArray())
 
         return (
             <div>

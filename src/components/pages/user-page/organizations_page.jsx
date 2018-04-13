@@ -33,7 +33,8 @@ class Organizations extends Component {
                     <ul className='list'>
                         {data.toList().map((elem) => {
                             const id = elem.get('id')
-                            return <ListItem key={id} baseUrl="organizations" id={id} elem={elem}>
+                            return <ListItem key={id}
+                            defaultProfileImg="org_profile_icon.svg" baseUrl="organizations" id={id} elem={elem}>
                             </ListItem>
                         })}
                     </ul>

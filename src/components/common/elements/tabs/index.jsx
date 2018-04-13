@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ListItem from '../listItem'
 import { Map } from 'immutable'
-import { AnimationHandler, ApplyButton } from '../../../common'
+import { ApplyButton } from '../../../common'
 import { AppliedStatus } from '../applied_status'
 import {fromJS} from 'immutable'
 import Cookies from 'js-cookie'
@@ -23,7 +23,7 @@ export class Tabs extends Component {
             <div className='tabs'>
                 {tabs.map((tab) => {
                     return <section key={tab.id} id={`tab${tab.id}_content`} className={base_class + ((`tab${tab.id}` === selected_tab) ? 'visible' : 'hidden')}>
-                        {(`tab${tab.id}` === selected_tab) ? <AnimationHandler anim="SlideInTop" animKey='always'>{generator(tab)}</AnimationHandler> : null}
+                        {(`tab${tab.id}` === selected_tab) ? generator(tab) : null}
                     </section>
                 })}
             </div>
@@ -35,7 +35,7 @@ const isFriendList = data => {
     return (data && data.size && data.valueSeq().toArray()[0].get('sender') && data.valueSeq().toArray()[0].get('reciever'))
 }
 
-const normalItem = (baseUrl, tab, data) => {
+const normalItem = (tab, data, baseUrl) => {
     if (tab.arr_key.indexOf('applied_') === 0) {
         return <div className="generated_list">
             <h3>{tab.name}</h3>
@@ -45,6 +45,11 @@ const normalItem = (baseUrl, tab, data) => {
                     const group = elem.get('project') || elem.get('organization') || fromJS({})
                     const id = elem.get('id')
                     return <ListItem
+                        defaultProfileImg={
+                            baseUrl === 'projects' ? 'project_profile_icon.svg' :
+                            baseUrl === 'organizations' ? 'org_profile_icon.svg' :
+                                    'profile_icon.svg'
+                        }
                         elem={group.get('profile')}
                         owner={group.get('owner')}
                         baseUrl={baseUrl}
@@ -72,6 +77,11 @@ const normalItem = (baseUrl, tab, data) => {
                         key={id}
                         id={id}
                         name={elem.get('name')}
+                        defaultProfileImg={
+                            baseUrl === 'projects' ? 'project_profile_icon.svg' :
+                                baseUrl === 'organizations' ? 'org_profile_icon.svg' :
+                                    'profile_icon.svg'
+                        }
                     />
                 }) : 'No results'}
             </ul>
@@ -104,7 +114,7 @@ const friendItem = (tab, data) => {
                 id={friend.get('id')}
                 img={friend.get('thumbnail_id')}
                 name={friend.get('name')}
-                elem={friend.get('profile').set('skills', null)}
+                elem={(friend.get('profile') || fromJS({})).set('skills', null)}
                 key={friendship.get('id')}
             >
                 {isApplied?<div><ButtonAccept /><ButtonDecline /></div> : null}
@@ -143,7 +153,7 @@ export const listGenerator = (baseUrl) => (props) => (tab = {}) => {
         }
         default: {
             const data = (props[tab.arr_key] && props[tab.arr_key].get('data')) ? props[tab.arr_key].get('data') : null
-            return baseUrl == 'friends' ? friendItem(tab, data) : normalItem(baseUrl, tab, data)
+            return baseUrl == 'friends' ? friendItem(tab, data) : normalItem(tab, data, baseUrl)
         }
     }
 }

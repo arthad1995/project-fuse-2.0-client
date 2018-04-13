@@ -11,6 +11,11 @@ export const markNotificationAsRead = id => {
     return network.PUT(`/notifications/${id}/read`).then(() => loadNotifications())
 }
 
+export const markNotificationAsDone = id =>{
+    const network = new Network('MARK_NOTIFICATION_DONE')
+    return network.PUT(`/notifications/${id}/done`).then(() => loadNotifications())
+}
+
 export const loadInterviewSlotsFor = (type, id) => {
     const network = new Network('LOAD_INTERVIEW_SLOTS')
     return network.GET(`/${type}/${id}/interview_slots/available`)

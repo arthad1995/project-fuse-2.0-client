@@ -24,7 +24,7 @@ export const InterviewSettings = (props) => <Async load={import('./elements/inte
 export const AccessSettings = (props) => <Async load={import('./elements/access_settings')} {...props} />
 export const ListItem = props => <Async load={import('./elements/listItem')} {...props} />
 
-export {stopEvent} from './elements/stopEvent'
+export {stopEvent, stopEventWrapper} from './elements/stopEvent'
 
 export {default as Async} from './async'
 

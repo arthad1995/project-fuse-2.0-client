@@ -1,12 +1,13 @@
+import moment from 'moment'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { mapSingleKey } from '../../mapping_helpers'
 import { Link } from 'react-router-dom'
-const ReactMarkdown = require('react-markdown');
-import { AnimationHandler } from '../../../common'
+const ReactMarkdown = require('react-markdown')
 import { Map, fromJS } from 'immutable'
 import { Tab, Tabs, TabList, TabPanel } from '../../../common'
 import {stopEvent} from '../../../common'
+import {date_format} from '../../../../utils/date_utils'
 import {declineApplicant, scheduleInterview, inviteAppToJoin, cancelAppInterview, reconsiderApplicant} from '../../../../actions/applicants'
 
 const stopEventWrapper = (e, func) => {
@@ -42,7 +43,7 @@ class Page extends Component {
         if (!user) {
             return null
         }
-        const profile = user.get('profile')
+        const profile = user.get('profile') || fromJS({})
         return (
             <div className="applicant">
                 <div className="applicant-info">
@@ -57,7 +58,7 @@ class Page extends Component {
                         <div className="summary">
                             {profile.get('summary')}
                         </div>
-                        {(profile.get('skills').length) ?
+                        {(profile.get('skills') && profile.get('skills').length) ?
                         <div className="skills">
                             <ul>
                                 {profile.get('skills').split(',').map((skill, i) => {
@@ -184,10 +185,35 @@ class Page extends Component {
         return data && data.size ? <ul className="applicant-list">{data.valueSeq().toArray().map((elem, index) => {
             const cancelInterview = ((e) => stopEventWrapper(e,this.cancelInterview(elem))).bind(this)
             const sender = elem.get('sender') || fromJS({})
+            const interview = elem.get('interview')
             return (
                 <Link to={`/users/${sender.get('id')}`} key={index}>
                     <li className="sender">
                         {this.renderUser(sender)}
+                        {interview ?
+                            <div className="interview-time">
+                                Interview Time:
+                                <div className="interview-time__time-display">
+                                    <div className='interview-time__time-display__from'>
+                                        <div className='date'>
+                                            {date_format(moment(interview.get('start')), 'MMM Do')}
+                                        </div>
+                                        <div className='time'>
+                                            {date_format(moment(interview.get('start')), 'h:mm A')}
+                                        </div>
+                                    </div>
+                                    <div className="interview-time__time-display__separator"> - </div>
+                                    <div className='interview-time__time-display__to'>
+                                        <div className='date'>
+                                                {date_format(moment(interview.get('end')), 'MMM Do')}
+                                            </div>
+                                            <div className='time'>
+                                                {date_format(moment(interview.get('end')), 'h:mm A')}
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            : null}
                         <div className="btns">
                             <div className='btn tone1-2-color'>View</div>
                             <div className='btn tone2-1-color' onClick={cancelInterview}>Cancel Interview</div>
@@ -224,48 +250,46 @@ class Page extends Component {
 
 
         return (
-            <AnimationHandler anim="SlideInTop" animKey='always'>
-                <div className="relative">
-                    <h2>Applicants</h2>
-                    <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.ui.get('applicant_tab'))}>
-                        <TabList>
-                            <Tab>Pending</Tab>
-                            <Tab>Interviews</Tab>
-                            <Tab>Interviewed</Tab>
-                            <Tab>Invited</Tab>
-                            <Tab>Declined</Tab>
-                        </TabList>
+            <div className="relative">
+                <h2>Applicants</h2>
+                <Tabs onSelect={this.tabChange} selectedIndex={this.state.tabs.indexOf(this.props.ui.get('applicant_tab'))}>
+                    <TabList>
+                        <Tab>Pending</Tab>
+                        <Tab>Interviews</Tab>
+                        <Tab>Interviewed</Tab>
+                        <Tab>Invited</Tab>
+                        <Tab>Declined</Tab>
+                    </TabList>
 
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showPending(data)
-                            }
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showInterviewScheduled(data)
-                            }
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showInterviewed(data)}
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showInvited(data)}
-                        </TabPanel>
-                        <TabPanel>
-                            {this.props['applicants'].get('fetching') ?
-                                <div className="loading"></div> :
-                                    this.showDeclined(data)}
-                        </TabPanel>
-                    </Tabs>
-                </div>
-            </AnimationHandler>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showPending(data)
+                        }
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showInterviewScheduled(data)
+                        }
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showInterviewed(data)}
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showInvited(data)}
+                    </TabPanel>
+                    <TabPanel>
+                        {this.props['applicants'].get('fetching') ?
+                            <div className="loading"></div> :
+                                this.showDeclined(data)}
+                    </TabPanel>
+                </Tabs>
+            </div>
         )
     }
 }

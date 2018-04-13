@@ -12,9 +12,11 @@ import {interview_slots} from './interview_slots'
 import {members} from './members'
 import {notifications} from './notifications'
 import {organizations, organization_projects} from './organizations'
+import {org} from './org'
 import {projects} from './projects'
 import {related} from './related'
 import {scheduled_interviews} from './scheduled_interviews'
+import {statistics} from './statistics'
 import {search} from './search'
 import {teams} from './teams'
 import {ui} from './ui'
@@ -38,12 +40,14 @@ export default {
     interview_slots,
     members,
     notifications,
+    org,
     organizations,
     organization_projects,
     projects,
     related,
     scheduled_interviews,
     search,
+    statistics,
     teams,
     ui,
     user,

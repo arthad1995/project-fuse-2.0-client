@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import ListItem from '../elements/listItem'
 import { mapSingleKey } from '../mapping_helpers'
 import { goBack } from 'react-router-redux'
+import { fromJS } from 'immutable'
 
 const mapStateToProps = (state) =>{
     return {
@@ -29,14 +30,31 @@ export const TabbedSearchSidebar = (url, show_new = true) => {
 
     @connect( mapStateToProps )
     class TabSidebarSearchPage extends Component {
+
+        componentWillMount() {
+            if (this.props.location.search) {
+                const regex = /[\?\&]tab=([\w\d\+%]+)\b/
+                const matches = regex.exec(this.props.location.search)
+                if (matches) {
+                    const tab = matches[1]
+                    if (tab) {
+                        this.props.dispatch(change_tab(tab))
+                    }
+                }
+            }
+        }
+
         render(){
             const dispatch = this.props.dispatch;
+            const match = this.props.match
+            let history = this.props.history
 
             const data = this.props.user.get('data') || fromJS({})
             const user = data.get('user') || fromJS({})
             const name = user.get('name') || ''
 
             const click_callback = this.props.onTabChange || ((target_tab) => ()=>{
+                history.replace(match.path + '?tab=' + target_tab)
                 dispatch(change_tab(target_tab))
             })
 
@@ -52,9 +70,7 @@ export const TabbedSearchSidebar = (url, show_new = true) => {
 
             return (
                 <div>
-                    <div className='section centered hideOnPhone'>
-                        <h2>{`${name}`}</h2>
-                    </div>
+                    <div className="hidden section centered"></div>
                     {url !== 'friends'?
                         <Link to='/my-friends'>
                             <div className='section centered'>
